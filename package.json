@@ -1,0 +1,40 @@
+{
+    "author": "Frédéric C. - Frederic2ec",
+    "version": "1.0",
+    "server_scripts": [
+        "server/database.lua",
+        "server/account.lua",
+        "server/chat.lua",
+        "server/commands.lua",
+        "server/daynight.lua",
+        "server/functions.lua",
+        "server/doors.lua",
+        "server/atm.lua"
+    ],
+    "client_scripts": [
+        "client/client.lua",
+        "client/functions.lua",
+        "client/keybinds.lua",
+        "client/hud.lua",
+        "client/atm.lua"
+    ],
+	"files": [
+        "client/hud/hud.html",
+        "client/hud/hud.js",
+        "client/atm/atm.html",
+        "client/atm/atm.js",
+        
+        "client/shared/bootstrap.min.css",
+        "client/shared/bootstrap.min.js",
+        "client/shared/jquery-3.3.1.slim.min.js",
+        "client/shared/popper.min.js",
+
+        "client/shared/fontawesome/css/all.min.css",
+        "client/shared/fontawesome/webfonts/fa-brands-400.ttf",
+        "client/shared/fontawesome/webfonts/fa-brands-400.woff2",
+        "client/shared/fontawesome/webfonts/fa-regular-400.ttf",
+        "client/shared/fontawesome/webfonts/fa-regular-400.woff2",
+        "client/shared/fontawesome/webfonts/fa-solid-900.ttf",
+        "client/shared/fontawesome/webfonts/fa-solid-900.woff2"
+	]
+}

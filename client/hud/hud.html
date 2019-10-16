@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HUD</title>
+    <link rel="stylesheet" href="http://asset/roleplay/client/shared/bootstrap.min.css">
+    <link rel="stylesheet" href="http://asset/roleplay/client/shared/fontawesome/css/all.min.css">
+    <style type="text/css">
+    body {
+        background-color:rgba(0, 0, 0, 0);
+    }
+    </style>
+    <script>
+			(function(obj)
+			{
+				ue.game = {};
+				ue.game.callevent = function(name, ...args)
+				{
+					if (typeof name != "string") {
+						return;
+					}
+		
+					if (args.length == 0) {
+						obj.callevent(name, "")
+					}
+					else {
+						let params = []
+						for (let i = 0; i < args.length; i++) {
+							params[i] = args[i];
+						}
+						obj.callevent(name, JSON.stringify(params));
+					}
+				};
+			})(ue.game);
+			CallEvent = ue.game.callevent;
+    </script>
+     <script src="http://asset/roleplay/client/shared/jquery-3.3.1.slim.min.js"></script>
+     <script src="http://asset/roleplay/client/shared/popper.min.js"></script>
+     <script src="http://asset/roleplay/client/shared/bootstrap.min.js"></script>
+    <script src="http://asset/roleplay/client/hud/hud.js"></script>
+</head>
+
+<body>
+    <div class="float-left fixed-bottom w-25 ml-2">
+    <div class="progress mt-1">
+        <div class="progress-bar bg-success" id="health" role="progressbar" style="width: 50%" aria-valuenow="25" aria-valuemin="0"
+            aria-valuemax="100">Health</div>
+    </div>
+    <div class="progress mt-1">
+        <div class="progress-bar bg-danger" id="armor" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+            aria-valuemax="100">Armor</div>
+    </div>
+    <div class="progress mt-1">
+        <div class="progress-bar bg-warning" id="hunger" role="progressbar" style="width: 50%" aria-valuenow="75" aria-valuemin="0"
+            aria-valuemax="100">Hunger</div>
+    </div>
+    <div class="progress mt-1">
+        <div class="progress-bar bg-primary" id="thirst" role="progressbar" style="width: 50%" aria-valuenow="100" aria-valuemin="0"
+            aria-valuemax="100">Thirst</div>
+    </div>
+</div>
+</body>
+</html>

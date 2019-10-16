@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HUD</title>
+    <link rel="stylesheet" href="http://asset/roleplay/client/shared/bootstrap.min.css">
+    <link rel="stylesheet" href="http://asset/roleplay/client/shared/fontawesome/css/all.min.css">
+    <style type="text/css">
+    body {
+        background-color:rgba(0, 0, 0, 0);
+    }
+    </style>
+    <script>
+			(function(obj)
+			{
+				ue.game = {};
+				ue.game.callevent = function(name, ...args)
+				{
+					if (typeof name != "string") {
+						return;
+					}
+		
+					if (args.length == 0) {
+						obj.callevent(name, "")
+					}
+					else {
+						let params = []
+						for (let i = 0; i < args.length; i++) {
+							params[i] = args[i];
+						}
+						obj.callevent(name, JSON.stringify(params));
+					}
+				};
+			})(ue.game);
+			CallEvent = ue.game.callevent;
+    </script>
+     <script src="http://asset/roleplay/client/shared/jquery-3.3.1.slim.min.js"></script>
+     <script src="http://asset/roleplay/client/shared/popper.min.js"></script>
+     <script src="http://asset/roleplay/client/shared/bootstrap.min.js"></script>
+    <script src="http://asset/roleplay/client/atm/atm.js"></script>
+</head>
+
+<body>
+    <div class="card text-center">
+        <h5 class="card-header">ATM 
+          <button type="button" class="close" aria-label="Close" id="close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </h5>
+        
+        
+        <div class="card-body">
+          <p id="bank" class="card-text">Bank account : 0$</p>
+          <p id="cash" class="card-text">Cash : 0$</p>
+          <div class="form-group">
+            <input class="form-control" id="amount" placeholder="Amount : ">
+          </div>
+          <a id="withdraw" href="#" class="btn btn-primary">Withdraw money</a>
+          <a id="deposit" href="#" class="btn btn-primary">Deposit money</a>
+        </div>
+      </div>
+</body>
+</body>
+
+</html>
