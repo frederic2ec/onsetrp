@@ -35,7 +35,7 @@ end
 AddRemoteEvent("updateAtm", updateAtm)
 
 AddRemoteEvent("atmSetup", function(AtmObjects)
-    AtmIds = AtmObjects
+	AtmIds = AtmObjects
 
 	-- Reset the table
 	StreamedAtmIds = { }

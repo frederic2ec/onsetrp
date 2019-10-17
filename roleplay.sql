@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2019 at 06:58 AM
+-- Generation Time: Oct 17, 2019 at 05:37 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -11,12 +11,6 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `roleplay`
@@ -82,6 +76,51 @@ CREATE TABLE `ipbans` (
   `reason` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `player_vehicle`
+--
+
+CREATE TABLE `player_vehicle` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `ownerid` int(10) UNSIGNED NOT NULL,
+  `modelid` mediumint(8) UNSIGNED NOT NULL,
+  `garage` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vehicle_dealer`
+--
+
+CREATE TABLE `vehicle_dealer` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `modelid` mediumint(8) UNSIGNED NOT NULL,
+  `x` float NOT NULL,
+  `y` float NOT NULL,
+  `z` float NOT NULL,
+  `h` float NOT NULL,
+  `spawnx` float NOT NULL,
+  `spawny` float NOT NULL,
+  `spawnz` float NOT NULL,
+  `spawnh` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vehicle_price`
+--
+
+CREATE TABLE `vehicle_price` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `modelid` mediumint(8) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `price` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Indexes for dumped tables
 --
@@ -111,6 +150,25 @@ ALTER TABLE `ipbans`
   ADD PRIMARY KEY (`ip`);
 
 --
+-- Indexes for table `player_vehicle`
+--
+ALTER TABLE `player_vehicle`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `player_vehicle_ibfk_1` (`ownerid`);
+
+--
+-- Indexes for table `vehicle_dealer`
+--
+ALTER TABLE `vehicle_dealer`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `vehicle_price`
+--
+ALTER TABLE `vehicle_price`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -127,6 +185,24 @@ ALTER TABLE `atm`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `player_vehicle`
+--
+ALTER TABLE `player_vehicle`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `vehicle_dealer`
+--
+ALTER TABLE `vehicle_dealer`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `vehicle_price`
+--
+ALTER TABLE `vehicle_price`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -135,8 +211,10 @@ ALTER TABLE `atm`
 --
 ALTER TABLE `bans`
   ADD CONSTRAINT `bans_ibfk_1` FOREIGN KEY (`id`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+--
+-- Constraints for table `player_vehicle`
+--
+ALTER TABLE `player_vehicle`
+  ADD CONSTRAINT `player_vehicle_ibfk_1` FOREIGN KEY (`ownerid`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;

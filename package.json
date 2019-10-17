@@ -9,20 +9,29 @@
         "server/daynight.lua",
         "server/functions.lua",
         "server/doors.lua",
-        "server/atm.lua"
+        "server/atm.lua",
+        "server/vehicle_dealer.lua",
+        "server/vehicle.lua"
     ],
     "client_scripts": [
         "client/client.lua",
         "client/functions.lua",
         "client/keybinds.lua",
         "client/hud.lua",
-        "client/atm.lua"
+        "client/atm.lua",
+        "client/vehicle_dealer.lua",
+        "client/vehicle.lua"
     ],
 	"files": [
+        "client/files/carLock.mp3",
+        "client/files/carUnlock.mp3",
+
         "client/hud/hud.html",
         "client/hud/hud.js",
         "client/atm/atm.html",
         "client/atm/atm.js",
+        "client/cardealer/cardealer.html",
+        "client/cardealer/cardealer.js",
         
         "client/shared/bootstrap.min.css",
         "client/shared/bootstrap.min.js",
