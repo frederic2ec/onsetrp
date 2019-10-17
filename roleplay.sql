@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2019 at 05:37 AM
+-- Generation Time: Oct 17, 2019 at 09:14 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -67,6 +67,19 @@ CREATE TABLE `bans` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `garage`
+--
+
+CREATE TABLE `garage` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `ownerid` int(10) UNSIGNED NOT NULL,
+  `modelid` mediumint(8) UNSIGNED NOT NULL,
+  `garage` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ipbans`
 --
 
@@ -75,19 +88,6 @@ CREATE TABLE `ipbans` (
   `ban_time` int(10) UNSIGNED NOT NULL,
   `reason` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `player_vehicle`
---
-
-CREATE TABLE `player_vehicle` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `ownerid` int(10) UNSIGNED NOT NULL,
-  `modelid` mediumint(8) UNSIGNED NOT NULL,
-  `garage` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -144,17 +144,17 @@ ALTER TABLE `bans`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `garage`
+--
+ALTER TABLE `garage`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `player_vehicle_ibfk_1` (`ownerid`);
+
+--
 -- Indexes for table `ipbans`
 --
 ALTER TABLE `ipbans`
   ADD PRIMARY KEY (`ip`);
-
---
--- Indexes for table `player_vehicle`
---
-ALTER TABLE `player_vehicle`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `player_vehicle_ibfk_1` (`ownerid`);
 
 --
 -- Indexes for table `vehicle_dealer`
@@ -185,9 +185,9 @@ ALTER TABLE `atm`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `player_vehicle`
+-- AUTO_INCREMENT for table `garage`
 --
-ALTER TABLE `player_vehicle`
+ALTER TABLE `garage`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -213,8 +213,8 @@ ALTER TABLE `bans`
   ADD CONSTRAINT `bans_ibfk_1` FOREIGN KEY (`id`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `player_vehicle`
+-- Constraints for table `garage`
 --
-ALTER TABLE `player_vehicle`
-  ADD CONSTRAINT `player_vehicle_ibfk_1` FOREIGN KEY (`ownerid`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `garage`
+  ADD CONSTRAINT `garage_ibfk_1` FOREIGN KEY (`ownerid`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
