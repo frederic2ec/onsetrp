@@ -2,7 +2,7 @@ AtmObjectsCached = { }
 AtmTable = { }
 
 AddEvent("database:connected", function()
-	mariadb_query(sql, "SELECT * FROM atm;", OnAtmLoaded)
+	mariadb_async_query(sql, "SELECT * FROM atm;", OnAtmLoaded)
 end)
 
 function OnAtmLoaded()
