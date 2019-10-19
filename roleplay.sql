@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2019 at 09:14 PM
+-- Generation Time: Oct 19, 2019 at 07:12 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -80,6 +80,25 @@ CREATE TABLE `garage` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `garage_dealer`
+--
+
+CREATE TABLE `garage_dealer` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `modelid` mediumint(8) UNSIGNED NOT NULL,
+  `x` float NOT NULL,
+  `y` float NOT NULL,
+  `z` float NOT NULL,
+  `h` float NOT NULL,
+  `spawnx` float NOT NULL,
+  `spawny` float NOT NULL,
+  `spawnz` float NOT NULL,
+  `spawnh` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ipbans`
 --
 
@@ -151,6 +170,12 @@ ALTER TABLE `garage`
   ADD KEY `player_vehicle_ibfk_1` (`ownerid`);
 
 --
+-- Indexes for table `garage_dealer`
+--
+ALTER TABLE `garage_dealer`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `ipbans`
 --
 ALTER TABLE `ipbans`
@@ -188,6 +213,12 @@ ALTER TABLE `atm`
 -- AUTO_INCREMENT for table `garage`
 --
 ALTER TABLE `garage`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `garage_dealer`
+--
+ALTER TABLE `garage_dealer`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
