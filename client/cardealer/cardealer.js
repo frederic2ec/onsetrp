@@ -1,13 +1,8 @@
 $(document).ready(function() {
 
 	$("#buy").click(function() {
-		price = $(".badge-danger").text();
-		badname = $(".badge-danger").parent("a").contents().filter(function() {
-			return this.nodeType == 3; // text node
-		});
-		name = badname.text()
 		modelid = $(".badge-danger").parent("a").attr("id")
-		CallEvent("buyCar", price, name, modelid);
+		CallEvent("buyCar", modelid);
 		$("a").find("span").removeClass("badge-danger").addClass("badge-primary")
 	});
 

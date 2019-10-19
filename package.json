@@ -11,7 +11,8 @@
         "server/doors.lua",
         "server/atm.lua",
         "server/vehicle_dealer.lua",
-        "server/vehicle.lua"
+        "server/vehicle.lua",
+        "server/garage_dealer.lua"
     ],
     "client_scripts": [
         "client/client.lua",
@@ -20,7 +21,8 @@
         "client/hud.lua",
         "client/atm.lua",
         "client/vehicle_dealer.lua",
-        "client/vehicle.lua"
+        "client/vehicle.lua",
+        "client/garage_dealer.lua"
     ],
 	"files": [
         "client/files/carLock.mp3",
@@ -32,6 +34,8 @@
         "client/atm/atm.js",
         "client/cardealer/cardealer.html",
         "client/cardealer/cardealer.js",
+        "client/garage/garage.html",
+        "client/garage/garage.js",
         
         "client/shared/bootstrap.min.css",
         "client/shared/bootstrap.min.js",

@@ -64,7 +64,7 @@ end)
 AddEvent("OnObjectStreamOut", function(object)
 	for _,v in pairs(CarDealerIds) do
 		if object == v then
-			table.remove(StreamedCarDealerIds, StreamedCarDealerIds(StreamedAtmIds, v))
+			table.remove(StreamedCarDealerIds, StreamedCarDealerIds(StreamedCarDealerIds, v))
 			break
 		end
 	end
@@ -118,17 +118,16 @@ function closeCarDealer()
     SetWebVisibility(carDealer, WEB_HIDDEN)
     isCarDealer = not isCarDealer
 end
+AddRemoteEvent("closeCarDealer", closeCarDealer)
 AddEvent("closeCarDealer", closeCarDealer)
 
-function buyCar(price, name, modelid)
-    local price = tostring(price:gsub('%$', ''))
-    local name = tostring(name)
+function buyCar(modelid)
     local modelid = tostring(modelid)
 
     if price == '' then
         AddPlayerChat("Please select a car to buy !")
     else
-        CallRemoteEvent("buyCarServer", price, name, modelid)
+        CallRemoteEvent("buyCarServer", modelid)
     end
 end
 AddEvent("buyCar", buyCar)
