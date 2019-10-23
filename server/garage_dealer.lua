@@ -3,7 +3,7 @@ GarageDealerTable = { }
 
 AddEvent("database:connected", function()
     mariadb_async_query(sql, "SELECT * FROM garage_dealer;", OnGarageDealerLoaded)
-    mariadb_async_query(sql, "UPDATE `garage` SET `garage`=1 WHERE garage = 0;")
+    mariadb_async_query(sql, "UPDATE `player_garage` SET `garage`=1 WHERE garage = 0;")
     
 end)
 
@@ -68,7 +68,7 @@ function GetGarageDealearByObject(garagedealerobject)
 end
 
 function sendGarageList(player)
-    local query = mariadb_prepare(sql, "SELECT * FROM garage WHERE ownerid = ? AND garage = 1;",
+    local query = mariadb_prepare(sql, "SELECT * FROM player_garage WHERE ownerid = ? AND garage = 1;",
 		PlayerData[player].accountid)
 
     mariadb_async_query(sql, query, OnGarageListLoaded, player)

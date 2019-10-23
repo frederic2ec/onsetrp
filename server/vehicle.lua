@@ -12,7 +12,7 @@ function CreateVehicleData(player, vehicle, modelid)
 end
 
 function CreateVehicleDatabase(player, vehicle, modelid)
-    local query = mariadb_prepare(sql, "INSERT INTO garage (id, ownerid, modelid, garage) VALUES (NULL, '?', '?', '0');",
+    local query = mariadb_prepare(sql, "INSERT INTO player_garage (id, ownerid, modelid, garage) VALUES (NULL, '?', '?', '0');",
         tostring(PlayerData[player].accountid),
         tostring(modelid)
     )
@@ -71,7 +71,7 @@ end
 AddRemoteEvent("buyCarServer", buyCarServer)
 
 function spawnCarServer(player, id)
-    local query = mariadb_prepare(sql, "SELECT * FROM garage WHERE id = ?;",
+    local query = mariadb_prepare(sql, "SELECT * FROM player_garage WHERE id = ?;",
     tostring(id))
 
     mariadb_async_query(sql, query, spawnCarServerLoaded, player)
@@ -86,7 +86,7 @@ function spawnCarServerLoaded(player)
         local modelid = math.tointeger(result["modelid"])
         local name = getVehicleName(modelid)
 
-        local query = mariadb_prepare(sql, "UPDATE `garage` SET `garage`=0 WHERE `id` = ?;",
+        local query = mariadb_prepare(sql, "UPDATE `player_garage` SET `garage`=0 WHERE `id` = ?;",
         tostring(id)
         )
 
@@ -127,7 +127,7 @@ function spawnCarServerLoaded(player)
 end
 
 function sellCarServer(player, id)
-    local query = mariadb_prepare(sql, "SELECT * FROM garage WHERE id = ?;",
+    local query = mariadb_prepare(sql, "SELECT * FROM player_garage WHERE id = ?;",
     tostring(id))
 
     mariadb_async_query(sql, query, sellCarServerLoaded, player)
@@ -143,7 +143,7 @@ function sellCarServerLoaded(player)
         local name = getVehicleName(modelid)
         local price = getVehiclePrice(modelid) * 0.25
 
-        local query = mariadb_prepare(sql, "DELETE FROM `garage` WHERE `id` = ?;",
+        local query = mariadb_prepare(sql, "DELETE FROM `player_garage` WHERE `id` = ?;",
         tostring(id)
         )
         mariadb_async_query(sql, query)

@@ -41,3 +41,13 @@ function cmd_v(player, model)
 	AddPlayerChat(player, "Vehicle spawned! (New ID: "..vehicle..")")
 end
 AddCommand("v", cmd_v)
+
+function cmd_spec(player, disable)
+	local _disable = false
+	if disable ~= nil then
+		_disable = true
+	end
+	_disable = not _disable
+	SetPlayerSpectate(player, _disable)
+end
+AddCommand("spec", cmd_spec)

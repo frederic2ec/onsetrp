@@ -12,7 +12,9 @@
         "server/atm.lua",
         "server/vehicle_dealer.lua",
         "server/vehicle.lua",
-        "server/garage_dealer.lua"
+        "server/garage_dealer.lua",
+        "server/teleports.lua",
+        "server/garage_store.lua"
     ],
     "client_scripts": [
         "client/client.lua",
