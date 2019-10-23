@@ -22,10 +22,6 @@ function OnGarageStoreLoaded()
 	print("Loaded "..#GarageStoreTable.." garages input")
 end
 
---[[ AddEvent("OnPlayerLoggedIn", function(player)
-    CallRemoteEvent(player, "garageDealerSetup", GarageDealerObjectsCached)
-end) ]]
-
 function createGarageStore(id, modelid, x, y, z)
 	GarageStoreTable[id] = { }
 	GarageStoreTable[id].id = id
@@ -34,27 +30,6 @@ function createGarageStore(id, modelid, x, y, z)
     
     table.insert(GarageStoreObjectsCached, GarageStoreTable[id].object)
 end
-
---[[ AddRemoteEvent("garageDealerInteract", function(player, garagedealerobject)
-    local garagedealer = GetGarageDealearByObject(garagedealerobject)
-	if garagedealer then
-		local x, y, z = GetNPCLocation(garagedealer.object)
-		local x2, y2, z2 = GetPlayerLocation(player)
-        local dist = GetDistance3D(x, y, z, x2, y2, z2)
-		if dist < 150 then
-            CallRemoteEvent(player, "openGarageDealer")
-		end
-	end
-end)
-
-function GetGarageDealearByObject(garagedealerobject)
-	for _,v in pairs(GarageDealerTable) do
-		if v.object == garagedealerobject then
-			return v
-		end
-	end
-	return nil
-end ]]
 
 function OnPlayerPickupHit(player, pickup)
 	for _,v in pairs(GarageStoreTable) do
