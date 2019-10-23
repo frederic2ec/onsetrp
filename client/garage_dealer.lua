@@ -96,8 +96,8 @@ function clearGarageList()
 end
 AddRemoteEvent("clearGarageList", clearGarageList)
 
-function getGarageList(id, name, price)
-        ExecuteWebJS(garageDealer, 'addGarageList( "'..id..'", "'..name..'", "'..price..'");')
+function getGarageList(id, name, price, color)
+        ExecuteWebJS(garageDealer, 'addGarageList( "'..id..'", "'..name..'", "'..price..'", "'..color..'");')
 end
 AddRemoteEvent("getGarageList", getGarageList)
 

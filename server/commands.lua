@@ -42,6 +42,26 @@ function cmd_v(player, model)
 end
 AddCommand("v", cmd_v)
 
+function cmd_vcolor(player, r, g, b)
+	if (r == nil or g == nil or b == nil) then
+		return AddPlayerChat(player, "Usage: /vcolor <r> <g> <b>")
+	end
+
+	local vehicle = GetPlayerVehicle(player)
+
+	if (vehicle == 0) then
+		return AddPlayerChat(player, "You must be in a vehicle")
+	end
+
+	if (GetPlayerVehicleSeat(player) ~= 1) then
+		return AddPlayerChat(player, "You must be the driver of the vehicle")
+	end
+
+	SetVehicleColor(vehicle, RGB(r, g, b))
+	AddPlayerChat(player, "New vehicle color set (HEX: "..GetVehicleColor(vehicle)..")")
+end
+AddCommand("vcolor", cmd_vcolor)
+
 function cmd_spec(player, disable)
 	local _disable = false
 	if disable ~= nil then

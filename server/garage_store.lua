@@ -33,15 +33,19 @@ end
 
 function OnPlayerPickupHit(player, pickup)
 	for _,v in pairs(GarageStoreTable) do
-		if v.object == pickup then
+        if v.object == pickup then
             vehicle = GetPlayerVehicle(player)
-            if (VehicleData[vehicle].owner == PlayerData[player].accountid) then
-                local query = mariadb_prepare(sql, "UPDATE `player_garage` SET `garage`=1 WHERE `id` = ?;",
-                tostring(VehicleData[vehicle].garageid)
-                )
-                mariadb_async_query(sql, query)
-                DestroyVehicle(vehicle)
-                return AddPlayerChat(player, "Vehicle stored !")
+            seat = GetPlayerVehicleSeat(player)
+            if (vehicle ~= 0 and seat == 1) then
+                if (VehicleData[vehicle].owner == PlayerData[player].accountid) then
+                    local query = mariadb_prepare(sql, "UPDATE `player_garage` SET `garage`=1 WHERE `id` = ?;",
+                    tostring(VehicleData[vehicle].garageid)
+                    )
+                    mariadb_async_query(sql, query)
+                    DestroyVehicle(vehicle)
+                    DestroyVehicleData(vehicle)
+                    return AddPlayerChat(player, "Vehicle stored !")
+                end
             end
 		end
 	end

@@ -11,10 +11,19 @@ function CreateVehicleData(player, vehicle, modelid)
     print("Data created for : "..vehicle)
 end
 
-function CreateVehicleDatabase(player, vehicle, modelid)
-    local query = mariadb_prepare(sql, "INSERT INTO player_garage (id, ownerid, modelid, garage) VALUES (NULL, '?', '?', '0');",
+function DestroyVehicleData(vehicle)
+	if (VehicleData[vehicle] ~= nil) then
+		return
+    end
+
+    VehicleData[vehicle] = nil
+end
+
+function CreateVehicleDatabase(player, vehicle, modelid, color)
+    local query = mariadb_prepare(sql, "INSERT INTO player_garage (id, ownerid, modelid, color, garage) VALUES (NULL, '?', '?', '?', '0');",
         tostring(PlayerData[player].accountid),
-        tostring(modelid)
+        tostring(modelid),
+        tostring(color)
     )
 
     mariadb_async_query(sql, query, onVehicleCreateDatabase, vehicle)
@@ -24,10 +33,11 @@ function onVehicleCreateDatabase(vehicle)
     VehicleData[vehicle].garageid = mariadb_get_insert_id()
 end
 
-function buyCarServer(player, modelid)
+function buyCarServer(player, modelid, color)
     local modelid = math.tointeger(modelid)
     local price = getVehiclePrice(modelid)
     local name = getVehicleName(modelid)
+    local color = tostring(color)
 
 	if tonumber(price) > PlayerData[player].cash then
         AddPlayerChat(player, "You don't have the money to buy this car !")
@@ -44,9 +54,11 @@ function buyCarServer(player, modelid)
                     if dist2 > 1000.0 then
                         -- if no vehicle on the spawn zone continue
                         local vehicle = CreateVehicle(modelid, v.spawnx, v.spawny, v.spawnz, v.spawnh)
+                        SetVehicleRespawnParams(vehicle, false)
+                        SetVehicleColor(vehicle, "0x"..color)
                         SetVehiclePropertyValue(vehicle, "locked", true, true)
                         CreateVehicleData(player, vehicle, modelid)
-                        CreateVehicleDatabase(player, vehicle, modelid)
+                        CreateVehicleDatabase(player, vehicle, modelid, color)
                         PlayerData[player].cash = PlayerData[player].cash - tonumber(price)
                         CallRemoteEvent(player, "closeCarDealer")
                         return AddPlayerChat(player, "You successfully bought a "..name.." for "..price.."$")
@@ -57,9 +69,11 @@ function buyCarServer(player, modelid)
                 end
                 -- if no vehicle in the world spawn the car
                 local vehicle = CreateVehicle(modelid, v.spawnx, v.spawny, v.spawnz, v.spawnh)
+                SetVehicleColor(vehicle, "0x"..color)
+                SetVehicleRespawnParams(vehicle, false)
                 SetVehiclePropertyValue(vehicle, "locked", true, true)
                 CreateVehicleData(player, vehicle, modelid)
-                CreateVehicleDatabase(player, vehicle, modelid)
+                CreateVehicleDatabase(player, vehicle, modelid, color)
                 PlayerData[player].cash = PlayerData[player].cash - tonumber(price)
                 CallRemoteEvent(player, "closeCarDealer")
                 return AddPlayerChat(player, "You successfully bought a "..name.." for "..price.."$")
@@ -84,6 +98,7 @@ function spawnCarServerLoaded(player)
 
         local id = math.tointeger(result["id"])
         local modelid = math.tointeger(result["modelid"])
+        local color = tostring(result["color"])
         local name = getVehicleName(modelid)
 
         local query = mariadb_prepare(sql, "UPDATE `player_garage` SET `garage`=0 WHERE `id` = ?;",
@@ -102,6 +117,8 @@ function spawnCarServerLoaded(player)
                     if dist2 > 1000.0 then
                         -- if no vehicle on the spawn zone continue
                         local vehicle = CreateVehicle(modelid, v.spawnx, v.spawny, v.spawnz, v.spawnh)
+                        SetVehicleRespawnParams(vehicle, false)
+                        SetVehicleColor(vehicle, "0x"..color)
                         SetVehiclePropertyValue(vehicle, "locked", true, true)
                         CreateVehicleData(player, vehicle, modelid)
                         VehicleData[vehicle].garageid = id
@@ -115,6 +132,8 @@ function spawnCarServerLoaded(player)
                 end
                 -- if no vehicle in the world spawn the car
                 local vehicle = CreateVehicle(modelid, v.spawnx, v.spawny, v.spawnz, v.spawnh)
+                SetVehicleRespawnParams(vehicle, false)
+                SetVehicleColor(vehicle, "0x"..color)
                 SetVehiclePropertyValue(vehicle, "locked", true, true)
                 CreateVehicleData(player, vehicle, modelid)
                 VehicleData[vehicle].garageid = id

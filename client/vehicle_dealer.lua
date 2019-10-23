@@ -121,13 +121,13 @@ end
 AddRemoteEvent("closeCarDealer", closeCarDealer)
 AddEvent("closeCarDealer", closeCarDealer)
 
-function buyCar(modelid)
-    local modelid = tostring(modelid)
-
-    if price == '' then
+function buyCar(modelid, color)
+	local modelid = tostring(modelid)
+	local color = tostring(color)
+    if color == 'nil' then
         AddPlayerChat("Please select a car to buy !")
     else
-        CallRemoteEvent("buyCarServer", modelid)
+        CallRemoteEvent("buyCarServer", modelid, color)
     end
 end
 AddEvent("buyCar", buyCar)

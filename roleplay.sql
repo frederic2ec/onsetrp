@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 23, 2019 at 08:24 PM
+-- Generation Time: Oct 23, 2019 at 10:25 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -136,19 +136,6 @@ CREATE TABLE `ipbans` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `player_data`
---
-
-CREATE TABLE `player_data` (
-  `id` int(11) NOT NULL,
-  `steamID` varchar(50) NOT NULL,
-  `server_data` varchar(300) DEFAULT NULL,
-  `synced_data` varchar(300) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `player_garage`
 --
 
@@ -156,6 +143,7 @@ CREATE TABLE `player_garage` (
   `id` int(10) UNSIGNED NOT NULL,
   `ownerid` int(10) UNSIGNED NOT NULL,
   `modelid` mediumint(8) UNSIGNED NOT NULL,
+  `color` varchar(255) NOT NULL,
   `garage` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -204,7 +192,7 @@ CREATE TABLE `vehicle_price` (
 
 INSERT INTO `vehicle_price` (`id`, `modelid`, `name`, `price`) VALUES
 (1, 1, 'Sedan 01', 1000),
-(2, 4, 'Sedan 03', 1000),
+(2, 4, 'Sedan 02', 1000),
 (3, 5, 'Sedan 03', 1000),
 (4, 6, 'Nascar', 1000),
 (5, 7, 'Truck', 1000),
@@ -252,12 +240,6 @@ ALTER TABLE `ipbans`
   ADD PRIMARY KEY (`ip`);
 
 --
--- Indexes for table `player_data`
---
-ALTER TABLE `player_data`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `player_garage`
 --
 ALTER TABLE `player_garage`
@@ -303,12 +285,6 @@ ALTER TABLE `garage_dealer`
 --
 ALTER TABLE `garage_store`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `player_data`
---
-ALTER TABLE `player_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `player_garage`

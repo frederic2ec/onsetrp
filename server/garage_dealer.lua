@@ -81,10 +81,11 @@ function OnGarageListLoaded(player)
         local result = mariadb_get_assoc(i)
 
         local id = math.tointeger(result["id"])
-        local modelid = math.tointeger(result["modelid"])
+		local modelid = math.tointeger(result["modelid"])
+		local color = result["color"]
         local name = getVehicleName(modelid)
         local price = getVehiclePrice(modelid) * 0.25
         
-        CallRemoteEvent(player, "getGarageList", id, name, price)
+        CallRemoteEvent(player, "getGarageList", id, name, price, color)
 	end
 end

@@ -21,8 +21,8 @@ function clearGarage() {
 	$('#garageList').empty();
 }
 
-function addGarageList(id, name, price) {
-	let object = '<a href="#" id="'+ id +'" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" onclick="selectCar(this)">' + name + '<span class="badge badge-primary badge-pill">' + price + '$</span></a>';
+function addGarageList(id, name, price, color) {
+	let object = '<a href="#" id="'+ id +'" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" onclick="selectCar(this)">' + name + '<span class="badge badge-pill" style="background-color: #' + color + ';">Color</span><span class="badge badge-primary badge-pill">' + price + '$</span></a>';
 	$('#garageList').append(object);
 }
 
