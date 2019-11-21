@@ -187,3 +187,9 @@ function SavePlayerAccount(player)
         
 	mariadb_query(sql, query)
 end
+
+function SetPlayerLoggedIn(player)
+    PlayerData[player].logged_in = true
+
+    CallEvent("OnPlayerJoin", player)
+end

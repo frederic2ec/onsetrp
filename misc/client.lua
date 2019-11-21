@@ -1,11 +1,5 @@
 local LastSoundPlayed = 0
 
--- This script is used to set world time of the player 
-function setTimeOfClient(time)
-	SetTime(time)
-end
-AddRemoteEvent("setTimeOfClient", setTimeOfClient)
-
 function PlayAudioFile(file)
 	DestroySound(LastSoundPlayed)
 
@@ -13,3 +7,15 @@ function PlayAudioFile(file)
 	SetSoundVolume(LastSoundPlayed, 1.1)
 end
 AddRemoteEvent("PlayAudioFile", PlayAudioFile)
+
+-- Keybinding
+function OnKeyPress(key)
+    if key == "V" then
+		if IsFirstPersonCamera() then
+			EnableFirstPersonCamera(false)
+		else
+			EnableFirstPersonCamera(true)
+		end
+	end
+end
+AddEvent("OnKeyPress", OnKeyPress)

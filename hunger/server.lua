@@ -72,6 +72,11 @@ function setPlayerThirst(player, thirst)
     if PlayerData[player].thirst > 100 then
         PlayerData[player].thirst = 100
     end
+
+    -- Kill the player if is thirst is 0
+    if  PlayerData[player].thirst == 0 then
+        setPlayerHealth(player, 0)
+    end
 end
 AddRemoteEvent("setPlayerThirst", setPlayerThirst)
 
@@ -114,58 +119,3 @@ function sendPlayerThirst(player)
     AddPlayerChat(player, "Thirst : "..thirst)
 end
 AddRemoteEvent("sendPlayerThirst", sendPlayerThirst)
-
-function SetPlayerLoggedIn(player)
-    PlayerData[player].logged_in = true
-
-    CallEvent("OnPlayerJoin", player)
-end
-
-function setPlayerModel(player, model)
-    PlayerData[player].model = model
-
-    SetPlayerModel(player, model)
-end
-
-function getHudData(player)
-    health = GetPlayerHealth(player)
-    armor = GetPlayerArmor(player)
-    hunger = PlayerData[player].hunger
-    thirst = PlayerData[player].thirst
-
-    CallRemoteEvent(player, "updateHud", health, armor, hunger, thirst)
-end
-AddRemoteEvent("getHudData", getHudData)
-
-function getAtmData(player)
-    bank = PlayerData[player].bank_balance
-    cash = PlayerData[player].cash
-
-    CallRemoteEvent(player, "updateAtm", bank, cash)
-end
-AddRemoteEvent("getAtmData", getAtmData)
-
-function withdrawAtm(player, amount)
-    if tonumber(amount) > PlayerData[player].bank_balance then
-        AddPlayerChat(player, "You don't have the money to withdraw !")
-    else
-        PlayerData[player].bank_balance = PlayerData[player].bank_balance - amount
-        PlayerData[player].cash = PlayerData[player].cash + amount
-        AddPlayerChat(player, "You successfully withdrawed "..amount.."$")
-        getAtmData(player)
-    end
-end
-AddRemoteEvent("withdrawAtm", withdrawAtm)
-
-function depositAtm(player, amount)
-    if tonumber(amount) > PlayerData[player].cash then
-        AddPlayerChat(player, "You don't have the money to withdraw !")
-    else
-        PlayerData[player].cash = PlayerData[player].cash - amount
-        PlayerData[player].bank_balance = PlayerData[player].bank_balance + amount
-        AddPlayerChat(player, "You successfully deposited "..amount.."$")
-
-        getAtmData(player)
-    end
-end
-AddRemoteEvent("depositAtm", depositAtm)
