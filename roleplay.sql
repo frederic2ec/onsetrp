@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 23, 2019 at 10:25 PM
+-- Generation Time: Nov 21, 2019 at 04:39 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -38,30 +38,6 @@ CREATE TABLE `accounts` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `atm`
---
-
-CREATE TABLE `atm` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `modelid` mediumint(8) UNSIGNED NOT NULL,
-  `x` float NOT NULL,
-  `y` float NOT NULL,
-  `z` float NOT NULL,
-  `rx` float NOT NULL,
-  `ry` float NOT NULL,
-  `rz` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `atm`
---
-
-INSERT INTO `atm` (`id`, `modelid`, `x`, `y`, `z`, `rx`, `ry`, `rz`) VALUES
-(1, 494, 129221, 78053, 1478, 0, 90, 0);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `bans`
 --
 
@@ -70,56 +46,6 @@ CREATE TABLE `bans` (
   `ban_time` int(10) UNSIGNED NOT NULL,
   `reason` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `garage_dealer`
---
-
-CREATE TABLE `garage_dealer` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `modelid` mediumint(8) UNSIGNED NOT NULL,
-  `x` float NOT NULL,
-  `y` float NOT NULL,
-  `z` float NOT NULL,
-  `h` float NOT NULL,
-  `spawnx` float NOT NULL,
-  `spawny` float NOT NULL,
-  `spawnz` float NOT NULL,
-  `spawnh` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `garage_dealer`
---
-
-INSERT INTO `garage_dealer` (`id`, `modelid`, `x`, `y`, `z`, `h`, `spawnx`, `spawny`, `spawnz`, `spawnh`) VALUES
-(1, 15, 126574, 74560, 1567, 90, 127533, 75598, 1567, 90);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `garage_store`
---
-
-CREATE TABLE `garage_store` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `modelid` mediumint(8) UNSIGNED NOT NULL,
-  `x` float NOT NULL,
-  `y` float NOT NULL,
-  `z` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `garage_store`
---
-
-INSERT INTO `garage_store` (`id`, `modelid`, `x`, `y`, `z`) VALUES
-(1, 2, 127542, 75351, 1567),
-(2, 2, 128002, 75351, 1567),
-(3, 2, 128557, 75351, 1567),
-(4, 2, 129013, 75351, 1567);
 
 -- --------------------------------------------------------
 
@@ -147,58 +73,6 @@ CREATE TABLE `player_garage` (
   `garage` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `vehicle_dealer`
---
-
-CREATE TABLE `vehicle_dealer` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `modelid` mediumint(8) UNSIGNED NOT NULL,
-  `x` float NOT NULL,
-  `y` float NOT NULL,
-  `z` float NOT NULL,
-  `h` float NOT NULL,
-  `spawnx` float NOT NULL,
-  `spawny` float NOT NULL,
-  `spawnz` float NOT NULL,
-  `spawnh` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `vehicle_dealer`
---
-
-INSERT INTO `vehicle_dealer` (`id`, `modelid`, `x`, `y`, `z`, `h`, `spawnx`, `spawny`, `spawnz`, `spawnh`) VALUES
-(1, 5, 128990, 80774, 1567, 180, 127720, 80774, 1567, 180);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `vehicle_price`
---
-
-CREATE TABLE `vehicle_price` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `modelid` mediumint(8) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `price` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `vehicle_price`
---
-
-INSERT INTO `vehicle_price` (`id`, `modelid`, `name`, `price`) VALUES
-(1, 1, 'Sedan 01', 1000),
-(2, 4, 'Sedan 02', 1000),
-(3, 5, 'Sedan 03', 1000),
-(4, 6, 'Nascar', 1000),
-(5, 7, 'Truck', 1000),
-(6, 11, 'Coupe', 1000),
-(7, 12, 'Rally', 1000);
-
 --
 -- Indexes for dumped tables
 --
@@ -210,27 +84,9 @@ ALTER TABLE `accounts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `atm`
---
-ALTER TABLE `atm`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `bans`
 --
 ALTER TABLE `bans`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `garage_dealer`
---
-ALTER TABLE `garage_dealer`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `garage_store`
---
-ALTER TABLE `garage_store`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -247,18 +103,6 @@ ALTER TABLE `player_garage`
   ADD KEY `player_vehicle_ibfk_1` (`ownerid`);
 
 --
--- Indexes for table `vehicle_dealer`
---
-ALTER TABLE `vehicle_dealer`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `vehicle_price`
---
-ALTER TABLE `vehicle_price`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -269,40 +113,10 @@ ALTER TABLE `accounts`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `atm`
---
-ALTER TABLE `atm`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `garage_dealer`
---
-ALTER TABLE `garage_dealer`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `garage_store`
---
-ALTER TABLE `garage_store`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT for table `player_garage`
 --
 ALTER TABLE `player_garage`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `vehicle_dealer`
---
-ALTER TABLE `vehicle_dealer`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `vehicle_price`
---
-ALTER TABLE `vehicle_price`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

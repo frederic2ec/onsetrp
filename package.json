@@ -26,19 +26,17 @@
         "client/vehicle.lua",
         "client/garage_dealer.lua"
     ],
-	"files": [
+    "files": [
         "client/files/carLock.mp3",
         "client/files/carUnlock.mp3",
 
         "client/hud/hud.html",
         "client/hud/hud.js",
-        "client/atm/atm.html",
-        "client/atm/atm.js",
         "client/cardealer/cardealer.html",
         "client/cardealer/cardealer.js",
         "client/garage/garage.html",
         "client/garage/garage.js",
-        
+
         "client/shared/bootstrap.min.css",
         "client/shared/bootstrap.min.js",
         "client/shared/jquery-3.3.1.slim.min.js",
@@ -53,5 +51,5 @@
         "client/shared/fontawesome/webfonts/fa-regular-400.woff2",
         "client/shared/fontawesome/webfonts/fa-solid-900.ttf",
         "client/shared/fontawesome/webfonts/fa-solid-900.woff2"
-	]
+    ]
 }

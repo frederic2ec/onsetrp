@@ -1,7 +1,6 @@
 
 local garageDealer
 local isGaragerDealer
-local StreamedGarageDealerIds = { }
 local GarageDealerIds = { }
 --[[ local carRetrieved ]]
 
@@ -31,42 +30,20 @@ AddEvent("OnKeyPress", OnKeyPress)
 
 AddRemoteEvent("garageDealerSetup", function(GarageDealerObject)
     GarageDealerIds = GarageDealerObject
-	-- Reset the table
-    StreamedGarageDealerIds = { }
-
-    for _,v in pairs(GarageDealerIds) do
-        -- IsValidObject returns true on the client if this object is streamed in
-        if IsValidObject(v) then
-            table.insert(StreamedGarageDealerIds, v)
-		end
-	end
 end)
 
-AddEvent("OnObjectStreamIn", function(object)
-    for _,v in pairs(GarageDealerIds) do
-		if object == v then
-			table.insert(StreamedGarageDealerIds, v)
-			break
-		end
-	end
-end)
-
-AddEvent("OnObjectStreamOut", function(object)
-	for _,v in pairs(GarageDealerIds) do
-		if object == v then
-			table.remove(StreamedGarageDealerIds, StreamedGarageDealerIds(StreamedGarageDealerIds, v))
-			break
-		end
-	end
-end)
 
 function GetNearestGarageDealer()
     local x, y, z = GetPlayerLocation()
-	for _,v in pairs(StreamedGarageDealerIds) do
+	for _,v in pairs(GetStreamedNPC()) do
         local x2, y2, z2 = GetNPCLocation(v)
         local dist = GetDistance3D(x, y, z, x2, y2, z2)
 		if dist < 150.0 then
-            return v
+            for _,i in pairs(GarageDealerIds) do
+				if v == i then
+					return v
+				end
+			end
 		end
 	end
 

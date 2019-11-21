@@ -118,7 +118,7 @@ AddRemoteEvent("sendPlayerThirst", sendPlayerThirst)
 function SetPlayerLoggedIn(player)
     PlayerData[player].logged_in = true
 
-    CallEvent("OnPlayerLoggedIn", player)
+    CallEvent("OnPlayerJoin", player)
 end
 
 function setPlayerModel(player, model)
@@ -151,7 +151,7 @@ function withdrawAtm(player, amount)
     else
         PlayerData[player].bank_balance = PlayerData[player].bank_balance - amount
         PlayerData[player].cash = PlayerData[player].cash + amount
-
+        AddPlayerChat(player, "You successfully withdrawed "..amount.."$")
         getAtmData(player)
     end
 end
@@ -163,6 +163,7 @@ function depositAtm(player, amount)
     else
         PlayerData[player].cash = PlayerData[player].cash - amount
         PlayerData[player].bank_balance = PlayerData[player].bank_balance + amount
+        AddPlayerChat(player, "You successfully deposited "..amount.."$")
 
         getAtmData(player)
     end

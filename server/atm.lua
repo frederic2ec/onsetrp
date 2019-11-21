@@ -1,40 +1,23 @@
 AtmObjectsCached = { }
-AtmTable = { }
+AtmTable = {
+	{
+		modelid = 494,
+		location = { 129221, 78053, 1478, 0, 90, 0 }
+	}
+ }
 
-AddEvent("database:connected", function()
-	mariadb_async_query(sql, "SELECT * FROM atm;", OnAtmLoaded)
+ AddEvent("OnPackageStart", function()
+	for _,v in pairs(AtmTable) do
+		v.object = CreateObject(v.modelid, v.location[1], v.location[2], v.location[3], v.location[4], v.location[5], v.location[6])
+		CreateText3D("ATM\nPress E", 18, v.location[1], v.location[2], v.location[3] + 200, 0, 0, 0)
+
+		table.insert(AtmObjectsCached, v.object)
+	end
 end)
 
-function OnAtmLoaded()
-	for i=1,mariadb_get_row_count() do
-		local result = mariadb_get_assoc(i)
-
-		local id = math.tointeger(result["id"])
-		local modelid = math.tointeger(result["modelid"])
-		local x = tonumber(result["x"])
-		local y = tonumber(result["y"])
-		local z = tonumber(result["z"])
-		local rx = tonumber(result["rx"])
-		local ry = tonumber(result["ry"])
-		local rz = tonumber(result["rz"])
-
-		CreateAtm(id, modelid, x, y, z, rx, ry, rz)
-	end
-
-	print("Loaded "..#AtmTable.." ATMs")
-end
-
-AddEvent("OnPlayerLoggedIn", function(player)
+AddEvent("OnPlayerJoin", function(player)
 	CallRemoteEvent(player, "atmSetup", AtmObjectsCached)
 end)
-
-function CreateAtm(id, modelid, x, y, z, rx, ry, rz)
-	AtmTable[id] = { }
-	AtmTable[id].object = CreateObject(modelid, x, y, z, rx, ry, rz)		
-	AtmTable[id].text3d = CreateText3D("ATM\nPress E", 18, x, y, z + 200, 0, 0, 0)
-
-	table.insert(AtmObjectsCached, AtmTable[id].object)
-end
 
 AddRemoteEvent("atmInteract", function(player, atmobject)
     local atm = GetAtmByObject(atmobject)
@@ -44,7 +27,8 @@ AddRemoteEvent("atmInteract", function(player, atmobject)
         local dist = GetDistance3D(x, y, z, x2, y2, z2)
 
 		if dist < 200 then
-            CallRemoteEvent(player, "openAtm")
+			getAtmData(player)
+			CallRemoteEvent(player, "openAtm")
 		end
 	end
 end)

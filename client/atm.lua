@@ -1,81 +1,57 @@
+local Dialog = ImportPackage("dialogui")
 
-local atm
 local isAtm
-local StreamedAtmIds = { }
 local AtmIds = { }
 
-function OnPackageStart()
-	atm = CreateWebUI(800.0, 200.0, 700.0, 450.0, 5, 10)
-	LoadWebFile(atm, "http://asset/"..GetPackageName().."/client/atm/atm.html")
-	SetWebAlignment(atm, 0.0, 0.0)
-	SetWebAnchors(atm, 0.0, 0.0, 1.0, 1.0)
-	SetWebVisibility(atm, WEB_HIDDEN)
-end
-AddEvent("OnPackageStart", OnPackageStart)
+local atm = Dialog.create("ATM", "Bank Balance : {bank_balance} $ | Cash : {cash_balance} $", "withdraw", "Deposit", "Cancel")
+Dialog.addTextInput(atm, 1, "Amount :")
+Dialog.setVariable(atm, "bank_balance", 0)
+Dialog.setVariable(atm, "cash_balance", 0)
 
-function OnPackageStop()
-	DestroyWebUI(atm)
-end
-AddEvent("OnPackageStop", OnPackageStop)
-
-function OnKeyPress(key)
+AddEvent("OnKeyPress", function(key)
     if key == "E" then
         local NearestATM = GetNearestATM()
 		if NearestATM ~= 0 then
             CallRemoteEvent("atmInteract", NearestATM)
 		end
 	end
-end
-AddEvent("OnKeyPress", OnKeyPress)
+end)
 
-function updateAtm(bank, cash)
-    ExecuteWebJS(atm, "changeBank("..bank..")")
-    ExecuteWebJS(atm, "changeCash("..cash..")")
-end
-AddRemoteEvent("updateAtm", updateAtm)
+AddEvent("OnDialogSubmit", function(dialog, button, ...)
+    if dialog == atm then
+        local args = { ... }
+        if button == 1 then
+            withdrawMoney(args[1])
+        end
+        if button == 2 then
+            depositMoney(args[1])
+        end
+    end
+end)
+
+AddRemoteEvent("updateAtm", function(bank, cash)
+    Dialog.setVariable(atm, "bank_balance", bank)
+    Dialog.setVariable(atm, "cash_balance", cash)
+end)
 
 AddRemoteEvent("atmSetup", function(AtmObjects)
 	AtmIds = AtmObjects
-
-	-- Reset the table
-	StreamedAtmIds = { }
-
-	for _,v in pairs(AtmIds) do
-		-- IsValidObject returns true on the client if this object is streamed in
-		if IsValidObject(v) then
-			table.insert(StreamedAtmIds, v)
-		end
-	end
-end)
-
-AddEvent("OnObjectStreamIn", function(object)
-	for _,v in pairs(AtmIds) do
-		if object == v then
-			table.insert(StreamedAtmIds, v)
-			break
-		end
-	end
-end)
-
-AddEvent("OnObjectStreamOut", function(object)
-	for _,v in pairs(AtmIds) do
-		if object == v then
-			table.remove(StreamedAtmIds, tablefind(StreamedAtmIds, v))
-			break
-		end
-	end
 end)
 
 function GetNearestATM()
 	local x, y, z = GetPlayerLocation()
 
-	for _,v in pairs(StreamedAtmIds) do
+	for _,v in pairs(GetStreamedObjects()) do
 		local x2, y2, z2 = GetObjectLocation(v)
 
 		local dist = GetDistance3D(x, y, z, x2, y2, z2)
 
 		if dist < 180.0 then
-            return v
+            for _,i in pairs(AtmIds) do
+				if v == i then
+					return v
+				end
+			end
 		end
 	end
 
@@ -91,7 +67,8 @@ function tablefind(tab, el)
 end
 
 function withdrawMoney(amount)
-    if tonumber(amount) ~= nil then
+    AddPlayerChat(amount)
+    if amount ~= "" then
         if tonumber(amount) > 0 then
             CallRemoteEvent("withdrawAtm", amount)
         else
@@ -104,7 +81,7 @@ end
 AddEvent("withdrawMoney", withdrawMoney)
 
 function depositMoney(amount)
-    if tonumber(amount) ~= nil then
+    if amount ~= "" then
         if tonumber(amount) > 0 then
             CallRemoteEvent("depositAtm", amount)
         else
@@ -117,18 +94,7 @@ end
 AddEvent("depositMoney", depositMoney)
 
 function openAtm()
-    ShowMouseCursor(true)
-    SetInputMode(INPUT_UI)
-    SetWebVisibility(atm, WEB_VISIBLE)
     CallRemoteEvent("getAtmData")
-    isAtm = not isAtm
+    Dialog.show(atm)
 end
 AddRemoteEvent("openAtm", openAtm)
-
-function closeAtm()
-    ShowMouseCursor(false)
-    SetInputMode(INPUT_GAME)
-    SetWebVisibility(atm, WEB_HIDDEN)
-    isAtm = not isAtm
-end
-AddEvent("closeAtm", closeAtm)

@@ -134,7 +134,6 @@ function OnAccountLoaded(player)
 		SetPlayerArmor(player, tonumber(result['armor']))
         setPlayerThirst(player, tonumber(result['thirst']))
         setPlayerHunger(player, tonumber(result['hunger']))
-        setPlayerModel(player, tonumber(result['model']))
 
         SetPlayerLoggedIn(player)
 
@@ -155,7 +154,6 @@ function CreatePlayerData(player)
     PlayerData[player].hunger = 100
     PlayerData[player].cash = 0
     PlayerData[player].bank_balance = 1000
-    PlayerData[player].model = 0
 
     print("Data created for : "..player)
 end
@@ -177,7 +175,7 @@ function SavePlayerAccount(player)
 		return
 	end
 
-	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, cash = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, model = ? WHERE id = ? LIMIT 1;",
+	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, cash = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ? WHERE id = ? LIMIT 1;",
 		PlayerData[player].admin,
 		PlayerData[player].cash,
 		PlayerData[player].bank_balance,
@@ -185,7 +183,6 @@ function SavePlayerAccount(player)
         GetPlayerArmor(player),
         PlayerData[player].hunger,
         PlayerData[player].thirst,
-        PlayerData[player].model,
         PlayerData[player].accountid)
         
 	mariadb_query(sql, query)

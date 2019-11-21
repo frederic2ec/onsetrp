@@ -16,39 +16,9 @@ AddEvent("OnPlayerInteractDoor", function(player, door, bWantsOpen)
 end)
 
 AddEvent("OnPackageStart", function()
-	
-	CreateDoor(31, -168700.000000, -38920.000000, 1051.000000, 0.0, true) -- Front sliding door gas station town
-	CreateDoor(3, -169403.000000, -39609.000000, 1051.000000, -90.0, true) -- Back door gas station town
-	
-	-- House doors
-	CreateDoor(20, -171043.000000, -33401.000000, 1131.000000, 90.0, true)
-	CreateDoor(23, -171090.000000, -33189.000000, 1130.000000, 0.0, true)
-	CreateDoor(20, -169720.000000, -45762.000000, 1141.000000, 270.0, true)
-	CreateDoor(22, -170169.000000, -46594.000000, 1141.000000, 90.0, true)
-	CreateDoor(24, -169674.000000, -45973.000000, 1142.000000, 180.0, true)
-	CreateDoor(20, -174799.000000, -36578.000000, 1129.000000, 0.0, true)
-	CreateDoor(23, -174097.000000, -37446.000000, 1129.000000, 0.0, true)
-	CreateDoor(23, -174380.000000, -36595.000000, 1468.000000, 0.0, true)
-	CreateDoor(23, -174139.000000, -37072.000000, 1467.000000, 90.0, true)
-	CreateDoor(20, -177823.000000, -37014.000000, 1139.000000, 180.0, true)
-	CreateDoor(23, -178293.000000, -36769.000000, 1139.000000, 90.0, true)
-	CreateDoor(20, -177842.000000, -41749.000000, 1137.000000, 180.0, true)
-	CreateDoor(23, -178502.000000, -41690.000000, 1137.000000, 90.0, true)
-	CreateDoor(21, -174179.000000, -41970.000000, 1129.000000, 90.0, true)
-	CreateDoor(20, -174585.000000, -46782.000000, 1150.000000, 0.0, true)
-	CreateDoor(20, -177721.000000, -45803.000000, 1140.000000, -90.0, true)
-	CreateDoor(23, -177673.000000, -46192.000000, 1140.000000, 180.0, true)
-	CreateDoor(21, -177532.000000, -49729.000000, 1145.000000, 180.0, true)
-	CreateDoor(23, -178660.000000, -49881.000000, 1146.000000, 0.0, true)
-	CreateDoor(22, -179061.000000, -49841.000000, 1146.000000, 0.0, true)
-	
-	
-	CreateDoor(35, -182093.000000, -40643.000000, 1065.000000, 90.0, true) -- Armed&Dangerous front
-	CreateDoor(36, -180794.000000, -40995.000000, 1065.000000, 0.0, true) -- A&D back door
 
 	CreateDoor(17, 128469.000000, 78057.000000, 1474.000000, 90.0, true) -- Desert Gas Station Entrance Physics Door
 	CreateDoor(25, 128690.000000, 78965.000000, 1480.000000, 90.0, true) -- Desert Gas Station Restroom
-	CreateDoor(3, 129315.000000, 79120.000000, 1478.000000, 0.0, true) -- Desert Gas Station Back Door
 	CreateDoor(30, 129401.968750, 75810.203125, 1473.000000, 182.0, true) -- Desert Gas Station Gas Tanks
 	
 	CreateDoor(18, 211200.000000, 94175.000000, 1282.000000, -180.0, true) -- Diner Physics Door 1
@@ -80,8 +50,8 @@ AddEvent("OnPackageStart", function()
 	CreateDoor(6, -183003.406250, 84525.085938, 1430.000000, -90.0, true)
 	CreateDoor(6, -180144.031250, 84858.296875, 1430.000000, -90.0, true)
 	CreateDoor(6, -180144.031250, 85667.890625, 1430.000000, 90.0, true)
-	CreateDoor(6, -182656.843750, 80328.765625, 1430.000000, -90.0, true)
-	CreateDoor(6, -182656.843750, 81125.273438, 1430.000000, 90.0, true)
+	CreateDoor(6, -182656.843750, 80328.765625, 1430.000000, 90.0, true)
+	CreateDoor(6, -182656.843750, 81125.273438, 1430.000000, -90.0, true)
 	-- END PRISON BARRIERS
 	
 	-- START PRISON DOORS OUTSIDE
@@ -102,7 +72,6 @@ AddEvent("OnPackageStart", function()
 	CreateDoor(3, -178762.000000, 77853.000000, 1530.000000, 180.0, true)
 	CreateDoor(3, -181561.000000, 75052.000000, 1530.000000, 180.0, true)
 	CreateDoor(3, -175962.000000, 74353.000000, 1530.000000, 180.0, true)
-	CreateDoor(4, -175533.000000, 79635.000000, 1530.000000, -90.0, true)
 	-- END PRISON DOORS OUTSIDE
 	
 	-- START PRISON TOWER DOORS
@@ -199,6 +168,7 @@ AddEvent("OnPackageStart", function()
 	CreateDoor(4, -174778.000000, 74776.000000, 1530.000000, 90.0, true)
 	CreateDoor(1, -175931.000000, 75174.000000, 1530.000000, 0.0, true)
 	CreateDoor(9, -176154.000000, 75461.000000, 1530.000000, -90.0, true)
+	CreateDoor(9, -174054.000000, 79660.000000, 1530.000000, 270.0, true)
 	CreateDoor(1, -176178.000000, 78259.000000, 1880.000000, 90.0, true)
 	CreateDoor(1, -174875.000000, 71149.000000, 1530.000000, 0.0, true)
 	CreateDoor(4, -171441.000000, 81057.000000, 1530.000000, 0.0, true)
@@ -376,6 +346,8 @@ AddEvent("OnPackageStart", function()
 	CreateDoor(13, -173697.000000, 82609.000000, 1880.000000, 0.0, true)
 	CreateDoor(13, -173697.000000, 81909.000000, 1880.000000, 0.0, true)
 	-- END PRISON D-BLOCK CELL DOORS
+	
+	CreateVehicle(6, 125773.000000, 80246.000000, 1645.000000, 90)
 	
 	print("Door Count: "..#GetAllDoors())
 end)

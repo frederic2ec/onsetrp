@@ -45,15 +45,15 @@ function buyCarServer(player, modelid, color)
         local x, y, z = GetPlayerLocation(player)
 
         for _,v in pairs(CarDealerTable) do
-            local x2, y2, z2 = GetNPCLocation(v.object)
+            local x2, y2, z2 = GetNPCLocation(v.npc)
             local dist = GetDistance3D(x, y, z, x2, y2, z2)
             if dist < 150.0 then
                 for _,w in pairs(GetAllVehicles()) do
                     local x3, y3, z3 = GetVehicleLocation(w)
-                    local dist2 = GetDistance3D(v.spawnx, v.spawny, v.spawnz, x3, y3, z3)
+                    local dist2 = GetDistance3D(v.spawn[1], v.spawn[2], v.spawn[3], x3, y3, z3)
                     if dist2 > 1000.0 then
                         -- if no vehicle on the spawn zone continue
-                        local vehicle = CreateVehicle(modelid, v.spawnx, v.spawny, v.spawnz, v.spawnh)
+                        local vehicle = CreateVehicle(modelid, v.spawn[1], v.spawn[2], v.spawn[3], v.spawn[4])
                         SetVehicleRespawnParams(vehicle, false)
                         SetVehicleColor(vehicle, "0x"..color)
                         SetVehiclePropertyValue(vehicle, "locked", true, true)
@@ -68,7 +68,7 @@ function buyCarServer(player, modelid, color)
                     end
                 end
                 -- if no vehicle in the world spawn the car
-                local vehicle = CreateVehicle(modelid, v.spawnx, v.spawny, v.spawnz, v.spawnh)
+                local vehicle = CreateVehicle(modelid, v.spawn[1], v.spawn[2], v.spawn[3], v.spawn[4])
                 SetVehicleColor(vehicle, "0x"..color)
                 SetVehicleRespawnParams(vehicle, false)
                 SetVehiclePropertyValue(vehicle, "locked", true, true)
@@ -87,7 +87,6 @@ AddRemoteEvent("buyCarServer", buyCarServer)
 function spawnCarServer(player, id)
     local query = mariadb_prepare(sql, "SELECT * FROM player_garage WHERE id = ?;",
     tostring(id))
-
     mariadb_async_query(sql, query, spawnCarServerLoaded, player)
 end
 AddRemoteEvent("spawnCarServer", spawnCarServer)
@@ -108,15 +107,15 @@ function spawnCarServerLoaded(player)
         local x, y, z = GetPlayerLocation(player)
 
         for _,v in pairs(GarageDealerTable) do
-            local x2, y2, z2 = GetNPCLocation(v.object)
+            local x2, y2, z2 = GetNPCLocation(v.npc)
             local dist = GetDistance3D(x, y, z, x2, y2, z2)
             if dist < 150.0 then
                 for _,w in pairs(GetAllVehicles()) do
                     local x3, y3, z3 = GetVehicleLocation(w)
-                    local dist2 = GetDistance3D(v.spawnx, v.spawny, v.spawnz, x3, y3, z3)
+                    local dist2 = GetDistance3D(v.spawn[1], v.spawn[2], v.spawn[3], x3, y3, z3)
                     if dist2 > 1000.0 then
                         -- if no vehicle on the spawn zone continue
-                        local vehicle = CreateVehicle(modelid, v.spawnx, v.spawny, v.spawnz, v.spawnh)
+                        local vehicle = CreateVehicle(modelid, v.spawn[1], v.spawn[2], v.spawn[3], v.spawn[4])
                         SetVehicleRespawnParams(vehicle, false)
                         SetVehicleColor(vehicle, "0x"..color)
                         SetVehiclePropertyValue(vehicle, "locked", true, true)
@@ -131,7 +130,7 @@ function spawnCarServerLoaded(player)
                     end
                 end
                 -- if no vehicle in the world spawn the car
-                local vehicle = CreateVehicle(modelid, v.spawnx, v.spawny, v.spawnz, v.spawnh)
+                local vehicle = CreateVehicle(modelid, v.spawn[1], v.spawn[2], v.spawn[3], v.spawn[4])
                 SetVehicleRespawnParams(vehicle, false)
                 SetVehicleColor(vehicle, "0x"..color)
                 SetVehiclePropertyValue(vehicle, "locked", true, true)

@@ -1,35 +1,33 @@
-GarageStoreObjectsCached = { }
-GarageStoreTable = { }
 
-AddEvent("database:connected", function()
-    mariadb_async_query(sql, "SELECT * FROM garage_store;", OnGarageStoreLoaded)
-    
-end)
+GarageStoreTable = { 
+    {
+        modelid = 2,
+        location = { 127542, 75351, 1567 }
+    },
+    {
+        modelid = 2,
+        location = { 128002, 75351, 1567 }
+    },
+    {
+        modelid = 2,
+        location = { 128557, 75351, 1567 }
+    },
+    {
+        modelid = 2,
+        location = { 129014, 75351, 1567 }
+    }
+}
 
-function OnGarageStoreLoaded()
-	for i=1,mariadb_get_row_count() do
-		local result = mariadb_get_assoc(i)
+GarageStoreObjectsCached = {}
 
-		local id = math.tointeger(result["id"])
-		local modelid = math.tointeger(result["modelid"])
-		local x = tonumber(result["x"])
-		local y = tonumber(result["y"])
-		local z = tonumber(result["z"])
+AddEvent("OnPackageStart", function()
+	for _,v in pairs(GarageStoreTable) do
+        v.object = CreatePickup(v.modelid , v.location[1], v.location[2], v.location[3])
+        
 
-		createGarageStore(id, modelid, x, y, z)
+		table.insert(GarageStoreObjectsCached, v.object)
 	end
-
-	print("Loaded "..#GarageStoreTable.." garages input")
-end
-
-function createGarageStore(id, modelid, x, y, z)
-	GarageStoreTable[id] = { }
-	GarageStoreTable[id].id = id
-	GarageStoreTable[id].object = CreatePickup(modelid, x, y, z)
-
-    
-    table.insert(GarageStoreObjectsCached, GarageStoreTable[id].object)
-end
+end)
 
 function OnPlayerPickupHit(player, pickup)
 	for _,v in pairs(GarageStoreTable) do

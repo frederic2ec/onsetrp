@@ -41,44 +41,21 @@ AddEvent("OnKeyPress", OnKeyPress)
 
 AddRemoteEvent("carDealerSetup", function(CarDealerObject)
     CarDealerIds = CarDealerObject
-	-- Reset the table
-	StreamedCarDealerIds = { }
-
-	for _,v in pairs(CarDealerIds) do
-		-- IsValidObject returns true on the client if this object is streamed in
-		if IsValidObject(v) then
-            table.insert(StreamedCarDealerIds, v)
-		end
-	end
-end)
-
-AddEvent("OnObjectStreamIn", function(object)
-	for _,v in pairs(CarDealerIds) do
-		if object == v then
-			table.insert(StreamedCarDealerIds, v)
-			break
-		end
-	end
-end)
-
-AddEvent("OnObjectStreamOut", function(object)
-	for _,v in pairs(CarDealerIds) do
-		if object == v then
-			table.remove(StreamedCarDealerIds, StreamedCarDealerIds(StreamedCarDealerIds, v))
-			break
-		end
-	end
 end)
 
 function GetNearestCarDealer()
-    local x, y, z = GetPlayerLocation()
-
-	for _,v in pairs(StreamedCarDealerIds) do
+	local x, y, z = GetPlayerLocation()
+	
+	for _,v in pairs(GetStreamedNPC()) do
         local x2, y2, z2 = GetNPCLocation(v)
-        local dist = GetDistance3D(x, y, z, x2, y2, z2)
+		local dist = GetDistance3D(x, y, z, x2, y2, z2)
 
 		if dist < 150.0 then
-            return v
+			for _,i in pairs(CarDealerIds) do
+				if v == i then
+					return v
+				end
+			end
 		end
 	end
 
