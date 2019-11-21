@@ -1,3 +1,4 @@
+local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 local garageDealer
 local GarageDealerIds = { }
@@ -89,7 +90,7 @@ function spawnCar(id)
     local id = tostring(id)
 
     if id == 'nil' then
-        AddPlayerChat("Please select a car to spawn !")
+        AddPlayerChat(_("select_car_to_spawn"))
     else
         CallRemoteEvent("spawnCarServer", id)
     end
@@ -100,7 +101,7 @@ function sellCar(id)
     local id = tostring(id)
 
     if id == 'nil' then
-        AddPlayerChat("Please select a car to sell !")
+        AddPlayerChat(_("select_car_to_sell"))
     else
         CallRemoteEvent("sellCarServer", id)
     end

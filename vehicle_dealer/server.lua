@@ -1,3 +1,5 @@
+local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
+
 CarDealerObjectsCached = { }
 CarDealerTable = { 
 	{
@@ -46,7 +48,7 @@ CarPriceTable = {
 AddEvent("OnPackageStart", function()
 	for k,v in pairs(CarDealerTable) do
 		v.npc = CreateNPC(v.location[1], v.location[2], v.location[3], v.location[4])
-		CreateText3D("Car Dealer\nPress E", 18, v.location[1], v.location[2], v.location[3] + 120, 0, 0, 0)
+		CreateText3D(_("car_dealer").."\n".._("press_e"), 18, v.location[1], v.location[2], v.location[3] + 120, 0, 0, 0)
 
 		table.insert(CarDealerObjectsCached, v.npc)
 	end
@@ -104,7 +106,7 @@ function buyCarServer(player, modelid, color)
     local color = tostring(color)
 
 	if tonumber(price) > PlayerData[player].cash then
-        AddPlayerChat(player, "You don't have the money to buy this car !")
+        AddPlayerChat(player, _("no_money_car"))
     else
         local x, y, z = GetPlayerLocation(player)
 
@@ -125,10 +127,10 @@ function buyCarServer(player, modelid, color)
                         CreateVehicleDatabase(player, vehicle, modelid, color)
                         PlayerData[player].cash = PlayerData[player].cash - tonumber(price)
                         CallRemoteEvent(player, "closeCarDealer")
-                        return AddPlayerChat(player, "You successfully bought a "..name.." for "..price.."$")
+                        return AddPlayerChat(player, _("car_buy_sucess", name, price).._("currency"))
                     else
                         -- if vehicle on the spawn zone cancel and report an error
-                        return AddPlayerChat(player, "Cannot spawn your vehicle !")
+                        return AddPlayerChat(player, _("cannot_spawn_vehicle"))
                     end
                 end
                 -- if no vehicle in the world spawn the car
@@ -140,7 +142,7 @@ function buyCarServer(player, modelid, color)
                 CreateVehicleDatabase(player, vehicle, modelid, color)
                 PlayerData[player].cash = PlayerData[player].cash - tonumber(price)
                 CallRemoteEvent(player, "closeCarDealer")
-                return AddPlayerChat(player, "You successfully bought a "..name.." for "..price.."$")
+                return AddPlayerChat(player, _("car_buy_sucess", name, price).._("currency"))
             end
         end
         

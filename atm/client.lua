@@ -1,10 +1,11 @@
+local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 local Dialog = ImportPackage("dialogui")
 
 local isAtm
 local AtmIds = { }
 
-local atm = Dialog.create("ATM", "Bank Balance : {bank_balance} $ | Cash : {cash_balance} $", "withdraw", "Deposit", "Cancel")
-Dialog.addTextInput(atm, 1, "Amount :")
+local atm = Dialog.create(_("atm"), _("bank_balance").." : {bank_balance} ".._("currency").." | ".._("cash").." : {cash_balance} ".._("currency"), _("withdraw"), _("deposit"), _("cancel"))
+Dialog.addTextInput(atm, 1, _("amount").." :")
 Dialog.setVariable(atm, "bank_balance", 0)
 Dialog.setVariable(atm, "cash_balance", 0)
 
@@ -67,15 +68,14 @@ function tablefind(tab, el)
 end
 
 function withdrawMoney(amount)
-    AddPlayerChat(amount)
     if amount ~= "" then
         if tonumber(amount) > 0 then
             CallRemoteEvent("withdrawAtm", amount)
         else
-            AddPlayerChat("Please enter an higher number !")
+            AddPlayerChat(_("enter_higher_number"))
         end
     else
-        AddPlayerChat("Please enter a valid number !")
+        AddPlayerChat(_("valid_number"))
     end 
 end
 AddEvent("withdrawMoney", withdrawMoney)
@@ -85,10 +85,10 @@ function depositMoney(amount)
         if tonumber(amount) > 0 then
             CallRemoteEvent("depositAtm", amount)
         else
-            AddPlayerChat("Please enter an higher number !")
+            AddPlayerChat(_("enter_higher_number"))
         end
     else
-        AddPlayerChat("Please enter a valid number !")
+        AddPlayerChat(_("valid_number"))
     end 
 end
 AddEvent("depositMoney", depositMoney)

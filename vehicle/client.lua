@@ -1,7 +1,8 @@
+local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 function OnPlayerStartEnterVehicle(vehicle)
     if GetVehiclePropertyValue(vehicle, "locked") then 
-        AddPlayerChat("This vehicle is locked !")
+        AddPlayerChat(_("this_vehicle_locked"))
         return false 
     end 
 end
@@ -9,7 +10,7 @@ AddEvent("OnPlayerStartEnterVehicle", OnPlayerStartEnterVehicle)
 
 function OnPlayerStartExitVehicle(vehicle)
     if GetVehiclePropertyValue(vehicle, "locked") then 
-        AddPlayerChat("This vehicle is locked !")
+        AddPlayerChat(_("this_vehicle_locked"))
         return false 
     end 
 end

@@ -1,3 +1,5 @@
+local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
+
 GarageDealerObjectsCached = { }
 GarageDealerTable = {
 	{
@@ -35,7 +37,7 @@ end)
  AddEvent("OnPackageStart", function()
 	for k,v in pairs(GarageDealerTable) do
 		v.npc = CreateNPC(v.location[1], v.location[2], v.location[3], v.location[4])
-		CreateText3D("Garage\nPress E", 18, v.location[1], v.location[2], v.location[3] + 120, 0, 0, 0)
+		CreateText3D(_("garage").."\n".._("press_e"), 18, v.location[1], v.location[2], v.location[3] + 120, 0, 0, 0)
 
 		table.insert(GarageDealerObjectsCached, v.npc)
     end
@@ -109,7 +111,7 @@ function OnPlayerPickupHit(player, pickup)
                     mariadb_async_query(sql, query)
                     DestroyVehicle(vehicle)
                     DestroyVehicleData(vehicle)
-                    return AddPlayerChat(player, "Vehicle stored !")
+                    return AddPlayerChat(player, _("vehicle_stored"))
                 end
             end
 		end
@@ -156,10 +158,10 @@ function spawnCarServerLoaded(player)
                         VehicleData[vehicle].garageid = id
                         mariadb_async_query(sql, query)
                         CallRemoteEvent(player, "closeGarageDealer")
-                        return AddPlayerChat(player, "You successfully spawned your "..tostring(name))
+                        return AddPlayerChat(player, _("spawn_vehicle_success", tostring(name)))
                     else
                         -- if vehicle on the spawn zone cancel and report an error
-                        return AddPlayerChat(player, "Cannot spawn your vehicle !")
+                        return AddPlayerChat(player, _("cannot_spawn_vehicle"))
                     end
                 end
                 -- if no vehicle in the world spawn the car
@@ -171,7 +173,7 @@ function spawnCarServerLoaded(player)
                 VehicleData[vehicle].garageid = id
                 mariadb_async_query(sql, query)
                 CallRemoteEvent(player, "closeGarageDealer")
-                return AddPlayerChat(player, "You successfully spawned your "..tostring(name))
+                return AddPlayerChat(player, _("spawn_vehicle_success", tostring(name)))
             end
         end
 	end
@@ -200,6 +202,6 @@ function sellCarServerLoaded(player)
         mariadb_async_query(sql, query)
         PlayerData[player].cash = PlayerData[player].cash + tonumber(price)
         CallRemoteEvent(player, "closeGarageDealer")
-        return AddPlayerChat(player, "You successfully selled your "..tostring(name).." for "..price.."$")
+        return AddPlayerChat(player, _("sell_vehicle_success", tostring(name), price).._("currency"))
 	end
 end

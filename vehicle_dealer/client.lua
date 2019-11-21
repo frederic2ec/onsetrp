@@ -1,3 +1,4 @@
+local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 local carDealer
 local isCarDealer
@@ -102,7 +103,7 @@ function buyCar(modelid, color)
 	local modelid = tostring(modelid)
 	local color = tostring(color)
     if color == 'nil' then
-        AddPlayerChat("Please select a car to buy !")
+        AddPlayerChat(_("select_car_to_buy"))
     else
         CallRemoteEvent("buyCarServer", modelid, color)
     end

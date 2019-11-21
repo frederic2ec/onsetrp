@@ -1,3 +1,4 @@
+local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 VehicleData = {}
 
@@ -26,11 +27,11 @@ function unlockVehicle(player)
     if nearestCar ~= 0 then
         if vehicle.owner == playerData.accountid then
             if GetVehiclePropertyValue(nearestCar, "locked") then
-                AddPlayerChat(player, "Car unlocked !")
+                AddPlayerChat(player, _("car_unlocked"))
                 SetVehiclePropertyValue(nearestCar, "locked", false, true)
                 CallRemoteEvent(player, "PlayAudioFile", "carUnlock.mp3")
             else
-                AddPlayerChat(player, "Car locked !")
+                AddPlayerChat(player, _("car_locked"))
                 SetVehiclePropertyValue(nearestCar, "locked", true, true)
                 CallRemoteEvent(player, "PlayAudioFile", "carLock.mp3")
             end

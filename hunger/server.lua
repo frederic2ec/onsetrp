@@ -1,3 +1,4 @@
+local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 function OnPlayerDeath(player, instigator)
     setPlayerHunger(player, 100)
@@ -60,7 +61,7 @@ function sendPlayerHunger(player)
     if (PlayerData[player].accountid == 0 or PlayerData[player].logged_in == false) then
 		return
 	end
-    AddPlayerChat(player, "Hunger : "..hunger)
+    AddPlayerChat(player, _("hunger").." : "..hunger)
 end
 AddRemoteEvent("sendPlayerHunger", sendPlayerHunger)
 
@@ -116,6 +117,6 @@ function sendPlayerThirst(player)
     if (PlayerData[player].accountid == 0 or PlayerData[player].logged_in == false) then
 		return
 	end
-    AddPlayerChat(player, "Thirst : "..thirst)
+    AddPlayerChat(player, _("thirst").." : "..thirst)
 end
 AddRemoteEvent("sendPlayerThirst", sendPlayerThirst)

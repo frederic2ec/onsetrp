@@ -1,3 +1,5 @@
+local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
+
 AtmObjectsCached = { }
 AtmTable = {
 	{
@@ -9,7 +11,7 @@ AtmTable = {
  AddEvent("OnPackageStart", function()
 	for k,v in pairs(AtmTable) do
 		v.object = CreateObject(v.modelid, v.location[1], v.location[2], v.location[3], v.location[4], v.location[5], v.location[6])
-		CreateText3D("ATM\nPress E", 18, v.location[1], v.location[2], v.location[3] + 200, 0, 0, 0)
+		CreateText3D(_("atm").."\n".._("press_e"), 18, v.location[1], v.location[2], v.location[3] + 200, 0, 0, 0)
 
 		table.insert(AtmObjectsCached, v.object)
 	end
@@ -52,11 +54,11 @@ AddRemoteEvent("getAtmData", getAtmData)
 
 function withdrawAtm(player, amount)
     if tonumber(amount) > PlayerData[player].bank_balance then
-        AddPlayerChat(player, "You don't have the money to withdraw !")
+        AddPlayerChat(player, _("withdraw_error"))
     else
         PlayerData[player].bank_balance = PlayerData[player].bank_balance - amount
         PlayerData[player].cash = PlayerData[player].cash + amount
-        AddPlayerChat(player, "You successfully withdrawed "..amount.."$")
+        AddPlayerChat(player, _("withdraw_success", amount).._("currency"))
         getAtmData(player)
     end
 end
@@ -64,11 +66,11 @@ AddRemoteEvent("withdrawAtm", withdrawAtm)
 
 function depositAtm(player, amount)
     if tonumber(amount) > PlayerData[player].cash then
-        AddPlayerChat(player, "You don't have the money to withdraw !")
+        AddPlayerChat(player, _("deposit_error"))
     else
         PlayerData[player].cash = PlayerData[player].cash - amount
         PlayerData[player].bank_balance = PlayerData[player].bank_balance + amount
-        AddPlayerChat(player, "You successfully deposited "..amount.."$")
+        AddPlayerChat(player, _("deposit_success", amount).._("currency"))
 
         getAtmData(player)
     end
