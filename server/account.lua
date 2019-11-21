@@ -4,7 +4,7 @@ PlayerData = {}
 function OnPackageStart()
     -- Save all player data automatically 
     CreateTimer(function()
-		for _, v in pairs(GetAllPlayers()) do
+		for k, v in pairs(GetAllPlayers()) do
             SavePlayerAccount(v)
             print("All accounts have been saved !")
 		end

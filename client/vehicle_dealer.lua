@@ -46,12 +46,12 @@ end)
 function GetNearestCarDealer()
 	local x, y, z = GetPlayerLocation()
 	
-	for _,v in pairs(GetStreamedNPC()) do
+	for k,v in pairs(GetStreamedNPC()) do
         local x2, y2, z2 = GetNPCLocation(v)
 		local dist = GetDistance3D(x, y, z, x2, y2, z2)
 
 		if dist < 150.0 then
-			for _,i in pairs(CarDealerIds) do
+			for k,i in pairs(CarDealerIds) do
 				if v == i then
 					return v
 				end
@@ -80,7 +80,7 @@ end
 AddRemoteEvent("openCarDealer", openCarDealer)
 
 function getCarList(car)
-    for _,v in pairs(car) do
+    for k,v in pairs(car) do
         local modelid = tostring(v.modelid)
         local name = tostring(v.name)
         local price = tostring(v.price)

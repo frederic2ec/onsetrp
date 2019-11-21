@@ -21,7 +21,7 @@ GarageStoreTable = {
 GarageStoreObjectsCached = {}
 
 AddEvent("OnPackageStart", function()
-	for _,v in pairs(GarageStoreTable) do
+	for k,v in pairs(GarageStoreTable) do
         v.object = CreatePickup(v.modelid , v.location[1], v.location[2], v.location[3])
         
 
@@ -30,7 +30,7 @@ AddEvent("OnPackageStart", function()
 end)
 
 function OnPlayerPickupHit(player, pickup)
-	for _,v in pairs(GarageStoreTable) do
+	for k,v in pairs(GarageStoreTable) do
         if v.object == pickup then
             vehicle = GetPlayerVehicle(player)
             seat = GetPlayerVehicleSeat(player)

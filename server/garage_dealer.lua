@@ -12,7 +12,7 @@ AddEvent("database:connected", function()
 end)
 
  AddEvent("OnPackageStart", function()
-	for _,v in pairs(GarageDealerTable) do
+	for k,v in pairs(GarageDealerTable) do
 		v.npc = CreateNPC(v.location[1], v.location[2], v.location[3], v.location[4])
 		CreateText3D("Garage\nPress E", 18, v.location[1], v.location[2], v.location[3] + 120, 0, 0, 0)
 
@@ -37,7 +37,7 @@ AddRemoteEvent("garageDealerInteract", function(player, garagedealerobject)
 end)
 
 function GetGarageDealearByObject(garagedealerobject)
-	for _,v in pairs(GarageDealerTable) do
+	for k,v in pairs(GarageDealerTable) do
 		if v.npc == garagedealerobject then
 			return v
 		end

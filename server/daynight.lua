@@ -8,7 +8,7 @@ function OnPackageStart()
 			worldTime = 0
 		end
 		worldTime = worldTime + 0.01
-		for _, v in pairs(GetAllPlayers()) do
+		for k, v in pairs(GetAllPlayers()) do
             CallRemoteEvent(v, "setTimeOfClient", worldTime)
 		end
     end, 1000)

@@ -41,13 +41,13 @@ end)
 function GetNearestATM()
 	local x, y, z = GetPlayerLocation()
 
-	for _,v in pairs(GetStreamedObjects()) do
+	for k,v in pairs(GetStreamedObjects()) do
 		local x2, y2, z2 = GetObjectLocation(v)
 
 		local dist = GetDistance3D(x, y, z, x2, y2, z2)
 
 		if dist < 180.0 then
-            for _,i in pairs(AtmIds) do
+            for k,i in pairs(AtmIds) do
 				if v == i then
 					return v
 				end

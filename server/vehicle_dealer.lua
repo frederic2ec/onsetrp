@@ -44,7 +44,7 @@ CarPriceTable = {
 }
 
 AddEvent("OnPackageStart", function()
-	for _,v in pairs(CarDealerTable) do
+	for k,v in pairs(CarDealerTable) do
 		v.npc = CreateNPC(v.location[1], v.location[2], v.location[3], v.location[4])
 		CreateText3D("Car Dealer\nPress E", 18, v.location[1], v.location[2], v.location[3] + 120, 0, 0, 0)
 
@@ -75,7 +75,7 @@ end
 AddRemoteEvent("sendCarList", sendCarList)
 
 function GetCarDealearByObject(cardealerobject)
-	for _,v in pairs(CarDealerTable) do
+	for k,v in pairs(CarDealerTable) do
 		if v.npc == cardealerobject then
 			return v
 		end

@@ -7,7 +7,7 @@ AtmTable = {
  }
 
  AddEvent("OnPackageStart", function()
-	for _,v in pairs(AtmTable) do
+	for k,v in pairs(AtmTable) do
 		v.object = CreateObject(v.modelid, v.location[1], v.location[2], v.location[3], v.location[4], v.location[5], v.location[6])
 		CreateText3D("ATM\nPress E", 18, v.location[1], v.location[2], v.location[3] + 200, 0, 0, 0)
 
@@ -34,7 +34,7 @@ AddRemoteEvent("atmInteract", function(player, atmobject)
 end)
 
 function GetAtmByObject(atmobject)
-	for _,v in pairs(AtmTable) do
+	for k,v in pairs(AtmTable) do
 		if v.object == atmobject then
 			return v
 		end

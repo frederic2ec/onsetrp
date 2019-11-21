@@ -44,11 +44,11 @@ function buyCarServer(player, modelid, color)
     else
         local x, y, z = GetPlayerLocation(player)
 
-        for _,v in pairs(CarDealerTable) do
+        for k,v in pairs(CarDealerTable) do
             local x2, y2, z2 = GetNPCLocation(v.npc)
             local dist = GetDistance3D(x, y, z, x2, y2, z2)
             if dist < 150.0 then
-                for _,w in pairs(GetAllVehicles()) do
+                for k,w in pairs(GetAllVehicles()) do
                     local x3, y3, z3 = GetVehicleLocation(w)
                     local dist2 = GetDistance3D(v.spawn[1], v.spawn[2], v.spawn[3], x3, y3, z3)
                     if dist2 > 1000.0 then
@@ -106,11 +106,11 @@ function spawnCarServerLoaded(player)
 
         local x, y, z = GetPlayerLocation(player)
 
-        for _,v in pairs(GarageDealerTable) do
+        for k,v in pairs(GarageDealerTable) do
             local x2, y2, z2 = GetNPCLocation(v.npc)
             local dist = GetDistance3D(x, y, z, x2, y2, z2)
             if dist < 150.0 then
-                for _,w in pairs(GetAllVehicles()) do
+                for k,w in pairs(GetAllVehicles()) do
                     local x3, y3, z3 = GetVehicleLocation(w)
                     local dist2 = GetDistance3D(v.spawn[1], v.spawn[2], v.spawn[3], x3, y3, z3)
                     if dist2 > 1000.0 then
@@ -194,7 +194,7 @@ AddRemoteEvent("unlockVehicle", unlockVehicle)
 function GetNearestCar(player)
     local x, y, z = GetPlayerLocation(player)
 
-    for _,v in pairs(GetAllVehicles()) do
+    for k,v in pairs(GetAllVehicles()) do
         local x2, y2, z2 = GetVehicleLocation(v)
         local dist = GetDistance3D(x, y, z, x2, y2, z2)
 

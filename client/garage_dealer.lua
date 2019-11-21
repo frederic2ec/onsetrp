@@ -1,8 +1,6 @@
 
 local garageDealer
-local isGaragerDealer
 local GarageDealerIds = { }
---[[ local carRetrieved ]]
 
 function OnPackageStart()
 	garageDealer = CreateWebUI(800.0, 200.0, 700.0, 450.0, 5, 10)
@@ -35,11 +33,11 @@ end)
 
 function GetNearestGarageDealer()
     local x, y, z = GetPlayerLocation()
-	for _,v in pairs(GetStreamedNPC()) do
+	for k,v in pairs(GetStreamedNPC()) do
         local x2, y2, z2 = GetNPCLocation(v)
         local dist = GetDistance3D(x, y, z, x2, y2, z2)
 		if dist < 150.0 then
-            for _,i in pairs(GarageDealerIds) do
+            for k,i in pairs(GarageDealerIds) do
 				if v == i then
 					return v
 				end
