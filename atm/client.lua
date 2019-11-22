@@ -1,13 +1,16 @@
-local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 local Dialog = ImportPackage("dialogui")
+local _ = _ or function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
+local atm
 local isAtm
 local AtmIds = { }
 
-local atm = Dialog.create(_("atm"), _("bank_balance").." : {bank_balance} ".._("currency").." | ".._("cash").." : {cash_balance} ".._("currency"), _("withdraw"), _("deposit"), _("cancel"))
-Dialog.addTextInput(atm, 1, _("amount").." :")
-Dialog.setVariable(atm, "bank_balance", 0)
-Dialog.setVariable(atm, "cash_balance", 0)
+AddEvent("OnTranslationReady", function()
+    atm = Dialog.create(_("atm"), _("bank_balance").." : {bank_balance} ".._("currency").." | ".._("cash").." : {cash_balance} ".._("currency"), _("withdraw"), _("deposit"), _("cancel"))
+    Dialog.addTextInput(atm, 1, _("amount").." :")
+    Dialog.setVariable(atm, "bank_balance", 0)
+    Dialog.setVariable(atm, "cash_balance", 0) 
+end)
 
 AddEvent("OnKeyPress", function(key)
     if key == "E" then

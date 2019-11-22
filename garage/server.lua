@@ -202,6 +202,6 @@ function sellCarServerLoaded(player)
         mariadb_async_query(sql, query)
         PlayerData[player].cash = PlayerData[player].cash + tonumber(price)
         CallRemoteEvent(player, "closeGarageDealer")
-        return AddPlayerChat(player, _("sell_vehicle_success", tostring(name), price).._("currency"))
+        return AddPlayerChat(player, _("sell_vehicle_success", tostring(name), price, _("currency")))
 	end
 end

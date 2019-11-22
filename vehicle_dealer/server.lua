@@ -127,7 +127,7 @@ function buyCarServer(player, modelid, color)
                         CreateVehicleDatabase(player, vehicle, modelid, color)
                         PlayerData[player].cash = PlayerData[player].cash - tonumber(price)
                         CallRemoteEvent(player, "closeCarDealer")
-                        return AddPlayerChat(player, _("car_buy_sucess", name, price).._("currency"))
+                        return AddPlayerChat(player, _("car_buy_sucess", name, price, _("currency")))
                     else
                         -- if vehicle on the spawn zone cancel and report an error
                         return AddPlayerChat(player, _("cannot_spawn_vehicle"))
@@ -142,7 +142,7 @@ function buyCarServer(player, modelid, color)
                 CreateVehicleDatabase(player, vehicle, modelid, color)
                 PlayerData[player].cash = PlayerData[player].cash - tonumber(price)
                 CallRemoteEvent(player, "closeCarDealer")
-                return AddPlayerChat(player, _("car_buy_sucess", name, price).._("currency"))
+                return AddPlayerChat(player, _("car_buy_sucess", name, price, _("currency")))
             end
         end
         

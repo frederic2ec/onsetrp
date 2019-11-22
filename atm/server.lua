@@ -58,7 +58,7 @@ function withdrawAtm(player, amount)
     else
         PlayerData[player].bank_balance = PlayerData[player].bank_balance - amount
         PlayerData[player].cash = PlayerData[player].cash + amount
-        AddPlayerChat(player, _("withdraw_success", amount).._("currency"))
+        AddPlayerChat(player, _("withdraw_success", amount, _("currency")))
         getAtmData(player)
     end
 end
@@ -70,7 +70,7 @@ function depositAtm(player, amount)
     else
         PlayerData[player].cash = PlayerData[player].cash - amount
         PlayerData[player].bank_balance = PlayerData[player].bank_balance + amount
-        AddPlayerChat(player, _("deposit_success", amount).._("currency"))
+        AddPlayerChat(player, _("deposit_success", amount, _("currency")))
 
         getAtmData(player)
     end
