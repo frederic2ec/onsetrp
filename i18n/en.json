@@ -29,5 +29,12 @@
     "car_buy_sucess": "You successfully bought a {1} for {2} {3}",
     "this_vehicle_locked": "This vehicle is locked !",
     "car_locked": "Car locked !",
-    "car_unlocked": "Car unlocked !"
+    "car_unlocked": "Car unlocked !",
+    "buy": "Buy",
+    "color": "Color :",
+    "white": "White",
+    "black": "Black",
+    "red": "Red",
+    "blue": "Blue",
+    "green": "Green"
 }
