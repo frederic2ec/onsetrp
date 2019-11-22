@@ -63,10 +63,22 @@ function getVehicleName(modelid)
     end
 end
 
-function getVehiclePrice(modelid)
-    for key, value in pairs(CarPriceTable) do
-        if value.modelid == modelid then
-            return(value.price)
+function getVehiclePrice(modelid, cardealerobject)
+    for k, v in pairs(CarDealerTable) do
+        if v.npc == cardealerobject then
+            return(v.vehicles[modelid])
         end
     end
+end
+
+function getVehicleColor(color, cardealerobject)
+    for k, v in pairs(CarDealerTable) do
+        if v.npc == cardealerobject then
+            return(v.colors[color])
+        end
+    end
+end
+
+function getVehicleId(modelid)
+    return modelid:gsub("vehicle_", "")
 end

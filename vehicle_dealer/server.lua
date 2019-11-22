@@ -3,48 +3,26 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 CarDealerObjectsCached = { }
 CarDealerTable = { 
 	{
+		vehicles = { 
+					vehicle_1 = 1000,
+					vehicle_4 = 1000,
+					vehicle_5 = 1000,
+					vehicle_6 = 1000,
+					vehicle_7 = 1000,
+					vehicle_11 = 1000,
+					vehicle_12 = 1000 
+		},
+		colors = {
+			black = "0000",
+			red = "FF0000",
+			blue = "0000FF",
+			green = "00FF00"
+
+		},
 		location = { 128990, 80774, 1567, 180 },
 		spawn = { 127720, 80774, 1567, 180 }
 	}
 }
-CarPriceTable = { 
-	{
-		modelid = 1,
-		name = "Sedan 1",
-		price = 1000
-	},
-	{
-		modelid = 4,
-		name = "Sedan 2",
-		price = 1000
-	},
-	{
-		modelid = 5,
-		name = "Sedan 3",
-		price = 1000
-	},
-	{
-		modelid = 6,
-		name = "Nascar",
-		price = 1000
-	},
-	{
-		modelid = 7,
-		name = "Truck",
-		price = 1000
-	},
-	{
-		modelid = 11,
-		name = "Coupe",
-		price = 1000
-	},
-	{
-		modelid = 12,
-		name = "Rally",
-		price = 1000
-	}
-}
-
 AddEvent("OnPackageStart", function()
 	for k,v in pairs(CarDealerTable) do
 		v.npc = CreateNPC(v.location[1], v.location[2], v.location[3], v.location[4])
@@ -66,15 +44,15 @@ AddRemoteEvent("carDealerInteract", function(player, cardealerobject)
         local dist = GetDistance3D(x, y, z, x2, y2, z2)
 
 		if dist < 150 then
-			CallRemoteEvent(player, "openCarDealer")
+			for k,v in pairs(CarDealerTable) do
+				if cardealerobject == v.npc then
+					CallRemoteEvent(player, "openCarDealer", v.vehicles, v.colors)
+				end
+			end  
+			
 		end
 	end
 end)
-
-function sendCarList(player)
-        CallRemoteEvent(player, "getCarList", CarPriceTable)
-end
-AddRemoteEvent("sendCarList", sendCarList)
 
 function GetCarDealearByObject(cardealerobject)
 	for k,v in pairs(CarDealerTable) do
@@ -85,11 +63,12 @@ function GetCarDealearByObject(cardealerobject)
 	return nil
 end
 
-function CreateVehicleDatabase(player, vehicle, modelid, color)
-    local query = mariadb_prepare(sql, "INSERT INTO player_garage (id, ownerid, modelid, color, garage) VALUES (NULL, '?', '?', '?', '0');",
+function CreateVehicleDatabase(player, vehicle, modelid, color, price)
+    local query = mariadb_prepare(sql, "INSERT INTO player_garage (id, ownerid, modelid, color, garage, price) VALUES (NULL, '?', '?', '?', '0', '?');",
         tostring(PlayerData[player].accountid),
         tostring(modelid),
-        tostring(color)
+        tostring(color),
+        tostring(price)
     )
 
     mariadb_async_query(sql, query, onVehicleCreateDatabase, vehicle)
@@ -99,11 +78,11 @@ function onVehicleCreateDatabase(vehicle)
     VehicleData[vehicle].garageid = mariadb_get_insert_id()
 end
 
-function buyCarServer(player, modelid, color)
-    local modelid = math.tointeger(modelid)
-    local price = getVehiclePrice(modelid)
-    local name = getVehicleName(modelid)
-    local color = tostring(color)
+function buyCarServer(player, modelid, color, cardealerobject)
+	local name = _(modelid)
+	local price = getVehiclePrice(modelid, cardealerobject)
+	local color = getVehicleColor(color, cardealerobject)
+	local modelid = getVehicleId(modelid)
 
 	if tonumber(price) > PlayerData[player].cash then
         AddPlayerChat(player, _("no_money_car"))
@@ -124,7 +103,7 @@ function buyCarServer(player, modelid, color)
                         SetVehicleColor(vehicle, "0x"..color)
                         SetVehiclePropertyValue(vehicle, "locked", true, true)
                         CreateVehicleData(player, vehicle, modelid)
-                        CreateVehicleDatabase(player, vehicle, modelid, color)
+                        CreateVehicleDatabase(player, vehicle, modelid, color, price)
                         PlayerData[player].cash = PlayerData[player].cash - tonumber(price)
                         CallRemoteEvent(player, "closeCarDealer")
                         return AddPlayerChat(player, _("car_buy_sucess", name, price, _("currency")))
@@ -139,13 +118,12 @@ function buyCarServer(player, modelid, color)
                 SetVehicleRespawnParams(vehicle, false)
                 SetVehiclePropertyValue(vehicle, "locked", true, true)
                 CreateVehicleData(player, vehicle, modelid)
-                CreateVehicleDatabase(player, vehicle, modelid, color)
+                CreateVehicleDatabase(player, vehicle, modelid, color, price)
                 PlayerData[player].cash = PlayerData[player].cash - tonumber(price)
                 CallRemoteEvent(player, "closeCarDealer")
                 return AddPlayerChat(player, _("car_buy_sucess", name, price, _("currency")))
             end
         end
-        
     end
 end
 AddRemoteEvent("buyCarServer", buyCarServer)

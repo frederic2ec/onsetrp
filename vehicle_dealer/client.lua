@@ -1,34 +1,17 @@
+local Dialog = ImportPackage("dialogui")
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
-local carDealer
+local cardealer
 local isCarDealer
 local StreamedCarDealerIds = { }
 local CarDealerIds = { }
 local carRetrieved
 
-function OnPackageStart()
-	carDealer = CreateWebUI(800.0, 200.0, 700.0, 450.0, 5, 10)
-	LoadWebFile(carDealer, "http://asset/"..GetPackageName().."/client/cardealer/cardealer.html")
-	SetWebAlignment(carDealer, 0.0, 0.0)
-	SetWebAnchors(carDealer, 0.0, 0.0, 1.0, 1.0)
-    SetWebVisibility(carDealer, WEB_HIDDEN)
-end
-AddEvent("OnPackageStart", OnPackageStart)
-
-function OnPackageStop()
-	DestroyWebUI(carDealer)
-end
-AddEvent("OnPackageStop", OnPackageStop)
-
-function OnWebLoadComplete(webid)
-	if (carDealer == webid) and not carRetrieved then
-        Delay(1000, function(webid)
-            carRetrieved = not carRetrieved
-			CallRemoteEvent("sendCarList")
-		end, carDealer)
-	end
-end
-AddEvent("OnWebLoadComplete", OnWebLoadComplete)
+AddEvent("OnTranslationReady", function()
+	cardealer = Dialog.create(_("car_dealer"), nil, _("buy"), _("cancel"))
+	Dialog.addSelect(cardealer, 1, _("vehicle_list"), 10)
+	Dialog.addSelect(cardealer, 2, _("color"), 10)
+end)
 
 function OnKeyPress(key)
     if key == "E" then
@@ -39,6 +22,20 @@ function OnKeyPress(key)
 	end
 end
 AddEvent("OnKeyPress", OnKeyPress)
+
+AddEvent("OnDialogSubmit", function(dialog, button, ...)
+	if dialog == cardealer then
+		local NearestCarDealer = GetNearestCarDealer()
+		local args = { ... }
+		if button == 1 then
+			if args[1] == "" or args[2] == "" then
+				AddPlayerChat(_("select_car_to_buy"))
+			else
+				CallRemoteEvent("buyCarServer", args[1], args[2], NearestCarDealer)
+			end
+        end
+    end
+end)
 
 AddRemoteEvent("carDealerSetup", function(CarDealerObject)
     CarDealerIds = CarDealerObject
@@ -71,41 +68,17 @@ function tablefind(tab, el)
 	end
 end
 
-function openCarDealer()
-    ShowMouseCursor(true)
-    SetInputMode(INPUT_UI)
-    SetWebVisibility(carDealer, WEB_VISIBLE)
-    isCarDealer = not isCarDealer
-    
+function openCarDealer(lvehicles, lcolors)
+	local cars = {}
+	for k,v in pairs(lvehicles) do
+		cars[k] = _(k).." ["..v.._("currency").."]"
+	end
+	local colors = {}
+	for k,v in pairs(lcolors) do
+		colors[k] = _(k)
+	end
+	Dialog.setSelectLabeledOptions(cardealer, 1, 1, cars)
+	Dialog.setSelectLabeledOptions(cardealer, 2, 1, colors)
+	Dialog.show(cardealer)
 end
 AddRemoteEvent("openCarDealer", openCarDealer)
-
-function getCarList(car)
-    for k,v in pairs(car) do
-        local modelid = tostring(v.modelid)
-        local name = tostring(v.name)
-        local price = tostring(v.price)
-        ExecuteWebJS(carDealer, 'addCarList( "'..modelid..'", "'..name..'", "'..price..'");')
-	end
-end
-AddRemoteEvent("getCarList", getCarList)
-
-function closeCarDealer()
-    ShowMouseCursor(false)
-    SetInputMode(INPUT_GAME)
-    SetWebVisibility(carDealer, WEB_HIDDEN)
-    isCarDealer = not isCarDealer
-end
-AddRemoteEvent("closeCarDealer", closeCarDealer)
-AddEvent("closeCarDealer", closeCarDealer)
-
-function buyCar(modelid, color)
-	local modelid = tostring(modelid)
-	local color = tostring(color)
-    if color == 'nil' then
-        AddPlayerChat(_("select_car_to_buy"))
-    else
-        CallRemoteEvent("buyCarServer", modelid, color)
-    end
-end
-AddEvent("buyCar", buyCar)

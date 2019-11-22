@@ -1,21 +1,13 @@
+local Dialog = ImportPackage("dialogui")
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 local garageDealer
 local GarageDealerIds = { }
 
-function OnPackageStart()
-	garageDealer = CreateWebUI(800.0, 200.0, 700.0, 450.0, 5, 10)
-	LoadWebFile(garageDealer, "http://asset/"..GetPackageName().."/client/garage/garage.html")
-	SetWebAlignment(garageDealer, 0.0, 0.0)
-	SetWebAnchors(garageDealer, 0.0, 0.0, 1.0, 1.0)
-    SetWebVisibility(garageDealer, WEB_HIDDEN)
-end
-AddEvent("OnPackageStart", OnPackageStart)
-
-function OnPackageStop()
-	DestroyWebUI(garageDealer)
-end
-AddEvent("OnPackageStop", OnPackageStop)
+AddEvent("OnTranslationReady", function()
+	garageDealer = Dialog.create(_("garage"), nil, _("spawn"), _("sell") , _("cancel"))
+	Dialog.addSelect(garageDealer, 1, _("vehicle_list"), 10)
+end)
 
 function OnKeyPress(key)
     if key == "E" then
@@ -27,10 +19,29 @@ function OnKeyPress(key)
 end
 AddEvent("OnKeyPress", OnKeyPress)
 
+AddEvent("OnDialogSubmit", function(dialog, button, ...)
+	if dialog == garageDealer then
+		local args = { ... }
+		if button == 1 then
+			if args[1] == "" then
+				AddPlayerChat(_("select_car_to_spawn"))
+            else
+                CallRemoteEvent("spawnCarServer", args[1])
+			end
+        end
+        if button == 2 then
+            if args[1] == "" then
+                AddPlayerChat(_("select_car_to_sell"))
+            else
+                CallRemoteEvent("sellCarServer", args[1])
+            end
+        end
+    end
+end)
+
 AddRemoteEvent("garageDealerSetup", function(GarageDealerObject)
     GarageDealerIds = GarageDealerObject
 end)
-
 
 function GetNearestGarageDealer()
     local x, y, z = GetPlayerLocation()
@@ -57,53 +68,13 @@ function tablefind(tab, el)
 	end
 end
 
-function openGarageDealer()
-    ShowMouseCursor(true)
-    SetInputMode(INPUT_UI)
-    SetWebVisibility(garageDealer, WEB_VISIBLE)
-    isGarageDealer = not isGarageDealer
-    CallRemoteEvent("sendGarageList")
+function openGarageDealer(lVehicles)
+    local cars = {}
+    for k,v in pairs(lVehicles) do
+        cars[k] = _(v.name).." ["..v.price.._("currency").."]"
+	end
+    Dialog.setSelectLabeledOptions(garageDealer, 1, 1, cars)
+    Dialog.show(garageDealer)
 
 end
 AddRemoteEvent("openGarageDealer", openGarageDealer)
-
-function clearGarageList()
-    ExecuteWebJS(garageDealer, 'clearGarage();')
-end
-AddRemoteEvent("clearGarageList", clearGarageList)
-
-function getGarageList(id, name, price, color)
-        ExecuteWebJS(garageDealer, 'addGarageList( "'..id..'", "'..name..'", "'..price..'", "'..color..'");')
-end
-AddRemoteEvent("getGarageList", getGarageList)
-
-function closeGarageDealer()
-    ShowMouseCursor(false)
-    SetInputMode(INPUT_GAME)
-    SetWebVisibility(garageDealer, WEB_HIDDEN)
-    isGarageDealer = not isGarageDealer
-end
-AddEvent("closeGarageDealer", closeGarageDealer)
-AddRemoteEvent("closeGarageDealer", closeGarageDealer)
-
-function spawnCar(id)
-    local id = tostring(id)
-
-    if id == 'nil' then
-        AddPlayerChat(_("select_car_to_spawn"))
-    else
-        CallRemoteEvent("spawnCarServer", id)
-    end
-end
-AddEvent("spawnCar", spawnCar)
-
-function sellCar(id)
-    local id = tostring(id)
-
-    if id == 'nil' then
-        AddPlayerChat(_("select_car_to_sell"))
-    else
-        CallRemoteEvent("sellCarServer", id)
-    end
-end
-AddEvent("sellCar", sellCar)

@@ -14,7 +14,8 @@
         "vehicle_dealer/server.lua",
         "vehicle/server.lua",
         "garage/server.lua",
-        "misc/s_teleport.lua"
+        "misc/s_teleport.lua",
+        "character/server.lua"
     ],
     "client_scripts": [
         "hunger/client.lua",
@@ -24,7 +25,8 @@
         "atm/client.lua",
         "vehicle_dealer/client.lua",
         "vehicle/client.lua",
-        "garage/client.lua"
+        "garage/client.lua",
+        "character/client.lua"
     ],
     "files": [
         "client/files/carLock.mp3",

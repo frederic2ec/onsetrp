@@ -61,7 +61,7 @@ AddRemoteEvent("garageDealerInteract", function(player, garagedealerobject)
 		local x2, y2, z2 = GetPlayerLocation(player)
         local dist = GetDistance3D(x, y, z, x2, y2, z2)
 		if dist < 150 then
-            CallRemoteEvent(player, "openGarageDealer")
+            sendGarageList(player)
 		end
 	end
 end)
@@ -81,21 +81,23 @@ function sendGarageList(player)
 
     mariadb_async_query(sql, query, OnGarageListLoaded, player)
 end
-AddRemoteEvent("sendGarageList", sendGarageList)
 
 function OnGarageListLoaded(player)
-    CallRemoteEvent(player, "clearGarageList")
+    local lVehicle = {}
     for i=1,mariadb_get_row_count() do
         local result = mariadb_get_assoc(i)
 
-        local id = math.tointeger(result["id"])
-		local modelid = math.tointeger(result["modelid"])
-		local color = result["color"]
-        local name = getVehicleName(modelid)
-        local price = getVehiclePrice(modelid) * 0.25
-        
-        CallRemoteEvent(player, "getGarageList", id, name, price, color)
-	end
+        local id = tostring(result["id"])
+        local modelid = math.tointeger(result["modelid"])
+        local color = result["color"]
+        local name = "vehicle_"..modelid
+        local price = math.ceil(result["price"] * 0.25)
+        lVehicle[id] = {}
+        lVehicle[id].name = name
+        lVehicle[id].price = price
+    end
+    CallRemoteEvent(player, "openGarageDealer", lVehicle)
+    
 end
 
 function OnPlayerPickupHit(player, pickup)
@@ -133,7 +135,7 @@ function spawnCarServerLoaded(player)
         local id = math.tointeger(result["id"])
         local modelid = math.tointeger(result["modelid"])
         local color = tostring(result["color"])
-        local name = getVehicleName(modelid)
+        local name = _("vehicle_"..modelid)
 
         local query = mariadb_prepare(sql, "UPDATE `player_garage` SET `garage`=0 WHERE `id` = ?;",
         tostring(id)
@@ -193,15 +195,14 @@ function sellCarServerLoaded(player)
 
         local id = math.tointeger(result["id"])
         local modelid = math.tointeger(result["modelid"])
-        local name = getVehicleName(modelid)
-        local price = getVehiclePrice(modelid) * 0.25
+        local name = _("vehicle_"..modelid)
+        local price = math.ceil(result["price"] * 0.25)
 
         local query = mariadb_prepare(sql, "DELETE FROM `player_garage` WHERE `id` = ?;",
         tostring(id)
         )
         mariadb_async_query(sql, query)
         PlayerData[player].cash = PlayerData[player].cash + tonumber(price)
-        CallRemoteEvent(player, "closeGarageDealer")
         return AddPlayerChat(player, _("sell_vehicle_success", tostring(name), price, _("currency")))
 	end
 end
