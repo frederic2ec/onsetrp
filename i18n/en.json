@@ -43,5 +43,7 @@
     "vehicle_7": "Truck",
     "vehicle_11": "Coupe",
     "vehicle_12": "Rally",
-    "vehicle_list": "Vehicles list"
+    "vehicle_list": "Vehicles list",
+    "spawn": "Spawn",
+    "sell": "Sell"
 }
