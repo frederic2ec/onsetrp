@@ -32,7 +32,6 @@
     "car_unlocked": "Car unlocked !",
     "buy": "Buy",
     "color": "Color :",
-    "white": "White",
     "black": "Black",
     "red": "Red",
     "blue": "Blue",
@@ -43,5 +42,6 @@
     "vehicle_6": "Nascar",
     "vehicle_7": "Truck",
     "vehicle_11": "Coupe",
-    "vehicle_12": "Rally"
+    "vehicle_12": "Rally",
+    "vehicle_list": "Vehicles list"
 }
