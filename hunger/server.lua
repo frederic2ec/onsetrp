@@ -6,13 +6,6 @@ function OnPlayerDeath(player, instigator)
 end
 AddEvent("OnPlayerDeath", OnPlayerDeath)
 
-function setPlayerHealth(player, health)
-    -- Set the player health
-    SetPlayerHealth(player, health)
-    
-end
-AddRemoteEvent("setPlayerHealth", setPlayerHealth)
-
 -- Hunger
 function setPlayerHunger(player, hunger)
     PlayerData[player].hunger = hunger
@@ -51,7 +44,7 @@ function removePlayerHunger(player, hunger)
     -- Remove health to player if hunger is 0
     if  PlayerData[player].hunger == 0 then
         health = GetPlayerHealth(player) - 5
-        setPlayerHealth(player, health)
+        SetPlayerHealth(player, health)
     end
 end
 AddRemoteEvent("removePlayerHunger", removePlayerHunger)
@@ -68,7 +61,6 @@ AddRemoteEvent("sendPlayerHunger", sendPlayerHunger)
 -- Thirst
 function setPlayerThirst(player, thirst)
     PlayerData[player].thirst = thirst
-
     -- Set thirst to an 100 if the number is greater
     if PlayerData[player].thirst > 100 then
         PlayerData[player].thirst = 100
@@ -76,7 +68,7 @@ function setPlayerThirst(player, thirst)
 
     -- Kill the player if is thirst is 0
     if  PlayerData[player].thirst == 0 then
-        setPlayerHealth(player, 0)
+        SetPlayerHealth(player, 0)
     end
 end
 AddRemoteEvent("setPlayerThirst", setPlayerThirst)
@@ -107,7 +99,7 @@ function removePlayerThirst(player, thirst)
 
     -- Kill the player if is thirst is 0
     if  PlayerData[player].thirst == 0 then
-        setPlayerHealth(player, 0)
+        SetPlayerHealth(player, 0)
     end
 end
 AddRemoteEvent("removePlayerThirst", removePlayerThirst)

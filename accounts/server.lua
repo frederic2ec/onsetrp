@@ -1,4 +1,3 @@
-
 PlayerData = {}
 
 function OnPackageStart()
@@ -101,7 +100,12 @@ function CreatePlayerAccount(player)
 end
 
 function OnAccountCreated(player)
-    PlayerData[player].accountid = mariadb_get_insert_id()
+	PlayerData[player].accountid = mariadb_get_insert_id()
+	
+	Delay(3000, function()
+		ServerCharacterCreation(player)
+	end)
+	
 
     SetPlayerLoggedIn(player)
 
@@ -128,8 +132,18 @@ function OnAccountLoaded(player)
 
 		PlayerData[player].admin = math.tointeger(result['admin'])
 		PlayerData[player].cash = math.tointeger(result['cash'])
-        PlayerData[player].bank_balance = math.tointeger(result['bank_balance'])
-        
+		PlayerData[player].bank_balance = math.tointeger(result['bank_balance'])
+		PlayerData[player].name = tostring(result['name'])
+		PlayerData[player].clothing = json_decode(result['clothing'])
+
+		SetPlayerName(player, PlayerData[player].name)
+		
+		playerhairscolor = getHairsColor(PlayerData[player].clothing[2])
+		CallRemoteEvent(player, "ClientChangeClothing", 0, PlayerData[player].clothing[1], playerhairscolor[1], playerhairscolor[2], playerhairscolor[3], playerhairscolor[4])
+		CallRemoteEvent(player, "ClientChangeClothing", 1, PlayerData[player].clothing[3], 0, 0, 0, 0)
+		CallRemoteEvent(player, "ClientChangeClothing", 4, PlayerData[player].clothing[4], 0, 0, 0, 0)
+		CallRemoteEvent(player, "ClientChangeClothing", 5, PlayerData[player].clothing[5], 0, 0, 0, 0)
+		
 		SetPlayerHealth(player, tonumber(result['health']))
 		SetPlayerArmor(player, tonumber(result['armor']))
         setPlayerThirst(player, tonumber(result['thirst']))
@@ -146,7 +160,9 @@ end
 function CreatePlayerData(player)
 	PlayerData[player] = {}
 
-    PlayerData[player].accountid = 0
+	PlayerData[player].accountid = 0
+	PlayerData[player].name = ""
+	PlayerData[player].clothing = {}
     PlayerData[player].logged_in = false
     PlayerData[player].admin = 0
     PlayerData[player].locale = GetPlayerLocale(player)
@@ -175,15 +191,18 @@ function SavePlayerAccount(player)
 		return
 	end
 
-	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, cash = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ? WHERE id = ? LIMIT 1;",
+	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, cash = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?' WHERE id = ? LIMIT 1;",
 		PlayerData[player].admin,
 		PlayerData[player].cash,
 		PlayerData[player].bank_balance,
 		GetPlayerHealth(player),
         GetPlayerArmor(player),
         PlayerData[player].hunger,
-        PlayerData[player].thirst,
-        PlayerData[player].accountid)
+		PlayerData[player].thirst,
+		PlayerData[player].name,
+		json_encode(PlayerData[player].clothing),
+		PlayerData[player].accountid
+		)
         
 	mariadb_query(sql, query)
 end

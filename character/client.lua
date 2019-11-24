@@ -3,13 +3,26 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 
 local characterCreation
 
+local playerName = ""
+local playerHairs = ""
+local playerHairsColor = ""
+local playerShirt = ""
+local playerPants = ""
+local playerShoes = ""
 
 AddEvent("OnTranslationReady", function()
-    characterCreation = Dialog.create("Character Creation", "Create your character", "Create")
-    Dialog.addSelect(characterCreation, 1, "Hairs", 5)
-    Dialog.addSelect(characterCreation, 2, "Shirts", 5)
-    Dialog.addSelect(characterCreation, 3, "Pants", 3)
-    Dialog.addSelect(characterCreation, 4, "Shoes", 2)
+    characterCreation = Dialog.create(_("character_creation"), _("create_character_name"), _("next_step"))
+    Dialog.addTextInput(characterCreation, 1, _("first_name"))
+    Dialog.addTextInput(characterCreation, 1, _("last_name"))
+    hairsCreation = Dialog.create(_("hairs_creation"), _("choose_hairs_color"), _("next_step"))
+    Dialog.addSelect(hairsCreation, 1, _("hairs"), 5)
+    Dialog.addSelect(hairsCreation, 2, _("color"), 5)
+    shirtsCreation = Dialog.create(_("shirts_creation"), _("choose_shirt"), _("next_step"))
+    Dialog.addSelect(shirtsCreation, 1, _("shirts"), 5)
+    pantsCreation = Dialog.create(_("pants_creation"), _("choose_pants"), _("next_step"))
+    Dialog.addSelect(pantsCreation, 1, _("pants"), 5)
+    shoesCreation = Dialog.create(_("shoes_creation"), _("choose_shoes"), _("create"))
+    Dialog.addSelect(shoesCreation, 1, _("shoes"), 5)
 end)
 
 function OnKeyPress(key)
@@ -20,48 +33,102 @@ end
 AddEvent("OnKeyPress", OnKeyPress)
 
 
-AddRemoteEvent("openCharacterCreation", function(lhairs, lshirts, lpants, lshoes)
-    AddPlayerChat("called")
+AddRemoteEvent("openCharacterCreation", function(lhairs, lshirts, lpants, lshoes,lhairscolor)
+    AddPlayerChat(playerName)
     hairs = {}
     for k,v in pairs(lhairs) do
-        hairs[k] = v
+        hairs[k] = _("clothes_"..k)
+    end
+    hairsColor = {}
+    for k,v in pairs(lhairscolor) do
+        hairsColor[k] = _(k)
     end
     shirts = {}
     for k,v in pairs(lshirts) do
-        shirts[k] = v
+        shirts[k] = _("clothes_"..k)
     end
     pants = {}
     for k,v in pairs(lpants) do
-        pants[k] = v
+        pants[k] = _("clothes_"..k)
     end
     shoes = {}
     for k,v in pairs(lshoes) do
-        shoes[k] = v
+        shoes[k] = _("clothes_"..k)
 	end
 
-    Dialog.setSelectLabeledOptions(characterCreation, 1, 1, hairs)
-    Dialog.setSelectLabeledOptions(characterCreation, 2, 1, shirts)
-    Dialog.setSelectLabeledOptions(characterCreation, 3, 1, pants)
-    Dialog.setSelectLabeledOptions(characterCreation, 4, 1, shoes)
+    Dialog.setSelectLabeledOptions(hairsCreation, 1, 1, hairs)
+    Dialog.setSelectLabeledOptions(hairsCreation, 2, 1, hairsColor)
+    Dialog.setSelectLabeledOptions(shirtsCreation, 1, 1, shirts)
+    Dialog.setSelectLabeledOptions(pantsCreation, 1, 1, pants)
+    Dialog.setSelectLabeledOptions(shoesCreation, 1, 1, shoes)
+    
     Dialog.show(characterCreation)
 end)
 
 
 
 AddEvent("OnDialogSubmit", function(dialog, button, ...)
+    local args = { ... }
 	if dialog == characterCreation then
-        local args = { ... }
-        AddPlayerChat(args[1])
         if button == 1 then
-			ChangeClothing(0, args[1])
-            ChangeClothing(1, args[2])
-            ChangeClothing(4, args[3])
-            ChangeClothing(5, args[4])
+            if args[1] == "" or args[2] == "" then
+                AddPlayerChat(_("enter_valid_name"))
+                Dialog.show(characterCreation)
+            else
+                playerName = args[1].." "..args[2]
+                Dialog.show(hairsCreation)
+            end
+        end
+    end
+    if dialog == hairsCreation then
+        if button == 1 then
+            if args[1] == "" or args[2] == "" then
+                AddPlayerChat(_("please_choose_hairs"))
+                Dialog.show(hairsCreation)
+            else
+                playerHairs = args[1]
+                playerHairsColor = args[2]
+                Dialog.show(shirtsCreation)
+            end
+        end
+    end
+    if dialog == shirtsCreation then
+        if button == 1 then
+            if args[1] == "" then
+                AddPlayerChat(_("please_choose_shirt"))
+                Dialog.show(shirtsCreation)
+            else
+                playerShirt = args[1]
+                Dialog.show(pantsCreation)
+            end
+        end
+    end
+    if dialog == pantsCreation then
+        if button == 1 then
+            if args[1] == "" then
+                AddPlayerChat(_("please_choose_pants"))
+                Dialog.show(pantsCreation)
+            else
+                playerPants = args[1]
+                Dialog.show(shoesCreation)
+            end
+        end
+    end
+    if dialog == shoesCreation then
+        if button == 1 then
+            if args[1] == "" then
+                AddPlayerChat(_("please_choose_shoes"))
+                Dialog.show(shoesCreation)
+            else
+                playerShoes = args[1]
+
+                CallRemoteEvent("ServerChangeClothes", playerName, playerHairs, playerHairsColor, playerShirt, playerPants, playerShoes)
+            end
         end
     end
 end)
 
-function ChangeClothing(part, piece)
+AddRemoteEvent("ClientChangeClothing", function(part, piece, r, g, b, a)
     local player = GetPlayerId()
     local SkeletalMeshComponent
     local pieceName
@@ -82,6 +149,10 @@ function ChangeClothing(part, piece)
         pieceName = piece
     end
     SkeletalMeshComponent:SetSkeletalMesh(USkeletalMesh.LoadFromAsset(pieceName))
-end
+    local DynamicMaterialInstance = SkeletalMeshComponent:CreateDynamicMaterialInstance(0)
+    if part == 0 then
+        DynamicMaterialInstance:SetColorParameter("Hair Color", FLinearColor(r, g, b, a))
+    end
+end)
 
 
