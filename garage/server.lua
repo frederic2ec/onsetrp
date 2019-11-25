@@ -36,7 +36,8 @@ end)
 
  AddEvent("OnPackageStart", function()
 	for k,v in pairs(GarageDealerTable) do
-		v.npc = CreateNPC(v.location[1], v.location[2], v.location[3], v.location[4])
+        v.npc = CreateNPC(v.location[1], v.location[2], v.location[3], v.location[4])
+        
 		CreateText3D(_("garage").."\n".._("press_e"), 18, v.location[1], v.location[2], v.location[3] + 120, 0, 0, 0)
 
 		table.insert(GarageDealerObjectsCached, v.npc)

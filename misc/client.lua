@@ -19,3 +19,8 @@ function OnKeyPress(key)
 	end
 end
 AddEvent("OnKeyPress", OnKeyPress)
+
+
+AddEvent("OnNPCStreamIn", function(npc)
+	SetNPCClothingPreset(npc, 14)
+end)
