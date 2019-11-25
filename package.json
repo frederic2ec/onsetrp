@@ -17,7 +17,8 @@
         "misc/s_teleport.lua",
         "character/server.lua",
         "misc/json.lua",
-        "hunger/server.lua"
+        "hunger/server.lua",
+        "housing/server.lua"
     ],
     "client_scripts": [
         "hunger/client.lua",
@@ -29,7 +30,8 @@
         "vehicle/client.lua",
         "garage/client.lua",
         "character/client.lua",
-        "misc/json.lua"
+        "misc/json.lua",
+        "housing/client.lua"
     ],
     "files": [
         "client/files/carLock.mp3",

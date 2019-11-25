@@ -30,8 +30,7 @@ GarageDealerTable = {
 GarageStoreObjectsCached = {}
 
 AddEvent("database:connected", function()
-    mariadb_async_query(sql, "UPDATE `player_garage` SET `garage`=1 WHERE garage = 0;")
-    
+    mariadb_query(sql, "UPDATE `player_garage` SET `garage`=1 WHERE garage = 0;")
 end)
 
  AddEvent("OnPackageStart", function()

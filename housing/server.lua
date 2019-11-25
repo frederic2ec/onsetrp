@@ -1,3 +1,5 @@
+local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
+
 local houses = {
     {
         id = 1,
@@ -731,3 +733,93 @@ local houses = {
         doors = {}
     }
 }
+
+function getHouseDoor(door)
+    for k,v in pairs(houses) do
+        for i,j in pairs(v.doors) do
+            if j.entity == door then
+                return k
+            end
+        end
+    end
+    return 0
+end
+
+function getHouseID(id)
+    for k,v in pairs(houses) do
+        if v.id == id then
+            return k
+        end
+    end
+    return 0
+end
+
+AddEvent("database:connected", function()
+    mariadb_query(sql, "SELECT * FROM player_house;", function()
+        for i=1,mariadb_get_row_count() do
+            local result = mariadb_get_assoc(i)
+            local id = getHouseID(tonumber(result['id']))
+            
+
+            houses[id].owner = tonumber(result['ownerid'])
+
+            if houses[id].owner == 0 then
+                houses[id].txtentities = {
+                    CreateText3D( _("house_id").." "..houses[id].id, 10, houses[id].text[1] , houses[id].text[2], houses[id].text[3]+20, 0, 0, 0 ),
+                    CreateText3D( _("price").." "..houses[id].price.._("currency"), 10, houses[id].text[1] , houses[id].text[2], houses[id].text[3], 0, 0, 0 )
+                }
+            else
+                mariadb_query(sql, "SELECT name FROM accounts WHERE id='"..houses[id].owner.."';", function()
+                    houses[id].txtentities = {
+                        CreateText3D( _("house_id").." "..houses[id].id, 10, houses[id].text[1] , houses[id].text[2], houses[id].text[3]+20, 0, 0, 0 ),
+                        CreateText3D( _("owner").." "..mariadb_get_value_name(1, "name"), 10, houses[id].text[1] , houses[id].text[2], houses[id].text[3], 0, 0, 0 )
+                    }
+                end)
+            end
+        end
+    end)
+    
+end)
+
+AddEvent("OnPackageStart", function()
+    for k,v in pairs(houses) do
+        for k,v in pairs(v.doors) do
+            v.entity = CreateDoor( v.model, v.x, v.y, v.z, v.r, true )
+        end
+    end
+end)
+
+AddEvent("OnPlayerInteractDoor", function( player, door, bWantsOpen )
+    local house = getHouseDoor(door)
+    if house == 0 then
+        SetDoorOpen(door, not IsDoorOpen(door))
+    else
+        if houses[house].owner == 0 then
+            CallRemoteEvent(player, "OpenHouseMenu", house, houses[house].price)
+        else
+            if houses[house].owner == tonumber(PlayerData[player].accountid) then
+                SetDoorOpen(door, not IsDoorOpen(door))
+            end
+        end
+    end
+end)
+
+AddRemoteEvent("BuyHouse", function(player, house)
+    if PlayerData[player].cash < houses[house].price then
+        return AddPlayerChat(player, _("not_enought_cash"))
+    end
+    mariadb_query(sql, "SELECT * FROM player_house WHERE ownerid='"..PlayerData[player].accountid.."';", function()
+        if mariadb_get_row_count() >= 1 then
+            AddPlayerChat(player, _("already_house_owner"))
+        else
+            PlayerData[player].cash = PlayerData[player].cash - houses[house].price
+            houses[house].owner = tonumber(PlayerData[player].accountid)
+            mariadb_query(sql, "UPDATE player_house SET ownerid='"..houses[house].owner.."' WHERE id='"..houses[house].id.."';")
+            DestroyText3D(houses[house].txtentities[2])
+            houses[house].txtentities[2] = CreateText3D( _("owner").." "..GetPlayerName(player), 10, houses[house].text[1] , houses[house].text[2], houses[house].text[3], 0, 0, 0 )        
+        end
+    end)
+end)
+
+
+
