@@ -86,5 +86,12 @@
     "clothes_simple_shirt": "Simple Shirt 3",
     "clothes_knitted_shirt_2": "Knitted Shirt 2",
     "clothes_knitted_shirt_1": "Knitted Shirt 1",
-    "clothes_tshirt": "T-Shirt"
+    "clothes_tshirt": "T-Shirt",
+    "price": "Price :",
+    "owner\n": "Owner :",
+    "house_id": "House ID :",
+    "not_enought_cash": "You don't have enought cash !",
+    "already_house_owner": "You already own an house !",
+    "house_menu": "House menu",
+    "house_menu_price": "House price : {price} {1}"
 }
