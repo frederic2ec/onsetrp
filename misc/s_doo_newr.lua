@@ -1,3 +1,16 @@
+--[[
+
+This script contains all interactive doors/gates in the game.
+
+]]--
+
+AddEvent("OnPlayerInteractDoor", function(player, door, bWantsOpen)
+	--AddPlayerChat(player, "Door: "..door..", "..tostring(bWantsOpen))
+
+	-- Let the players open/close the door by default.
+	SetDoorOpen(door, not IsDoorOpen(door))
+end)
+
 AddEvent("OnPackageStart", function()
 	
 	-- Desert Town 2 motel
@@ -138,8 +151,6 @@ AddEvent("OnPackageStart", function()
 	CreateDoor(43, -172987.000000, -63886.000000, 1111.000000, 0.0, true)
 	CreateDoor(43, -173363.000000, -64113.000000, 1111.000000, -90.0, true)
 	CreateDoor(43, -172988.000000, -63485.000000, 1111.000000, 0.0, true)
-	CreateDoor(31, -168700.000000, -38920.000000, 1051.000000, 0.0, true) -- Front sliding door gas station town
-	CreateDoor(3, -169403.000000, -39609.000000, 1051.000000, -90.0, true)
 	CreateDoor(35, -182093.000000, -40643.000000, 1065.000000, 90.0, true) -- Armed&Dangerous front
 	CreateDoor(36, -180794.000000, -40995.000000, 1065.000000, 0.0, true) -- A&D back door
 

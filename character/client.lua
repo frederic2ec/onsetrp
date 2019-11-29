@@ -3,6 +3,8 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 
 local characterCreation
 
+local isCreated = true
+
 local playerName = ""
 local playerHairs = ""
 local playerHairsColor = ""
@@ -25,13 +27,15 @@ AddEvent("OnTranslationReady", function()
     Dialog.addSelect(shoesCreation, 1, _("shoes"), 5)
 end)
 
-function OnKeyPress(key)
-    if key == "Y" then
+AddEvent("OnDialogUIReady", function()
+    if not isCreated then
         CallRemoteEvent("ServerCharacterCreation")
-	end
-end
-AddEvent("OnKeyPress", OnKeyPress)
+    end
+end)
 
+AddRemoteEvent( "askClientCreation", function() 
+    isCreated = false
+end)
 
 AddRemoteEvent("openCharacterCreation", function(lhairs, lshirts, lpants, lshoes,lhairscolor)
     AddPlayerChat(playerName)
@@ -123,6 +127,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
                 playerShoes = args[1]
 
                 CallRemoteEvent("ServerChangeClothes", playerName, playerHairs, playerHairsColor, playerShirt, playerPants, playerShoes)
+                isCreated = true
             end
         end
     end

@@ -33,9 +33,9 @@ local hairsColor = {
     brown = { 139, 69, 19, 1 }
 }
 
-function ServerCharacterCreation(player)
+AddRemoteEvent("ServerCharacterCreation", function(player)
     CallRemoteEvent(player, "openCharacterCreation", hairsModel, shirtsModel, pantsModel, shoesModel, hairsColor)
-end
+end)
 
 
 AddRemoteEvent("ServerChangeClothes", function(player, playername, playerhairs, playerhairscolor, playershirt, playerpants, playershoes)

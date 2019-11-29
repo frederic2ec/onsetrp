@@ -101,11 +101,8 @@ end
 
 function OnAccountCreated(player)
 	PlayerData[player].accountid = mariadb_get_insert_id()
-	
-	Delay(3000, function()
-		ServerCharacterCreation(player)
-	end)
-	
+
+	CallRemoteEvent(player, "askClientCreation")
 
     SetPlayerLoggedIn(player)
 

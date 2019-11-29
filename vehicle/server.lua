@@ -20,6 +20,12 @@ function DestroyVehicleData(vehicle)
     VehicleData[vehicle] = nil
 end
 
+AddRemoteEvent("ServerVehicleMenu", function(player, vehicle)
+    if VehicleData[vehicle].owner == PlayerData[player].accountid then
+        CallRemoteEvent(player, "OpenVehicleMenu")
+    end
+end)
+
 function unlockVehicle(player)
     local nearestCar = GetNearestCar(player)
     local vehicle = VehicleData[nearestCar]
@@ -39,6 +45,24 @@ function unlockVehicle(player)
     end
 end
 AddRemoteEvent("unlockVehicle", unlockVehicle)
+
+AddRemoteEvent("OpenTrunk", function(player)
+    local vehicle = GetNearestCar(player)
+
+    if (GetVehicleTrunkRatio(vehicle) > 0.0) then
+        SetVehicleTrunkRatio(vehicle, 0.0)
+    else
+        SetVehicleTrunkRatio(vehicle, 60.0)
+    end
+end)
+
+AddRemoteEvent("UnflipVehicle", function(player) 
+    local vehicle = GetNearestCar(player)
+    local rx, ry, rz = GetVehicleRotation(vehicle)
+
+    SetVehicleRotation(vehicle, 0, ry, 0 )
+end)
+
 
 function GetNearestCar(player)
     local x, y, z = GetPlayerLocation(player)
