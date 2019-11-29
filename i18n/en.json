@@ -110,5 +110,8 @@
     "select_amount": "Please select an amount !",
     "shop_success_buy": "You successfully bought a : {1} for {2} {3}",
     "shop_success_sell": "You successfully sell a : {1} for {2} {3}",
-    "not_enough_item": "You don't have enough of that item !"
+    "not_enough_item": "You don't have enough of that item !",
+    "use": "Use",
+    "give": "Give",
+    "personal_menu": "Personal Menu"
 }
