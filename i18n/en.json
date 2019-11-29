@@ -100,5 +100,15 @@
     "lock_house": "You locked your house !",
     "house_sell": "You selled your house for {1} {2}",
     "default_spawn": "Your spawn have been set to the default !",
-    "house_spawn": "Your spawn have been set to your house !"
+    "house_spawn": "Your spawn have been set to your house !",
+    "water_bottle": "Water Bottle",
+    "donut": "Donut",
+    "shop": "Shop",
+    "inventory": "Inventory",
+    "quantity": "Quantity",
+    "select_item": "Please select an item !",
+    "select_amount": "Please select an amount !",
+    "shop_success_buy": "You successfully bought a : {1} for {2} {3}",
+    "shop_success_sell": "You successfully sell a : {1} for {2} {3}",
+    "not_enough_item": "You don't have enough of that item !"
 }
