@@ -18,7 +18,9 @@
         "character/server.lua",
         "misc/json.lua",
         "hunger/server.lua",
-        "housing/server.lua"
+        "housing/server.lua",
+        "inventory/server.lua",
+        "shops/server.lua"
     ],
     "client_scripts": [
         "hunger/client.lua",
@@ -31,7 +33,9 @@
         "garage/client.lua",
         "character/client.lua",
         "misc/json.lua",
-        "housing/client.lua"
+        "housing/client.lua",
+        "inventory/client.lua",
+        "shops/client.lua"
     ],
     "files": [
         "client/files/carLock.mp3",

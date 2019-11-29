@@ -132,6 +132,7 @@ function OnAccountLoaded(player)
 		PlayerData[player].bank_balance = math.tointeger(result['bank_balance'])
 		PlayerData[player].name = tostring(result['name'])
 		PlayerData[player].clothing = json_decode(result['clothing'])
+		PlayerData[player].inventory = json_decode(result['inventory'])
 
 		SetPlayerName(player, PlayerData[player].name)
 		
@@ -160,6 +161,7 @@ function CreatePlayerData(player)
 	PlayerData[player].accountid = 0
 	PlayerData[player].name = ""
 	PlayerData[player].clothing = {}
+	PlayerData[player].inventory = {}
     PlayerData[player].logged_in = false
     PlayerData[player].admin = 0
     PlayerData[player].locale = GetPlayerLocale(player)
@@ -188,7 +190,7 @@ function SavePlayerAccount(player)
 		return
 	end
 
-	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, cash = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?' WHERE id = ? LIMIT 1;",
+	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, cash = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', inventory = '?' WHERE id = ? LIMIT 1;",
 		PlayerData[player].admin,
 		PlayerData[player].cash,
 		PlayerData[player].bank_balance,
@@ -198,6 +200,7 @@ function SavePlayerAccount(player)
 		PlayerData[player].thirst,
 		PlayerData[player].name,
 		json_encode(PlayerData[player].clothing),
+		json_encode(PlayerData[player].inventory),
 		PlayerData[player].accountid
 		)
         
