@@ -98,5 +98,7 @@
     "unlock_lock": "Unlock / Lock",
     "unlock_house": "You unlocked your house !",
     "lock_house": "You locked your house !",
-    "house_sell": "You selled your house for {1} {2}"
+    "house_sell": "You selled your house for {1} {2}",
+    "default_spawn": "Your spawn have been set to the default !",
+    "house_spawn": "Your spawn have been set to your house !"
 }
