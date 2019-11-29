@@ -93,5 +93,10 @@
     "not_enought_cash": "You don't have enought cash !",
     "already_house_owner": "You already own an house !",
     "house_menu": "House menu",
-    "house_menu_price": "House price : {price} {1}"
+    "house_menu_price": "House price : {price} {1}",
+    "set_spawn": "Set Spawn",
+    "unlock_lock": "Unlock / Lock",
+    "unlock_house": "You unlocked your house !",
+    "lock_house": "You locked your house !",
+    "house_sell": "You selled your house for {1} {2}"
 }
