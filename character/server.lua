@@ -55,6 +55,13 @@ AddRemoteEvent("ServerChangeClothes", function(player, playername, playerhairs, 
     CallRemoteEvent(player, "ClientChangeClothing", 5, PlayerData[player].clothing[5], 0, 0, 0, 0)
 end)
 
+AddEvent("OnPlayerSpawn", function( player )
+    playerhairscolor = getHairsColor(PlayerData[player].clothing[2])
+    CallRemoteEvent(player, "ClientChangeClothing", 0, PlayerData[player].clothing[1], playerhairscolor[1], playerhairscolor[2], playerhairscolor[3], playerhairscolor[4])
+    CallRemoteEvent(player, "ClientChangeClothing", 1, PlayerData[player].clothing[3], 0, 0, 0, 0)
+    CallRemoteEvent(player, "ClientChangeClothing", 4, PlayerData[player].clothing[4], 0, 0, 0, 0)
+    CallRemoteEvent(player, "ClientChangeClothing", 5, PlayerData[player].clothing[5], 0, 0, 0, 0)
+end)
 
 function getHairsColor(color)
     for k,v in pairs(hairsColor) do

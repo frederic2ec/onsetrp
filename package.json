@@ -35,7 +35,8 @@
         "misc/json.lua",
         "housing/client.lua",
         "inventory/client.lua",
-        "shops/client.lua"
+        "shops/client.lua",
+        "misc/c_weapons.lua"
     ],
     "files": [
         "client/files/carLock.mp3",

@@ -5,10 +5,36 @@ ShopTable = {
 	{
 		items = { 
                     water_bottle = 10,
-                    donut = 10
+                    donut = 10,
+                    repair_kit = 10,
+                    health_kit = 10
 		},
 		location = { 128748, 77622, 1576, 90 },
-	}
+    },
+    {
+        items = {
+            weapon_2 = 10,
+            weapon_3 = 10,
+            weapon_4 = 10,
+            weapon_5 = 10,
+            weapon_6 = 10,
+            weapon_7 = 10,
+            weapon_8 = 10,
+            weapon_9 = 10,
+            weapon_10 = 10,
+            weapon_11 = 10,
+            weapon_12 = 10,
+            weapon_13 = 10,
+            weapon_14 = 10,
+            weapon_15 = 10,
+            weapon_16 = 10,
+            weapon_17 = 10,
+            weapon_18 = 10,
+            weapon_19 = 10,
+            weapon_20 = 10
+        },
+        location = {-181943, -40882, 1163, 0},
+    }
 }
 AddEvent("OnPackageStart", function()
 	for k,v in pairs(ShopTable) do
@@ -67,7 +93,7 @@ AddRemoteEvent("ShopBuy", function(player, shopid, item, amount)
         AddPlayerChat(player, _("not_enought_cash") )
     else
         PlayerData[player].cash = PlayerData[player].cash - price
-        AddPlayerChat(player, _("shop_success_buy", _(item), amount, _("currency")))
+        AddPlayerChat(player, _("shop_success_buy", _(item), price, _("currency")))
         AddInventory(player, item, amount)
     end
 end)
@@ -83,7 +109,7 @@ AddRemoteEvent("ShopSell", function(player, shopid, item, amount)
         AddPlayerChat(player, _("not_enough_item"))
     else
         PlayerData[player].cash = PlayerData[player].cash + math.ceil(price)
-        AddPlayerChat(player, _("shop_success_sell", _(item), amount, _("currency")))
+        AddPlayerChat(player, _("shop_success_sell", _(item), price, _("currency")))
         RemoveInventory(player, item, amount)
     end
 end)
