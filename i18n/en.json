@@ -144,5 +144,13 @@
     "unprocessed_weed": "Unprocessed Weed",
     "unprocessed_meth": "Unprocessed Meth",
     "unprocessed_coke": "Unprocessed Coke",
-    "unprocessed_heroin": "Unprocessed Heroin"
+    "unprocessed_heroin": "Unprocessed Heroin",
+    "gather": "Gather",
+    "process": "Process",
+    "gather_success": "You successfully gathered a : {1}",
+    "process_success": "You successfully processed a : {1}",
+    "trunk": "Trunk",
+    "unflip": "Unflip",
+    "store": "Store",
+    "vehicle_trunk": "Vehicle Trunk"
 }
