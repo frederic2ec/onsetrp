@@ -2,9 +2,18 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 local Dialog = ImportPackage("dialogui")
 
 local vehicleMenu
+local vehicleInventory
 
 AddEvent("OnTranslationReady", function()
-    vehicleMenu = Dialog.create("Vehicle", nil, "Trunk", "Unflip", _("unlock_lock"), _("cancel"))
+    vehicleMenu = Dialog.create("Vehicle", nil, _("trunk"), _("unflip"), _("unlock_lock"), _("cancel"))
+
+    vehicleInventory = Dialog.create(_("vehicle_trunk"), nil, _("cancel"))
+    Dialog.addSelect(vehicleInventory, 1, _("inventory"), 5)
+    Dialog.addTextInput(vehicleInventory, 1, _("quantity"))
+    Dialog.setButtons(vehicleInventory, 1, _("store"))
+    Dialog.addSelect(vehicleInventory, 2, _("trunk"), 5)
+    Dialog.addTextInput(vehicleInventory, 2, _("quantity"))
+    Dialog.setButtons(vehicleInventory, 2, _("get"))
 end)
 
 function OnPlayerStartEnterVehicle(vehicle)
@@ -56,7 +65,22 @@ AddRemoteEvent("OpenVehicleMenu", function()
     Dialog.show(vehicleMenu)
 end)
 
+AddRemoteEvent("OpenVehicleInventory", function(inventory, vehicleinventory)
+    local inventoryitems = {}
+	for k,v in pairs(inventory) do
+		inventoryitems[k] = _(k).."["..v.."]"
+	end
+	local vehicleItems = {}
+	for k,v in pairs(vehicleinventory) do
+		vehicleItems[k] = _(k).."["..v.."]"
+	end
+	Dialog.setSelectLabeledOptions(vehicleInventory, 1, 1, inventoryitems)
+	Dialog.setSelectLabeledOptions(vehicleInventory, 2, 1, vehicleItems)
+    Dialog.show(vehicleInventory)
+end)
+
 AddEvent("OnDialogSubmit", function(dialog, button, ...)
+    local args = { ... }
 	if dialog == vehicleMenu then
 		if button == 1 then
             CallRemoteEvent("OpenTrunk")
@@ -67,6 +91,32 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
         if button == 3 then
             CallRemoteEvent("unlockVehicle")
         end
+    end
+
+    if dialog == vehicleInventory then
+        if button == 1 then
+			if args[1] == "" then
+				AddPlayerChat(_("select_item"))
+			else
+				if args[2] == "" then
+					AddPlayerChat(_("select_amount"))
+				else
+					CallRemoteEvent("VehicleStore", args[1], args[2])
+				end
+			end
+		end
+		if button == 2 then
+			if args[3] == "" then
+				AddPlayerChat(_("select_item"))
+			else
+				if args[4] == "" then
+					AddPlayerChat(_("select_amount"))
+				else
+					CallRemoteEvent("VehicleUnstore", args[3], args[4])
+				end
+			end
+		end
+        CallRemoteEvent("CloseTrunk")
     end
 end)
 

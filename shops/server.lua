@@ -34,6 +34,15 @@ ShopTable = {
             weapon_20 = 10
         },
         location = {-181943, -40882, 1163, 0},
+    },
+    {
+        items = {
+            processed_weed = 4000,
+            processed_meth = 4000,
+            processed_coke = 4000,
+            processed_heroin = 4000
+        },
+        location = {-177344, 3673, 1992, 0},
     }
 }
 AddEvent("OnPackageStart", function()

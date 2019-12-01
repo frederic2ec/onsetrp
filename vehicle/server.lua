@@ -8,6 +8,7 @@ function CreateVehicleData(player, vehicle, modelid)
     VehicleData[vehicle].garageid = 0
     VehicleData[vehicle].owner = PlayerData[player].accountid
     VehicleData[vehicle].modelid = modelid
+    VehicleData[vehicle].inventory = {}
 
     print("Data created for : "..vehicle)
 end
@@ -48,12 +49,13 @@ AddRemoteEvent("unlockVehicle", unlockVehicle)
 
 AddRemoteEvent("OpenTrunk", function(player)
     local vehicle = GetNearestCar(player)
+    SetVehicleTrunkRatio(vehicle, 60.0)
+    CallRemoteEvent(player, "OpenVehicleInventory", PlayerData[player].inventory, VehicleData[vehicle].inventory)
+end)
 
-    if (GetVehicleTrunkRatio(vehicle) > 0.0) then
-        SetVehicleTrunkRatio(vehicle, 0.0)
-    else
-        SetVehicleTrunkRatio(vehicle, 60.0)
-    end
+AddRemoteEvent("CloseTrunk", function(player)
+    local vehicle = GetNearestCar(player)
+    SetVehicleTrunkRatio(vehicle, 0.0)
 end)
 
 AddRemoteEvent("UnflipVehicle", function(player) 
@@ -63,6 +65,28 @@ AddRemoteEvent("UnflipVehicle", function(player)
     SetVehicleRotation(vehicle, 0, ry, 0 )
 end)
 
+AddRemoteEvent("VehicleStore", function(player, item, amount) 
+    local vehicle = GetNearestCar(player)
+    print(item)
+    print(amount)
+    if tonumber(PlayerData[player].inventory[item]) < tonumber(amount) then
+        AddPlayerChat(player, _("not_enough_item"))
+    else
+        RemoveInventory(player, item, amount)
+        AddVehicleInventory(vehicle, item, amount)
+    end
+end)
+
+AddRemoteEvent("VehicleUnstore", function(player, item, amount) 
+    local vehicle = GetNearestCar(player)
+
+    if tonumber(VehicleData[vehicle].inventory[item]) < tonumber(amount) then
+        AddPlayerChat(player, _("not_enough_item"))
+    else
+        AddInventory(player, item, amount)
+        RemoveVehicleInventory(vehicle, item, amount)
+    end
+end)
 
 function GetNearestCar(player)
     local x, y, z = GetPlayerLocation(player)
@@ -105,4 +129,24 @@ end
 
 function getVehicleId(modelid)
     return modelid:gsub("vehicle_", "")
+end
+
+function AddVehicleInventory(vehicle, item, amount)
+    if VehicleData[vehicle].inventory[item] == nil then
+        VehicleData[vehicle].inventory[item] = amount
+    else
+        VehicleData[vehicle].inventory[item] = VehicleData[vehicle].inventory[item] + amount
+    end
+end
+
+function RemoveVehicleInventory(vehicle, item, amount)
+    if VehicleData[vehicle].inventory[item] == nil then
+        return
+    else
+        if VehicleData[vehicle].inventory[item] - amount < 1 then
+            VehicleData[vehicle].inventory[item] = nil
+        else
+            VehicleData[vehicle].inventory[item] = VehicleData[vehicle].inventory[item] - amount
+        end
+    end
 end
