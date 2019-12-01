@@ -152,5 +152,6 @@
     "trunk": "Trunk",
     "unflip": "Unflip",
     "store": "Store",
-    "vehicle_trunk": "Vehicle Trunk"
+    "vehicle_trunk": "Vehicle Trunk",
+    "get": "Get"
 }
