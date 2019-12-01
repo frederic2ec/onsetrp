@@ -153,5 +153,7 @@
     "unflip": "Unflip",
     "store": "Store",
     "vehicle_trunk": "Vehicle Trunk",
-    "get": "Get"
+    "get": "Get",
+    "banned_for": "🚨 You have been banned from the server:\\n\\nReason: {1}\"\\nTime: \"{2}",
+    "kicked_for": "🚨 You have been banned from the server:\\n\\nReason: {1}\""
 }
