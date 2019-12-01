@@ -1,3 +1,4 @@
+local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 PlayerData = {}
 
 function OnPackageStart()
@@ -64,7 +65,7 @@ function OnAccountCheckBan(player)
 
 		print("Kicking "..GetPlayerName(player).." because their account was banned")
 
-		KickPlayer(player, "🚨 You have been banned from the server:\n\nReason: "..result['reason'].."\nTime: "..result['FROM_UNIXTIME(bans.ban_time)'])
+		KickPlayer(player, _("banned_for", result['reason'], result['FROM_UNIXTIME(bans.ban_time)']))
 	end
 end
 

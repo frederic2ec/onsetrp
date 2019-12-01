@@ -21,7 +21,8 @@
         "housing/server.lua",
         "inventory/server.lua",
         "shops/server.lua",
-        "gathering/server.lua"
+        "gathering/server.lua",
+        "admin/server.lua"
     ],
     "client_scripts": [
         "hunger/client.lua",
@@ -38,7 +39,8 @@
         "inventory/client.lua",
         "shops/client.lua",
         "misc/c_weapons.lua",
-        "gathering/client.lua"
+        "gathering/client.lua",
+        "admin/client.lua"
     ],
     "files": [
         "client/files/carLock.mp3",
