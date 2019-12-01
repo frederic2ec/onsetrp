@@ -140,5 +140,9 @@
     "processed_weed": "Processed Weed",
     "processed_meth": "Processed Meth",
     "processed_coke": "Processed Coke",
-    "processed_heroin": "Processed Heroin"
+    "processed_heroin": "Processed Heroin",
+    "unprocessed_weed": "Unprocessed Weed",
+    "unprocessed_meth": "Unprocessed Meth",
+    "unprocessed_coke": "Unprocessed Coke",
+    "unprocessed_heroin": "Unprocessed Heroin"
 }
