@@ -203,5 +203,7 @@
     "vehicle_21": "Military 01",
     "vehicle_22": "Light Cargo 01",
     "vehicle_23": "Light Caro 02",
-    "vehicle_24": "Armored Truck"
+    "vehicle_24": "Armored Truck",
+    "house_already_unlocked": "This house is already unlocked !",
+    "vehicle_already_unlocked": "This vehicle is already unlocked !"
 }
