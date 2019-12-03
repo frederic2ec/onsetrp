@@ -209,5 +209,7 @@
     "lockpick": "Lockpick",
     "pickaxe": "Pickaxe",
     "apple": "Apple",
-    "need_tool": "You don't have the tool to gather !"
+    "need_tool": "You don't have the tool to gather !",
+    "unprocessed_iron": "Unprocessed Iron",
+    "processed_iron": "Processed Iron"
 }
