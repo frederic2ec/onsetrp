@@ -206,5 +206,8 @@
     "vehicle_24": "Armored Truck",
     "house_already_unlocked": "This house is already unlocked !",
     "vehicle_already_unlocked": "This vehicle is already unlocked !",
-    "lockpick": "Lockpick"
+    "lockpick": "Lockpick",
+    "pickaxe": "Pickaxe",
+    "apple": "Apple",
+    "need_tool": "You don't have the tool to gather !"
 }
