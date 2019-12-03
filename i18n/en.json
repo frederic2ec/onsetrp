@@ -205,5 +205,6 @@
     "vehicle_23": "Light Caro 02",
     "vehicle_24": "Armored Truck",
     "house_already_unlocked": "This house is already unlocked !",
-    "vehicle_already_unlocked": "This vehicle is already unlocked !"
+    "vehicle_already_unlocked": "This vehicle is already unlocked !",
+    "lockpick": "Lockpick"
 }
