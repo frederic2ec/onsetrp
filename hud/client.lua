@@ -11,7 +11,7 @@ function OnPackageStart()
 	LoadWebFile(hud, "http://asset/"..GetPackageName().."/client/hud/hud.html")
 
 	ShowHealthHUD(false)
-    ShowWeaponHUD(false)
+    ShowWeaponHUD(true)
     
 end
 AddEvent("OnPackageStart", OnPackageStart)

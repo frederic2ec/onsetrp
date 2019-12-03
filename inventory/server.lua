@@ -20,6 +20,11 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
         if item == "donut" then
             SetPlayerAnimation(player, "DRINKING")
             RemoveInventory(player, item, amount)
+            addPlayerHunger(player, 10*amount)
+        end
+        if item == "apple" then
+            SetPlayerAnimation(player, "DRINKING")
+            RemoveInventory(player, item, amount)
             addPlayerHunger(player, 5*amount)
         end
         if item == "water_bottle" then

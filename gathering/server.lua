@@ -25,6 +25,17 @@ gatherTable = {
         process_zone = { 71981, 106, 1367 },
         process_item = "processed_coke"
     },
+    {
+        gather_zone = { -171385, -55909, 1166 },
+        gather_item = "apple"
+    },
+    {
+        gather_zone = { 32853, 98521, 1849 },
+        gather_item = "unprocessed_iron",
+        gather_tool = "pickaxe",
+        process_zone = { 2427, 98041, 1497 },
+        process_item = "processed_iron"
+    },
 }
 
 gatherZoneCached = {}
@@ -32,12 +43,17 @@ processZoneCached = {}
 
 AddEvent("OnPackageStart", function()
     for k,v in pairs(gatherTable) do
-        v.gatherObject = CreatePickup(2, v.gather_zone[1], v.gather_zone[2], v.gather_zone[3])
-        CreateText3D(_("gather").."\n".._("press_e"), 18, v.gather_zone[1], v.gather_zone[2], v.gather_zone[3] + 120, 0, 0, 0)
-        table.insert(gatherZoneCached, v.gatherObject)
-        v.processObject = CreatePickup(2, v.process_zone[1], v.process_zone[2], v.process_zone[3])
-        CreateText3D(_("process").."\n".._("press_e"), 18, v.process_zone[1], v.process_zone[2], v.process_zone[3] + 120, 0, 0, 0)
-        table.insert(processZoneCached, v.processObject)
+        if v.gather_zone ~= nil then
+            v.gatherObject = CreatePickup(2, v.gather_zone[1], v.gather_zone[2], v.gather_zone[3])
+            CreateText3D(_("gather").."\n".._("press_e"), 18, v.gather_zone[1], v.gather_zone[2], v.gather_zone[3] + 120, 0, 0, 0)
+            table.insert(gatherZoneCached, v.gatherObject)
+        end
+        
+        if v.process_zone ~= nil then
+            v.processObject = CreatePickup(2, v.process_zone[1], v.process_zone[2], v.process_zone[3])
+            CreateText3D(_("process").."\n".._("press_e"), 18, v.process_zone[1], v.process_zone[2], v.process_zone[3] + 120, 0, 0, 0)
+            table.insert(processZoneCached, v.processObject)
+        end
 	end
 end)
 
@@ -48,6 +64,11 @@ end)
 
 AddRemoteEvent("StartGathering", function(player, gatherzone) 
     gather = GetGatherByGatherzone(gatherzone)
+    if gatherTable[gather].gather_tool ~= nil then
+        if PlayerData[player].inventory[gatherTable[gather].gather_tool] == nil then
+            return AddPlayerChat(player, _("need_tool"))
+        end
+    end
     SetPlayerAnimation(player, "COMBINE")
     Delay(4000, function() 
         SetPlayerAnimation(player, "COMBINE")
