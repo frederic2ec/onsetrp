@@ -1,6 +1,6 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
-local houses = {
+houses = {
     {
         id = 1,
         price = 100,
@@ -967,4 +967,19 @@ function SaveHouseData(house)
     )
     
 mariadb_query(sql, query)
+end
+
+function GetNearestHouseDoor(player)
+    local x, y, z = GetPlayerLocation(player)
+
+    for k,v in pairs(houses) do
+            for i,j in pairs(v.doors) do
+                local x2, y2, z2 = GetDoorLocation( j.entity )
+                local dist = GetDistance3D(x, y, z, x2, y2, z2)
+                if dist < 150.0 then
+                    return j.entity
+                end
+            end
+        end
+    return 0
 end

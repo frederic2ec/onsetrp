@@ -37,6 +37,10 @@ AddRemoteEvent( "askClientCreation", function()
     isCreated = false
 end)
 
+AddEvent("OnPlayerStreamIn", function( player, otherplayer )
+    CallRemoteEvent("ServerChangeOtherPlayerClothes", player, otherplayer)
+end)
+
 AddRemoteEvent("openCharacterCreation", function(lhairs, lshirts, lpants, lshoes,lhairscolor)
     AddPlayerChat(playerName)
     hairs = {}
@@ -133,8 +137,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     end
 end)
 
-AddRemoteEvent("ClientChangeClothing", function(part, piece, r, g, b, a)
-    local player = GetPlayerId()
+AddRemoteEvent("ClientChangeClothing", function(player, part, piece, r, g, b, a)
     local SkeletalMeshComponent
     local pieceName
     if part == 0 then
