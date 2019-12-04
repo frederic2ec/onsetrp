@@ -21,8 +21,8 @@
     "spawn_vehicle_success": "You successfully spawned your {1}",
     "cannot_spawn_vehicle": "Cannot spawn your vehicle !",
     "sell_vehicle_success": "You successfully selled your {1} for {2} {3}",
-    "hunger": "Hunger",
-    "thirst": "Thirst",
+    "hunger": "Hunger :",
+    "thirst": "Thirst :",
     "select_car_to_buy": "Please select a car to buy !",
     "no_money_car": "You don't have the money to buy this car !",
     "car_dealer": "Car Dealer",
@@ -218,5 +218,7 @@
     "car_refuelled": "You refuelled this car !",
     "car_refuelled_for": "You refuelled this car for {1} {2} !",
     "speed": "Speed :",
-    "fuel": "Fuel :"
+    "fuel": "Fuel :",
+    "transfer_error": "You don,t have enough money to transfer !",
+    "transfer_success": "You successfully transferred {1} {2}"
 }
