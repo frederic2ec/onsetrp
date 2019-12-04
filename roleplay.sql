@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2019 at 04:39 AM
+-- Generation Time: Dec 04, 2019 at 06:58 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -25,14 +25,16 @@ SET time_zone = "+00:00";
 CREATE TABLE `accounts` (
   `id` int(10) UNSIGNED NOT NULL,
   `steamid` varchar(17) NOT NULL,
+  `name` varchar(255) NOT NULL DEFAULT 'Unregistered',
+  `clothing` text NOT NULL DEFAULT '[]',
+  `inventory` text NOT NULL DEFAULT '[]',
   `admin` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
   `health` float NOT NULL DEFAULT 100,
   `armor` float NOT NULL DEFAULT 0,
   `thirst` float NOT NULL DEFAULT 100,
   `hunger` float NOT NULL DEFAULT 100,
   `cash` int(11) DEFAULT 1000,
-  `bank_balance` int(11) NOT NULL DEFAULT 0,
-  `model` float NOT NULL DEFAULT 1
+  `bank_balance` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -70,8 +72,56 @@ CREATE TABLE `player_garage` (
   `ownerid` int(10) UNSIGNED NOT NULL,
   `modelid` mediumint(8) UNSIGNED NOT NULL,
   `color` varchar(255) NOT NULL,
-  `garage` tinyint(1) NOT NULL
+  `garage` tinyint(1) NOT NULL,
+  `price` int(11) NOT NULL,
+  `inventory` text NOT NULL DEFAULT '[]'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `player_house`
+--
+
+CREATE TABLE `player_house` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `ownerid` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `spawn` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `player_house`
+--
+
+INSERT INTO `player_house` (`id`, `ownerid`, `spawn`) VALUES
+(1, 0, 0),
+(2, 0, 0),
+(3, 0, 0),
+(4, 0, 0),
+(5, 0, 0),
+(6, 0, 0),
+(7, 0, 0),
+(8, 0, 0),
+(9, 0, 0),
+(10, 0, 0),
+(11, 0, 0),
+(12, 0, 0),
+(13, 0, 0),
+(14, 0, 0),
+(15, 0, 0),
+(16, 0, 0),
+(17, 0, 0),
+(18, 0, 0),
+(19, 0, 0),
+(20, 0, 0),
+(21, 0, 0),
+(22, 0, 0),
+(23, 0, 0),
+(24, 0, 0),
+(25, 0, 0),
+(26, 0, 0),
+(27, 0, 0),
+(28, 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -103,6 +153,12 @@ ALTER TABLE `player_garage`
   ADD KEY `player_vehicle_ibfk_1` (`ownerid`);
 
 --
+-- Indexes for table `player_house`
+--
+ALTER TABLE `player_house`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -117,6 +173,12 @@ ALTER TABLE `accounts`
 --
 ALTER TABLE `player_garage`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `player_house`
+--
+ALTER TABLE `player_house`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- Constraints for dumped tables
