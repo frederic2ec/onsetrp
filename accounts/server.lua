@@ -148,7 +148,8 @@ function OnAccountLoaded(player)
         setPlayerThirst(player, tonumber(result['thirst']))
         setPlayerHunger(player, tonumber(result['hunger']))
 
-        SetPlayerLoggedIn(player)
+		SetPlayerLoggedIn(player)
+		CallRemoteEvent(player, "AskSpawnMenu")
 
 		AddPlayerChat(player, '<span color="#ffff00aa" style="bold italic" size="17">SERVER: Welcome back '..GetPlayerName(player)..', have fun!</>')
 

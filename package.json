@@ -21,7 +21,8 @@
         "shops/server.lua",
         "gathering/server.lua",
         "admin/server.lua",
-        "fuel/server.lua"
+        "fuel/server.lua",
+        "spawn/server.lua"
     ],
     "client_scripts": [
         "hunger/client.lua",
@@ -40,7 +41,9 @@
         "misc/c_weapons.lua",
         "gathering/client.lua",
         "admin/client.lua",
-        "fuel/client.lua"
+        "fuel/client.lua",
+        "gps/client.lua",
+        "spawn/client.lua"
     ],
     "files": [
         "client/files/carLock.mp3",

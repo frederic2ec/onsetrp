@@ -34,6 +34,9 @@ AddEvent("OnPackageStart", function()
         for k,v in pairs(GetAllVehicles()) do
             enginestate = GetVehicleEngineState(k)
             if enginestate == true then
+                if VehicleData[k] == nil then
+                    return
+                end
                 VehicleData[k].fuel = VehicleData[k].fuel - 1
                 if VehicleData[k].fuel == 0 then
                     StopVehicleEngine(k)

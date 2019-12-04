@@ -53,6 +53,9 @@ AddRemoteEvent("ServerChangeClothes", function(player, playername, playerhairs, 
     CallRemoteEvent(player, "ClientChangeClothing", player, 1, PlayerData[player].clothing[3], 0, 0, 0, 0)
     CallRemoteEvent(player, "ClientChangeClothing", player, 4, PlayerData[player].clothing[4], 0, 0, 0, 0)
     CallRemoteEvent(player, "ClientChangeClothing", player, 5, PlayerData[player].clothing[5], 0, 0, 0, 0)
+
+    CallRemoteEvent(player, "OpenSpawnMenu", spawnLocation)
+    CallRemoteEvent(player, "AskSpawnMenu")
 end)
 
 AddEvent("OnPlayerSpawn", function( player )

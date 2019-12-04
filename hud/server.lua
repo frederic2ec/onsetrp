@@ -5,7 +5,11 @@ function getHudData(player)
     bank = PlayerData[player].bank_balance
 
     if GetPlayerVehicle(player) ~= 0 then
-        vehiclefuel = VehicleData[GetPlayerVehicle(player)].fuel
+        if VehicleData[GetPlayerVehicle(player)] == nil then
+            vehiclefuel = 0
+        else
+            vehiclefuel = VehicleData[GetPlayerVehicle(player)].fuel
+        end
         vehicle = GetPlayerVehicle(player)
     else
         vehiclefuel = 0
