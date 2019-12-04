@@ -9,7 +9,6 @@ function OnKeyPress(key)
         local NearestGasStation = GetNearestGasStation()
         local NearestVehicle = getNearestVehicle()
         if NearestGasStation ~= 0 and NearestVehicle ~= 0 then
-            AddPlayerChat("called")
             CallRemoteEvent("StartRefuel", NearestVehicle)   
         end
 	end
