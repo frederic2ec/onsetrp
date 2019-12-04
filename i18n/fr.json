@@ -227,5 +227,9 @@
     "desert_town": "Ville du desert",
     "old_town": "Vieille ville",
     "select_city": "Veuillez choisir une ville !",
-    "spawn_menu": "Menu de spawn"
+    "spawn_menu": "Menu de spawn",
+    "vehicle_health": "",
+    "global": "",
+    "admin": "",
+    "private_message": ""
 }
