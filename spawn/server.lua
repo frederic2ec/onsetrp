@@ -12,8 +12,8 @@ AddRemoteEvent("ServerSpawnMenu", function(player)
 end)
 
 AddRemoteEvent("PlayerSpawn", function(player, spawn)
-    spawnLocation = GetSpawnLocation(spawn)
-    SetPlayerLocation(player, spawnLocation[1], spawnLocation[2], spawnLocation[3])
+    spawnSelect = GetSpawnLocation(spawn)
+    SetPlayerLocation(player, spawnSelect[1], spawnSelect[2], spawnSelect[3])
 end)
 
 function GetSpawnLocation(spawn)

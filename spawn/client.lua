@@ -3,7 +3,6 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 
 local spawnMenu
 local spawns = {}
-local SpawnSetuped = false
 
 local spawnAsked = false
 
@@ -29,11 +28,8 @@ AddEvent("OnDialogUIReady", function()
 end)
 
 AddRemoteEvent("OpenSpawnMenu", function(spawnList)
-    if not SpawnSetuped then
-        for k,v in pairs(spawnList) do
-            spawns[k] = _(k)
-        end
-        SpawnSetuped = true
+    for k,v in pairs(spawnList) do
+        spawns[k] = _(k)
     end
     Dialog.setSelectLabeledOptions(spawnMenu, 1, 1, spawns) 
     Dialog.show(spawnMenu)
@@ -46,7 +42,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
 			if args[1] == "" then
                 AddPlayerChat(_("select_city"))
                 allRemoteEvent("ServerSpawnMenu")
-			else
+            else
                 CallRemoteEvent("PlayerSpawn", args[1])
 			end
 		end
