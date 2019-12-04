@@ -67,16 +67,20 @@ end)
 AddRemoteEvent("StartRefuel", function(player, vehicle) 
     price = math.ceil((100 - VehicleData[vehicle].fuel) * 0.5)
 
-    if VehicleData[vehicle].fuel >= 100 then
-        AddPlayerChat(player,  _("car_full"))
+    if GetPlayerVehicle(player) ~= 0 then
+        AddPlayerChat(player, _("cant_refuel"))
     else
-        if PlayerData[player].cash < price then
-            AddPlayerChat(player, _("not_enought_cash") )
+        if VehicleData[vehicle].fuel >= 100 then
+            AddPlayerChat(player,  _("car_full"))
         else
-            SetPlayerAnimation(player,"COMBINE")
-            AddPlayerChat(player, _("car_refuelled_for", price, _("currency")))
-            VehicleData[vehicle].fuel = 100
-            PlayerData[player].cash = PlayerData[player].cash - price
+            if PlayerData[player].cash < price then
+                AddPlayerChat(player, _("not_enought_cash") )
+            else
+                SetPlayerAnimation(player,"COMBINE")
+                AddPlayerChat(player, _("car_refuelled_for", price, _("currency")))
+                VehicleData[vehicle].fuel = 100
+                PlayerData[player].cash = PlayerData[player].cash - price
+            end
         end
     end
 end)

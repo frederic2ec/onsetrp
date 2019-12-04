@@ -2,7 +2,6 @@ local Dialog = ImportPackage("dialogui")
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 local spawnMenu
-local spawns = {}
 
 local spawnAsked = false
 
@@ -27,9 +26,13 @@ AddEvent("OnDialogUIReady", function()
     end
 end)
 
-AddRemoteEvent("OpenSpawnMenu", function(spawnList)
+AddRemoteEvent("OpenSpawnMenu", function(spawnList, house)
+    local spawns = {}
     for k,v in pairs(spawnList) do
         spawns[k] = _(k)
+    end
+    if house then
+        spawns["house"] = _("house")
     end
     Dialog.setSelectLabeledOptions(spawnMenu, 1, 1, spawns) 
     Dialog.show(spawnMenu)
@@ -41,7 +44,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
 		if button == 1 then
 			if args[1] == "" then
                 AddPlayerChat(_("select_city"))
-                allRemoteEvent("ServerSpawnMenu")
+                CallRemoteEvent("ServerSpawnMenu")
             else
                 CallRemoteEvent("PlayerSpawn", args[1])
 			end

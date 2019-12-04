@@ -8,12 +8,32 @@ spawnLocation = {
 }
 
 AddRemoteEvent("ServerSpawnMenu", function(player)
-    CallRemoteEvent(player, "OpenSpawnMenu", spawnLocation)
+    local house = getHouseOwner(player)
+
+    local hasHouse = false
+    if house ~= 0 then
+        if houses[house].spawnable == 1 then
+            hasHouse = true
+        end
+    end
+
+    CallRemoteEvent(player, "OpenSpawnMenu", spawnLocation, hasHouse)
 end)
 
 AddRemoteEvent("PlayerSpawn", function(player, spawn)
-    spawnSelect = GetSpawnLocation(spawn)
-    SetPlayerLocation(player, spawnSelect[1], spawnSelect[2], spawnSelect[3])
+    if spawn == "house" then
+        local house = getHouseOwner(player)
+
+        if house ~= 0 then
+            if houses[house].spawnable == 1 then
+                SetPlayerLocation(player, houses[house].spawn[1], houses[house].spawn[2], houses[house].spawn[3] + 100)
+                SetPlayerHeading( player, houses[house].spawn[4] )
+            end
+        end
+    else
+        spawnSelect = GetSpawnLocation(spawn)
+        SetPlayerLocation(player, spawnSelect[1], spawnSelect[2], spawnSelect[3])
+    end
 end)
 
 function GetSpawnLocation(spawn)

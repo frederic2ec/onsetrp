@@ -860,20 +860,6 @@ AddEvent("database:connected", function()
     
 end)
 
-AddEvent("OnPlayerSpawn", function( player )
-    Delay( 500, function()
-        local house = getHouseOwner(player)
-
-        if house ~= 0 then
-            if houses[house].spawnable == 1 then
-                SetPlayerLocation(player, houses[house].spawn[1], houses[house].spawn[2], houses[house].spawn[3] + 100)
-                SetPlayerHeading( player, houses[house].spawn[4] )
-            end
-        end
-    end)
-end)
-
-
 AddRemoteEvent("interactHouse", function(player, door) 
     local house = getHouseDoor(door)
 

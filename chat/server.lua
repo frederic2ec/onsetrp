@@ -34,3 +34,7 @@ AddCommand("p", function(player, toplayer, message)
     AddPlayerChat(player, message)
     AddPlayerChat(toplayer, message)
 end)
+
+AddCommand("kill", function(player)
+    SetPlayerHealth(player, 0)
+end)
