@@ -219,6 +219,13 @@
     "car_refuelled_for": "You refuelled this car for {1} {2} !",
     "speed": "Speed :",
     "fuel": "Fuel :",
-    "transfer_error": "You don,t have enough money to transfer !",
-    "transfer_success": "You successfully transferred {1} {2}"
+    "transfer_error": "You don't have enough money to transfer !",
+    "transfer_success": "You successfully transferred {1} {2}",
+    "transfer": "Transfer",
+    "successful_transfer": "You successfully transferred {1} {2} to {3}",
+    "received_transfer": "You received {1} {2} from {3}",
+    "desert_town": "Desert Town",
+    "old_town": "Old Town",
+    "select_city": "Please select a city to spawn !",
+    "spawn_menu": "Spawn Menu"
 }
