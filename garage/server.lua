@@ -173,6 +173,7 @@ function spawnCarServerLoaded(player)
                 SetVehiclePropertyValue(vehicle, "locked", true, true)
                 CreateVehicleData(player, vehicle, modelid)
                 VehicleData[vehicle].garageid = id
+                VehicleData[vehicle].inventory = json_decode(result['inventory'])
                 mariadb_async_query(sql, query)
                 CallRemoteEvent(player, "closeGarageDealer")
                 return AddPlayerChat(player, _("spawn_vehicle_success", tostring(name)))

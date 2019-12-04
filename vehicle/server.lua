@@ -14,6 +14,29 @@ function CreateVehicleData(player, vehicle, modelid)
     print("Data created for : "..vehicle)
 end
 
+function OnPackageStart()
+    -- Save all player data automatically 
+    CreateTimer(function()
+		for k,v in pairs(VehicleData) do
+            SaveVehicleData(k)
+            
+        end
+        print("All vehicle have been saved !")
+    end, 30000)
+    
+end
+AddEvent("OnPackageStart", OnPackageStart)
+
+function SaveVehicleData(vehicle) 
+    local query = mariadb_prepare(sql, "UPDATE player_garage SET ownerid = '?', inventory = '?' WHERE id = '?' LIMIT 1;",
+    VehicleData[vehicle].owner,
+    json_encode(VehicleData[vehicle].inventory),
+    VehicleData[vehicle].garageid
+    )
+    
+mariadb_query(sql, query)
+end
+
 function DestroyVehicleData(vehicle)
 	if (VehicleData[vehicle] ~= nil) then
 		return

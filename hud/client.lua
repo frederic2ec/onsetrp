@@ -7,6 +7,7 @@ local CashHud
 local BankHud
 local VehicleSpeedHud
 local VehicleFuelHud
+local VehicleHealthHud
 
 local timer = false
 
@@ -31,7 +32,11 @@ function OnPackageStart()
     SetTextBoxAnchors(VehicleSpeedHud, 1.0, 0.0, 1.0, 0.0)
     SetTextBoxAlignment(VehicleSpeedHud, 1.0, 0.0)
     
-    VehicleFuelHud = CreateTextBox(-15, 280, "Fuel", "right" )
+    VehicleHealthHud = CreateTextBox(-15, 280, "Health", "right" )
+    SetTextBoxAnchors(VehicleHealthHud, 1.0, 0.0, 1.0, 0.0)
+	SetTextBoxAlignment(VehicleHealthHud, 1.0, 0.0)
+
+    VehicleFuelHud = CreateTextBox(-15, 300, "Fuel", "right" )
     SetTextBoxAnchors(VehicleFuelHud, 1.0, 0.0, 1.0, 0.0)
 	SetTextBoxAlignment(VehicleFuelHud, 1.0, 0.0)
     
@@ -59,11 +64,14 @@ function updateHud(hunger, thirst, cash, bank, vehiclefuel)
 
     if GetPlayerVehicle() ~= 0 then
         vehiclespeed = math.floor(GetVehicleForwardSpeed(GetPlayerVehicle()))
+        vehiclehealth = math.floor(GetVehicleHealth(GetPlayerVehicle()))
         SetTextBoxText(VehicleSpeedHud, _("speed")..vehiclespeed.."KM/H")
+        SetTextBoxText(VehicleHealthHud, _("vehicle_health")..vehiclehealth)
         SetTextBoxText(VehicleFuelHud, _("fuel")..vehiclefuel)
     else
         SetTextBoxText(VehicleSpeedHud, "")
         SetTextBoxText(VehicleFuelHud, "")
+        SetTextBoxText(VehicleHealthHud, "")
     end
 end
 AddRemoteEvent("updateHud", updateHud)

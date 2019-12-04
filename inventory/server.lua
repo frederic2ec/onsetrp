@@ -53,6 +53,9 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                         SetPlayerAnimation(player, "COMBINE")
                         RemoveInventory(player, item, amount)
                         SetVehicleHealth(nearestCar, 5000)
+                        for i=1,8 do
+                            SetVehicleDamage(nearestCar, i, 0)
+                        end
                     end
                 end
             end
@@ -150,3 +153,7 @@ function RemoveInventory(player, item, amount)
         end
     end
 end
+
+AddEvent("OnPackageStart", function()
+    
+end)
