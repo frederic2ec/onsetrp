@@ -231,5 +231,6 @@
     "vehicle_health": "Vehicle Health :",
     "global": "Global",
     "admin": "Admin",
-    "private_message": "Private Message"
+    "private_message": "Private Message",
+    "cant_refuel": "You cannot refuel your car !"
 }
