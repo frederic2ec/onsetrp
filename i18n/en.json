@@ -216,5 +216,7 @@
     "car_full": "This car is already full !",
     "refuel": "Refuel",
     "car_refuelled": "You refuelled this car !",
-    "car_refuelled_for": "You refuelled this car for {1} {2} !"
+    "car_refuelled_for": "You refuelled this car for {1} {2} !",
+    "speed": "Speed :",
+    "fuel": "Fuel :"
 }
