@@ -10,7 +10,7 @@ function OnPackageStart()
 	SetWebAnchors(hud, 0.0, 0.0, 0, 0)
 	LoadWebFile(hud, "http://asset/"..GetPackageName().."/client/hud/hud.html")
 
-	ShowHealthHUD(false)
+	ShowHealthHUD(true)
     ShowWeaponHUD(true)
     
 end

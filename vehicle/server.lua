@@ -9,6 +9,7 @@ function CreateVehicleData(player, vehicle, modelid)
     VehicleData[vehicle].owner = PlayerData[player].accountid
     VehicleData[vehicle].modelid = modelid
     VehicleData[vehicle].inventory = {}
+    VehicleData[vehicle].fuel = 100
 
     print("Data created for : "..vehicle)
 end
@@ -67,8 +68,6 @@ end)
 
 AddRemoteEvent("VehicleStore", function(player, item, amount) 
     local vehicle = GetNearestCar(player)
-    print(item)
-    print(amount)
     if tonumber(PlayerData[player].inventory[item]) < tonumber(amount) then
         AddPlayerChat(player, _("not_enough_item"))
     else

@@ -53,6 +53,20 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                 end
             end
         end
+        if item == "jerican" then
+            local nearestCar = GetNearestCar(player)
+            if nearestCar ~= 0 then
+                print(VehicleData[nearestCar].fuel)
+                if VehicleData[nearestCar].fuel >= 100 then
+                    AddPlayerChat(player, _("car_full"))
+                else
+                    SetPlayerAnimation(player, "COMBINE")
+                    RemoveInventory(player, item, amount)
+                    VehicleData[nearestCar].fuel = 100
+                    AddPlayerChat(player, _("car_refuelled"))
+                end
+            end
+        end
         if item == "lockpick" then
             local nearestCar = GetNearestCar(player)
             local nearestHouseDoor = GetNearestHouseDoor(player)

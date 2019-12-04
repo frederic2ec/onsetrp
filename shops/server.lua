@@ -10,7 +10,8 @@ ShopTable = {
                     repair_kit = 10,
                     health_kit = 10,
                     lockpick = 10,
-                    pickaxe = 10
+                    pickaxe = 10,
+                    jerican = 10
 		},
 		location = { 128748, 77622, 1576, 90 },
     },

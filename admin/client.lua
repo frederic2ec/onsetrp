@@ -12,7 +12,7 @@ local moneyMenu
 local banMenu
 
 AddEvent("OnTranslationReady", function()
-    adminMenu = Dialog.create(_("admin_menu"), nil, _("teleportation"), _("weapon"), _("vehicle"), _("money"), _("bank_kick"), _("cancel"))
+    adminMenu = Dialog.create(_("admin_menu"), nil, _("teleportation"), _("weapon"), _("vehicle"), _("money"), _("ban_kick"), _("cancel"))
     teleportMenu = Dialog.create(_("teleport_menu"), nil, _("teleport_to_place"), _("teleport_to_player"), _("teleport_player"), _("cancel"))
     teleportPlaceMenu = Dialog.create(_("teleport_to_player"), nil, _("teleport"), _("cancel"))
     Dialog.addSelect(teleportPlaceMenu, 1, _("place"), 8)
@@ -27,7 +27,7 @@ AddEvent("OnTranslationReady", function()
     moneyMenu = Dialog.create(_("money_menu"), nil, _("give_bank"), _("give_cash"), _("cancel"))
     Dialog.addSelect(moneyMenu, 1, _("player"), 8)
     Dialog.addTextInput(moneyMenu, 1, _("amount"))
-    banMenu = Dialog.create(_("ban_menu"), nil, _("bank"), _("kick"), _("cancel"))
+    banMenu = Dialog.create(_("ban_menu"), nil, _("ban"), _("kick"), _("cancel"))
     Dialog.addSelect(banMenu, 1, _("player"), 8)
     Dialog.addTextInput(banMenu, 1, _("reason"))
 end)

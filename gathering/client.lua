@@ -1,3 +1,4 @@
+local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 local gatherIds = {}
 local processIds = {}
@@ -7,7 +8,6 @@ AddRemoteEvent("gatheringSetup", function(gatherObject, processObject)
     processIds = processObject
 end)
 
-local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 function OnKeyPress(key)
     if key == "E" then
