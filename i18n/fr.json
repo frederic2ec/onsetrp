@@ -216,5 +216,7 @@
     "car_full": "Vous avez déjà fait le plein de ce véhicule",
     "refuel": "Faire le plein",
     "car_refuelled": "Vous avez ravitaillé ce véhicule !",
-    "car_refuelled_for": "Vous avez ravitaillé ce véhicule pour {1} {2} !"
+    "car_refuelled_for": "Vous avez ravitaillé ce véhicule pour {1} {2} !",
+    "speed": "Vitesse :",
+    "fuel": "Carburant :"
 }
