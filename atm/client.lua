@@ -6,8 +6,9 @@ local isAtm
 local AtmIds = { }
 
 AddEvent("OnTranslationReady", function()
-    atm = Dialog.create(_("atm"), _("bank_balance").." : {bank_balance} ".._("currency").." | ".._("cash").." : {cash_balance} ".._("currency"), _("withdraw"), _("deposit"), _("cancel"))
+    atm = Dialog.create(_("atm"), _("bank_balance").." : {bank_balance} ".._("currency").." | ".._("cash").." : {cash_balance} ".._("currency"),"Transfer" ,_("withdraw"), _("deposit"), _("cancel"))
     Dialog.addTextInput(atm, 1, _("amount").." :")
+    Dialog.addSelect(atm, 1, _("player"), 1)
     Dialog.setVariable(atm, "bank_balance", 0)
     Dialog.setVariable(atm, "cash_balance", 0) 
 end)
@@ -25,17 +26,33 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == atm then
         local args = { ... }
         if button == 1 then
-            withdrawMoney(args[1])
+            if args[1] ~= "" then
+                if tonumber(args[1]) > 0 then
+                    CallRemoteEvent("transferAtm", args[1], args[2])
+                else
+                    AddPlayerChat(_("enter_higher_number"))
+                end
+            else
+                AddPlayerChat(_("valid_number"))
+            end 
         end
         if button == 2 then
+            withdrawMoney(args[1])
+        end
+        if button == 3 then
             depositMoney(args[1])
         end
     end
 end)
 
-AddRemoteEvent("updateAtm", function(bank, cash)
+AddRemoteEvent("updateAtm", function(bank, cash, playerIds)
     Dialog.setVariable(atm, "bank_balance", bank)
     Dialog.setVariable(atm, "cash_balance", cash)
+    local playerList = {}
+    for k,v in pairs(playerIds) do
+        playerList[tostring(k)] = GetPlayerName(k)
+    end
+    Dialog.setSelectLabeledOptions(atm, 1, 2, playerList)
 end)
 
 AddRemoteEvent("atmSetup", function(AtmObjects)

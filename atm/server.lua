@@ -45,10 +45,11 @@ function GetAtmByObject(atmobject)
 end
 
 function getAtmData(player)
-    bank = PlayerData[player].bank_balance
-    cash = PlayerData[player].cash
+    local bank = PlayerData[player].bank_balance
+	local cash = PlayerData[player].cash
+	local playersIds = GetAllPlayers()
 
-    CallRemoteEvent(player, "updateAtm", bank, cash)
+    CallRemoteEvent(player, "updateAtm", bank, cash, playersIds)
 end
 AddRemoteEvent("getAtmData", getAtmData)
 
@@ -59,7 +60,6 @@ function withdrawAtm(player, amount)
         PlayerData[player].bank_balance = PlayerData[player].bank_balance - amount
         PlayerData[player].cash = PlayerData[player].cash + amount
         AddPlayerChat(player, _("withdraw_success", amount, _("currency")))
-        getAtmData(player)
     end
 end
 AddRemoteEvent("withdrawAtm", withdrawAtm)
@@ -71,8 +71,17 @@ function depositAtm(player, amount)
         PlayerData[player].cash = PlayerData[player].cash - amount
         PlayerData[player].bank_balance = PlayerData[player].bank_balance + amount
         AddPlayerChat(player, _("deposit_success", amount, _("currency")))
-
-        getAtmData(player)
     end
 end
 AddRemoteEvent("depositAtm", depositAtm)
+
+
+AddRemoteEvent("transferAtm", function(player, amount, toplayer)
+	if tonumber(amount) > PlayerData[player].bank_balance then
+        AddPlayerChat(player, _("transfer_error"))
+	else
+        PlayerData[player].bank_balance = PlayerData[player].bank_balance - amount
+        PlayerData[tonumber(toplayer)].bank_balance = PlayerData[tonumber(toplayer)].bank_balance  + amount
+        AddPlayerChat(player, _("transfer_success", amount, _("currency")))
+    end
+end)
