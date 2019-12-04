@@ -227,5 +227,9 @@
     "desert_town": "Desert Town",
     "old_town": "Old Town",
     "select_city": "Please select a city to spawn !",
-    "spawn_menu": "Spawn Menu"
+    "spawn_menu": "Spawn Menu",
+    "vehicle_health": "Vehicle Health :",
+    "global": "Global",
+    "admin": "Admin",
+    "private_message": "Private Message"
 }
