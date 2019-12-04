@@ -218,5 +218,14 @@
     "car_refuelled": "Vous avez ravitaillé ce véhicule !",
     "car_refuelled_for": "Vous avez ravitaillé ce véhicule pour {1} {2} !",
     "speed": "Vitesse :",
-    "fuel": "Carburant :"
+    "fuel": "Carburant :",
+    "transfer_error": "Vous n'avez pas assez d'argent pour effectuer le transfert !",
+    "transfer_success": "Transfert effectué avec succès {1} {2} !",
+    "transfer": "Transférer",
+    "successful_transfer": "Vous avez transféré avec succès {1} {2} à {3} ",
+    "received_transfer": "Vous avez reçu {1} {2} de {3}",
+    "desert_town": "",
+    "old_town": "",
+    "select_city": "",
+    "spawn_menu": ""
 }
