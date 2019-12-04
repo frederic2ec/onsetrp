@@ -6,7 +6,7 @@ local isAtm
 local AtmIds = { }
 
 AddEvent("OnTranslationReady", function()
-    atm = Dialog.create(_("atm"), _("bank_balance").." : {bank_balance} ".._("currency").." | ".._("cash").." : {cash_balance} ".._("currency"),"Transfer" ,_("withdraw"), _("deposit"), _("cancel"))
+    atm = Dialog.create(_("atm"), _("bank_balance").." : {bank_balance} ".._("currency").." | ".._("cash").." : {cash_balance} ".._("currency"), _("transfer"),_("withdraw"), _("deposit"), _("cancel"))
     Dialog.addTextInput(atm, 1, _("amount").." :")
     Dialog.addSelect(atm, 1, _("player"), 1)
     Dialog.setVariable(atm, "bank_balance", 0)

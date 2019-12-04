@@ -4,9 +4,10 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 local personalMenu
 
 AddEvent("OnTranslationReady", function()
-    personalMenu = Dialog.create(_("personal_menu"), _("bank_balance").." : {bank} ".._("currency").." | ".._("cash").." : {cash} ".._("currency"), _("use"), _("cancel"))
+    personalMenu = Dialog.create(_("personal_menu"), _("bank_balance").." : {bank} ".._("currency").." | ".._("cash").." : {cash} ".._("currency"), _("transfer") ,_("use"), _("cancel"))
     Dialog.addSelect(personalMenu, 1, _("inventory"), 5)
     Dialog.addTextInput(personalMenu, 1, _("quantity"))
+    Dialog.addSelect(personalMenu, 1, _("player"), 1)
 end)
 
 AddRemoteEvent("OpenPersonalMenu", function(cash, bank, inventory) 
@@ -17,13 +18,33 @@ AddRemoteEvent("OpenPersonalMenu", function(cash, bank, inventory)
 		items[k] = _(k).."["..v.."]"
     end
     Dialog.setSelectLabeledOptions(personalMenu, 1, 1, items)
+    local playerList = {}
+    for k,v in pairs(GetStreamedPlayers()) do
+        playerList[tostring(k)] = GetPlayerName(k)
+    end
+    Dialog.setSelectLabeledOptions(personalMenu, 2, 2, playerList)
     Dialog.show(personalMenu)
 end)
 
 AddEvent("OnDialogSubmit", function(dialog, button, ...)
 	local args = { ... }
-	if dialog == personalMenu then
-		if button == 1 then
+    if dialog == personalMenu then
+        if button == 1 then
+            if args[1] == "" then
+				AddPlayerChat(_("select_item"))
+			else
+				if args[2] == "" then
+					AddPlayerChat(_("select_amount"))
+                else
+                    if args[3] == "" then
+                        AddPlayerChat(_("select_player"))
+                    else
+                        CallRemoteEvent("TransferInventory", args[1], args[2], args[3])
+                    end   
+				end
+			end
+        end
+		if button == 2 then
 			if args[1] == "" then
 				AddPlayerChat(_("select_item"))
 			else
