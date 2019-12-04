@@ -47,6 +47,12 @@ ShopTable = {
             processed_heroin = 4000
         },
         location = {-177344, 3673, 1992, 0},
+    },
+    {
+        items = {
+            processed_iron = 1000,
+        },
+        location = {21799, 137848, 1555, 90},
     }
 }
 AddEvent("OnPackageStart", function()

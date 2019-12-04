@@ -14,7 +14,7 @@ end
 
 AddRemoteEvent("UseInventory", function(player, item, amount) 
     weapon = getWeaponID(item)
-    if PlayerData[player].inventory[item] < tonumber(amount) then
+    if tonumber(PlayerData[player].inventory[item]) < tonumber(amount) then
         AddPlayerChat(player, _("not_enough_item"))
     else
         if weapon ~= 0 then

@@ -796,9 +796,10 @@ function OnPackageStart()
 		for k,v in pairs(houses) do
             SaveHouseData(k)
             
-		end
+        end
+        print("All houses have been saved !")
     end, 30000)
-    print("All houses have been saved !")
+    
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
