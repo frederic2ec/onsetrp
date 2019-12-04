@@ -224,8 +224,8 @@
     "transfer": "Transférer",
     "successful_transfer": "Vous avez transféré avec succès {1} {2} à {3} ",
     "received_transfer": "Vous avez reçu {1} {2} de {3}",
-    "desert_town": "",
-    "old_town": "",
-    "select_city": "",
-    "spawn_menu": ""
+    "desert_town": "Ville du desert",
+    "old_town": "Vieille ville",
+    "select_city": "Veuillez choisir une ville !",
+    "spawn_menu": "Menu de spawn"
 }
