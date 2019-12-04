@@ -165,7 +165,7 @@
     "weapon": "Weapon",
     "vehicle": "Vehicle",
     "money": "Money",
-    "bank_kick": "Ban / Kick",
+    "ban_kick": "Ban / Kick",
     "teleport_menu": "Teleport Menu",
     "teleport_to_place": "Teleport to Place",
     "teleport_to_player": "Teleport To Player",
@@ -211,5 +211,10 @@
     "apple": "Apple",
     "need_tool": "You don't have the tool to gather !",
     "unprocessed_iron": "Unprocessed Iron",
-    "processed_iron": "Processed Iron"
+    "processed_iron": "Processed Iron",
+    "jerican": "Jerican",
+    "car_full": "This car is already full !",
+    "refuel": "Refuel",
+    "car_refuelled": "You refuelled this car !",
+    "car_refuelled_for": "You refuelled this car for {1} {2} !"
 }
