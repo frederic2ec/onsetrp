@@ -7,7 +7,6 @@
         "chat/server.lua",
         "hud/server.lua",
         "worldtime/server.lua",
-        "worldtime/server.lua",
         "misc/s_door.lua",
         "atm/server.lua",
         "vehicle_dealer/server.lua",

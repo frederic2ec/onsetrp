@@ -5,25 +5,29 @@ GarageDealerTable = {
 	{
 		location = { 126574, 74560, 1567, 90 },
 		spawn = { 127533, 75598 , 1567, 90 }
-	}
+    },
+    {
+		location = { 22083, 146617, 1560, -90 },
+		spawn = { 22120, 145492 , 1560, -90 }
+    },
+    {
+		location = { -16207, -8641, 2062, 90 },
+		spawn = { -16552, -7801, 2062, 90 }
+    }
  }
 
  GarageStoreTable = { 
     {
         modelid = 2,
-        location = { 127542, 75351, 1567 }
-    },
-    {
-        modelid = 2,
-        location = { 128002, 75351, 1567 }
-    },
-    {
-        modelid = 2,
-        location = { 128557, 75351, 1567 }
-    },
-    {
-        modelid = 2,
-        location = { 129014, 75351, 1567 }
+        location = { 
+            { 127542, 75351, 1567 },
+            { 128002, 75351, 1567 },
+            { 128557, 75351, 1567 },
+            { 129014, 75351, 1567 },
+            { 23432, 145697, 1550 },
+            { -15224, -7160, 2062 }
+        },
+        object = {}
     }
 }
 
@@ -43,10 +47,12 @@ end)
     end
     
     for k,v in pairs(GarageStoreTable) do
-        v.object = CreatePickup(v.modelid , v.location[1], v.location[2], v.location[3])
-        
+        for i,j in pairs(v.location) do
+            v.object[i] = CreatePickup(v.modelid , v.location[i][1], v.location[i][2], v.location[i][3])
+            
 
-		table.insert(GarageStoreObjectsCached, v.object)
+            table.insert(GarageStoreObjectsCached, v.object[i])
+        end
 	end
 end)
 
@@ -101,19 +107,21 @@ function OnGarageListLoaded(player)
 end
 
 function OnPlayerPickupHit(player, pickup)
-	for k,v in pairs(GarageStoreTable) do
-        if v.object == pickup then
-            vehicle = GetPlayerVehicle(player)
-            seat = GetPlayerVehicleSeat(player)
-            if (vehicle ~= 0 and seat == 1) then
-                if (VehicleData[vehicle].owner == PlayerData[player].accountid) then
-                    local query = mariadb_prepare(sql, "UPDATE `player_garage` SET `garage`=1 WHERE `id` = ?;",
-                    tostring(VehicleData[vehicle].garageid)
-                    )
-                    mariadb_async_query(sql, query)
-                    DestroyVehicle(vehicle)
-                    DestroyVehicleData(vehicle)
-                    return AddPlayerChat(player, _("vehicle_stored"))
+    for k,v in pairs(GarageStoreTable) do
+        for i,j in pairs(v.object) do
+            if j == pickup then
+                vehicle = GetPlayerVehicle(player)
+                seat = GetPlayerVehicleSeat(player)
+                if (vehicle ~= 0 and seat == 1) then
+                    if (VehicleData[vehicle].owner == PlayerData[player].accountid) then
+                        local query = mariadb_prepare(sql, "UPDATE `player_garage` SET `garage`=1 WHERE `id` = ?;",
+                        tostring(VehicleData[vehicle].garageid)
+                        )
+                        mariadb_async_query(sql, query)
+                        DestroyVehicle(vehicle)
+                        DestroyVehicleData(vehicle)
+                        return AddPlayerChat(player, _("vehicle_stored"))
+                    end
                 end
             end
 		end
