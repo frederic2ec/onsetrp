@@ -233,5 +233,9 @@
     "admin": "Admin",
     "private_message": "Private Message",
     "cant_refuel": "You cannot refuel your car !",
-    "house": "House"
+    "house": "House",
+    "keys": "Keys",
+    "give_key": "Give Key",
+    "remove_key": "Remove Key",
+    "already_have_key": "This player already have the key !"
 }
