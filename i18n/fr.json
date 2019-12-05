@@ -228,8 +228,10 @@
     "old_town": "Vieille ville",
     "select_city": "Veuillez choisir une ville !",
     "spawn_menu": "Menu de spawn",
-    "vehicle_health": "",
-    "global": "",
-    "admin": "",
-    "private_message": ""
+    "vehicle_health": "État du véhicule :",
+    "global": "Global",
+    "admin": "Administrateur",
+    "private_message": "Message privé",
+    "cant_refuel": "Vous ne pouvez pas ravitailler votre véhicule !",
+    "house": "Maison"
 }
