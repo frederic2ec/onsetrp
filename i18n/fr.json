@@ -233,5 +233,9 @@
     "admin": "Administrateur",
     "private_message": "Message privé",
     "cant_refuel": "Vous ne pouvez pas ravitailler votre véhicule !",
-    "house": "Maison"
+    "house": "Maison",
+    "keys": "Clés",
+    "give_key": "Donner les clés",
+    "remove_key": "Supprimer les clés",
+    "already_have_key": "Le joueur possède déjà les clés"
 }
