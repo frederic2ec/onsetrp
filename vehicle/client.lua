@@ -3,9 +3,10 @@ local Dialog = ImportPackage("dialogui")
 
 local vehicleMenu
 local vehicleInventory
+local vehicleKeys
 
 AddEvent("OnTranslationReady", function()
-    vehicleMenu = Dialog.create("Vehicle", nil, _("trunk"), _("unflip"), _("unlock_lock"), _("cancel"))
+    vehicleMenu = Dialog.create("Vehicle", nil, _("trunk"), _("unflip"), _("unlock_lock"), _("keys"), _("cancel"))
 
     vehicleInventory = Dialog.create(_("vehicle_trunk"), nil, _("cancel"))
     Dialog.addSelect(vehicleInventory, 1, _("inventory"), 5)
@@ -14,6 +15,10 @@ AddEvent("OnTranslationReady", function()
     Dialog.addSelect(vehicleInventory, 2, _("trunk"), 5)
     Dialog.addTextInput(vehicleInventory, 2, _("quantity"))
     Dialog.setButtons(vehicleInventory, 2, _("get"))
+
+    vehicleKeys = Dialog.create(_("keys"), nil, _("give_key"), _("remove_key"), _("cancel"))
+    Dialog.addSelect(vehicleKeys, 1, _("player"), 5)
+    Dialog.addSelect(vehicleKeys, 1, _("player"), 1)
 end)
 
 function OnPlayerStartEnterVehicle(vehicle)
@@ -79,6 +84,20 @@ AddRemoteEvent("OpenVehicleInventory", function(inventory, vehicleinventory)
     Dialog.show(vehicleInventory)
 end)
 
+AddRemoteEvent("OpenVehicleKeys", function(keyslist, playerlist)
+    local keys = {}
+    for k,v in pairs(keyslist) do
+        keys[tostring(k)] = GetPlayerName(k)
+    end
+    local players = {}
+    for k,v in pairs(playerlist) do
+        players[tostring(k)] = GetPlayerName(k)
+    end
+    Dialog.setSelectLabeledOptions(vehicleKeys, 1, 1, keys)
+    Dialog.setSelectLabeledOptions(vehicleKeys, 1, 2, players)
+    Dialog.show(vehicleKeys)
+end)
+
 AddEvent("OnDialogSubmit", function(dialog, button, ...)
     local args = { ... }
 	if dialog == vehicleMenu then
@@ -90,6 +109,9 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
         end
         if button == 3 then
             CallRemoteEvent("unlockVehicle")
+        end
+        if button == 4 then
+            CallRemoteEvent("VehicleKeys")
         end
     end
 
@@ -117,6 +139,24 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
 			end
 		end
         CallRemoteEvent("CloseTrunk")
+    end
+
+    if dialog == vehicleKeys then
+        if button == 1 then
+            if args[2] == "" then
+                AddPlayerChat(_("select_player"))
+            else
+                CallRemoteEvent("VehicleGiveKey", args[2])
+            end
+        end
+
+        if button == 2 then
+            if args[1] == "" then
+                AddPlayerChat(_("select_player"))
+            else
+                CallRemoteEvent("VehicleRemoveKey", args[1])
+            end
+        end
     end
 end)
 

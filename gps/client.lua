@@ -29,3 +29,8 @@ AddEvent("OnKeyPress", function( key )
         Dialog.show(gpsMenu)
     end
 end)
+
+AddRemoteEvent("ClientCreateWaypoint", function(name, x, y, z)
+    CreateWaypoint(name, x, y, z)
+end)
+

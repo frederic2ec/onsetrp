@@ -9,6 +9,7 @@ function CreateVehicleData(player, vehicle, modelid)
     VehicleData[vehicle].owner = PlayerData[player].accountid
     VehicleData[vehicle].modelid = modelid
     VehicleData[vehicle].inventory = {}
+    VehicleData[vehicle].keys = {}
     VehicleData[vehicle].fuel = 100
 
     print("Data created for : "..vehicle)
@@ -48,15 +49,20 @@ end
 AddRemoteEvent("ServerVehicleMenu", function(player, vehicle)
     if VehicleData[vehicle].owner == PlayerData[player].accountid then
         CallRemoteEvent(player, "OpenVehicleMenu")
+    else
+        for k,v in pairs(vehicle.keys) do
+            if v == PlayerData[player].accountid then
+                CallRemoteEvent(player, "OpenVehicleMenu")
+            end
+        end
     end
 end)
 
 function unlockVehicle(player)
     local nearestCar = GetNearestCar(player)
-    local vehicle = VehicleData[nearestCar]
-    local playerData = PlayerData[player]
+    local vehicle = VehicleData[nearestCar] 
     if nearestCar ~= 0 then
-        if vehicle.owner == playerData.accountid then
+        if vehicle.owner == PlayerData[player].accountid then
             if GetVehiclePropertyValue(nearestCar, "locked") then
                 AddPlayerChat(player, _("car_unlocked"))
                 SetVehiclePropertyValue(nearestCar, "locked", false, true)
@@ -65,6 +71,20 @@ function unlockVehicle(player)
                 AddPlayerChat(player, _("car_locked"))
                 SetVehiclePropertyValue(nearestCar, "locked", true, true)
                 CallRemoteEvent(player, "PlayAudioFile", "carLock.mp3")
+            end
+        else
+            for k,v in pairs(vehicle.keys) do
+                if v == PlayerData[player].accountid then
+                    if GetVehiclePropertyValue(nearestCar, "locked") then
+                        AddPlayerChat(player, _("car_unlocked"))
+                        SetVehiclePropertyValue(nearestCar, "locked", false, true)
+                        CallRemoteEvent(player, "PlayAudioFile", "carUnlock.mp3")
+                    else
+                        AddPlayerChat(player, _("car_locked"))
+                        SetVehiclePropertyValue(nearestCar, "locked", true, true)
+                        CallRemoteEvent(player, "PlayAudioFile", "carLock.mp3")
+                    end
+                end
             end
         end
     end
@@ -75,6 +95,13 @@ AddRemoteEvent("OpenTrunk", function(player)
     local vehicle = GetNearestCar(player)
     SetVehicleTrunkRatio(vehicle, 60.0)
     CallRemoteEvent(player, "OpenVehicleInventory", PlayerData[player].inventory, VehicleData[vehicle].inventory)
+end)
+
+AddRemoteEvent("VehicleKeys", function(player) 
+    local vehicle = GetNearestCar(player)
+    local keyslist = VehicleData[vehicle].keys
+    local playerlist = GetAllPlayers()
+    CallRemoteEvent(player, "OpenVehicleKeys", keyslist, playerlist)
 end)
 
 AddRemoteEvent("CloseTrunk", function(player)
@@ -107,6 +134,29 @@ AddRemoteEvent("VehicleUnstore", function(player, item, amount)
     else
         AddInventory(player, item, amount)
         RemoveVehicleInventory(vehicle, item, amount)
+    end
+end)
+
+
+AddRemoteEvent("VehicleGiveKey", function(player, toplayer)
+    local vehicle = GetNearestCar(player)
+    local toplayer = tonumber(toplayer)
+
+    if VehicleData[vehicle].keys[toplayer] == nil then
+        VehicleData[vehicle].keys[toplayer] = 1
+    else
+        AddPlayerChat(player, _("already_have_key"))
+    end
+end)
+
+AddRemoteEvent("VehicleRemoveKey", function(player, toplayer)
+    local vehicle = GetNearestCar(player)
+    local toplayer = tonumber(toplayer)
+
+    if VehicleData[vehicle].keys[toplayer] == nil then
+        return
+    else
+        VehicleData[vehicle].keys[toplayer] = nil
     end
 end)
 

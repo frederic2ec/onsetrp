@@ -170,7 +170,9 @@ function CreatePlayerData(player)
     PlayerData[player].thirst = 100
     PlayerData[player].hunger = 100
     PlayerData[player].cash = 0
-    PlayerData[player].bank_balance = 1000
+	PlayerData[player].bank_balance = 1000
+	PlayerData[player].job_vehicle = nil
+	PlayerData[player].job = ""
 
     print("Data created for : "..player)
 end
