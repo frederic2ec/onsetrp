@@ -237,5 +237,17 @@
     "keys": "Keys",
     "give_key": "Give Key",
     "remove_key": "Remove Key",
-    "already_have_key": "This player already have the key !"
+    "already_have_key": "This player already have the key !",
+    "vehicle_25": "Lada",
+    "delivery_menu": "Delivery Menu",
+    "start_stop_delivery": "Start / Stop Delivery",
+    "next_delivery": "Next Delivery",
+    "finish_delivery": "Finish Delivery",
+    "delivery_job": "Delivery Job",
+    "finish_your_delivery": "You have to finish your delivery !",
+    "delivery": "Delivery",
+    "new_delivery": "You received a new delivery !",
+    "no_delivery": "You don't have a delivery !",
+    "no_delivery_point": "You are not at your delivery destination !",
+    "finished_delivery": "Your finished your delivery and received {1} {2}"
 }
