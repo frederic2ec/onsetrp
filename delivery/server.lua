@@ -10,9 +10,11 @@ local deliveryPoint = {
     { 211535, 91260, 1340 }
 }
 
+local playerDelivery = {}
+
 AddEvent("OnPackageStart", function()
     deliveryNpc.npc = CreateNPC(deliveryNpc.location[1], deliveryNpc.location[2], deliveryNpc.location[3],deliveryNpc.location[4])
-    CreateText3D("Delivery Job".."\n".._("press_e"), 18, deliveryNpc.location[1], deliveryNpc.location[2], deliveryNpc.location[3] + 120, 0, 0, 0)
+    CreateText3D(_("delivery_job").."\n".._("press_e"), 18, deliveryNpc.location[1], deliveryNpc.location[2], deliveryNpc.location[3] + 120, 0, 0, 0)
 end)
 
 AddEvent("OnPlayerJoin", function(player)
@@ -39,6 +41,8 @@ AddRemoteEvent("StartStopDelivery", function(player)
             PlayerData[player].job_vehicle = nil
         end
         PlayerData[player].job = ""
+        playerDelivery[player] = nil
+        CallRemoteEvent(player, "ClientDestroyCurrentWaypoint")
     end
 end)
 
@@ -48,6 +52,36 @@ AddRemoteEvent("OpenDeliveryMenu", function(player)
     end
 end)
 
-AddRemoteEvent("NextDelivery" function(player)
+AddRemoteEvent("NextDelivery", function(player)
+    if playerDelivery[player] ~= nil then
+        return AddPlayerChat(player, _("finish_your_delivery"))
+    end
+    delivery = Random(1, #deliveryPoint)
+    playerDelivery[player] = delivery
+    CallRemoteEvent(player, "ClientCreateWaypoint", _("delivery"), deliveryPoint[delivery][1], deliveryPoint[delivery][2], deliveryPoint[delivery][3])
+    AddPlayerChat(player, _("new_delivery"))
+end)
+
+AddRemoteEvent("FinishDelivery", function(player)
+    delivery = playerDelivery[player]
+
+    if delivery == nil then
+        AddPlayerChat(player, _("no_delivery"))
+    end
+
+    local x, y, z = GetPlayerLocation(player)
     
+    local dist = GetDistance3D(x, y, z, deliveryPoint[delivery][1], deliveryPoint[delivery][2], deliveryPoint[delivery][3])
+
+    if dist < 150.0 then
+        local reward = Random(100, 500)
+
+        AddPlayerChat(player, _("finished_delivery", reward, _("currency")))
+        
+        PlayerData[player].cash = PlayerData[player].cash + reward
+        playerDelivery[player] = nil
+        CallRemoteEvent(player, "ClientDestroyCurrentWaypoint")
+    else
+        AddPlayerChat(player, _("no_delivery_point"))
+    end
 end)

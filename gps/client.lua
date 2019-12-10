@@ -31,6 +31,13 @@ AddEvent("OnKeyPress", function( key )
 end)
 
 AddRemoteEvent("ClientCreateWaypoint", function(name, x, y, z)
-    CreateWaypoint(name, x, y, z)
+    if currentWaypoint ~= nil then
+        DestroyWaypoint(currentWaypoint)
+    end
+    currentWaypoint = CreateWaypoint(tonumber(x), tonumber(y), tonumber(z), tostring(name))    
+end)
+
+AddRemoteEvent("ClientDestroyCurrentWaypoint", function()
+    DestroyWaypoint(currentWaypoint)
 end)
 

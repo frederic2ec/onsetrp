@@ -10,8 +10,8 @@ AddRemoteEvent("SetupDelivery", function(deliverynpc)
 end)
 
 AddEvent("OnTranslationReady", function()
-    deliveryNpcMenu = Dialog.create("Delivery Menu", nil, "Start/Stop Delivery" ,_("cancel"))
-    deliveryMenu = Dialog.create("Delivery Menu", nil, "Next delivery", "Finish delivery", _("cancel"))
+    deliveryNpcMenu = Dialog.create(_("delivery_menu"), nil, _("start_stop_delivery") ,_("cancel"))
+    deliveryMenu = Dialog.create(_("delivery_menu"), nil, _("next_delivery"), _("finish_delivery"), _("cancel"))
 end)
 
 AddEvent("OnKeyPress", function( key )
@@ -39,6 +39,9 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == deliveryMenu then
         if button == 1 then
             CallRemoteEvent("NextDelivery")
+        end
+        if button == 2 then
+            CallRemoteEvent("FinishDelivery")
         end
     end
 end)
