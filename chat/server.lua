@@ -89,3 +89,29 @@ end)
 AddCommand("spec", function(player)
     SetPlayerSpectate( player, true)
 end)
+
+AddCommand("tppos", function(player, x, y, z)
+    SetPlayerLocation(player, x, y, z)
+end)
+
+AddCommand( "doorinfo", function( iPlayer )
+    local door = false
+    local x, y, z = GetPlayerLocation( iPlayer )
+
+    for k, v in pairs( GetAllDoors() ) do
+        local x2, y2, z2 = GetDoorLocation( v )
+
+        if GetDistance3D( x, y, z, x2, y2, z2 ) < 200 then
+            door = v
+        end
+    end
+
+    if not door or not IsValidDoor( door ) then
+        AddPlayerChat( iPlayer, "No close door found" )
+        return 
+    end
+
+    local x, y, z = GetDoorLocation( door )
+
+    print( "{ entity = -1, model = " .. GetDoorModel( door ) .. ", x = " .. x .. ", y = " .. y .. ", z = " .. z .. "}")        
+end )
