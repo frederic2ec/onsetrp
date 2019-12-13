@@ -1,4 +1,6 @@
 local Dialog = ImportPackage("dialogui")
+Dialog.setGlobalTheme("saitama")
+
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 local shop
