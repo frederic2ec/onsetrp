@@ -63,6 +63,9 @@ AddRemoteEvent("ServerChangeClothes", function(player, playername, playerhairs, 
 end)
 
 AddEvent("OnPlayerSpawn", function( player )
+    if PlayerData[player].clothing == nil then
+        return
+    end
     playerhairscolor = getHairsColor(PlayerData[player].clothing[2])
     CallRemoteEvent(player, "ClientChangeClothing", player, 0, PlayerData[player].clothing[1], playerhairscolor[1], playerhairscolor[2], playerhairscolor[3], playerhairscolor[4])
     CallRemoteEvent(player, "ClientChangeClothing", player, 1, PlayerData[player].clothing[3], 0, 0, 0, 0)
