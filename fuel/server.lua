@@ -63,7 +63,10 @@ AddEvent("OnPlayerEnterVehicle", function( player, vehicle, seat )
 end)
 
 AddEvent("OnPlayerLeaveVehicle", function( player, vehicle)
-    StopVehicleEngine(vehicle)
+    seat = GetPlayerVehicleSeat(player)
+    if seat == 1 then
+        StopVehicleEngine(vehicle)
+    end
 end)
 
 

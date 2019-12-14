@@ -134,23 +134,28 @@ function OnAccountLoaded(player)
 		PlayerData[player].name = tostring(result['name'])
 		PlayerData[player].clothing = json_decode(result['clothing'])
 		PlayerData[player].inventory = json_decode(result['inventory'])
+		PlayerData[player].created = math.tointeger(result['created'])
 
-		SetPlayerName(player, PlayerData[player].name)
-		
-		playerhairscolor = getHairsColor(PlayerData[player].clothing[2])
-		CallRemoteEvent(player, "ClientChangeClothing", player, 0, PlayerData[player].clothing[1], playerhairscolor[1], playerhairscolor[2], playerhairscolor[3], playerhairscolor[4])
-		CallRemoteEvent(player, "ClientChangeClothing", player, 1, PlayerData[player].clothing[3], 0, 0, 0, 0)
-		CallRemoteEvent(player, "ClientChangeClothing", player, 4, PlayerData[player].clothing[4], 0, 0, 0, 0)
-		CallRemoteEvent(player, "ClientChangeClothing", player, 5, PlayerData[player].clothing[5], 0, 0, 0, 0)
-		
 		SetPlayerHealth(player, tonumber(result['health']))
 		SetPlayerArmor(player, tonumber(result['armor']))
         setPlayerThirst(player, tonumber(result['thirst']))
         setPlayerHunger(player, tonumber(result['hunger']))
 
 		SetPlayerLoggedIn(player)
-		CallRemoteEvent(player, "AskSpawnMenu")
 
+		if PlayerData[player].created == 0 then
+			CallRemoteEvent(player, "askClientCreation")
+		else
+			SetPlayerName(player, PlayerData[player].name)
+		
+			playerhairscolor = getHairsColor(PlayerData[player].clothing[2])
+			CallRemoteEvent(player, "ClientChangeClothing", player, 0, PlayerData[player].clothing[1], playerhairscolor[1], playerhairscolor[2], playerhairscolor[3], playerhairscolor[4])
+			CallRemoteEvent(player, "ClientChangeClothing", player, 1, PlayerData[player].clothing[3], 0, 0, 0, 0)
+			CallRemoteEvent(player, "ClientChangeClothing", player, 4, PlayerData[player].clothing[4], 0, 0, 0, 0)
+			CallRemoteEvent(player, "ClientChangeClothing", player, 5, PlayerData[player].clothing[5], 0, 0, 0, 0)
+			CallRemoteEvent(player, "AskSpawnMenu")
+		end
+		
 		AddPlayerChat(player, '<span color="#ffff00aa" style="bold italic" size="17">SERVER: Welcome back '..GetPlayerName(player)..', have fun!</>')
 
 		print("Account ID "..PlayerData[player].accountid.." loaded for "..GetPlayerIP(player))
@@ -194,7 +199,7 @@ function SavePlayerAccount(player)
 		return
 	end
 
-	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, cash = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', inventory = '?' WHERE id = ? LIMIT 1;",
+	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, cash = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', inventory = '?', created = '?' WHERE id = ? LIMIT 1;",
 		PlayerData[player].admin,
 		PlayerData[player].cash,
 		PlayerData[player].bank_balance,
@@ -205,6 +210,7 @@ function SavePlayerAccount(player)
 		PlayerData[player].name,
 		json_encode(PlayerData[player].clothing),
 		json_encode(PlayerData[player].inventory),
+		PlayerData[player].created
 		PlayerData[player].accountid
 		)
         
