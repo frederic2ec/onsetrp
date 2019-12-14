@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2019 at 06:58 PM
--- Server version: 10.4.8-MariaDB
--- PHP Version: 7.3.10
+-- Generation Time: Dec 14, 2019 at 08:16 AM
+-- Server version: 10.3.15-MariaDB
+-- PHP Version: 7.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -26,15 +26,16 @@ CREATE TABLE `accounts` (
   `id` int(10) UNSIGNED NOT NULL,
   `steamid` varchar(17) NOT NULL,
   `name` varchar(255) NOT NULL DEFAULT 'Unregistered',
-  `clothing` text NULL,
-  `inventory` text NULL,
+  `clothing` text NOT NULL,
+  `inventory` text NOT NULL,
   `admin` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
   `health` float NOT NULL DEFAULT 100,
   `armor` float NOT NULL DEFAULT 0,
   `thirst` float NOT NULL DEFAULT 100,
   `hunger` float NOT NULL DEFAULT 100,
   `cash` int(11) DEFAULT 1000,
-  `bank_balance` int(11) NOT NULL DEFAULT 0
+  `bank_balance` int(11) NOT NULL DEFAULT 0,
+  `created` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -74,7 +75,7 @@ CREATE TABLE `player_garage` (
   `color` varchar(255) NOT NULL,
   `garage` tinyint(1) NOT NULL,
   `price` int(11) NOT NULL,
-  `inventory` text NULL
+  `inventory` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -222,7 +223,7 @@ ALTER TABLE `player_garage`
 -- AUTO_INCREMENT for table `player_house`
 --
 ALTER TABLE `player_house`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- Constraints for dumped tables
