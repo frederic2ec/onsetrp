@@ -18,7 +18,7 @@ AddCommand("g", function(player, ...)
         if i > 1 then
             message = message.." "
         end
-        message = message..args[1]
+        message = message..args[i]
     end
     message = '['.._("global")..'] <span>'..GetPlayerName(player)..'('..player..'):</> '..message
     AddPlayerChatAll(message)
@@ -33,7 +33,7 @@ AddCommand("/", function(player, ...)
         if i > 1 then
             message = message.." "
         end
-        message = message..args[1]
+        message = message..args[i]
     end
     message = '['.._("admin")..'] <span>'..GetPlayerName(player)..'('..player..'):</> '..message
     AddPlayerChat(player, message)
@@ -52,7 +52,7 @@ AddCommand("p", function(player, toplayer, ...)
         if i > 1 then
             message = message.." "
         end
-        message = message..args[1]
+        message = message..args[i]
     end 
     message = '['.._("private_message")..'] <span>'..GetPlayerName(player)..'('..player..'):</> '..message
     AddPlayerChat(player, message)
