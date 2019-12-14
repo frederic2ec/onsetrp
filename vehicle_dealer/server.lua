@@ -97,7 +97,6 @@ function buyCarServer(player, modelid, color, cardealerobject)
                 for k,w in pairs(GetAllVehicles()) do
                     local x3, y3, z3 = GetVehicleLocation(w)
                     local dist2 = GetDistance3D(v.spawn[1], v.spawn[2], v.spawn[3], x3, y3, z3)
-                    print(dist2)
                     if dist2 > 1000.0 then
                         -- if no vehicle on the spawn zone continue
                         local vehicle = CreateVehicle(modelid, v.spawn[1], v.spawn[2], v.spawn[3], v.spawn[4])
