@@ -53,9 +53,11 @@ AddRemoteEvent("ServerChangeClothes", function(player, playername, playerhairs, 
     CallRemoteEvent(player, "ClientChangeClothing", player, 1, PlayerData[player].clothing[3], 0, 0, 0, 0)
     CallRemoteEvent(player, "ClientChangeClothing", player, 4, PlayerData[player].clothing[4], 0, 0, 0, 0)
     CallRemoteEvent(player, "ClientChangeClothing", player, 5, PlayerData[player].clothing[5], 0, 0, 0, 0)
-
-    CallRemoteEvent(player, "OpenSpawnMenu", spawnLocation)
+    
     CallRemoteEvent(player, "AskSpawnMenu")
+    CallRemoteEvent(player, "OpenSpawnMenu", spawnLocation)
+
+    PlayerData[player].created = 1
 
     for k,v in pairs(GetStreamedPlayersForPlayer(player)) do
         ChangeOtherPlayerClothes(k, player)
@@ -63,7 +65,8 @@ AddRemoteEvent("ServerChangeClothes", function(player, playername, playerhairs, 
 end)
 
 AddEvent("OnPlayerSpawn", function( player )
-    if PlayerData[player].clothing[1] == nil then
+    print(PlayerData[player].clothing)
+    if PlayerData[player].clothing == nil then
         return
     end
     playerhairscolor = getHairsColor(PlayerData[player].clothing[2])
@@ -74,7 +77,7 @@ AddEvent("OnPlayerSpawn", function( player )
 end)
 
 function ChangeOtherPlayerClothes(player, otherplayer)
-    if PlayerData[player].clothing[1] == nil then
+    if PlayerData[player].clothing == nil then
         return
     end
     playerhairscolor = getHairsColor(PlayerData[otherplayer].clothing[2])
