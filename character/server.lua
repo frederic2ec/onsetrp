@@ -65,7 +65,6 @@ AddRemoteEvent("ServerChangeClothes", function(player, playername, playerhairs, 
 end)
 
 AddEvent("OnPlayerSpawn", function( player )
-    print(PlayerData[player].clothing)
     if PlayerData[player].clothing == nil then
         return
     end
