@@ -82,13 +82,13 @@ AddEvent("OnPlayerSpawn", function( player )
 end)
 
 function ChangeOtherPlayerClothes(player, otherplayer)
-    if PlayerData[player] == nil then
+    if PlayerData[otherplayer] == nil then
         return
     end
-    if PlayerData[player].clothing == nil then
+    if PlayerData[otherplayer].clothing == nil then
         return
     end
-    if PlayerData[player].clothing[1] == nil then
+    if PlayerData[otherplayer].clothing[1] == nil then
         return
     end
     playerhairscolor = getHairsColor(PlayerData[otherplayer].clothing[2])
