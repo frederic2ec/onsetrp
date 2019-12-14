@@ -210,7 +210,7 @@ function SavePlayerAccount(player)
 		PlayerData[player].name,
 		json_encode(PlayerData[player].clothing),
 		json_encode(PlayerData[player].inventory),
-		PlayerData[player].created
+		PlayerData[player].created,
 		PlayerData[player].accountid
 		)
         
