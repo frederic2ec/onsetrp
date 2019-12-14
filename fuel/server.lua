@@ -55,6 +55,9 @@ AddEvent("OnPlayerJoin", function(player)
 end)
 
 AddEvent("OnPlayerEnterVehicle", function( player, vehicle, seat )
+    if VehicleData[vehicle] == nil then
+        return
+    end
     if seat == 1 then
         if VehicleData[vehicle].fuel == 0 then
             StopVehicleEngine(vehicle)

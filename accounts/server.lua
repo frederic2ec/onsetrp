@@ -27,16 +27,10 @@ function OnPlayerSteamAuth(player)
 end
 AddEvent("OnPlayerSteamAuth", OnPlayerSteamAuth)
 
-function OnPlayerJoin(player)
-	SetPlayerSpawnLocation(player, 125773.000000, 80246.000000, 1645.000000, -90.0)
-end
-AddEvent("OnPlayerJoin", OnPlayerJoin)
-
 function OnPlayerQuit(player)
     SavePlayerAccount(player)
 
     DestroyPlayerData(player)
-    print("Data destroyed for : "..player)
 end
 AddEvent("OnPlayerQuit", OnPlayerQuit)
 
@@ -170,7 +164,8 @@ function CreatePlayerData(player)
 	PlayerData[player].clothing = {}
 	PlayerData[player].inventory = {}
     PlayerData[player].logged_in = false
-    PlayerData[player].admin = 0
+	PlayerData[player].admin = 0
+	PlayerData[player].created = 0
     PlayerData[player].locale = GetPlayerLocale(player)
     PlayerData[player].thirst = 100
     PlayerData[player].hunger = 100
@@ -178,16 +173,18 @@ function CreatePlayerData(player)
 	PlayerData[player].bank_balance = 1000
 	PlayerData[player].job_vehicle = nil
 	PlayerData[player].job = ""
+	PlayerData[player].onAction = false
 
     print("Data created for : "..player)
 end
 
 function DestroyPlayerData(player)
-	if (PlayerData[player] ~= nil) then
+	if (PlayerData[player] == nil) then
 		return
     end
 
-    PlayerData[player] = nil
+	PlayerData[player] = nil
+	print("Data destroyed for : "..player)
 end
 
 function SavePlayerAccount(player)

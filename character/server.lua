@@ -65,7 +65,13 @@ AddRemoteEvent("ServerChangeClothes", function(player, playername, playerhairs, 
 end)
 
 AddEvent("OnPlayerSpawn", function( player )
+    if PlayerData[player] == nil then
+        return
+    end
     if PlayerData[player].clothing == nil then
+        return
+    end
+    if PlayerData[palyer].clothing[1] == nil then
         return
     end
     playerhairscolor = getHairsColor(PlayerData[player].clothing[2])
@@ -76,7 +82,13 @@ AddEvent("OnPlayerSpawn", function( player )
 end)
 
 function ChangeOtherPlayerClothes(player, otherplayer)
+    if PlayerData[player] == nil then
+        return
+    end
     if PlayerData[player].clothing == nil then
+        return
+    end
+    if PlayerData[palyer].clothing[1] == nil then
         return
     end
     playerhairscolor = getHairsColor(PlayerData[otherplayer].clothing[2])
