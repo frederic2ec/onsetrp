@@ -48,9 +48,6 @@ AddEvent("OnPlayerQuit", function( player )
     if playerDelivery[player] ~= nil then
         playerDelivery[player] = nil
     end
-    if PlayerData[player].job_vehicle ~= nil then
-        DestroyVehicle(PlayerData[player].job_vehicle)
-    end
 end)
 
 AddEvent("OnPlayerJoin", function(player)
