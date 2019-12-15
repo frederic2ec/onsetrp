@@ -97,6 +97,7 @@ function unlockVehicle(player)
                 SetVehiclePropertyValue(nearestCar, "locked", true, true)
                 CallRemoteEvent(player, "PlayAudioFile", "carLock.mp3")
             end
+            return
         end
         if vehicle.owner == PlayerData[player].accountid then
             if GetVehiclePropertyValue(nearestCar, "locked") then
@@ -108,6 +109,7 @@ function unlockVehicle(player)
                 SetVehiclePropertyValue(nearestCar, "locked", true, true)
                 CallRemoteEvent(player, "PlayAudioFile", "carLock.mp3")
             end
+            return
         else
             for k,v in pairs(vehicle.keys) do
                 if v == PlayerData[player].accountid then
@@ -122,6 +124,7 @@ function unlockVehicle(player)
                     end
                 end
             end
+            return
         end
     end
 end
