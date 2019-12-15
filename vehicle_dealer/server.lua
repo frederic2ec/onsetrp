@@ -94,35 +94,28 @@ function buyCarServer(player, modelid, color, cardealerobject)
             local x2, y2, z2 = GetNPCLocation(v.npc)
             local dist = GetDistance3D(x, y, z, x2, y2, z2)
             if dist < 150.0 then
+                local isSpawnable = true
                 for k,w in pairs(GetAllVehicles()) do
                     local x3, y3, z3 = GetVehicleLocation(w)
                     local dist2 = GetDistance3D(v.spawn[1], v.spawn[2], v.spawn[3], x3, y3, z3)
-                    if dist2 > 1000.0 then
-                        -- if no vehicle on the spawn zone continue
-                        local vehicle = CreateVehicle(modelid, v.spawn[1], v.spawn[2], v.spawn[3], v.spawn[4])
-                        SetVehicleRespawnParams(vehicle, false)
-                        SetVehicleColor(vehicle, "0x"..color)
-                        SetVehiclePropertyValue(vehicle, "locked", true, true)
-                        CreateVehicleData(player, vehicle, modelid)
-                        CreateVehicleDatabase(player, vehicle, modelid, color, price)
-                        PlayerData[player].cash = PlayerData[player].cash - tonumber(price)
-                        CallRemoteEvent(player, "closeCarDealer")
-                        return AddPlayerChat(player, _("car_buy_sucess", name, price, _("currency")))
-                    else
-                        -- if vehicle on the spawn zone cancel and report an error
-                        return AddPlayerChat(player, _("cannot_spawn_vehicle"))
+                    if dist2 < 1000.0 then
+                      isSpawnable = false
+                      break
                     end
                 end
-                -- if no vehicle in the world spawn the car
-                local vehicle = CreateVehicle(modelid, v.spawn[1], v.spawn[2], v.spawn[3], v.spawn[4])
-                SetVehicleColor(vehicle, "0x"..color)
-                SetVehicleRespawnParams(vehicle, false)
-                SetVehiclePropertyValue(vehicle, "locked", true, true)
-                CreateVehicleData(player, vehicle, modelid)
-                CreateVehicleDatabase(player, vehicle, modelid, color, price)
-                PlayerData[player].cash = PlayerData[player].cash - tonumber(price)
-                CallRemoteEvent(player, "closeCarDealer")
-                return AddPlayerChat(player, _("car_buy_sucess", name, price, _("currency")))
+                if isSpawnable then
+                    local vehicle = CreateVehicle(modelid, v.spawn[1], v.spawn[2], v.spawn[3], v.spawn[4])
+                    SetVehicleRespawnParams(vehicle, false)
+                    SetVehicleColor(vehicle, "0x"..color)
+                    SetVehiclePropertyValue(vehicle, "locked", true, true)
+                    CreateVehicleData(player, vehicle, modelid)
+                    CreateVehicleDatabase(player, vehicle, modelid, color, price)
+                    PlayerData[player].cash = PlayerData[player].cash - tonumber(price)
+                    CallRemoteEvent(player, "closeCarDealer")
+                    return AddPlayerChat(player, _("car_buy_sucess", name, price, _("currency")))
+                else
+                    return AddPlayerChat(player, _("cannot_spawn_vehicle"))
+                end
             end
         end
     end
