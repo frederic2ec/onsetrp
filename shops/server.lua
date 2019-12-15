@@ -45,11 +45,12 @@ ShopTable = {
             weapon_20 = 10
         },
         location = {
-            { -181943, -40882, 1163, 0 }
+            { -181943, -40882, 1163, 90 },
+            { 206071, 193057, 1357, 180 }
         },
         npc = {},
     },
-    {
+   --[[  {
         items = {
             processed_weed = 4000,
             processed_meth = 4000,
@@ -60,10 +61,10 @@ ShopTable = {
             { -177344, 3673, 1992, 0 }
         },
         npc = {},
-    },
+    }, ]]
     {
         items = {
-            processed_iron = 1000,
+            processed_rock = 1000,
         },
         location = {
             { 21799, 137848, 1555, 90 }
@@ -94,7 +95,7 @@ AddRemoteEvent("shopInteract", function(player, shopobject)
 		local x2, y2, z2 = GetPlayerLocation(player)
         local dist = GetDistance3D(x, y, z, x2, y2, z2)
 
-		if dist < 300 then
+		if dist < 250 then
 			for k,v in pairs(ShopTable) do
 				if shopobject == v.npc[npcid] then
 					CallRemoteEvent(player, "openShop", PlayerData[player].inventory, v.items, v.npc[npcid])

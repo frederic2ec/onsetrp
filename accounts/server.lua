@@ -27,6 +27,10 @@ function OnPlayerSteamAuth(player)
 end
 AddEvent("OnPlayerSteamAuth", OnPlayerSteamAuth)
 
+AddEvent("OnPlayerJoin", function(player)
+	SetPlayerSpawnLocation(player, 227603, -65590, 237, 0 )
+end)
+
 function OnPlayerQuit(player)
     SavePlayerAccount(player)
 

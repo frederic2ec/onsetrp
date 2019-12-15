@@ -68,7 +68,7 @@ function GetNearestShop()
         local x2, y2, z2 = GetNPCLocation(v)
 		local dist = GetDistance3D(x, y, z, x2, y2, z2)
 
-		if dist < 300.0 then
+		if dist < 250.0 then
 			for k,i in pairs(ShopIds) do
 				if v == i then
 					return v

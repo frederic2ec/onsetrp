@@ -1,7 +1,7 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 gatherTable = {
-    {
+    --[[ {
         gather_zone = { 186601, -39031, 1451 },
         gather_item = "unprocessed_weed",
         process_zone = { 70695, 9566, 1366 },
@@ -24,17 +24,13 @@ gatherTable = {
         gather_item = "unprocessed_coke",
         process_zone = { 71981, 106, 1367 },
         process_item = "processed_coke"
-    },
+    }, ]]
     {
-        gather_zone = { -171385, -55909, 1166 },
-        gather_item = "apple"
-    },
-    {
-        gather_zone = { 32853, 98521, 1849 },
-        gather_item = "unprocessed_iron",
+        gather_zone = { -96766, 88886, 180 },
+        gather_item = "unprocessed_rock",
         gather_tool = "pickaxe",
-        process_zone = { 2427, 98041, 1497 },
-        process_item = "processed_iron"
+        process_zone = { -82629, 90991, 481 },
+        process_item = "processed_rock"
     },
 }
 

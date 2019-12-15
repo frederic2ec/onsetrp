@@ -20,8 +20,50 @@ CarDealerTable = {
 			green = "00FF00"
 
 		},
-		location = { 128990, 80774, 1567, 180 },
-		spawn = { 127720, 80774, 1567, 180 }
+		location = { -174924, -64183, 1151, 180 },
+		spawn = { -175442, -64850, 1130, 180 }
+    },
+    {
+		vehicles = { 
+					vehicle_1 = 1000,
+					vehicle_4 = 1000,
+					vehicle_5 = 1000,
+					vehicle_6 = 1000,
+					vehicle_7 = 1000,
+					vehicle_11 = 1000,
+                    vehicle_12 = 1000,
+                    vehicle_25 = 1000
+		},
+		colors = {
+			black = "0000",
+			red = "FF0000",
+			blue = "0000FF",
+			green = "00FF00"
+
+		},
+		location = { 205292, 168386, 1306, 180 },
+		spawn = { 204692, 168415, 1306, 180 }
+    },
+    {
+		vehicles = { 
+					vehicle_1 = 1000,
+					vehicle_4 = 1000,
+					vehicle_5 = 1000,
+					vehicle_6 = 1000,
+					vehicle_7 = 1000,
+					vehicle_11 = 1000,
+                    vehicle_12 = 1000,
+                    vehicle_25 = 1000
+		},
+		colors = {
+			black = "0000",
+			red = "FF0000",
+			blue = "0000FF",
+			green = "00FF00"
+
+		},
+		location = { -24737, -18052, 2087, -150 },
+		spawn = { -25060, -18800, 2062, -150 }
 	}
 }
 AddEvent("OnPackageStart", function()

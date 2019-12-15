@@ -1,8 +1,18 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 local deliveryNpc = {
-    location = { -16925, -29058, 2200, -90 },
-    spawn = { -17450, -28600, 2060, 110 }
+            {
+                location = { -16925, -29058, 2200, -90 },
+                spawn = { -17450, -28600, 2060, -90 }
+            },
+            {
+                location = { -168301, -41499, 1192, 90 },
+                spawn = { -168233, -40914, 1146, 90 }
+            },
+            {
+                location = { 202284, 170229, 1306, 0 },
+                spawn = { 203032, 170212, 1306, 90 }
+            }
 }
 local deliveryPoint = {
     { 116691, 164243, 3028 },
@@ -23,18 +33,23 @@ local deliveryPoint = {
     { 182881, 148416, 5933 }
 }
 
+local deliveryNpcCached = {}
 local playerDelivery = {}
 
 AddEvent("OnPackageStart", function()
-    deliveryNpc.npc = CreateNPC(deliveryNpc.location[1], deliveryNpc.location[2], deliveryNpc.location[3],deliveryNpc.location[4])
-    CreateText3D(_("delivery_job").."\n".._("press_e"), 18, deliveryNpc.location[1], deliveryNpc.location[2], deliveryNpc.location[3] + 120, 0, 0, 0)
+    for k,v in pairs(deliveryNpc) do
+        deliveryNpc[k].npc = CreateNPC(deliveryNpc[k].location[1], deliveryNpc[k].location[2], deliveryNpc[k].location[3],deliveryNpc[k].location[4])
+        CreateText3D(_("delivery_job").."\n".._("press_e"), 18, deliveryNpc[k].location[1], deliveryNpc[k].location[2], deliveryNpc[k].location[3] + 120, 0, 0, 0)
+        table.insert(deliveryNpcCached, deliveryNpc[k].npc)
+    end
 end)
 
 AddEvent("OnPlayerJoin", function(player)
-    CallRemoteEvent(player, "SetupDelivery", deliveryNpc.npc)
+    CallRemoteEvent(player, "SetupDelivery", deliveryNpcCached)
 end)
 
 AddRemoteEvent("StartStopDelivery", function(player)
+    local nearestDelivery = GetNearestDelivery(player)
     if PlayerData[player].job == "" then
         if PlayerData[player].job_vehicle ~= nil then
             DestroyVehicle(PlayerData[player].job_vehicle)
@@ -44,14 +59,14 @@ AddRemoteEvent("StartStopDelivery", function(player)
             local isSpawnable = true
             for k,v in pairs(GetAllVehicles()) do
                 local x, y, z = GetVehicleLocation(v)
-                local dist2 = GetDistance3D(deliveryNpc.spawn[1], deliveryNpc.spawn[2], deliveryNpc.spawn[3], x, y, z)
+                local dist2 = GetDistance3D(deliveryNpc[nearestDelivery].spawn[1], deliveryNpc[nearestDelivery].spawn[2], deliveryNpc[nearestDelivery].spawn[3], x, y, z)
                 if dist2 < 1500.0 then
                     isSpawnable = false
                     break
                 end
             end
             if isSpawnable then
-                local vehicle = CreateVehicle(24, deliveryNpc.spawn[1], deliveryNpc.spawn[2], deliveryNpc.spawn[3], deliveryNpc.spawn[4])
+                local vehicle = CreateVehicle(24, deliveryNpc[nearestDelivery].spawn[1], deliveryNpc[nearestDelivery].spawn[2], deliveryNpc[nearestDelivery].spawn[3], deliveryNpc[nearestDelivery].spawn[4])
                 PlayerData[player].job_vehicle = vehicle
                 CreateVehicleData(player, vehicle, 24)
                 SetVehiclePropertyValue(vehicle, "locked", true, true)
@@ -110,3 +125,22 @@ AddRemoteEvent("FinishDelivery", function(player)
         AddPlayerChat(player, _("no_delivery_point"))
     end
 end)
+
+function GetNearestDelivery(player)
+	local x, y, z = GetPlayerLocation(player)
+	
+	for k,v in pairs(GetAllNPC()) do
+        local x2, y2, z2 = GetNPCLocation(v)
+		local dist = GetDistance3D(x, y, z, x2, y2, z2)
+
+		if dist < 250.0 then
+			for k,i in pairs(deliveryNpc) do
+				if v == i.npc then
+					return k
+				end
+			end
+		end
+	end
+
+	return 0
+end
