@@ -3,7 +3,7 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 spawnLocation = {
     -- The three last value are temporary until RandomFloat is fixed
     town = { 182821, 41675, 1160, "-", "-", "" },
-    gas_station = { 125773, 80246, 1645, "", "", "" },
+    city = { 211526, 176056, 1250, "", "", "" },
     desert_town = { 16223, 8033, 2062, "-", "-", "" },
     old_town = { 39350, 138061, 1570, "", "", "" }
 }
