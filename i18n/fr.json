@@ -250,5 +250,7 @@
     "no_delivery": "Vous n'avez pas de livraison !",
     "no_delivery_point": "Vous n'êtes pas à votre destination de livraison !",
     "finished_delivery": "Vous avez terminé votre livraison ainsi vous recevez {1} {2}",
-    "city": "Ville"
+    "city": "Ville",
+    "unprocessed_rock": "Pierre non transformée",
+    "processed_rock": "Pierre transformée"
 }
