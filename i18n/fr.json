@@ -129,7 +129,7 @@
     "weapon_12": "AK47",
     "weapon_13": "AK47 Dorée",
     "weapon_14": "G36C",
-    "weapon_15": "MP40",
+    "weapon_15": "AS VAL",
     "weapon_16": "AK74U",
     "weapon_17": "Galil",
     "weapon_18": "AN74",
@@ -157,7 +157,7 @@
     "banned_for": "🚨 Vous avez été banni de ce serveur pour: {1} le {2}",
     "kicked_for": "🚨 Vous avez été exclu de ce serveur pour: {1}",
     "gas_station": "Station Service",
-    "town": "Ville",
+    "town": "Village",
     "prison": "Prison",
     "diner": "Restaurant",
     "admin_menu": "Menu Admin",
@@ -249,5 +249,6 @@
     "new_delivery": "Vous avez reçu une nouvelle livraison !",
     "no_delivery": "Vous n'avez pas de livraison !",
     "no_delivery_point": "Vous n'êtes pas à votre destination de livraison !",
-    "finished_delivery": "Vous avez terminé votre livraison ainsi vous recevez {1} {2}"
+    "finished_delivery": "Vous avez terminé votre livraison ainsi vous recevez {1} {2}",
+    "city": "Ville"
 }
