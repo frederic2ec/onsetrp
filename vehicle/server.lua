@@ -75,7 +75,7 @@ AddRemoteEvent("ServerVehicleMenu", function(player, vehicle)
     if VehicleData[vehicle].owner == PlayerData[player].accountid then
         CallRemoteEvent(player, "OpenVehicleMenu")
     else
-        for k,v in pairs(vehicle.keys) do
+        for k,v in pairs(VehicleData[vehicle].keys) do
             if v == PlayerData[player].accountid then
                 CallRemoteEvent(player, "OpenVehicleMenu")
             end
