@@ -38,10 +38,10 @@ AddRemoteEvent("StartStopDelivery", function(player)
                     CreateVehicleData(player, vehicle, 24)
                     SetVehiclePropertyValue(vehicle, "locked", true, true)
                     PlayerData[player].job = "delivery"
-                    return AddPlayerChat(player, "Job join successfull")
+                    return
                 else
                     -- if vehicle on the spawn zone cancel and report an error
-                    return AddPlayerChat(player, "Cannot join this job right now !")
+                    return
                 end
             end
             local vehicle = CreateVehicle(24, deliveryNpc.spawn[1], deliveryNpc.spawn[2], deliveryNpc.spawn[3], deliveryNpc.spawn[4])
@@ -49,7 +49,7 @@ AddRemoteEvent("StartStopDelivery", function(player)
             CreateVehicleData(player, vehicle, 24)
             SetVehiclePropertyValue(vehicle, "locked", true, true)
             PlayerData[player].job = "delivery"
-            return AddPlayerChat(player, "Job join successfull")
+            return
         end
     elseif PlayerData[player].job == "delivery" then
         if PlayerData[player].job_vehicle ~= nil then
