@@ -24,11 +24,11 @@ AddEvent("OnTranslationReady", function()
     Dialog.addSelect(teleportPlaceMenu, 1, _("place"), 8)
 end)
 
-AddEvent("OnKeyPress", function( key )
+--[[ AddEvent("OnKeyPress", function( key )
     if key == "G" then
         Dialog.show(gpsMenu)
     end
-end)
+end) ]]
 
 AddRemoteEvent("ClientCreateWaypoint", function(name, x, y, z)
     if currentWaypoint ~= nil then

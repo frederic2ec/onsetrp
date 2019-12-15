@@ -88,11 +88,11 @@ AddRemoteEvent("StartProcessing", function(player, processzone)
     gather = GetGatherByProcesszone(processzone)
     unprocessed_item = gatherTable[gather].gather_item
 
-    if PlayerData[player].inventory[unprocessed_item] == nil then
-        return AddPlayerChat(player, _("not_enough_item"))
-    end
     if PlayerData[player].onAction then
         return
+    end
+    if PlayerData[player].inventory[unprocessed_item] == nil then
+        return AddPlayerChat(player, _("not_enough_item"))
     end
     if tonumber(PlayerData[player].inventory[unprocessed_item]) < 1 then
          return AddPlayerChat(player, _("not_enough_item"))

@@ -6,8 +6,8 @@ function OnPackageStart()
     CreateTimer(function()
 		for k, v in pairs(GetAllPlayers()) do
             SavePlayerAccount(v)
-            print("All accounts have been saved !")
 		end
+		print("All accounts have been saved !")
     end, 30000)
 end
 AddEvent("OnPackageStart", OnPackageStart)
@@ -88,7 +88,7 @@ function OnAccountCheckIpBan(player)
 end
 
 function CreatePlayerAccount(player)
-	local query = mariadb_prepare(sql, "INSERT INTO accounts (id, steamid) VALUES (NULL, '?');",
+	local query = mariadb_prepare(sql, "INSERT INTO accounts (id, steamid, clothing, inventory) VALUES (NULL, '?', '[]' , '[]');",
 		tostring(GetPlayerSteamId(player)))
 
 	mariadb_query(sql, query, OnAccountCreated, player)

@@ -28,12 +28,29 @@ AddRemoteEvent("StartStopDelivery", function(player)
             DestroyVehicleData(PlayerData[player].job_vehicle)
             PlayerData[player].job_vehicle = nil
         else
+            for k,v in pairs(GetAllVehicles()) do
+                local x, y, z = GetVehicleLocation(v)
+                local dist2 = GetDistance3D(deliveryNpc.spawn[1], deliveryNpc.spawn[2], deliveryNpc.spawn[3], x, y, z)
+                if dist2 > 1000.0 then
+                    -- if no vehicle on the spawn zone continue
+                    local vehicle = CreateVehicle(24, deliveryNpc.spawn[1], deliveryNpc.spawn[2], deliveryNpc.spawn[3], deliveryNpc.spawn[4])
+                    PlayerData[player].job_vehicle = vehicle
+                    CreateVehicleData(player, vehicle, 24)
+                    SetVehiclePropertyValue(vehicle, "locked", true, true)
+                    PlayerData[player].job = "delivery"
+                    return AddPlayerChat(player, "Job join successfull")
+                else
+                    -- if vehicle on the spawn zone cancel and report an error
+                    return AddPlayerChat(player, "Cannot join this job right now !")
+                end
+            end
             local vehicle = CreateVehicle(24, deliveryNpc.spawn[1], deliveryNpc.spawn[2], deliveryNpc.spawn[3], deliveryNpc.spawn[4])
             PlayerData[player].job_vehicle = vehicle
             CreateVehicleData(player, vehicle, 24)
             SetVehiclePropertyValue(vehicle, "locked", true, true)
+            PlayerData[player].job = "delivery"
+            return AddPlayerChat(player, "Job join successfull")
         end
-        PlayerData[player].job = "delivery"
     elseif PlayerData[player].job == "delivery" then
         if PlayerData[player].job_vehicle ~= nil then
             DestroyVehicle(PlayerData[player].job_vehicle)

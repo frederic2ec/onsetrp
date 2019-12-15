@@ -45,16 +45,6 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     end
 end)
 
-AddRemoteEvent("updateAtm", function(bank, cash, playerIds)
-    Dialog.setVariable(atm, "bank_balance", bank)
-    Dialog.setVariable(atm, "cash_balance", cash)
-    local playerList = {}
-    for k,v in pairs(playerIds) do
-        playerList[tostring(k)] = GetPlayerName(k)
-    end
-    Dialog.setSelectLabeledOptions(atm, 1, 2, playerList)
-end)
-
 AddRemoteEvent("atmSetup", function(AtmObjects)
 	AtmIds = AtmObjects
 end)
@@ -113,8 +103,10 @@ function depositMoney(amount)
 end
 AddEvent("depositMoney", depositMoney)
 
-function openAtm()
-    CallRemoteEvent("getAtmData")
+function openAtm(bank, cash, playerNames)
+    Dialog.setVariable(atm, "bank_balance", bank)
+    Dialog.setVariable(atm, "cash_balance", cash)
+    Dialog.setSelectLabeledOptions(atm, 1, 2, playerNames)
     Dialog.show(atm)
 end
 AddRemoteEvent("openAtm", openAtm)

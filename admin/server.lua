@@ -61,7 +61,11 @@ AddRemoteEvent("ServerAdminMenu", function(player)
     local playersIds = GetAllPlayers()
 
     if tonumber(PlayerData[player].admin) == 1 then
-        CallRemoteEvent(player, "OpenAdminMenu", teleportPlace, playersIds, weaponList, vehicleList)
+        playersNames = {}
+        for k,v in pairs(playersIds) do
+            playersNames[tostring(k)] = GetPlayerName(k)
+        end
+        CallRemoteEvent(player, "OpenAdminMenu", teleportPlace, playersNames, weaponList, vehicleList)
     end
 end)
 
@@ -103,10 +107,10 @@ end)
 
 AddRemoteEvent("AdminGiveMoney", function(player, toPlayer, account, amount)
     if account == "Cash" then
-        PlayerData[player].cash = PlayerData[player].cash + tonumber(amount)
+        PlayerData[tonumber(toPlayer)].cash = PlayerData[tonumber(toPlayer)].cash + tonumber(amount)
     end
     if account == "Bank" then
-        PlayerData[player].bank_balance = PlayerData[player].bank_balance + tonumber(amount)
+        PlayerData[tonumber(toPlayer)].bank_balance = PlayerData[tonumber(toPlayer)].bank_balance + tonumber(amount)
     end
 end)
 
@@ -114,7 +118,7 @@ AddRemoteEvent("AdminKickBan", function(player, toPlayer, type, reason)
     if type == "Ban" then
         mariadb_query(sql, "INSERT INTO `bans` (`id`, `ban_time`, `reason`) VALUES ('"..PlayerData[tonumber(toPlayer)].accountid.."', '"..os.time(os.date('*t')).."', '"..reason.."');")
         
-        KickPlayer(player, _("banned_for", reason, os.date('%Y-%m-%d %H:%M:%S', os.time())))
+        KickPlayer(tonumber(toPlayer), _("banned_for", reason, os.date('%Y-%m-%d %H:%M:%S', os.time())))
     end
     if type == "Kick" then
         KickPlayer(tonumber(toPlayer), _("kicked_for", reason))

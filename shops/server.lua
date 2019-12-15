@@ -155,3 +155,7 @@ AddRemoteEvent("ShopSell", function(player, shopid, item, amount)
     end
 end)
 
+AddEvent("OnNPCDamage", function(npc)
+    SetNPCHealth( npc, 100 )
+end)
+

@@ -17,12 +17,19 @@ end)
 AddEvent("OnKeyPress", function( key )
     if key == "E" then
         local x, y, z = GetPlayerLocation()
-        local x2, y2, z2 = GetNPCLocation(deliveryNPC)
-		local dist = GetDistance3D(x, y, z, x2, y2, z2)
+        local streamedNPC = GetStreamedNPC()
 
-		if dist < 150.0 then
-			Dialog.show(deliveryNpcMenu)
-		end
+        for k,v in pairs(streamedNPC) do
+            if v == deliveryNPC then
+                local x2, y2, z2 = GetNPCLocation(deliveryNPC)
+                local dist = GetDistance3D(x, y, z, x2, y2, z2)
+
+                if dist < 150.0 then
+                    Dialog.show(deliveryNpcMenu)
+                end
+            end
+        end
+        
     end
     if key == "F3" then
         CallRemoteEvent("OpenDeliveryMenu")

@@ -165,20 +165,16 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     end
 end)
 
-AddRemoteEvent("OpenAdminMenu", function(teleportPlace, playerIds, weaponsIds, vehicleIds) 
+AddRemoteEvent("OpenAdminMenu", function(teleportPlace, playersNames, weaponsIds, vehicleIds) 
     local tpPlace = {}
     for k,v in pairs(teleportPlace) do
         tpPlace[k] = _(k)
     end
     Dialog.setSelectLabeledOptions(teleportPlaceMenu, 1, 1, tpPlace)
-    local playerList = {}
-    for k,v in pairs(playerIds) do
-        playerList[tostring(k)] = GetPlayerName(k)
-    end
-    Dialog.setSelectLabeledOptions(teleportToPlayereMenu, 1, 1, playerList)
-    Dialog.setSelectLabeledOptions(teleportPlayerMenu, 1, 1, playerList)
-    Dialog.setSelectLabeledOptions(moneyMenu, 1, 1, playerList)
-    Dialog.setSelectLabeledOptions(banMenu, 1, 1, playerList)
+    Dialog.setSelectLabeledOptions(teleportToPlayereMenu, 1, 1, playersNames)
+    Dialog.setSelectLabeledOptions(teleportPlayerMenu, 1, 1, playersNames)
+    Dialog.setSelectLabeledOptions(moneyMenu, 1, 1, playersNames)
+    Dialog.setSelectLabeledOptions(banMenu, 1, 1, playersNames)
     local weaponList = {}
     for k,v in pairs(weaponsIds) do
         weaponList[k] = _(k)

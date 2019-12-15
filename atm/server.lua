@@ -39,8 +39,14 @@ AddRemoteEvent("atmInteract", function(player, atmobject)
         local dist = GetDistance3D(x, y, z, x2, y2, z2)
 
 		if dist < 200 then
-			getAtmData(player)
-			CallRemoteEvent(player, "openAtm")
+			local bank = PlayerData[player].bank_balance
+			local cash = PlayerData[player].cash
+			local playersIds = GetAllPlayers()
+			playersNames = {}
+			for k,v in pairs(playersIds) do
+				playersNames[tostring(k)] = GetPlayerName(k)
+			end
+			CallRemoteEvent(player, "openAtm", bank, cash, playersNames)
 		end
 	end
 end)
@@ -55,15 +61,6 @@ function GetAtmByObject(atmobject)
 	end
 	return nil
 end
-
-function getAtmData(player)
-    local bank = PlayerData[player].bank_balance
-	local cash = PlayerData[player].cash
-	local playersIds = GetAllPlayers()
-
-    CallRemoteEvent(player, "updateAtm", bank, cash, playersIds)
-end
-AddRemoteEvent("getAtmData", getAtmData)
 
 function withdrawAtm(player, amount)
     if tonumber(amount) > PlayerData[player].bank_balance then
