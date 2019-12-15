@@ -31,7 +31,7 @@ function GetNearestGatherZone()
         local x2, y2, z2 = GetPickupLocation(v)
 		local dist = GetDistance3D(x, y, z, x2, y2, z2)
 
-		if dist < 5000.0 then
+		if dist < 10000.0 then
 			for k,i in pairs(gatherIds) do
 				if v == i then
 					return v

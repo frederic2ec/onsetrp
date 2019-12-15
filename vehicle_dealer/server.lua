@@ -4,14 +4,14 @@ CarDealerObjectsCached = { }
 CarDealerTable = { 
 	{
 		vehicles = { 
-					vehicle_1 = 1000,
-					vehicle_4 = 1000,
-					vehicle_5 = 1000,
-					vehicle_6 = 1000,
-					vehicle_7 = 1000,
-					vehicle_11 = 1000,
-                    vehicle_12 = 1000,
-                    vehicle_25 = 1000
+				vehicle_1 = 3000,
+				vehicle_4 = 3000,
+				vehicle_5 = 3000,
+				vehicle_6 = 10000,
+				vehicle_7 = 10000,
+				vehicle_11 = 20000,
+				vehicle_12 = 15000,
+				vehicle_25 = 500
 		},
 		colors = {
 			black = "0000",
@@ -25,14 +25,14 @@ CarDealerTable = {
     },
     {
 		vehicles = { 
-					vehicle_1 = 1000,
-					vehicle_4 = 1000,
-					vehicle_5 = 1000,
-					vehicle_6 = 1000,
-					vehicle_7 = 1000,
-					vehicle_11 = 1000,
-                    vehicle_12 = 1000,
-                    vehicle_25 = 1000
+			vehicle_1 = 3000,
+			vehicle_4 = 3000,
+			vehicle_5 = 3000,
+			vehicle_6 = 10000,
+			vehicle_7 = 10000,
+			vehicle_11 = 20000,
+			vehicle_12 = 15000,
+			vehicle_25 = 500
 		},
 		colors = {
 			black = "0000",
@@ -46,14 +46,14 @@ CarDealerTable = {
     },
     {
 		vehicles = { 
-					vehicle_1 = 1000,
-					vehicle_4 = 1000,
-					vehicle_5 = 1000,
-					vehicle_6 = 1000,
-					vehicle_7 = 1000,
-					vehicle_11 = 1000,
-                    vehicle_12 = 1000,
-                    vehicle_25 = 1000
+			vehicle_1 = 3000,
+			vehicle_4 = 3000,
+			vehicle_5 = 3000,
+			vehicle_6 = 10000,
+			vehicle_7 = 10000,
+			vehicle_11 = 20000,
+			vehicle_12 = 15000,
+			vehicle_25 = 500
 		},
 		colors = {
 			black = "0000",

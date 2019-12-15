@@ -44,6 +44,13 @@ AddEvent("OnPackageStart", function()
     end
 end)
 
+AddEvent("OnPlayerQuit", function( player )
+    if playerDelivery[player] == nil then
+        return
+    end
+    playerDelivery[player] = nil
+end)
+
 AddEvent("OnPlayerJoin", function(player)
     CallRemoteEvent(player, "SetupDelivery", deliveryNpcCached)
 end)
@@ -114,7 +121,7 @@ AddRemoteEvent("FinishDelivery", function(player)
     local dist = GetDistance3D(x, y, z, deliveryPoint[delivery][1], deliveryPoint[delivery][2], deliveryPoint[delivery][3])
 
     if dist < 150.0 then
-        local reward = Random(100, 500)
+        local reward = Random(50, 200)
 
         AddPlayerChat(player, _("finished_delivery", reward, _("currency")))
         

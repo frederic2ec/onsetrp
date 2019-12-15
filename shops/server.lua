@@ -4,14 +4,14 @@ ShopObjectsCached = { }
 ShopTable = { 
 	{
 		items = { 
-            water_bottle = 10,
-            apple = 10,
-            donut = 10,
-            repair_kit = 10,
-            health_kit = 10,
-            lockpick = 10,
-            pickaxe = 10,
-            jerican = 10
+            water_bottle = 5,
+            apple = 5,
+            donut = 5,
+            repair_kit = 50,
+            health_kit = 50,
+            lockpick = 50,
+            pickaxe = 20,
+            jerican = 50
 		},
 		location = { 
             { 128748, 77622, 1576, 90 },
@@ -24,25 +24,25 @@ ShopTable = {
     },
     {
         items = {
-            weapon_2 = 10,
-            weapon_3 = 10,
-            weapon_4 = 10,
-            weapon_5 = 10,
-            weapon_6 = 10,
-            weapon_7 = 10,
-            weapon_8 = 10,
-            weapon_9 = 10,
-            weapon_10 = 10,
-            weapon_11 = 10,
-            weapon_12 = 10,
-            weapon_13 = 10,
-            weapon_14 = 10,
-            weapon_15 = 10,
-            weapon_16 = 10,
-            weapon_17 = 10,
-            weapon_18 = 10,
-            weapon_19 = 10,
-            weapon_20 = 10
+            weapon_2 = 5000,
+            weapon_3 = 5000,
+            weapon_4 = 5000,
+            weapon_5 = 5000,
+            weapon_6 = 15000,
+            weapon_7 = 15000,
+            weapon_8 = 10000,
+            weapon_9 = 10000,
+            weapon_10 = 20000,
+            weapon_11 = 20000,
+            weapon_12 = 30000,
+            weapon_13 = 20000,
+            weapon_14 = 20000,
+            weapon_15 = 20000,
+            weapon_16 = 20000,
+            weapon_17 = 20000,
+            weapon_18 = 20000,
+            weapon_19 = 20000,
+            weapon_20 = 30000
         },
         location = {
             { -181943, -40882, 1163, 90 },
@@ -64,10 +64,10 @@ ShopTable = {
     }, ]]
     {
         items = {
-            processed_rock = 1000,
+            processed_rock = 160,
         },
         location = {
-            { 21799, 137848, 1555, 90 }
+            { 67862, 184741, 535, 90 }
         },
         npc = {},
     }
