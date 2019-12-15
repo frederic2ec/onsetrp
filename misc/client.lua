@@ -24,3 +24,8 @@ AddEvent("OnKeyPress", OnKeyPress)
 AddEvent("OnNPCStreamIn", function(npc)
 	SetNPCClothingPreset(npc, 14)
 end)
+
+AddEvent("OnPlayerSpawn", function()
+	SetPostEffect("DepthOfField", "Distance", 0)
+end)
+

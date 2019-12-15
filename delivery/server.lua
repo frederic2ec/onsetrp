@@ -32,7 +32,7 @@ AddRemoteEvent("StartStopDelivery", function(player)
             for k,v in pairs(GetAllVehicles()) do
                 local x, y, z = GetVehicleLocation(v)
                 local dist2 = GetDistance3D(deliveryNpc.spawn[1], deliveryNpc.spawn[2], deliveryNpc.spawn[3], x, y, z)
-                if dist2 < 1000.0 then
+                if dist2 < 1500.0 then
                     isSpawnable = false
                     break
                 end

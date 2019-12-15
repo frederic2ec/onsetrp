@@ -25,6 +25,31 @@ function OnPackageStart()
         print("All vehicle have been saved !")
     end, 30000)
     
+
+    CreateTimer(function()
+        for k,v in pairs(GetAllVehicles()) do
+            local hasOwner = false
+            for w,z in pairs(GetAllPlayers()) do
+                if VehicleData[v] == nil then
+                    hasOwner = true
+                    break
+                end
+                if VehicleData[v].owner == PlayerData[z].accountid then
+                    hasOwner = true
+                    break
+                end
+            end
+            if not hasOwner then
+                local query = mariadb_prepare(sql, "UPDATE `player_garage` SET `garage`=1 WHERE `id` = ?;",
+                tostring(VehicleData[v].garageid)
+                )
+                mariadb_async_query(sql, query)
+                DestroyVehicleData(v)
+                DestroyVehicle(v)
+            end
+        end
+        print("All vehicle have been cleaned up !")
+    end, 900000)
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
@@ -62,6 +87,17 @@ function unlockVehicle(player)
     local nearestCar = GetNearestCar(player)
     local vehicle = VehicleData[nearestCar] 
     if nearestCar ~= 0 then
+        if PlayerData[player].admin == 1 then
+            if GetVehiclePropertyValue(nearestCar, "locked") then
+                AddPlayerChat(player, _("car_unlocked"))
+                SetVehiclePropertyValue(nearestCar, "locked", false, true)
+                CallRemoteEvent(player, "PlayAudioFile", "carUnlock.mp3")
+            else
+                AddPlayerChat(player, _("car_locked"))
+                SetVehiclePropertyValue(nearestCar, "locked", true, true)
+                CallRemoteEvent(player, "PlayAudioFile", "carLock.mp3")
+            end
+        end
         if vehicle.owner == PlayerData[player].accountid then
             if GetVehiclePropertyValue(nearestCar, "locked") then
                 AddPlayerChat(player, _("car_unlocked"))

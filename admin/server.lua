@@ -124,3 +124,11 @@ AddRemoteEvent("AdminKickBan", function(player, toPlayer, type, reason)
         KickPlayer(tonumber(toPlayer), _("kicked_for", reason))
     end
 end)
+
+AddCommand("delveh", function(player) 
+    local vehicle = GetPlayerVehicle(player)
+    
+    if vehicle ~= nil then
+        DestroyVehicle( vehicle )
+    end
+end)
