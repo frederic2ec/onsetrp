@@ -250,5 +250,7 @@
     "no_delivery": "You don't have a delivery !",
     "no_delivery_point": "You are not at your delivery destination !",
     "finished_delivery": "Your finished your delivery and received {1} {2}",
-    "city": "City"
+    "city": "City",
+    "unprocessed_rock": "Unprocessed Rock",
+    "processed_rock": "Processed Rock"
 }
