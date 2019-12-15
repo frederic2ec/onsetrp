@@ -20,7 +20,7 @@ AddRemoteEvent("OpenPersonalMenu", function(cash, bank, inventory)
     Dialog.setSelectLabeledOptions(personalMenu, 1, 1, items)
     local playerList = {}
     for k,v in pairs(GetStreamedPlayers()) do
-        playerList[tostring(k)] = GetPlayerName(k)
+        playerList[tostring(k)] = GetPlayerName(v)
     end
     Dialog.setSelectLabeledOptions(personalMenu, 2, 2, playerList)
     Dialog.show(personalMenu)
