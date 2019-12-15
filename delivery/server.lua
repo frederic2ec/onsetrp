@@ -45,10 +45,12 @@ AddEvent("OnPackageStart", function()
 end)
 
 AddEvent("OnPlayerQuit", function( player )
-    if playerDelivery[player] == nil then
-        return
+    if playerDelivery[player] ~= nil then
+        playerDelivery[player] = nil
     end
-    playerDelivery[player] = nil
+    if PlayerData[player].job_vehicle ~= nil then
+        DestroyVehicle(PlayerData[player].job_vehicle)
+    end
 end)
 
 AddEvent("OnPlayerJoin", function(player)
