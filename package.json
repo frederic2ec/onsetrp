@@ -47,7 +47,9 @@
         "delivery/client.lua"
     ],
     "files": [
-        "client/files/carLock.mp3",
-        "client/files/carUnlock.mp3"
+      "hud/speaking/speaking.png",
+      "hud/speaking/hud.html",
+      "client/files/carLock.mp3",
+      "client/files/carUnlock.mp3"
     ]
 }
