@@ -37,7 +37,7 @@ AddEvent("OnKeyPress", function(key)
         if playerHairs == "" then
             return Dialog.show(hairsCreation)
         end
-        if playerHairs == "" or  playerHairsColor = "" then
+        if playerHairs == "" or  playerHairsColor == "" then
             return Dialog.show(hairsCreation)
         end
         if playerShirt == "" then
