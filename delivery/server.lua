@@ -48,6 +48,11 @@ AddEvent("OnPlayerQuit", function( player )
     if playerDelivery[player] ~= nil then
         playerDelivery[player] = nil
     end
+    if PlayerData[player].job_vehicle ~= nil then
+        DestroyVehicle(PlayerData[player].job_vehicle)
+        DestroyVehicleData( PlayerData[player].job_vehicle)
+        PlayerData[player].job_vehicle = nil
+    end
 end)
 
 AddEvent("OnPlayerJoin", function(player)
@@ -61,12 +66,13 @@ AddRemoteEvent("StartStopDelivery", function(player)
             DestroyVehicle(PlayerData[player].job_vehicle)
             DestroyVehicleData(PlayerData[player].job_vehicle)
             PlayerData[player].job_vehicle = nil
+            CallRemoteEvent(player, "ClientDestroyCurrentWaypoint")
         else
             local isSpawnable = true
             for k,v in pairs(GetAllVehicles()) do
                 local x, y, z = GetVehicleLocation(v)
                 local dist2 = GetDistance3D(deliveryNpc[nearestDelivery].spawn[1], deliveryNpc[nearestDelivery].spawn[2], deliveryNpc[nearestDelivery].spawn[3], x, y, z)
-                if dist2 < 1500.0 then
+                if dist2 < 500.0 then
                     isSpawnable = false
                     break
                 end

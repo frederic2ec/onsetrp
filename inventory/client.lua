@@ -30,13 +30,13 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
             if args[1] == "" then
 				AddPlayerChat(_("select_item"))
 			else
-				if args[2] == "" then
+				if args[2] == ""  or math.floor(args[2]) < 1 then
 					AddPlayerChat(_("select_amount"))
                 else
                     if args[3] == "" then
                         AddPlayerChat(_("select_player"))
                     else
-                        CallRemoteEvent("TransferInventory", args[1], args[2], args[3])
+                        CallRemoteEvent("TransferInventory", args[1], math.floor(args[2]), args[3])
                     end   
 				end
 			end
@@ -45,10 +45,10 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
 			if args[1] == "" then
 				AddPlayerChat(_("select_item"))
 			else
-				if args[2] == "" then
+				if args[2] == ""  or math.floor(args[2]) < 1 then
 					AddPlayerChat(_("select_amount"))
 				else
-                    CallRemoteEvent("UseInventory", args[1], args[2])
+                    CallRemoteEvent("UseInventory", args[1], math.floor(args[2]))
 				end
 			end
 		end
