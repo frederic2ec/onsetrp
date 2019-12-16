@@ -8,6 +8,7 @@ local BankHud
 local VehicleSpeedHud
 local VehicleFuelHud
 local VehicleHealthHud
+local SpeakingHud
 
 local timer = false
 
@@ -39,6 +40,12 @@ function OnPackageStart()
     VehicleFuelHud = CreateTextBox(-15, 300, "Fuel", "right" )
     SetTextBoxAnchors(VehicleFuelHud, 1.0, 0.0, 1.0, 0.0)
 	SetTextBoxAlignment(VehicleFuelHud, 1.0, 0.0)
+
+    SpeakingHud = CreateWebUI( 0, 0, 0, 0, 0, 48 )
+    LoadWebFile( SpeakingHud, "http://asset/onsetrp/hud/speaking/hud.html" )
+    SetWebAlignment( SpeakingHud, 0, 0 )
+    SetWebAnchors( SpeakingHud, 0, 0, 1, 1 )
+    SetWebVisibility( SpeakingHud, WEB_HITINVISIBLE )
     
 	ShowHealthHUD(true)
     ShowWeaponHUD(true)
@@ -75,3 +82,12 @@ function updateHud(hunger, thirst, cash, bank, vehiclefuel)
     end
 end
 AddRemoteEvent("updateHud", updateHud)
+
+AddEvent( "OnGameTick", function()
+    local player = GetPlayerId()
+    if IsPlayerTalking(player) then
+        SetWebVisibility(SpeakingHud, WEB_HITINVISIBLE)
+    else
+        SetWebVisibility(SpeakingHud, WEB_HIDDEN)
+    end
+end )
