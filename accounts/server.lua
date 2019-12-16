@@ -41,13 +41,16 @@ AddEvent("OnPlayerQuit", OnPlayerQuit)
 function OnAccountLoadId(player)
 	if (mariadb_get_row_count() == 0) then
 		--There is no account for this player, continue by checking if their IP was banned		
-        CheckForIPBan(player)
+        local query = mariadb_prepare(sql, "SELECT FROM_UNIXTIME(bans.ban_time), bans.reason FROM bans WHERE bans.steamid = ?;",
+			tostring(GetPlayerSteamId(player)))
+
+		mariadb_async_query(sql, query, OnAccountCheckBan, player)
 	else
 		--There is an account for this player, continue by checking if it's banned
         PlayerData[player].accountid = mariadb_get_value_index(1, 1)
 
-		local query = mariadb_prepare(sql, "SELECT FROM_UNIXTIME(bans.ban_time), bans.reason FROM bans WHERE bans.id = ?;",
-			PlayerData[player].accountid)
+		local query = mariadb_prepare(sql, "SELECT FROM_UNIXTIME(bans.ban_time), bans.reason FROM bans WHERE bans.steamid = ?;",
+			tostring(GetPlayerSteamId(player)))
 
 		mariadb_async_query(sql, query, OnAccountCheckBan, player)
 	end
@@ -170,7 +173,9 @@ function CreatePlayerData(player)
     PlayerData[player].logged_in = false
 	PlayerData[player].admin = 0
 	PlayerData[player].created = 0
-    PlayerData[player].locale = GetPlayerLocale(player)
+	PlayerData[player].locale = GetPlayerLocale(player)
+	PlayerData[player].steamid = GetPlayerSteamId(player)
+	PlayerData[player].steamname = GetPlayerName(player)
     PlayerData[player].thirst = 100
     PlayerData[player].hunger = 100
     PlayerData[player].cash = 0

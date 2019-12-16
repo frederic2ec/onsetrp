@@ -66,7 +66,7 @@ AddRemoteEvent("ServerAdminMenu", function(player)
     if tonumber(PlayerData[player].admin) == 1 then
         playersNames = {}
         for k,v in pairs(playersIds) do
-            playersNames[tostring(k)] = GetPlayerName(k)
+            playersNames[tostring(k)] = PlayerData[k].name.." ["..PlayerData[k].steamname.."]" 
         end
         CallRemoteEvent(player, "OpenAdminMenu", teleportPlace, playersNames, weaponList, vehicleList)
     end
@@ -119,7 +119,7 @@ end)
 
 AddRemoteEvent("AdminKickBan", function(player, toPlayer, type, reason)
     if type == "Ban" then
-        mariadb_query(sql, "INSERT INTO `bans` (`id`, `ban_time`, `reason`) VALUES ('"..PlayerData[tonumber(toPlayer)].accountid.."', '"..os.time(os.date('*t')).."', '"..reason.."');")
+        mariadb_query(sql, "INSERT INTO `bans` (`steamid`, `ban_time`, `reason`) VALUES ('"..PlayerData[tonumber(toPlayer)].steamid.."', '"..os.time(os.date('*t')).."', '"..reason.."');")
         
         KickPlayer(tonumber(toPlayer), _("banned_for", reason, os.date('%Y-%m-%d %H:%M:%S', os.time())))
     end
