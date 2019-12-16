@@ -63,6 +63,7 @@ function GetAtmByObject(atmobject)
 end
 
 function withdrawAtm(player, amount)
+	if tonumber(amount) <= 0 then return end
     if tonumber(amount) > PlayerData[player].bank_balance then
         AddPlayerChat(player, _("withdraw_error"))
     else
@@ -74,6 +75,7 @@ end
 AddRemoteEvent("withdrawAtm", withdrawAtm)
 
 function depositAtm(player, amount)
+	if tonumber(amount) <= 0 then return end
     if tonumber(amount) > PlayerData[player].cash then
         AddPlayerChat(player, _("deposit_error"))
     else
@@ -86,6 +88,7 @@ AddRemoteEvent("depositAtm", depositAtm)
 
 
 AddRemoteEvent("transferAtm", function(player, amount, toplayer)
+	if tonumber(amount) <= 0 then return end
 	if tonumber(amount) > PlayerData[player].bank_balance then
         AddPlayerChat(player, _("transfer_error"))
 	else
