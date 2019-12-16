@@ -32,7 +32,7 @@ end)
 AddEvent("OnKeyPress", function(key)
     if onCharacterCreation then
         if playerName == "" then
-            return Dialog.show(characterCreation)
+            return
         end
         if playerHairs == "" then
             return Dialog.show(hairsCreation)
