@@ -1,7 +1,15 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
-AddRemoteEvent("ServerPersonalMenu", function(player) 
-    CallRemoteEvent(player, "OpenPersonalMenu", PlayerData[player].cash, PlayerData[player].bank_balance, PlayerData[player].inventory)
+AddRemoteEvent("ServerPersonalMenu", function(player)
+    local x, y, z = GetPlayerLocation(player)
+    local nearestPlayers = GetPlayersInRange3D(x, y, z, 1000)
+    local playerList = {}
+    for k,v in pairs(nearestPlayers) do
+        if k ~= player then
+            playerList[tostring(k)] = GetPlayerName(k)
+        end
+    end
+    CallRemoteEvent(player, "OpenPersonalMenu", PlayerData[player].cash, PlayerData[player].bank_balance, PlayerData[player].inventory, playerList)
 end)
 
 

@@ -7,10 +7,11 @@ AddEvent("OnTranslationReady", function()
     personalMenu = Dialog.create(_("personal_menu"), _("bank_balance").." : {bank} ".._("currency").." | ".._("cash").." : {cash} ".._("currency"), _("transfer") ,_("use"), _("cancel"))
     Dialog.addSelect(personalMenu, 1, _("inventory"), 5)
     Dialog.addTextInput(personalMenu, 1, _("quantity"))
-    Dialog.addSelect(personalMenu, 1, _("player"), 1)
+    Dialog.addSelect(personalMenu, 1, _("player"), 3)
 end)
 
-AddRemoteEvent("OpenPersonalMenu", function(cash, bank, inventory) 
+
+AddRemoteEvent("OpenPersonalMenu", function(cash, bank, inventory, playerList)
     Dialog.setVariable(personalMenu, "cash", cash)
     Dialog.setVariable(personalMenu, "bank", bank)
     local items = {}
@@ -18,11 +19,7 @@ AddRemoteEvent("OpenPersonalMenu", function(cash, bank, inventory)
 		items[k] = _(k).."["..v.."]"
     end
     Dialog.setSelectLabeledOptions(personalMenu, 1, 1, items)
-    local playerList = {}
-    for k,v in pairs(GetStreamedPlayers()) do
-        playerList[tostring(k)] = GetPlayerName(v)
-    end
-    Dialog.setSelectLabeledOptions(personalMenu, 2, 2, playerList)
+    Dialog.setSelectLabeledOptions(personalMenu, 1, 3, playerList)
     Dialog.show(personalMenu)
 end)
 
@@ -64,3 +61,4 @@ AddEvent("OnKeyPress", function( key )
         CallRemoteEvent("ServerPersonalMenu")
     end
 end)
+
