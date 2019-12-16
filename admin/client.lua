@@ -34,7 +34,7 @@ end)
 
 
 AddEvent("OnKeyPress", function(key)
-    if key == "M" then
+    if key == "M" and not onSpawn and not onCharacterCreation then
         CallRemoteEvent("ServerAdminMenu") 
     end
 end)

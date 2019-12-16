@@ -10,7 +10,7 @@ AddRemoteEvent("PlayAudioFile", PlayAudioFile)
 
 -- Keybinding
 function OnKeyPress(key)
-    if key == "V" then
+    if key == "V" and not onSpawn and not onCharacterCreation then
 		if IsFirstPersonCamera() then
 			EnableFirstPersonCamera(false)
 		else

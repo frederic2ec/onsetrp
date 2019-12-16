@@ -58,12 +58,16 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                     if GetVehicleHealth(nearestCar) > 4000 then
                         AddPlayerChat(player, _("dont_need_repair"))
                     else
+                        CallRemoteEvent(player, "LockControlMove", true)
                         SetPlayerAnimation(player, "COMBINE")
-                        RemoveInventory(player, item, amount)
-                        SetVehicleHealth(nearestCar, 5000)
-                        for i=1,8 do
-                            SetVehicleDamage(nearestCar, i, 0)
-                        end
+                        Delay(4000, function() 
+                            RemoveInventory(player, item, amount)
+                            SetVehicleHealth(nearestCar, 5000)
+                            for i=1,8 do
+                                SetVehicleDamage(nearestCar, i, 0)
+                            end
+                            CallRemoteEvent(player, "LockControlMove", false)
+                        end)
                     end
                 end
             end
@@ -74,10 +78,14 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                     if VehicleData[nearestCar].fuel >= 100 then
                         AddPlayerChat(player, _("car_full"))
                     else
+                        CallRemoteEvent(player, "LockControlMove", true)
                         SetPlayerAnimation(player, "COMBINE")
-                        RemoveInventory(player, item, amount)
-                        VehicleData[nearestCar].fuel = 100
-                        AddPlayerChat(player, _("car_refuelled"))
+                        Delay(4000, function() 
+                            RemoveInventory(player, item, amount)
+                            VehicleData[nearestCar].fuel = 100
+                            AddPlayerChat(player, _("car_refuelled"))
+                            CallRemoteEvent(player, "LockControlMove", false)
+                        end)
                     end
                 end
             end
@@ -87,6 +95,7 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                 if nearestCar ~= 0 then
                     if VehicleData[nearestCar] ~= nil then
                         if GetVehiclePropertyValue(nearestCar, "locked") then
+                            CallRemoteEvent(player, "LockControlMove", true)
                             SetPlayerAnimation(player, "LOCKDOOR")
                             Delay(3000, function()
                                 SetPlayerAnimation(player, "LOCKDOOR")
@@ -98,6 +107,7 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                                 SetVehiclePropertyValue( nearestCar, "locked", false, true)
                                 AddPlayerChat(player, _("car_unlocked"))
                                 RemoveInventory(player, item, amount)
+                                CallRemoteEvent(player, "LockControlMove", false)
                             end)       
                         else
                             AddPlayerChat(player, _("vehicle_already_unlocked"))
@@ -108,6 +118,7 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                     nearestHouse = getHouseDoor(nearestHouseDoor)
                     if nearestHouse ~= 0 then
                         if houses[nearestHouse].lock then
+                            CallRemoteEvent(player, "LockControlMove", true)
                             SetPlayerAnimation(player, "LOCKDOOR")
                             Delay(3000, function()
                                 SetPlayerAnimation(player, "LOCKDOOR")
@@ -119,6 +130,7 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                                 houses[nearestHouse].lock = false
                                 AddPlayerChat(player, _("unlock_house"))
                                 RemoveInventory(player, item, amount)
+                                CallRemoteEvent(player, "LockControlMove", false)
                             end)   
                         else
                             AddPlayerChat(player, _("house_already_unlock"))

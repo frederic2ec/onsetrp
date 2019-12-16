@@ -14,7 +14,7 @@ AddEvent("OnTranslationReady", function()
 end)
 
 AddEvent("OnKeyPress", function(key)
-    if key == "E" then
+    if key == "E" and not onSpawn and not onCharacterCreation then
         local NearestATM = GetNearestATM()
 		if NearestATM ~= 0 then
             CallRemoteEvent("atmInteract", NearestATM)

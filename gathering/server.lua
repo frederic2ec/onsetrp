@@ -69,6 +69,7 @@ AddRemoteEvent("StartGathering", function(player, gatherzone)
         return
     end
     PlayerData[player].onAction = true
+    CallRemoteEvent(player, "LockControlMove", true)
     SetPlayerAnimation(player, "COMBINE")
     Delay(4000, function() 
         SetPlayerAnimation(player, "COMBINE")
@@ -77,6 +78,7 @@ AddRemoteEvent("StartGathering", function(player, gatherzone)
         AddInventory(player, gatherTable[gather].gather_item, 1)
         AddPlayerChat(player, _("gather_success", _(gatherTable[gather].gather_item)))
         PlayerData[player].onAction = false
+        CallRemoteEvent(player, "LockControlMove", false)
     end)
 end)
 
@@ -94,6 +96,7 @@ AddRemoteEvent("StartProcessing", function(player, processzone)
          return AddPlayerChat(player, _("not_enough_item"))
     else
         PlayerData[player].onAction = true
+        CallRemoteEvent(player, "LockControlMove", true)
         RemoveInventory(player, unprocessed_item, 1)
         SetPlayerAnimation(player, "COMBINE")
         Delay(4000, function() 
@@ -103,6 +106,7 @@ AddRemoteEvent("StartProcessing", function(player, processzone)
             AddInventory(player, gatherTable[gather].process_item, 1)
             AddPlayerChat(player, _("process_success", _(gatherTable[gather].process_item)))
             PlayerData[player].onAction = false
+            CallRemoteEvent(player, "LockControlMove", false)
         end)
     end  
 end)

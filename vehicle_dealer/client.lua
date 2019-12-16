@@ -14,7 +14,7 @@ AddEvent("OnTranslationReady", function()
 end)
 
 function OnKeyPress(key)
-    if key == "E" then
+    if key == "E" and not onSpawn and not onCharacterCreation then
         local NearestCarDealer = GetNearestCarDealer()
         if NearestCarDealer ~= 0 then
             CallRemoteEvent("carDealerInteract", NearestCarDealer)

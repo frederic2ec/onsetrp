@@ -12,6 +12,8 @@ local playerShirt = ""
 local playerPants = ""
 local playerShoes = ""
 
+onCharacterCreation = false
+
 AddEvent("OnTranslationReady", function()
     characterCreation = Dialog.create(_("character_creation"), _("create_character_name"), _("next_step"))
     Dialog.addTextInput(characterCreation, 1, _("first_name"))
@@ -26,6 +28,30 @@ AddEvent("OnTranslationReady", function()
     shoesCreation = Dialog.create(_("shoes_creation"), _("choose_shoes"), _("create"))
     Dialog.addSelect(shoesCreation, 1, _("shoes"), 5)
 end)
+
+AddEvent("OnKeyPress", function(key)
+    if onCharacterCreation then
+        if playerName == "" then
+            return Dialog.show(characterCreation)
+        end
+        if playerHairs == "" then
+            return Dialog.show(hairsCreation)
+        end
+        if playerHairs == "" or  playerHairsColor = "" then
+            return Dialog.show(hairsCreation)
+        end
+        if playerShirt == "" then
+            return Dialog.show(hairsCreation)
+        end
+        if playerPants == "" then
+            return Dialog.show(pantsCreation)
+        end
+        if playerShoes == "" then
+            return Dialog.show(shoesCreation)
+        end
+    end
+end)
+
 
 AddEvent("OnDialogUIReady", function()
     if not isCreated then
@@ -42,7 +68,6 @@ AddEvent("OnPlayerStreamIn", function( player, otherplayer )
 end)
 
 AddRemoteEvent("openCharacterCreation", function(lhairs, lshirts, lpants, lshoes,lhairscolor)
-    AddPlayerChat(playerName)
     hairs = {}
     for k,v in pairs(lhairs) do
         hairs[k] = _("clothes_"..k)
@@ -70,6 +95,8 @@ AddRemoteEvent("openCharacterCreation", function(lhairs, lshirts, lpants, lshoes
     Dialog.setSelectLabeledOptions(pantsCreation, 1, 1, pants)
     Dialog.setSelectLabeledOptions(shoesCreation, 1, 1, shoes)
     
+    onCharacterCreation = true
+
     Dialog.show(characterCreation)
 end)
 
@@ -132,6 +159,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
 
                 CallRemoteEvent("ServerChangeClothes", playerName, playerHairs, playerHairsColor, playerShirt, playerPants, playerShoes)
                 isCreated = true
+                onCharacterCreation = false
             end
         end
     end

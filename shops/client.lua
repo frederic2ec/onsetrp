@@ -23,7 +23,7 @@ AddRemoteEvent("shopSetup", function(ShopObject)
 end)
 
 function OnKeyPress(key)
-    if key == "E" then
+    if key == "E" and not onSpawn and not onCharacterCreation then
         local NearestShop = GetNearestShop()
         if NearestShop ~= 0 then
             CallRemoteEvent("shopInteract", NearestShop)

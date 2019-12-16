@@ -57,8 +57,12 @@ end)
 
 
 AddEvent("OnKeyPress", function( key )
-    if key == "F4" then
+    if key == "F4" and not onSpawn and not onCharacterCreation then
         CallRemoteEvent("ServerPersonalMenu")
     end
+end)
+
+AddRemoteEvent("LockControlMove", function(move)
+    SetIgnoreMoveInput(move)
 end)
 

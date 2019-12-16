@@ -10,7 +10,7 @@ end)
 
 
 function OnKeyPress(key)
-    if key == "E" then
+    if key == "E" and not onSpawn and not onCharacterCreation then
         local NearestGatherZone = GetNearestGatherZone()
         local NearestProcessZone = GetNearestProcessZone()
 

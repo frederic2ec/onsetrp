@@ -11,7 +11,7 @@ AddEvent("OnTranslationReady", function()
 end)
 
 AddEvent("OnKeyPress", function(key)
-    if key == "F1" then
+    if key == "F1" and not onSpawn and not onCharacterCreation then
         local NearestDoor = getNearestDoor()
         
         if NearestDoor ~= 0 then
