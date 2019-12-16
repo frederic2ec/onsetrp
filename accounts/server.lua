@@ -185,6 +185,12 @@ end
 function DestroyPlayerData(player)
 	if (PlayerData[player] == nil) then
 		return
+	end
+	
+	if PlayerData[player].job_vehicle ~= nil then
+        DestroyVehicle(PlayerData[player].job_vehicle)
+        DestroyVehicleData( PlayerData[player].job_vehicle)
+        PlayerData[player].job_vehicle = nil
     end
 
 	PlayerData[player] = nil
