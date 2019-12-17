@@ -14,7 +14,8 @@ AddEvent("OnPackageStart", OnPackageStart)
 
 function OnPlayerSteamAuth(player)
 
-    CreatePlayerData(player)
+	CreatePlayerData(player)
+	PlayerData[player].steamname = GetPlayerName(player)
     
     AddPlayerChatAll('<span color="#eeeeeeaa">'..GetPlayerName(player)..' from '..PlayerData[player].locale..' joined the server</>')
     AddPlayerChatAll('<span color="#eeeeeeaa">There are '..GetPlayerCount()..' players on the server</>')
@@ -128,7 +129,6 @@ function OnAccountLoaded(player)
 		KickPlayer(player, "An error occured while loading your account 😨")
 	else
 		local result = mariadb_get_assoc(1)
-
 		PlayerData[player].admin = math.tointeger(result['admin'])
 		PlayerData[player].cash = math.tointeger(result['cash'])
 		PlayerData[player].bank_balance = math.tointeger(result['bank_balance'])
@@ -175,7 +175,7 @@ function CreatePlayerData(player)
 	PlayerData[player].created = 0
 	PlayerData[player].locale = GetPlayerLocale(player)
 	PlayerData[player].steamid = GetPlayerSteamId(player)
-	PlayerData[player].steamname = GetPlayerName(player)
+	PlayerData[player].steamname = ""
     PlayerData[player].thirst = 100
     PlayerData[player].hunger = 100
     PlayerData[player].cash = 0

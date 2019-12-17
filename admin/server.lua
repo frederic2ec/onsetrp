@@ -66,6 +66,12 @@ AddRemoteEvent("ServerAdminMenu", function(player)
     if tonumber(PlayerData[player].admin) == 1 then
         playersNames = {}
         for k,v in pairs(playersIds) do
+            if PlayerData[k].name == nil then
+                return
+            end
+            if PlayerData[k].steamname == nil then
+                return
+            end
             playersNames[tostring(k)] = PlayerData[k].name.." ["..PlayerData[k].steamname.."]" 
         end
         CallRemoteEvent(player, "OpenAdminMenu", teleportPlace, playersNames, weaponList, vehicleList)
