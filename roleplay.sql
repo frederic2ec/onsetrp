@@ -46,6 +46,7 @@ CREATE TABLE `accounts` (
 
 CREATE TABLE `bans` (
   `id` int(10) UNSIGNED NOT NULL,
+  `steamid` varchar(17) NOT NULL,
   `ban_time` int(10) UNSIGNED NOT NULL,
   `reason` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -208,6 +209,13 @@ ALTER TABLE `player_house`
 --
 
 --
+-- AUTO_INCREMENT for table `bans`
+--
+ALTER TABLE `bans`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+--
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
@@ -228,12 +236,6 @@ ALTER TABLE `player_house`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `bans`
---
-ALTER TABLE `bans`
-  ADD CONSTRAINT `bans_ibfk_1` FOREIGN KEY (`id`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `player_garage`
