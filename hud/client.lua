@@ -53,18 +53,9 @@ function OnPackageStart()
     SetWebAnchors(minimap, 0, 0, 1, 1)
     SetWebAlignment(minimap, 0, 0)
     SetWebURL(minimap, "http://asset/onsetrp/hud/minimap/minimap.html")
-
-    CreateTimer(function()
-        local x, y, z = GetCameraRotation()
-        local px,py,pz = GetPlayerLocation()
-        ExecuteWebJS(minimap, "SetHUDHeading("..(360-y)..");")
-        ExecuteWebJS(minimap, "SetMap("..px..","..py..","..y..");")
-    end, 30)
-
     
 	ShowHealthHUD(true)
     ShowWeaponHUD(true)
-    
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
@@ -99,12 +90,18 @@ end
 AddRemoteEvent("updateHud", updateHud)
 
 AddEvent( "OnGameTick", function()
+    --Speaking icon check
     local player = GetPlayerId()
     if IsPlayerTalking(player) then
         SetWebVisibility(SpeakingHud, WEB_HITINVISIBLE)
     else
         SetWebVisibility(SpeakingHud, WEB_HIDDEN)
     end
+    --Minimap refresh
+    local x, y, z = GetCameraRotation()
+    local px,py,pz = GetPlayerLocation()
+    ExecuteWebJS(minimap, "SetHUDHeading("..(360-y)..");")
+    ExecuteWebJS(minimap, "SetMap("..px..","..py..","..y..");")
 end )
 
 function SetHUDMarker(name, h, r, g, b)
