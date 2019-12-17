@@ -47,9 +47,13 @@
         "delivery/client.lua"
     ],
     "files": [
-      "hud/speaking/speaking.png",
-      "hud/speaking/hud.html",
-      "client/files/carLock.mp3",
-      "client/files/carUnlock.mp3"
+        "hud/speaking/speaking.png",
+        "hud/speaking/hud.html",
+        "hud/minimap/minimap.css",
+        "hud/minimap/minimap.html",
+        "hud/minimap/minimap.js",
+        "hud/minimap/OnsetMap.png",
+        "client/files/carLock.mp3",
+        "client/files/carUnlock.mp3"
     ]
 }

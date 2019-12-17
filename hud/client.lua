@@ -9,6 +9,7 @@ local VehicleSpeedHud
 local VehicleFuelHud
 local VehicleHealthHud
 local SpeakingHud
+local minimap
 
 local timer = false
 
@@ -46,6 +47,20 @@ function OnPackageStart()
     SetWebAlignment( SpeakingHud, 0, 0 )
     SetWebAnchors( SpeakingHud, 0, 0, 1, 1 )
     SetWebVisibility( SpeakingHud, WEB_HITINVISIBLE )
+
+    minimap = CreateWebUI(0, 0, 0, 0, 0, 32)
+    SetWebVisibility(minimap, WEB_HITINVISIBLE)
+    SetWebAnchors(minimap, 0, 0, 1, 1)
+    SetWebAlignment(minimap, 0, 0)
+    SetWebURL(minimap, "http://asset/onsetrp/hud/minimap/minimap.html")
+
+    CreateTimer(function()
+        local x, y, z = GetCameraRotation()
+        local px,py,pz = GetPlayerLocation()
+        ExecuteWebJS(minimap, "SetHUDHeading("..(360-y)..");")
+        ExecuteWebJS(minimap, "SetMap("..px..","..py..","..y..");")
+    end, 30)
+
     
 	ShowHealthHUD(true)
     ShowWeaponHUD(true)
@@ -91,3 +106,13 @@ AddEvent( "OnGameTick", function()
         SetWebVisibility(SpeakingHud, WEB_HIDDEN)
     end
 end )
+
+function SetHUDMarker(name, h, r, g, b)
+    if h == nil then
+        ExecuteWebJS(minimap, "SetHUDMarker(\""..name.."\");");
+    else
+        ExecuteWebJS(minimap, "SetHUDMarker(\""..name.."\", "..h..", "..r..", "..g..", "..b..");");
+    end
+end
+
+AddRemoteEvent("SetHUDMarker", SetHUDMarker)

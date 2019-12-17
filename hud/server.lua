@@ -20,3 +20,6 @@ function getHudData(player)
 end
 AddRemoteEvent("getHudData", getHudData)
 
+function SetHUDMarker(player, name, heading, r, g, b)
+    CallRemoteEvent(player, "SetHUDMarker", name, heading, r, g, b)
+end
