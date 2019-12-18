@@ -252,5 +252,6 @@
     "finished_delivery": "Your finished your delivery and received {1} {2}",
     "city": "City",
     "unprocessed_rock": "Unprocessed Rock",
-    "processed_rock": "Processed Rock"
+    "processed_rock": "Processed Rock",
+    "not_whitelisted": "You are not whitelisted !"
 }
