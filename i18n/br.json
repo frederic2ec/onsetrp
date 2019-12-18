@@ -249,5 +249,9 @@
     "new_delivery": "Você recebeu uma nova entrega !",
     "no_delivery": "Você não tem uma entrega !",
     "no_delivery_point": "Você não está no seu destino de entrega !",
-    "finished_delivery": "Você terminou sua entrega e recebeu {1} {2}"
+    "finished_delivery": "Você terminou sua entrega e recebeu {1} {2}",
+    "city": "",
+    "unprocessed_rock": "",
+    "processed_rock": "",
+    "not_whitelisted": ""
 }
