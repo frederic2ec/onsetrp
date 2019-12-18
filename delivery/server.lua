@@ -64,6 +64,15 @@ AddRemoteEvent("StartStopDelivery", function(player)
             CallRemoteEvent(player, "ClientDestroyCurrentWaypoint")
         else
             local isSpawnable = true
+            local jobCount = 0
+            for k,v in pairs(PlayerData) do
+                if v.job == "delivery" then
+                    jobCount = jobCount + 1
+                end
+            end
+            if jobCount == 15 then
+                return CallRemoteEvent(player, "MakeNotification", _("job_full"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+            end
             for k,v in pairs(GetAllVehicles()) do
                 local x, y, z = GetVehicleLocation(v)
                 local dist2 = GetDistance3D(deliveryNpc[nearestDelivery].spawn[1], deliveryNpc[nearestDelivery].spawn[2], deliveryNpc[nearestDelivery].spawn[3], x, y, z)
