@@ -52,12 +52,12 @@ end)
 function GetNearestATM()
 	local x, y, z = GetPlayerLocation()
 
-	for k,v in pairs(GetStreamedObjects()) do
-		local x2, y2, z2 = GetObjectLocation(v)
+	for k,v in pairs(GetStreamedPickups()) do
+		local x2, y2, z2 = GetPickupLocation(v)
 
 		local dist = GetDistance3D(x, y, z, x2, y2, z2)
 
-		if dist < 180.0 then
+		if dist < 250.0 then
             for k,i in pairs(AtmIds) do
 				if v == i then
 					return v
