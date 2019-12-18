@@ -253,5 +253,6 @@
     "city": "City",
     "unprocessed_rock": "Unprocessed Rock",
     "processed_rock": "Processed Rock",
-    "not_whitelisted": "You are not whitelisted !"
+    "not_whitelisted": "You are not whitelisted !",
+    "job_full": "This job is full !"
 }
