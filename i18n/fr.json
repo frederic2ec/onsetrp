@@ -252,5 +252,6 @@
     "finished_delivery": "Vous avez terminé votre livraison ainsi vous recevez {1} {2}",
     "city": "Ville",
     "unprocessed_rock": "Pierre non transformée",
-    "processed_rock": "Pierre transformée"
+    "processed_rock": "Pierre transformée",
+    "not_whitelisted": "Vous n'êtes pas sur la liste blance !"
 }
