@@ -27,6 +27,7 @@ function OnPackageStart()
     
 
     CreateTimer(function()
+        local vehicleToDelete = {}
         for k,v in pairs(GetAllVehicles()) do
             local hasOwner = false
             for w,z in pairs(GetAllPlayers()) do
@@ -40,10 +41,34 @@ function OnPackageStart()
                 end
             end
             if not hasOwner then
+                table.insert(vehicleToDelete, v)
                 local query = mariadb_prepare(sql, "UPDATE `player_garage` SET `garage`=1 WHERE `id` = ?;",
-                tostring(VehicleData[v].garageid)
+                VehicleData[v].garageid
                 )
                 mariadb_async_query(sql, query)
+                DestroyVehicleData(v)
+                DestroyVehicle(v)
+            end
+        end
+        for k,v in pairs(vehicleToDelete) do
+            local hasOwner = false
+            for w,z in pairs(GetAllPlayers()) do
+                if VehicleData[v] == nil then
+                    hasOwner = true
+                    break
+                end
+                if VehicleData[v].owner == PlayerData[z].accountid then
+                    hasOwner = true
+                    break
+                end
+            end
+            if not hasOwner then
+                if VehicleData[v].garageid == 0 then
+                    local query = mariadb_prepare(sql, "UPDATE `player_garage` SET `garage`=1 WHERE `id` = ?;",
+                    VehicleData[v].garageid
+                    )
+                    mariadb_async_query(sql, query)
+                end
                 DestroyVehicleData(v)
                 DestroyVehicle(v)
             end
