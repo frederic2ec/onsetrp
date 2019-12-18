@@ -253,10 +253,5 @@
     "city": "Hauptstadt",
     "unprocessed_rock": "Unbearbeiter Stein",
     "processed_rock": "Bearbeiteter Stein",
-	"yellow": "Gelb",
-	"pink": "Pink",
-	"Brown": "Braun",
-	"grey": "Grau",
-	"purple": "Lila",
-	"orange": "Orange"
+    "not_whitelisted": ""
 }
