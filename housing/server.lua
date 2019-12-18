@@ -1736,6 +1736,33 @@ houses = {
             }
         }
     },
+    {
+        id = 73,
+        price = 100,
+        lock = true,
+        spawnable = 0,
+        owner = 0,
+        spawn = { 162822, 211600, 1403 },
+        text = { 162822, 211679, 1402 },
+        doors = {
+            { 
+                entity = -1, 
+                model = 23, 
+                x = 162870.0, 
+                y = 211647.0, 
+                z = 1313.0,
+                r = -90
+            },
+            { 
+                entity = -1, 
+                model = 24, 
+                x = 163233.0, 
+                y = 211441.0,
+                z = 1313.0,
+                r = 180
+            }
+        }
+    },
 }
 
 function OnPackageStart()
