@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Health</title>
+    
+
+    <script>
+			(function(obj)
+			{
+				ue.game = {};
+				ue.game.callevent = function(name, ...args)
+				{
+					if (typeof name != "string") {
+						return;
+					}
+		
+					if (args.length == 0) {
+						obj.callevent(name, "")
+					}
+					else {
+						let params = []
+						for (let i = 0; i < args.length; i++) {
+							params[i] = args[i];
+						}
+						obj.callevent(name, JSON.stringify(params));
+					}
+				};
+			})(ue.game);
+			CallEvent = ue.game.callevent;
+    </script>
+  <style>
+ 
+  
+
+    #health {
+    position: fixed;
+    bottom: 2%;
+    right : 200px;
+    height : 50px;
+    width: 50px;   
+    }
+
+   
+   
+
+    </style>
+</head>
+<body>
+    <img src="health.png" id="health">
+    
+    <script>
+        function SetCash(cash)
+        {
+
+            let toModify = document.getElementById("cash");
+            toModify.innerHTML = cash + " "  + "€";    
+         
+        }
+
+
+        function SetHealth(healthlife)
+        {
+
+           let toModifyOpacity = document.getElementById('health');
+
+            if (healthlife > 80 && healthlife <= 100) {
+                toModifyOpacity.style.opacity = "0.0"; 
+
+                }
+
+            if (healthlife > 60 && healthlife <= 80 ) {
+                toModifyOpacity.style.opacity = "0.2"; 
+
+                }
+           
+            if (healthlife > 40 && healthlife <= 60 ) {
+                toModifyOpacity.style.opacity = "0.4"; 
+
+                }
+
+            if (healthlife > 20 && healthlife <= 40 ) {
+                toModifyOpacity.style.opacity = "0.6"; 
+
+                }
+
+           if (healthlife > 10 && healthlife <= 20 ) {
+                 toModifyOpacity.style.opacity = "0.8"; 
+
+                } 
+
+           if (healthlife >= 0 && healthlife <= 10 ) {
+              toModifyOpacity.style.opacity = "1"; 
+
+                }    
+
+        }
+
+  
+    </script>
+</body>
+</html>

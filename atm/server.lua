@@ -64,12 +64,12 @@ end
 
 function withdrawAtm(player, amount)
 	if tonumber(amount) <= 0 then return end
-    if tonumber(amount) > PlayerData[player].bank_balance then
-        AddPlayerChat(player, _("withdraw_error"))
+	if tonumber(amount) > PlayerData[player].bank_balance then
+        CallRemoteEvent(player, "MakeNotification", _("withdraw_error"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     else
         PlayerData[player].bank_balance = PlayerData[player].bank_balance - amount
         PlayerData[player].cash = PlayerData[player].cash + amount
-        AddPlayerChat(player, _("withdraw_success", amount, _("currency")))
+        CallRemoteEvent(player, "MakeNotification",_("withdraw_success", amount, _("currency")), "linear-gradient(to right, #00b09b, #96c93d)")
     end
 end
 AddRemoteEvent("withdrawAtm", withdrawAtm)
@@ -77,11 +77,11 @@ AddRemoteEvent("withdrawAtm", withdrawAtm)
 function depositAtm(player, amount)
 	if tonumber(amount) <= 0 then return end
     if tonumber(amount) > PlayerData[player].cash then
-        AddPlayerChat(player, _("deposit_error"))
+        CallRemoteEvent(player, "MakeNotification", _("deposit_error"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     else
         PlayerData[player].cash = PlayerData[player].cash - amount
         PlayerData[player].bank_balance = PlayerData[player].bank_balance + amount
-        AddPlayerChat(player, _("deposit_success", amount, _("currency")))
+        CallRemoteEvent(player, "MakeNotification", _("deposit_success", amount, _("currency")), "linear-gradient(to right, #00b09b, #96c93d)")
     end
 end
 AddRemoteEvent("depositAtm", depositAtm)
@@ -90,10 +90,10 @@ AddRemoteEvent("depositAtm", depositAtm)
 AddRemoteEvent("transferAtm", function(player, amount, toplayer)
 	if tonumber(amount) <= 0 then return end
 	if tonumber(amount) > PlayerData[player].bank_balance then
-        AddPlayerChat(player, _("transfer_error"))
+        CallRemoteEvent(player, "MakeNotification", _("transfer_error"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 	else
         PlayerData[player].bank_balance = PlayerData[player].bank_balance - amount
         PlayerData[tonumber(toplayer)].bank_balance = PlayerData[tonumber(toplayer)].bank_balance  + amount
-        AddPlayerChat(player, _("transfer_success", amount, _("currency")))
+        CallRemoteEvent(player, "MakeNotification", _("transfer_success", amount, _("currency")), "linear-gradient(to right, #00b09b, #96c93d)")
     end
 end)

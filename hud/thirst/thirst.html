@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Thirst</title>
+
+    <script>
+			(function(obj)
+			{
+				ue.game = {};
+				ue.game.callevent = function(name, ...args)
+				{
+					if (typeof name != "string") {
+						return;
+					}
+		
+					if (args.length == 0) {
+						obj.callevent(name, "")
+					}
+					else {
+						let params = []
+						for (let i = 0; i < args.length; i++) {
+							params[i] = args[i];
+						}
+						obj.callevent(name, JSON.stringify(params));
+					}
+				};
+			})(ue.game);
+			CallEvent = ue.game.callevent;
+    </script>
+  <style>
+ 
+ 
+
+
+    
+   #thirst {
+    position: fixed;
+    bottom: 2%;
+    right : 90px;
+    height : 50px;
+    width: 50px;   
+    }
+
+   
+
+    </style>
+</head>
+<body>
+    
+    <img src="thirst.png" id="thirst">
+  
+    <script>
+    
+
+        function SetThirst(thirst)
+        {
+
+           let toModifyOpacity = document.getElementById('thirst');
+
+            if (thirst > 80 && thirst <= 100) {
+                toModifyOpacity.style.opacity = "0.0"; 
+
+                }
+
+            if (thirst > 60 && thirst <= 80 ) {
+                toModifyOpacity.style.opacity = "0.2"; 
+
+                }
+           
+            if (thirst > 40 && thirst <= 60 ) {
+                toModifyOpacity.style.opacity = "0.4"; 
+
+                }
+
+            if (thirst > 20 && thirst <= 40 ) {
+                toModifyOpacity.style.opacity = "0.6"; 
+
+                }
+
+           if (thirst > 10 && thirst <= 20 ) {
+                 toModifyOpacity.style.opacity = "0.8"; 
+
+                } 
+
+           if (thirst >= 0 && thirst <= 10 ) {
+              toModifyOpacity.style.opacity = "1"; 
+
+                }    
+
+        }
+
+  
+    </script>
+</body>
+</html>

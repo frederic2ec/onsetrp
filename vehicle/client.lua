@@ -23,7 +23,7 @@ end)
 
 function OnPlayerStartEnterVehicle(vehicle)
     if GetVehiclePropertyValue(vehicle, "locked") then 
-        AddPlayerChat(_("this_vehicle_locked"))
+        MakeNotification(_("this_vehicle_locked"), "linear-gradient(to right, #ff5f6d, #ffc371)")
         return false 
     end 
 end
@@ -31,7 +31,7 @@ AddEvent("OnPlayerStartEnterVehicle", OnPlayerStartEnterVehicle)
 
 function OnPlayerStartExitVehicle(vehicle)
     if GetVehiclePropertyValue(vehicle, "locked") then 
-        AddPlayerChat(_("this_vehicle_locked"))
+        MakeNotification(_("this_vehicle_locked"), "linear-gradient(to right, #ff5f6d, #ffc371)")
         return false 
     end 
 end
@@ -118,10 +118,10 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == vehicleInventory then
         if button == 1 then
 			if args[1] == "" then
-				AddPlayerChat(_("select_item"))
+				MakeNotification(_("select_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 			else
 				if args[2] == "" then
-					AddPlayerChat(_("select_amount"))
+					MakeNotification(_("select_amount"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 				else
 					CallRemoteEvent("VehicleStore", args[1], args[2])
 				end
@@ -129,10 +129,10 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
 		end
 		if button == 2 then
 			if args[3] == "" then
-				AddPlayerChat(_("select_item"))
+				MakeNotification(_("select_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 			else
 				if args[4] == "" then
-					AddPlayerChat(_("select_amount"))
+					MakeNotification(_("select_amount"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 				else
 					CallRemoteEvent("VehicleUnstore", args[3], args[4])
 				end
@@ -144,7 +144,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == vehicleKeys then
         if button == 1 then
             if args[2] == "" then
-                AddPlayerChat(_("select_player"))
+                MakeNotification(_("select_player"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             else
                 CallRemoteEvent("VehicleGiveKey", args[2])
             end
@@ -152,7 +152,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
 
         if button == 2 then
             if args[1] == "" then
-                AddPlayerChat(_("select_player"))
+                MakeNotification(_("select_player"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             else
                 CallRemoteEvent("VehicleRemoveKey", args[1])
             end

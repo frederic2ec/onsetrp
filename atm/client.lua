@@ -30,10 +30,10 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
                 if tonumber(args[1]) > 0 then
                     CallRemoteEvent("transferAtm", args[1], args[2])
                 else
-                    AddPlayerChat(_("enter_higher_number"))
+                    MakeNotification(_("enter_higher_number"), "linear-gradient(to right, #ff5f6d, #ffc371)")
                 end
             else
-                AddPlayerChat(_("valid_number"))
+                MakeNotification(_("valid_number"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             end 
         end
         if button == 2 then
@@ -82,10 +82,10 @@ function withdrawMoney(amount)
         if tonumber(amount) > 0 then
             CallRemoteEvent("withdrawAtm", amount)
         else
-            AddPlayerChat(_("enter_higher_number"))
+            MakeNotification(_("enter_higher_number"), "linear-gradient(to right, #ff5f6d, #ffc371)")
         end
     else
-        AddPlayerChat(_("valid_number"))
+        MakeNotification(_("valid_number"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     end 
 end
 AddEvent("withdrawMoney", withdrawMoney)
@@ -95,10 +95,10 @@ function depositMoney(amount)
         if tonumber(amount) > 0 then
             CallRemoteEvent("depositAtm", amount)
         else
-            AddPlayerChat(_("enter_higher_number"))
+            MakeNotification(_("enter_higher_number"), "linear-gradient(to right, #ff5f6d, #ffc371)")
         end
     else
-        AddPlayerChat(_("valid_number"))
+        MakeNotification(_("valid_number"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     end 
 end
 AddEvent("depositMoney", depositMoney)

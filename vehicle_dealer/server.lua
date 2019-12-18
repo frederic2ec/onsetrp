@@ -128,7 +128,7 @@ function buyCarServer(player, modelid, color, cardealerobject)
 	local modelid = getVehicleId(modelid)
 
 	if tonumber(price) > PlayerData[player].cash then
-        AddPlayerChat(player, _("no_money_car"))
+        MakeNotification(player, _("no_money_car"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     else
         local x, y, z = GetPlayerLocation(player)
 
@@ -154,9 +154,9 @@ function buyCarServer(player, modelid, color, cardealerobject)
                     CreateVehicleDatabase(player, vehicle, modelid, color, price)
                     PlayerData[player].cash = PlayerData[player].cash - tonumber(price)
                     CallRemoteEvent(player, "closeCarDealer")
-                    return AddPlayerChat(player, _("car_buy_sucess", name, price, _("currency")))
+                    return CallRemoteEvent(player, "MakeNotification", _("car_buy_sucess", name, price, _("currency")), "linear-gradient(to right, #00b09b, #96c93d)")
                 else
-                    return AddPlayerChat(player, _("cannot_spawn_vehicle"))
+                    return CallRemoteEvent(player, "MakeNotification", _("cannot_spawn_vehicle"), "linear-gradient(to right, #ff5f6d, #ffc371)")
                 end
             end
         end

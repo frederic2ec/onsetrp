@@ -24,14 +24,14 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
 		local args = { ... }
 		if button == 1 then
 			if args[1] == "" then
-				AddPlayerChat(_("select_car_to_spawn"))
+				MakeNotification(_("select_car_to_spawn"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             else
                 CallRemoteEvent("spawnCarServer", args[1])
 			end
         end
         if button == 2 then
             if args[1] == "" then
-                AddPlayerChat(_("select_car_to_sell"))
+                MakeNotification(_("select_car_to_sell"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             else
                 CallRemoteEvent("sellCarServer", args[1])
             end

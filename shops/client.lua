@@ -37,10 +37,10 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
 	if dialog == shop then
 		if button == 1 then
 			if args[1] == "" then
-				AddPlayerChat(_("select_item"))
+				MakeNotification(_("select_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 			else
 				if args[2] == "" or math.floor(args[2]) < 1 then
-					AddPlayerChat(_("select_amount"))
+					MakeNotification(_("select_amount"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 				else
 					CallRemoteEvent("ShopSell", lastShop, args[1], math.floor(args[2]))
 				end
@@ -48,10 +48,10 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
 		end
 		if button == 2 then
 			if args[3] == "" then
-				AddPlayerChat(_("select_item"))
+				MakeNotification(_("select_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 			else
 				if args[4] == ""  or math.floor(args[4]) < 1 then
-					AddPlayerChat(_("select_amount"))
+					MakeNotification(_("select_amount"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 				else
 					CallRemoteEvent("ShopBuy", lastShop, args[3], math.floor(args[4]))
 				end

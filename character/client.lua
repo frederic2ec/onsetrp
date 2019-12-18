@@ -107,7 +107,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
 	if dialog == characterCreation then
         if button == 1 then
             if args[1] == "" or args[2] == "" then
-                AddPlayerChat(_("enter_valid_name"))
+                MakeNotification(_("enter_valid_name"), "linear-gradient(to right, #ff5f6d, #ffc371)")
                 Dialog.show(characterCreation)
             else
                 playerName = args[1].." "..args[2]
@@ -118,7 +118,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == hairsCreation then
         if button == 1 then
             if args[1] == "" or args[2] == "" then
-                AddPlayerChat(_("please_choose_hairs"))
+                MakeNotification(_("please_choose_hairs"), "linear-gradient(to right, #ff5f6d, #ffc371)")
                 Dialog.show(hairsCreation)
             else
                 playerHairs = args[1]
@@ -130,7 +130,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == shirtsCreation then
         if button == 1 then
             if args[1] == "" then
-                AddPlayerChat(_("please_choose_shirt"))
+                MakeNotification(_("please_choose_shirt"), "linear-gradient(to right, #ff5f6d, #ffc371)")
                 Dialog.show(shirtsCreation)
             else
                 playerShirt = args[1]
@@ -141,7 +141,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == pantsCreation then
         if button == 1 then
             if args[1] == "" then
-                AddPlayerChat(_("please_choose_pants"))
+                MakeNotification(_("please_choose_pants"), "linear-gradient(to right, #ff5f6d, #ffc371)")
                 Dialog.show(pantsCreation)
             else
                 playerPants = args[1]
@@ -152,7 +152,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == shoesCreation then
         if button == 1 then
             if args[1] == "" then
-                AddPlayerChat(_("please_choose_shoes"))
+                MakeNotification(_("please_choose_shoes"), "linear-gradient(to right, #ff5f6d, #ffc371)")
                 Dialog.show(shoesCreation)
             else
                 playerShoes = args[1]

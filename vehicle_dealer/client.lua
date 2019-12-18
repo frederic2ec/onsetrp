@@ -29,7 +29,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
 		local args = { ... }
 		if button == 1 then
 			if args[1] == "" or args[2] == "" then
-				AddPlayerChat(_("select_car_to_buy"))
+				MakeNotification(_("select_car_to_buy"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 			else
 				CallRemoteEvent("buyCarServer", args[1], args[2], NearestCarDealer)
 			end

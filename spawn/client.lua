@@ -51,7 +51,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
 	if dialog == spawnMenu then
 		if button == 1 then
 			if args[1] == "" then
-                AddPlayerChat(_("select_city"))
+                MakeNotification(_("select_city"), "linear-gradient(to right, #ff5f6d, #ffc371)")
                 CallRemoteEvent("ServerSpawnMenu")
             else
                 onSpawn = false

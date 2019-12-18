@@ -28,13 +28,13 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == personalMenu then
         if button == 1 then
             if args[1] == "" then
-				AddPlayerChat(_("select_item"))
+				MakeNotification(_("select_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 			else
 				if args[2] == ""  or math.floor(args[2]) < 1 then
-					AddPlayerChat(_("select_amount"))
+					MakeNotification(_("select_amount"), "linear-gradient(to right, #ff5f6d, #ffc371)")
                 else
                     if args[3] == "" then
-                        AddPlayerChat(_("select_player"))
+                        MakeNotification(_("select_player"), "linear-gradient(to right, #ff5f6d, #ffc371)")
                     else
                         CallRemoteEvent("TransferInventory", args[1], math.floor(args[2]), args[3])
                     end   
@@ -43,10 +43,10 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
         end
 		if button == 2 then
 			if args[1] == "" then
-				AddPlayerChat(_("select_item"))
+				MakeNotification(_("select_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 			else
 				if args[2] == ""  or math.floor(args[2]) < 1 then
-					AddPlayerChat(_("select_amount"))
+					MakeNotification(_("select_amount"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 				else
                     CallRemoteEvent("UseInventory", args[1], math.floor(args[2]))
 				end

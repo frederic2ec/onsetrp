@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="toastify.min.css">
+</head>
+
+<body>
+    <p>test</p>
+    <script>
+        function makeNotification(text, color) {
+            Toastify({
+                text: text,
+                duration: 3000,
+                gravity: "top",
+                position: 'right',
+                backgroundColor: color,
+                stopOnFocus: true,
+            }).showToast();
+        };
+    </script>
+    <script type="text/javascript" src="toastify.js"></script>
+</body>
+
+</html>

@@ -1846,11 +1846,11 @@ end)
 
 AddRemoteEvent("BuyHouse", function(player, house)
     if PlayerData[player].cash < houses[house].price then
-        return AddPlayerChat(player, _("not_enought_cash"))
+        return CallRemoteEvent(player, "MakeNotification", _("not_enought_cash"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     end
 
     if getHouseOwner(player) ~= 0 then
-        AddPlayerChat(player, _("already_house_owner"))
+        CallRemoteEvent(player, "MakeNotification", _("already_house_owner"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     else
         PlayerData[player].cash = PlayerData[player].cash - houses[house].price
         houses[house].owner = tonumber(PlayerData[player].accountid)
@@ -1863,10 +1863,10 @@ AddRemoteEvent("UnlockHouse", function(player, house)
     if houses[house].owner == tonumber(PlayerData[player].accountid) then
         if houses[house].lock then
             houses[house].lock = false
-            AddPlayerChat(player, _("unlock_house"))
+            CallRemoteEvent(player, "MakeNotification", _("unlock_house"), "linear-gradient(to right, #00b09b, #96c93d)")
         else
             houses[house].lock = true
-            AddPlayerChat(player, _("lock_house"))
+            CallRemoteEvent(player, "MakeNotification", _("lock_house"), "linear-gradient(to right, #00b09b, #96c93d)")
         end
     end
 end)
@@ -1876,7 +1876,7 @@ AddRemoteEvent("SellHouse", function(player, house)
         price = math.ceil(houses[house].price * 0.25)
         PlayerData[player].cash = PlayerData[player].cash + price
         houses[house].owner = 0
-        AddPlayerChat(player, _("house_sell", price, _("currency")))
+        CallRemoteEvent(player, "MakeNotification", _("house_sell", price, _("currency")), "linear-gradient(to right, #00b09b, #96c93d)")
         DestroyText3D(houses[house].txtentities[2])
         houses[house].txtentities[2] = CreateText3D( _("price").." "..houses[house].price.._("currency"), 10, houses[house].text[1] , houses[house].text[2], houses[house].text[3], 0, 0, 0 )        
     end
@@ -1885,10 +1885,10 @@ end)
 AddRemoteEvent("SetHouseSpawn", function(player, house)
     if houses[house].owner == tonumber(PlayerData[player].accountid) then
         if houses[house].spawnable == 1 then
-            AddPlayerChat(player, _("default_spawn"))
+            CallRemoteEvent(player, "MakeNotification", _("default_spawn"), "linear-gradient(to right, #00b09b, #96c93d)")
             houses[house].spawnable = 0
         else
-            AddPlayerChat(player, _("house_spawn"))
+            CallRemoteEvent(player, "MakeNotification", _("house_spawn"), "linear-gradient(to right, #00b09b, #96c93d)")
             houses[house].spawnable = 1
         end
     end

@@ -73,7 +73,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == teleportPlaceMenu then
         if button == 1 then
             if args[1] == "" then
-                AddPlayerChat(_("select_place"))
+                MakeNotification(_("select_place"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             else
                 CallRemoteEvent("AdminTeleportToPlace", args[1])
             end
@@ -82,7 +82,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == teleportToPlayereMenu then
         if button == 1 then
             if args[1] == "" then
-                AddPlayerChat(_("select_player"))
+                MakeNotification(_("select_player"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             else
                 CallRemoteEvent("AdminTeleportToPlayer", args[1])
             end
@@ -91,7 +91,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == teleportPlayerMenu then
         if button == 1 then
             if args[1] == "" then
-                AddPlayerChat(_("select_player"))
+                MakeNotification(_("select_player"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             else
                 CallRemoteEvent("AdminTeleportPlayer", args[1])
             end
@@ -100,7 +100,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == weaponMenu then
         if button == 1 then
             if args[1] == "" then
-                AddPlayerChat(_("select_weapon"))
+                MakeNotification(_("select_weapon"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             else
                 CallRemoteEvent("AdminGiveWeapon", args[1])
             end
@@ -109,7 +109,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == vehicleMenu then
         if button == 1 then
             if args[1] == "" then
-                AddPlayerChat(_("select_vehicle"))
+                MakeNotification(_("select_vehicle"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             else
                 CallRemoteEvent("AdminSpawnVehicle", args[1])
             end
@@ -118,10 +118,10 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == moneyMenu then
         if button == 1 then
             if args[1] == "" then
-                AddPlayerChat(_("select_player"))
+                MakeNotification(_("select_player"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             else
                 if args[2] == "" then
-                    AddPlayerChat(_("select_amount"))
+                    MakeNotification(_("select_amount"), "linear-gradient(to right, #ff5f6d, #ffc371)")
                 else
                     CallRemoteEvent("AdminGiveMoney", args[1], "Bank", args[2])
                 end
@@ -129,10 +129,10 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
         end
         if button == 2 then
             if args[1] == "" then
-                AddPlayerChat(_("select_player"))
+                MakeNotification(_("select_player"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             else
                 if args[2] == "" then
-                    AddPlayerChat(_("select_amount"))
+                    MakeNotification(_("select_amount"), "linear-gradient(to right, #ff5f6d, #ffc371)")
                 else
                     CallRemoteEvent("AdminGiveMoney", args[1], "Cash", args[2])
                 end
@@ -142,10 +142,10 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == banMenu then
         if button == 1 then
             if args[1] == "" then
-                AddPlayerChat(_("select_player"))
+                MakeNotification(_("select_player"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             else
                 if args[2] == "" then
-                    AddPlayerChat("Please enter a reason")
+                    MakeNotification("Please enter a reason", "linear-gradient(to right, #ff5f6d, #ffc371)")
                 else
                     CallRemoteEvent("AdminKickBan", args[1], "Ban", args[2])
                 end
@@ -153,10 +153,10 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
         end
         if button == 2 then
             if args[1] == "" then
-                AddPlayerChat(_("select_player"))
+                MakeNotification(_("select_player"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             else
                 if args[2] == "" then
-                    AddPlayerChat(_("enter_reason"))
+                    MakeNotification(_("enter_reason"), "linear-gradient(to right, #ff5f6d, #ffc371)")
                 else
                     CallRemoteEvent("AdminKickBan", args[1], "Kick", args[2])
                 end

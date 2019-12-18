@@ -22,7 +22,9 @@
         "admin/server.lua",
         "fuel/server.lua",
         "spawn/server.lua",
-        "delivery/server.lua"
+        "delivery/server.lua",
+        "scoreboard/server.lua",
+        "whitelist/server.lua"
     ],
     "client_scripts": [
         "hunger/client.lua",
@@ -44,16 +46,32 @@
         "fuel/client.lua",
         "gps/client.lua",
         "spawn/client.lua",
-        "delivery/client.lua"
+        "delivery/client.lua",
+        "scoreboard/client.lua",
+        "notification/client.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",
         "hud/speaking/hud.html",
+        "hud/health/health.png",
+        "hud/health/health.html",
+        "hud/thirst/thirst.png",
+        "hud/thirst/thirst.html",
+        "hud/hunger/hunger.png",
+        "hud/hunger/hunger.html",
         "hud/minimap/minimap.css",
         "hud/minimap/minimap.html",
         "hud/minimap/minimap.js",
         "hud/minimap/OnsetMap.png",
+        "scoreboard/scoreboard/ping.png",
+        "scoreboard/scoreboard/scoreboard.css",
+        "scoreboard/scoreboard/scoreboard.html",
+        "scoreboard/scoreboard/scoreboard.js",
+        "notification/notification/notification.html",
+        "notification/notification/toastify.js",
+        "notification/notification/toastify.min.css",
         "client/files/carLock.mp3",
-        "client/files/carUnlock.mp3"
+        "client/files/carUnlock.mp3",
+        "client/files/notification.mp3"
     ]
 }

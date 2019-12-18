@@ -89,11 +89,11 @@ function unlockVehicle(player)
     if nearestCar ~= 0 then
         if PlayerData[player].admin == 1 then
             if GetVehiclePropertyValue(nearestCar, "locked") then
-                AddPlayerChat(player, _("car_unlocked"))
+                CallRemoteEvent(player, "MakeNotification", _("car_unlocked"), "linear-gradient(to right, #00b09b, #96c93d)")
                 SetVehiclePropertyValue(nearestCar, "locked", false, true)
                 CallRemoteEvent(player, "PlayAudioFile", "carUnlock.mp3")
             else
-                AddPlayerChat(player, _("car_locked"))
+                CallRemoteEvent(player, "MakeNotification", _("car_locked"), "linear-gradient(to right, #00b09b, #96c93d)")
                 SetVehiclePropertyValue(nearestCar, "locked", true, true)
                 CallRemoteEvent(player, "PlayAudioFile", "carLock.mp3")
             end
@@ -101,11 +101,11 @@ function unlockVehicle(player)
         end
         if vehicle.owner == PlayerData[player].accountid then
             if GetVehiclePropertyValue(nearestCar, "locked") then
-                AddPlayerChat(player, _("car_unlocked"))
+                CallRemoteEvent(player, "MakeNotification", _("car_unlocked"), "linear-gradient(to right, #00b09b, #96c93d)")
                 SetVehiclePropertyValue(nearestCar, "locked", false, true)
                 CallRemoteEvent(player, "PlayAudioFile", "carUnlock.mp3")
             else
-                AddPlayerChat(player, _("car_locked"))
+                CallRemoteEvent(player, "MakeNotification", _("car_locked"), "linear-gradient(to right, #00b09b, #96c93d)")
                 SetVehiclePropertyValue(nearestCar, "locked", true, true)
                 CallRemoteEvent(player, "PlayAudioFile", "carLock.mp3")
             end
@@ -114,11 +114,11 @@ function unlockVehicle(player)
             for k,v in pairs(vehicle.keys) do
                 if v == PlayerData[player].accountid then
                     if GetVehiclePropertyValue(nearestCar, "locked") then
-                        AddPlayerChat(player, _("car_unlocked"))
+                        CallRemoteEvent(player, "MakeNotification", _("car_unlocked"), "linear-gradient(to right, #00b09b, #96c93d)")
                         SetVehiclePropertyValue(nearestCar, "locked", false, true)
                         CallRemoteEvent(player, "PlayAudioFile", "carUnlock.mp3")
                     else
-                        AddPlayerChat(player, _("car_locked"))
+                        CallRemoteEvent(player, "MakeNotification", _("car_locked"), "linear-gradient(to right, #00b09b, #96c93d)")
                         SetVehiclePropertyValue(nearestCar, "locked", true, true)
                         CallRemoteEvent(player, "PlayAudioFile", "carLock.mp3")
                     end
@@ -158,7 +158,7 @@ end)
 AddRemoteEvent("VehicleStore", function(player, item, amount) 
     local vehicle = GetNearestCar(player)
     if tonumber(PlayerData[player].inventory[item]) < tonumber(amount) then
-        AddPlayerChat(player, _("not_enough_item"))
+        CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     else
         RemoveInventory(player, item, amount)
         AddVehicleInventory(vehicle, item, amount)
@@ -169,7 +169,7 @@ AddRemoteEvent("VehicleUnstore", function(player, item, amount)
     local vehicle = GetNearestCar(player)
 
     if tonumber(VehicleData[vehicle].inventory[item]) < tonumber(amount) then
-        AddPlayerChat(player, _("not_enough_item"))
+        CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     else
         AddInventory(player, item, amount)
         RemoveVehicleInventory(vehicle, item, amount)
@@ -184,7 +184,7 @@ AddRemoteEvent("VehicleGiveKey", function(player, toplayer)
     if VehicleData[vehicle].keys[toplayer] == nil then
         VehicleData[vehicle].keys[toplayer] = 1
     else
-        AddPlayerChat(player, _("already_have_key"))
+        CallRemoteEvent(player, "MakeNotification", _("already_have_key"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     end
 end)
 

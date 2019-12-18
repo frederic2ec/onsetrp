@@ -1,6 +1,7 @@
 function getHudData(player)
     hunger = math.ceil(PlayerData[player].hunger)
     thirst = math.ceil(PlayerData[player].thirst)
+    healthlife = GetPlayerHealth(player)
     cash = PlayerData[player].cash
     bank = PlayerData[player].bank_balance
 
@@ -16,7 +17,7 @@ function getHudData(player)
         vehiclespeed = 0
     end
 
-    CallRemoteEvent(player, "updateHud", hunger, thirst, cash, bank,  vehiclefuel)
+    CallRemoteEvent(player, "updateHud", hunger, thirst, cash, bank, healthlife, vehiclefuel)
 end
 AddRemoteEvent("getHudData", getHudData)
 

@@ -1,34 +1,32 @@
 
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
-local HungerHud
+local HungerFoodHud
 local ThirstHud
-local CashHud
-local BankHud
+local HealthHud
 local VehicleSpeedHud
 local VehicleFuelHud
 local VehicleHealthHud
 local SpeakingHud
 local minimap
-
-local timer = false
-
 function OnPackageStart()
-    HungerHud = CreateTextBox(-15, 180, "Hunger", "right" )
-    SetTextBoxAnchors(HungerHud, 1.0, 0.0, 1.0, 0.0)
-    SetTextBoxAlignment(HungerHud, 1.0, 0.0)
-    
-    ThirstHud = CreateTextBox(-15, 200, "Thirst", "right" )
-    SetTextBoxAnchors(ThirstHud, 1.0, 0.0, 1.0, 0.0)
-    SetTextBoxAlignment(ThirstHud, 1.0, 0.0)
-    
-    CashHud = CreateTextBox(-15, 220, "Cash", "right" )
-    SetTextBoxAnchors(CashHud, 1.0, 0.0, 1.0, 0.0)
-	SetTextBoxAlignment(CashHud, 1.0, 0.0)
+    HungerFoodHud = CreateWebUI(0, 0, 0, 0, 0, 28)
+    SetWebAlignment(HungerFoodHud, 1.0, 0.0)
+    SetWebAnchors(HungerFoodHud, 0.0, 0.0, 1.0, 1.0)
+    LoadWebFile(HungerFoodHud, "http://asset/onsetrp/hud/hunger/hunger.html")
+    SetWebVisibility(HungerFoodHud, WEB_HITINVISIBLE)
 
-    BankHud = CreateTextBox(-15, 240, "Bank", "right" )
-    SetTextBoxAnchors(BankHud, 1.0, 0.0, 1.0, 0.0)
-    SetTextBoxAlignment(BankHud, 1.0, 0.0)
+    ThirstHud = CreateWebUI(0, 0, 0, 0, 0, 28)
+    SetWebAlignment(ThirstHud, 1.0, 0.0)
+    SetWebAnchors(ThirstHud, 0.0, 0.0, 1.0, 1.0)
+    LoadWebFile(ThirstHud, "http://asset/onsetrp/hud/thirst/thirst.html")
+    SetWebVisibility(ThirstHud, WEB_HITINVISIBLE)
+
+    HealthHud = CreateWebUI(0, 0, 0, 0, 0, 28)
+	SetWebAlignment(HealthHud, 1.0, 0.0)
+	SetWebAnchors(HealthHud, 0.0, 0.0, 1.0, 1.0) 
+	LoadWebFile(HealthHud, "http://asset/onsetrp/hud/health/health.html")
+    SetWebVisibility(HealthHud, WEB_HITINVISIBLE)
     
     VehicleSpeedHud = CreateTextBox(-15, 260, "Speed", "right" )
     SetTextBoxAnchors(VehicleSpeedHud, 1.0, 0.0, 1.0, 0.0)
@@ -54,26 +52,15 @@ function OnPackageStart()
     SetWebAlignment(minimap, 0, 0)
     SetWebURL(minimap, "http://asset/onsetrp/hud/minimap/minimap.html")
     
-	ShowHealthHUD(true)
+	ShowHealthHUD(false)
     ShowWeaponHUD(true)
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
-function OnPlayerSpawn(player)
-    if not timer then
-        timer = true
-        CreateTimer(function()
-            CallRemoteEvent("getHudData")
-        end, 1000)
-    end
-end
-AddEvent("OnPlayerSpawn", OnPlayerSpawn)
-
-function updateHud(hunger, thirst, cash, bank, vehiclefuel)
-    SetTextBoxText(HungerHud, _("hunger")..hunger.."%" )
-    SetTextBoxText(ThirstHud, _("thirst")..thirst.."%" )
-    SetTextBoxText(CashHud, _("cash")..cash.._("currency") )
-    SetTextBoxText(BankHud, _("bank_balance")..bank.._("currency") )
+function updateHud(hunger, thirst, cash, bank, healthlife, vehiclefuel)
+    ExecuteWebJS(HealthHud, "SetHealth("..healthlife..");")
+    ExecuteWebJS(ThirstHud, "SetThirst("..thirst..");")
+    ExecuteWebJS(HungerFoodHud, "SetHunger("..hunger..");")
 
     if GetPlayerVehicle() ~= 0 then
         vehiclespeed = math.floor(GetVehicleForwardSpeed(GetPlayerVehicle()))
@@ -102,6 +89,8 @@ AddEvent( "OnGameTick", function()
     local px,py,pz = GetPlayerLocation()
     ExecuteWebJS(minimap, "SetHUDHeading("..(360-y)..");")
     ExecuteWebJS(minimap, "SetMap("..px..","..py..","..y..");")
+    -- Hud refresh
+    CallRemoteEvent("getHudData")
 end )
 
 function SetHUDMarker(name, h, r, g, b)

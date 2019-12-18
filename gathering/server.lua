@@ -62,7 +62,7 @@ AddRemoteEvent("StartGathering", function(player, gatherzone)
     gather = GetGatherByGatherzone(gatherzone)
     if gatherTable[gather].gather_tool ~= nil then
         if PlayerData[player].inventory[gatherTable[gather].gather_tool] == nil then
-            return AddPlayerChat(player, _("need_tool"))
+            return CallRemoteEvent(player, "MakeNotification", _("need_tool"), "linear-gradient(to right, #ff5f6d, #ffc371)")
         end
     end
     if PlayerData[player].onAction then
@@ -76,7 +76,7 @@ AddRemoteEvent("StartGathering", function(player, gatherzone)
     end)
     Delay(8000, function()
         AddInventory(player, gatherTable[gather].gather_item, 1)
-        AddPlayerChat(player, _("gather_success", _(gatherTable[gather].gather_item)))
+        CallRemoteEvent(player, "MakeNotification", _("gather_success", _(gatherTable[gather].gather_item)), "linear-gradient(to right, #00b09b, #96c93d)")
         PlayerData[player].onAction = false
         CallRemoteEvent(player, "LockControlMove", false)
     end)
@@ -90,10 +90,10 @@ AddRemoteEvent("StartProcessing", function(player, processzone)
         return
     end
     if PlayerData[player].inventory[unprocessed_item] == nil then
-        return AddPlayerChat(player, _("not_enough_item"))
+        return CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     end
     if tonumber(PlayerData[player].inventory[unprocessed_item]) < 1 then
-         return AddPlayerChat(player, _("not_enough_item"))
+         return CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     else
         PlayerData[player].onAction = true
         CallRemoteEvent(player, "LockControlMove", true)
@@ -104,7 +104,7 @@ AddRemoteEvent("StartProcessing", function(player, processzone)
         end)
         Delay(8000, function()
             AddInventory(player, gatherTable[gather].process_item, 1)
-            AddPlayerChat(player, _("process_success", _(gatherTable[gather].process_item)))
+            CallRemoteEvent(player, "MakeNotification", _("process_success", _(gatherTable[gather].process_item)), "linear-gradient(to right, #00b09b, #96c93d)")
             PlayerData[player].onAction = false
             CallRemoteEvent(player, "LockControlMove", false)
         end)
