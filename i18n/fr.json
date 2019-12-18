@@ -253,5 +253,6 @@
     "city": "Ville",
     "unprocessed_rock": "Pierre non transformée",
     "processed_rock": "Pierre transformée",
-    "not_whitelisted": "Vous n'êtes pas sur la liste blance !"
+    "not_whitelisted": "Vous n'êtes pas sur la liste blance !",
+    "job_full": "Ce métier est complet !"
 }
