@@ -69,28 +69,52 @@ AddCommand("getpos", function(player)
     AddPlayerChat(player, "X : "..x.." Y : "..y.." Z : "..z)
 end)
 AddCommand("bank", function(player)
+    if PlayerData[player].admin ~= 1 then
+        return
+    end
     SetPlayerLocation(player, 189784.000000, 201549.000000, 835.000000)
 end)
 AddCommand("cinema", function(player)
+    if PlayerData[player].admin ~= 1 then
+        return
+    end
     SetPlayerLocation(player, 173747.000000, 198165.000000, 2532.000000)
 end)
 AddCommand("police", function(player)
+    if PlayerData[player].admin ~= 1 then
+        return
+    end
     SetPlayerLocation(player, 171553.000000, 195234.000000, 572.000000)
 end)
 AddCommand("hos1", function(player)
+    if PlayerData[player].admin ~= 1 then
+        return
+    end
     SetPlayerLocation(player, 215235.000000, 158465.000000, 2960.000000)
 end)
 AddCommand("hos2", function(player)
+    if PlayerData[player].admin ~= 1 then
+        return
+    end
     SetPlayerLocation(player, 212372.000000, 153763.000000, 2793.000000)
 end)
 AddCommand("office", function(player)
+    if PlayerData[player].admin ~= 1 then
+        return
+    end
     SetPlayerLocation(player, 191369.000000, 193415.000000, 9366.000000)
 end)
 AddCommand("spec", function(player)
+    if PlayerData[player].admin ~= 1 then
+        return
+    end
     SetPlayerSpectate( player, true)
 end)
 
 AddCommand("tppos", function(player, x, y, z)
+    if PlayerData[player].admin ~= 1 then
+        return
+    end
     SetPlayerLocation(player, x, y, z)
 end)
 
