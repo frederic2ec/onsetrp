@@ -339,13 +339,3 @@ AddRemoteEvent("PayFine", function(player)
     SetPlayerPropertyValue(player, "fine", 0, true)
     CallRemoteEvent(player, "MakeNotification", _("paid_fine"), "linear-gradient(to right, #00b09b, #96c93d)")
 end)
-
-
-AddCommand("pol", function(player)
-    SetPlayerLocation(player, 169277, 193489, 1307, 180)
-end)
-AddCommand("we", function(player)
-    SetPlayerWeapon(player, 3, 33, true, 1, true)
-    SetPlayerWeapon(player, 4, 33, false, 2, true)
-    SetPlayerWeapon(player, 5, 33, false, 3, true)
-end)

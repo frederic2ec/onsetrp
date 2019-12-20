@@ -13,7 +13,7 @@ AddEvent("OnTranslationReady", function()
     policeNpcMenu = Dialog.create(_("police_menu"), nil, _("start_stop_police") ,_("cancel"))
     policeMenu = Dialog.create(_("police_menu"), nil,  _("spawn_despawn_patrol_car"), _("handcuff_player"), _("put_player_in_vehicle"), _("remove_player_from_vehicle"), _("remove_all_weapons"),_("give_player_fine"), _("cancel"))
 
-    policeReceiveFineMenu = Dialog.create(_("fine"), _("fine_price").." : {fine_price} ".._("currency").." | ".._("reason").." : {reason}", _("pay"),_("cancel"))
+    policeReceiveFineMenu = Dialog.create(_("fine"), _("fine_price").." : {fine_price} ".._("currency").." | ".._("reason").." : {reason}", _("pay"))
     
     policeFineMenu = Dialog.create(_("finePolice"), nil, _("give_fine"), _("cancel"))
     Dialog.addTextInput(policeFineMenu, 1, _("amount").." :")
