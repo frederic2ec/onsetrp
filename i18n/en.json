@@ -269,5 +269,13 @@
     "remove_all_weapons": "Remove all player's weapons",
     "no_players_around": "There is no players around!",
     "remove_player_from_vehicle": "Remove player from your vehicle",
-    "no_vehicle_around": "There is not vehicles around!"
+    "no_vehicle_around": "There is not vehicles around!",
+    "give_fine": "Give",
+    "finePolice": "Fine",
+    "give_player_fine": "Give a fine",
+    "fine_price" : "Amount due",
+    "pay": "Pay",
+    "reason": "Reason",
+    "fine": "Fine",
+    "paid_fine": "You just paid your fine!"
 }

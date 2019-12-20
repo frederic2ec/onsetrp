@@ -68,6 +68,22 @@ AddRemoteEvent("OpenPoliceMenu", function(player)
     end
 end)
 
+AddRemoteEvent("OpenPoliceFineMenu", function(player)
+    if PlayerData[player].job == "police" then
+	local x, y, z = GetPlayerLocation(player)
+	local playersIds = GetAllPlayers()
+	local playersNames = {}
+
+	for k,v in pairs(playersIds) do
+	    local _x, _y, _z = GetPlayerLocation(k)
+	    if(GetDistance3D(x, y, z, _x, _y, _z) < 500 and player ~= k and PlayerData[k].job ~= "police") then
+		playersNames[tostring(k)] = GetPlayerName(k)
+	    end
+	end
+	CallRemoteEvent(player, "OpenPoliceFineMenu", playersNames)
+    end
+end)
+
 function GetNearestPolice(player)
 	local x, y, z = GetPlayerLocation(player)
 	
@@ -297,6 +313,33 @@ function GetNearestPlayer(player, distanceMax)
     end
     return
 end
+
+AddRemoteEvent("GiveFineToPlayer", function(player, amount, toplayer, reason)
+    if tonumber(amount) <= 0 then return end
+    SetPlayerPropertyValue(toplayer, "fine", amount, true)
+    CallRemoteEvent(toplayer, "PlayerReceiveFine", amount, reason)
+end)
+
+AddRemoteEvent("PayFine", function(player)
+    local fine = tonumber(GetPlayerPropertyValue(player, "fine"))
+    if(PlayerData[player].cash >= fine) then
+	PlayerData[player].cash = PlayerData[player].cash - fine
+    elseif(PlayerData[player].bank_balance >= fine) then
+	PlayerData[player].bank_balance = PlayerData[player].bank_balance - fine
+
+    elseif((PlayerData[player].bank_balance + PlayerData[player].cash) > fine) then
+	local amount = PlayerData[player].cash
+	PlayerData[player].cash = 0
+	PlayerData[player].bank_balance = PlayerData[player].bank_balance - (fine - amount)
+    else
+	PlayerData[player].cash = 0
+	PlayerData[player].bank_balance = 0
+    end
+
+    SetPlayerPropertyValue(player, "fine", 0, true)
+    CallRemoteEvent(player, "MakeNotification", _("paid_fine"), "linear-gradient(to right, #00b09b, #96c93d)")
+end)
+
 
 AddCommand("pol", function(player)
     SetPlayerLocation(player, 169277, 193489, 1307, 180)
