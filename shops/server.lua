@@ -12,7 +12,9 @@ ShopTable = {
             lockpick = 500,
             pickaxe = 20,
             jerican = 50,
-            phone = 100
+            phone = 100,
+            fishing_rod = 20,
+            fish = 100
 		},
 		location = { 
             { 128748, 77622, 1576, 90 },

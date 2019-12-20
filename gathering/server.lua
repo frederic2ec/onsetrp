@@ -32,6 +32,11 @@ gatherTable = {
         process_zone = { -82629, 90991, 481 },
         process_item = "processed_rock"
     },
+    {
+        gather_zone = { 232464, 193521, 112 },
+        gather_item = "fish",
+        gather_tool = "fishing_rod",
+    },
 }
 
 gatherZoneCached = {}
@@ -61,6 +66,7 @@ end)
 AddRemoteEvent("StartGathering", function(player, gatherzone) 
     local gather = GetGatherByGatherzone(gatherzone)
     local animation = ""
+    local attached_item = 0
     if gatherTable[gather].gather_tool ~= nil then
         if PlayerData[player].inventory[gatherTable[gather].gather_tool] == nil then
             return CallRemoteEvent(player, "MakeNotification", _("need_tool"), "linear-gradient(to right, #ff5f6d, #ffc371)")
@@ -75,6 +81,10 @@ AddRemoteEvent("StartGathering", function(player, gatherzone)
     end
     if gatherTable[gather].gather_tool == "pickaxe" then
         animation = "PICKAXE_SWING"
+        attached_item = 1063
+    elseif gatherTable[gather].gather_tool == "fishing_rod" then
+        animation = "FISHING"
+        attached_item = 1111
     else
         animation = "PICKUP_LOWER"
     end
@@ -84,7 +94,7 @@ AddRemoteEvent("StartGathering", function(player, gatherzone)
         if PlayerData[player].onAction then
             CallRemoteEvent(player, "LockControlMove", true)
             SetPlayerAnimation(player, animation)
-            SetAttachedItem(player, "hand_r", 1063)
+            SetAttachedItem(player, "hand_r", attached_item)
             Delay(4000, function() 
                 SetPlayerAnimation(player, animation)
             end)
