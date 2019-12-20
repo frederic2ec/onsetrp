@@ -275,9 +275,10 @@
     "give_player_fine": "Give a fine",
     "fine_price": "Amount due",
     "pay": "Pay",
-    "reason": "Reason",
     "fine": "Fine",
     "paid_fine": "You just paid your fine!",
     "new_message": "New message",
-    "phone": "Phone"
+    "phone": "Phone",
+    "fishing_rod": "Fishing Rod",
+    "fish": "Fish"
 }
