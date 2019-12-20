@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2019 at 08:16 AM
+-- Generation Time: Dec 20, 2019 at 11:57 PM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -28,6 +28,7 @@ CREATE TABLE `accounts` (
   `name` varchar(255) NOT NULL DEFAULT 'Unregistered',
   `clothing` text NOT NULL,
   `clothing_police` text NOT NULL,
+  `police` tinyint(1) NOT NULL DEFAULT 0,
   `inventory` text NOT NULL,
   `admin` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
   `health` float NOT NULL DEFAULT 100,
@@ -36,7 +37,7 @@ CREATE TABLE `accounts` (
   `hunger` float NOT NULL DEFAULT 100,
   `cash` int(11) DEFAULT 1000,
   `bank_balance` int(11) NOT NULL DEFAULT 0,
-  `created` tinyint(1) NOT NULL DEFAULT 0
+  `created` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -168,7 +169,19 @@ INSERT INTO `player_house` (`id`, `ownerid`, `spawn`) VALUES
 (69, 0, 0),
 (70, 0, 0),
 (71, 0, 0),
-(72, 0, 0);
+(72, 0, 0),
+(73, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `whitelist`
+--
+
+CREATE TABLE `whitelist` (
+  `id` int(11) NOT NULL,
+  `steamid` varchar(17) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -206,20 +219,25 @@ ALTER TABLE `player_house`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Indexes for table `whitelist`
 --
+ALTER TABLE `whitelist`
+  ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for table `bans`
+-- AUTO_INCREMENT for dumped tables
 --
-ALTER TABLE `bans`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-COMMIT;
 
 --
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `bans`
+--
+ALTER TABLE `bans`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -232,7 +250,13 @@ ALTER TABLE `player_garage`
 -- AUTO_INCREMENT for table `player_house`
 --
 ALTER TABLE `player_house`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+
+--
+-- AUTO_INCREMENT for table `whitelist`
+--
+ALTER TABLE `whitelist`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

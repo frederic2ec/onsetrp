@@ -29,6 +29,9 @@ AddEvent("OnPlayerJoin", function(player)
 end)
 
 AddRemoteEvent("StartStopPolice", function(player)
+	if PlayerData[player].police == 0 then
+		return CallRemoteEvent(player, "MakeNotification", _("not_whitelisted"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+	end
     if PlayerData[player].job == "" then
         if PlayerData[player].job_vehicle ~= nil then
             DestroyVehicle(PlayerData[player].job_vehicle)
