@@ -92,6 +92,8 @@ function GetUniformServer(player)
     CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing_police[3], 1)
     CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing_police[4], 4)
     CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing_police[5], 5)
+
+    SetPlayerWeapon(player, 4, 200, false, 1, true)
     
     for k,v in pairs(GetStreamedPlayersForPlayer(player)) do
 	ChangeUniformOtherPlayerServer(k, player)
@@ -123,6 +125,7 @@ function RemoveUniformServer(player)
     CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing[3], 1)
     CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing[4], 4)
     CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing[5], 5)
+    SetPlayerWeapon(player, 1, 0, true, 1)
     
     for k,v in pairs(GetStreamedPlayersForPlayer(player)) do
 	RemoveUniformOtherPlayerServer(k, player)
@@ -173,42 +176,39 @@ AddRemoteEvent("GetPatrolCar", GetPatrolCar)
 
 AddRemoteEvent("HandcuffPlayerSetup", function(player)
     if(PlayerData[player].job == "police") then
-	local x, y, z = GetPlayerLocation(player)
-	local listStreamed = GetStreamedPlayersForPlayer(player)
-	local closestDistance = 50000
-	local otherPlayer
-	for k,v in pairs(listStreamed) do
-	    if(PlayerData[v].job ~= "police") then
-		local _x, _y, _z = GetPlayerLocation(v)
-		local tmpDistance = GetDistance3D(x, y, z, _x, _y, _z)
-		if(tmpDistance < closestDistance and v ~= player) then
-		    closestDistance = tmpDistance
-		    otherPlayer = v
-		end
+	local info = GetNearestPlayer(player, 115)
+	if(info ~= nil) then
+	    SetPlayerAnimation(info[1], "STOP")
+	    if(GetPlayerPropertyValue(info[1], "cuffed") ~= true) then
+		HandcuffPlayer(player, info[1], _x, _y, _z)
+	    elseif(GetPlayerPropertyValue(info[1], "cuffed") == true) then
+		FreeHandcuffPlayer(info[1])
+	    else
+		HandcuffPlayer(player, info[1], _x, _y, _z)
 	    end
-	    if(otherPlayer ~= player) then
-		if(closestDistance < 115) then
-
-		    if(GetPlayerPropertyValue(otherPlayer, "cuffed") == nil) then
-			HandcuffPlayer(player, otherPlayer, _x, _y, _z)
-		    elseif(GetPlayerPropertyValue(otherPlayer, "cuffed") == true) then
-			SetPlayerAnimation(otherPlayer, "STOP")
-			SetPlayerPropertyValue(otherPlayer, "cuffed", false, true)
-		    else
-			HandcuffPlayer(player, otherPlayer, _x, _y, _z)
-		    end
-		end
-	    end
+	else
+	    CallRemoteEvent(player, "MakeNotification", _("no_players_around"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 	end
     end
 end)
 
 function HandcuffPlayer(player, otherPlayer, x, y, z)
-    SetPlayerAnimation(otherPlayer, "CUFF")
+    SetPlayerWeapon(otherPlayer, 1, 0, true, 1)
+    SetPlayerWeapon(otherPlayer, 1, 0, false, 2)
+    SetPlayerWeapon(otherPlayer, 1, 0, false, 3)
     SetPlayerHeading(otherPlayer, GetPlayerHeading(player))
     SetPlayerPropertyValue(otherPlayer, "cuffed", true, true)
     SetPlayerPropertyValue(otherPlayer, "cuffed_pos", {x, y, z}, true)
+    Delay(1000, function(x)
+	SetPlayerAnimation(otherPlayer, "CUFF")
+    end)
 end
+
+function FreeHandcuffPlayer(player)
+    SetPlayerAnimation(player, "STOP")
+    SetPlayerPropertyValue(player, "cuffed", false, true)
+end
+AddRemoteEvent("FreeHandcuffPlayer", FreeHandcuffPlayer)
 
 AddRemoteEvent("DisableMovementForCuffedPlayer", function(player)
     local pos = GetPlayerPropertyValue(player, "cuffed_pos")
@@ -217,4 +217,92 @@ end)
 
 AddRemoteEvent("UpdateCuffPosition", function(player, x, y, z)
     SetPlayerPropertyValue(player, "cuffed_pos", {x, y, z}, true)
+end)
+
+AddRemoteEvent("PutPlayerInVehicle", function(player)
+    if(PlayerData[player].job == "police") then
+	local info = GetNearestPlayer(player, 150)
+	if(info ~= nil) then
+	    if(GetPlayerPropertyValue(info[1], "cuffed")) then
+		local playerVehicle = PlayerData[player].job_vehicle
+		if(playerVehicle ~= nil) then
+		    local x, y, z = GetVehicleLocation(playerVehicle)
+		    if(GetDistance3D(x, y, z, info[2], info[3], info[4]) < 500) then
+			SetPlayerInVehicle(info[1], playerVehicle, 3)
+		    else
+			CallRemoteEvent(player, "MakeNotification", _("no_vehicle_around"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+		    end
+		end
+	    end
+	else
+	    CallRemoteEvent(player, "MakeNotification", _("no_players_around"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+	end
+    end
+end)
+
+AddRemoteEvent("RemovePlayerOfVehicle", function(player)
+    local playerVehicle = PlayerData[player].job_vehicle
+    if(playerVehicle ~= nil) then
+	local x, y, z = GetVehicleLocation(playerVehicle)
+	local _x, _y, _z = GetPlayerLocation(player)
+	if(GetDistance3D(x, y, z, _x, _y, _z) < 500) then
+	    local otherPlayer = GetVehiclePassenger(playerVehicle, 3)
+	    if(otherPlayer ~= 0) then
+		if(GetPlayerPropertyValue(otherPlayer, "cuffed")) then
+		    RemovePlayerFromVehicle(otherPlayer)
+		end
+	    else
+		CallRemoteEvent(player, "MakeNotification", _("no_players_around"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+	    end
+	else
+	    CallRemoteEvent(player, "MakeNotification", _("no_vehicle_around"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+
+	end
+    end
+end)
+
+AddRemoteEvent("RemoveAllWeaponsOfPlayer", function(player)
+    if(PlayerData[player].job == "police") then
+	local info = GetNearestPlayer(player, 115)
+	if(info ~= nil) then
+	    if(GetPlayerPropertyValue(info[1], "cuffed")) then
+		SetPlayerAnimation(info[1], "STOP")
+		for i = 1,3, 1 do
+		    SetPlayerWeapon(info[1], 1, 0, false, i)
+		end
+		SetPlayerAnimation(info[1], "CUFF")
+	    end
+	else
+	    CallRemoteEvent(player, "MakeNotification", _("no_players_around"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+	end
+    end
+end)
+
+function GetNearestPlayer(player, distanceMax)
+    local x, y, z = GetPlayerLocation(player)
+    local listStreamed = GetStreamedPlayersForPlayer(player)
+    local closestDistance = 50000
+    local otherPlayer
+    local _x, _y, _z
+    for k,v in pairs(listStreamed) do
+	    _x, _y, _z = GetPlayerLocation(v)
+	    local tmpDistance = GetDistance3D(x, y, z, _x, _y, _z)
+	    if(tmpDistance < closestDistance and v ~= player and tmpDistance < distanceMax) then
+		closestDistance = tmpDistance
+		otherPlayer = v
+	    end
+    end
+    if(otherPlayer ~= nil) then
+	return {otherPlayer, _x, _y, _z}
+    end
+    return
+end
+
+AddCommand("pol", function(player)
+    SetPlayerLocation(player, 169277, 193489, 1307, 180)
+end)
+AddCommand("we", function(player)
+    SetPlayerWeapon(player, 3, 33, true, 1, true)
+    SetPlayerWeapon(player, 4, 33, false, 2, true)
+    SetPlayerWeapon(player, 5, 33, false, 3, true)
 end)

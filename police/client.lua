@@ -11,7 +11,7 @@ end)
 
 AddEvent("OnTranslationReady", function()
     policeNpcMenu = Dialog.create(_("police_menu"), nil, _("start_stop_police") ,_("cancel"))
-    policeMenu = Dialog.create(_("police_menu"), nil,  _("spawn_despawn_patrol_car"), _("handcuff_player"), _("laws"), _("call_backup"),_("cancel"))
+    policeMenu = Dialog.create(_("police_menu"), nil,  _("spawn_despawn_patrol_car"), _("handcuff_player"), _("put_player_in_vehicle"), _("remove_player_from_vehicle"), _("remove_all_weapons"),_("cancel"))
 end)
 
 AddEvent("OnKeyPress", function( key )
@@ -40,6 +40,15 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
         if button == 2 then
 	    CallRemoteEvent("HandcuffPlayerSetup")
         end
+	if button == 3 then
+	    CallRemoteEvent("PutPlayerInVehicle")
+	end
+	if button == 4 then
+	    CallRemoteEvent("RemovePlayerOfVehicle")
+	end
+	if button == 5 then
+	    CallRemoteEvent("RemoveAllWeaponsOfPlayer")
+	end
     end
 end)
 
@@ -92,5 +101,11 @@ AddEvent("OnGameTick", function()
 	    local x, y, z = GetPlayerLocation()
 	    CallRemoteEvent("UpdateCuffPosition", x, y, z)
 	end
+    end
+end)
+
+AddEvent("OnPlayerDeath", function(player, instigator)
+    if(GetPlayerPropertyValue(GetPlayerId(), "cuffed")) then
+	CallRemoteEvent("FreeHandcuffPlayer")
     end
 end)

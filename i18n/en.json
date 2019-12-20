@@ -258,13 +258,16 @@
     "police_job": "Police Job",
     "police_menu": "Police Menu",
     "start_stop_police": "Start / Stop Police Duty",
-    "wanted_list": "Wanted List",
-    "laws": "Laws",
     "call_backup": "Call Backup",
     "background_check": "Background Check",
     "put_uniform": "Change clothes",
     "spawn_despawn_patrol_car": "Spawn / Despawn  a Patrol Car",
     "join_police": "You are now an officer!",
     "quit_police": "You are now a citizen!",
-    "handcuff_player": "Handcuff the player"
+    "handcuff_player": "Handcuff the player",
+    "put_player_in_vehicle": "Put player in your vehicle",
+    "remove_all_weapons": "Remove all player's weapons",
+    "no_players_around": "There is no players around!",
+    "remove_player_from_vehicle": "Remove player from your vehicle",
+    "no_vehicle_around": "There is not vehicles around!"
 }
