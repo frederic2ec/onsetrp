@@ -171,39 +171,50 @@ function GetPatrolCar(player)
 end
 AddRemoteEvent("GetPatrolCar", GetPatrolCar)
 
-AddRemoteEvent("HandcuffPlayer", function(player)
+AddRemoteEvent("HandcuffPlayerSetup", function(player)
     if(PlayerData[player].job == "police") then
 	local x, y, z = GetPlayerLocation(player)
 	local listStreamed = GetStreamedPlayersForPlayer(player)
 	local closestDistance = 50000
 	local otherPlayer
 	for k,v in pairs(listStreamed) do
-	    local _x, _y, _z = GetPlayerLocation(v)
-	    local tmpDistance = GetDistance3D(x, y, z, _x, _y, _z)
-	    if(tmpDistance < closestDistance and v ~= player) then
-		closestDistance = tmpDistance
-		otherPlayer = v
+	    if(PlayerData[v].job ~= "police") then
+		local _x, _y, _z = GetPlayerLocation(v)
+		local tmpDistance = GetDistance3D(x, y, z, _x, _y, _z)
+		if(tmpDistance < closestDistance and v ~= player) then
+		    closestDistance = tmpDistance
+		    otherPlayer = v
+		end
 	    end
-	end
-	if(otherPlayer ~= player) then
-	    if(closestDistance < 115) then
+	    if(otherPlayer ~= player) then
+		if(closestDistance < 115) then
 
-		if(GetPlayerPropertyValue(otherPlayer, "cuffed") == nil) then
-		    SetPlayerAnimation(otherPlayer, "CUFF")
-		    SetPlayerHeading(otherPlayer, GetPlayerHeading(player))
-		    SetPlayerPropertyValue(otherPlayer, "cuffed", true, true)
-
-		elseif(GetPlayerPropertyValue(otherPlayer, "cuffed") == true) then
-		    SetPlayerAnimation(otherPlayer, "STOP")
-		    SetPlayerPropertyValue(otherPlayer, "cuffed", false, true)
-		else
-		    SetPlayerAnimation(otherPlayer, "CUFF")
-		    SetPlayerHeading(otherPlayer, GetPlayerHeading(player))
-		    SetPlayerPropertyValue(otherPlayer, "cuffed", true, true)
-
+		    if(GetPlayerPropertyValue(otherPlayer, "cuffed") == nil) then
+			HandcuffPlayer(player, otherPlayer, _x, _y, _z)
+		    elseif(GetPlayerPropertyValue(otherPlayer, "cuffed") == true) then
+			SetPlayerAnimation(otherPlayer, "STOP")
+			SetPlayerPropertyValue(otherPlayer, "cuffed", false, true)
+		    else
+			HandcuffPlayer(player, otherPlayer, _x, _y, _z)
+		    end
 		end
 	    end
 	end
     end
 end)
 
+function HandcuffPlayer(player, otherPlayer, x, y, z)
+    SetPlayerAnimation(otherPlayer, "CUFF")
+    SetPlayerHeading(otherPlayer, GetPlayerHeading(player))
+    SetPlayerPropertyValue(otherPlayer, "cuffed", true, true)
+    SetPlayerPropertyValue(otherPlayer, "cuffed_pos", {x, y, z}, true)
+end
+
+AddRemoteEvent("DisableMovementForCuffedPlayer", function(player)
+    local pos = GetPlayerPropertyValue(player, "cuffed_pos")
+    SetPlayerLocation(player, pos[1], pos[2], pos[3])
+end)
+
+AddRemoteEvent("UpdateCuffPosition", function(player, x, y, z)
+    SetPlayerPropertyValue(player, "cuffed_pos", {x, y, z}, true)
+end)

@@ -38,7 +38,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
             CallRemoteEvent("GetPatrolCar")
         end
         if button == 2 then
-	    CallRemoteEvent("HandcuffPlayer")
+	    CallRemoteEvent("HandcuffPlayerSetup")
         end
     end
 end)
@@ -80,6 +80,17 @@ end)
 
 AddEvent("OnKeyPress", function(key)
     if(key == "R" and IsShiftPressed()) then
-	    CallRemoteEvent("HandcuffPlayer")
+	    CallRemoteEvent("HandcuffPlayerSetup")
+    end
+end)
+
+AddEvent("OnGameTick", function()
+    if(GetPlayerPropertyValue(GetPlayerId(), "cuffed")) then
+	if(GetPlayerMovementSpeed() > 0 and GetPlayerMovementMode() ~= 1) then
+	    CallRemoteEvent("DisableMovementForCuffedPlayer")
+	else
+	    local x, y, z = GetPlayerLocation()
+	    CallRemoteEvent("UpdateCuffPosition", x, y, z)
+	end
     end
 end)
