@@ -254,5 +254,16 @@
     "unprocessed_rock": "Unprocessed Rock",
     "processed_rock": "Processed Rock",
     "not_whitelisted": "You are not whitelisted !",
-    "job_full": "This job is full !"
+    "job_full": "This job is full !",
+    "police_job": "Police Job",
+    "police_menu": "Police Menu",
+    "start_stop_police": "Start / Stop Police Duty",
+    "wanted_list": "Wanted List",
+    "laws": "Laws",
+    "call_backup": "Call Backup",
+    "background_check": "Background Check",
+    "put_uniform": "Change clothes",
+    "spawn_despawn_patrol_car": "Spawn / Despawn  a Patrol Car",
+    "join_police": "You are now an officer!",
+    "quit_police": "You are now a citizen!"
 }
