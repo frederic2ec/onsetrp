@@ -59,27 +59,46 @@ AddEvent("OnPlayerJoin", function(player)
 end)
 
 AddRemoteEvent("StartGathering", function(player, gatherzone) 
-    gather = GetGatherByGatherzone(gatherzone)
+    local gather = GetGatherByGatherzone(gatherzone)
+    local animation = ""
     if gatherTable[gather].gather_tool ~= nil then
         if PlayerData[player].inventory[gatherTable[gather].gather_tool] == nil then
             return CallRemoteEvent(player, "MakeNotification", _("need_tool"), "linear-gradient(to right, #ff5f6d, #ffc371)")
         end
     end
     if PlayerData[player].onAction then
+        PlayerData[player].onAction = false
+        return 
+    end
+    if GetPlayerVehicle(player) ~= 0 then
         return
     end
+    if gatherTable[gather].gather_tool == "pickaxe" then
+        animation = "PICKAXE_SWING"
+    else
+        animation = "PICKUP_LOWER"
+    end
     PlayerData[player].onAction = true
-    CallRemoteEvent(player, "LockControlMove", true)
-    SetPlayerAnimation(player, "COMBINE")
-    Delay(4000, function() 
-        SetPlayerAnimation(player, "COMBINE")
-    end)
-    Delay(8000, function()
-        AddInventory(player, gatherTable[gather].gather_item, 1)
-        CallRemoteEvent(player, "MakeNotification", _("gather_success", _(gatherTable[gather].gather_item)), "linear-gradient(to right, #00b09b, #96c93d)")
-        PlayerData[player].onAction = false
-        CallRemoteEvent(player, "LockControlMove", false)
-    end)
+    
+    function DoGathering()
+        if PlayerData[player].onAction then
+            CallRemoteEvent(player, "LockControlMove", true)
+            SetPlayerAnimation(player, animation)
+            SetAttachedItem(player, "hand_r", 1063)
+            Delay(4000, function() 
+                SetPlayerAnimation(player, animation)
+            end)
+            Delay(8000, function()
+                AddInventory(player, gatherTable[gather].gather_item, 1)
+                CallRemoteEvent(player, "MakeNotification", _("gather_success", _(gatherTable[gather].gather_item)), "linear-gradient(to right, #00b09b, #96c93d)")
+                SetPlayerAnimation(player, "STOP")
+                CallRemoteEvent(player, "LockControlMove", false)
+                SetAttachedItem(player, "hand_r", 0)
+                return DoGathering()
+            end)
+        end
+    end  
+    DoGathering()
 end)
 
 AddRemoteEvent("StartProcessing", function(player, processzone) 
@@ -87,28 +106,40 @@ AddRemoteEvent("StartProcessing", function(player, processzone)
     unprocessed_item = gatherTable[gather].gather_item
 
     if PlayerData[player].onAction then
+        PlayerData[player].onAction = false
         return
     end
-    if PlayerData[player].inventory[unprocessed_item] == nil then
-        return CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+    if GetPlayerVehicle(player) ~= 0 then
+        return
     end
-    if tonumber(PlayerData[player].inventory[unprocessed_item]) < 1 then
-         return CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-    else
-        PlayerData[player].onAction = true
-        CallRemoteEvent(player, "LockControlMove", true)
-        RemoveInventory(player, unprocessed_item, 1)
-        SetPlayerAnimation(player, "COMBINE")
-        Delay(4000, function() 
-            SetPlayerAnimation(player, "COMBINE")
-        end)
-        Delay(8000, function()
-            AddInventory(player, gatherTable[gather].process_item, 1)
-            CallRemoteEvent(player, "MakeNotification", _("process_success", _(gatherTable[gather].process_item)), "linear-gradient(to right, #00b09b, #96c93d)")
-            PlayerData[player].onAction = false
-            CallRemoteEvent(player, "LockControlMove", false)
-        end)
-    end  
+    PlayerData[player].onAction = true
+    function DoProcessing()
+        if PlayerData[player].onAction then
+            if PlayerData[player].inventory[unprocessed_item] == nil then
+                PlayerData[player].onAction = false
+                return CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+            end
+            if tonumber(PlayerData[player].inventory[unprocessed_item]) < 1 then
+                PlayerData[player].onAction = false
+                return CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+            else
+                CallRemoteEvent(player, "LockControlMove", true)
+                RemoveInventory(player, unprocessed_item, 1)
+                SetPlayerAnimation(player, "COMBINE")
+                Delay(4000, function() 
+                    SetPlayerAnimation(player, "COMBINE")
+                end)
+                Delay(8000, function()
+                    AddInventory(player, gatherTable[gather].process_item, 1)
+                    CallRemoteEvent(player, "MakeNotification", _("process_success", _(gatherTable[gather].process_item)), "linear-gradient(to right, #00b09b, #96c93d)")
+                    CallRemoteEvent(player, "LockControlMove", false)
+                    SetPlayerAnimation(player, "STOP")
+                    return DoProcessing()
+                end)
+            end 
+        end
+    end
+    DoProcessing()
 end)
 
 function GetGatherByGatherzone(gatherzone)

@@ -1,5 +1,5 @@
 local Dialog = ImportPackage("dialogui")
-Dialog.setGlobalTheme("saitama")
+Dialog.setGlobalTheme("flat")
 
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 

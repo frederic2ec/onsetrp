@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles/index.css">
+    <title>Animation Wheel</title>
+</head>
+
+<body>
+    <div id='piemenu' data-wheelnav data-wheelnav-slicepath='DonutSlice' data-wheelnav-rotateoff data-wheelnav-navangle='270' data-wheelnav-cssmode data-wheelnav-init>
+
+        <div data-wheelnav-navitemimg='images/stop.png' onmouseup='playAnimation("STOP");'></div>
+        <div data-wheelnav-navitemimg='images/dancing.png' onmouseup='playAnimation("DANCE01");'></div>
+        <div data-wheelnav-navitemimg='images/dancing.png' onmouseup='playAnimation("DANCE02");'></div>
+        <div data-wheelnav-navitemimg='images/dancing.png' onmouseup='playAnimation("DANCE03");'></div>
+        <div data-wheelnav-navitemimg='images/sit.png' onmouseup='playAnimation("SIT07");'></div>
+        <div data-wheelnav-navitemimg='images/handsup.png' onmouseup='playAnimation("HANDSUP_STAND");'></div>
+        <div data-wheelnav-navitemimg='images/lay.png' onmouseup='playAnimation("LAY01");'></div>
+        <div data-wheelnav-navitemimg='images/clap.png' onmouseup='playAnimation("CLAP2");'></div>
+    </div>
+
+    <script src="scripts/wheelnav/raphael.min.js"></script>
+    <script src="scripts/wheelnav/wheelnav.min.js"></script>
+    <script src="scripts/index.js"></script>
+</body>
+
+</html>

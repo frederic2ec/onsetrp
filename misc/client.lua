@@ -15,6 +15,7 @@ function OnKeyPress(key)
 			EnableFirstPersonCamera(false)
 		else
 			EnableFirstPersonCamera(true)
+			SetNearClipPlane(25)
 		end
 	end
 end
