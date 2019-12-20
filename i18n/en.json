@@ -265,5 +265,6 @@
     "put_uniform": "Change clothes",
     "spawn_despawn_patrol_car": "Spawn / Despawn  a Patrol Car",
     "join_police": "You are now an officer!",
-    "quit_police": "You are now a citizen!"
+    "quit_police": "You are now a citizen!",
+    "handcuff_player": "Handcuff the player"
 }

@@ -170,3 +170,40 @@ function GetPatrolCar(player)
     end
 end
 AddRemoteEvent("GetPatrolCar", GetPatrolCar)
+
+AddRemoteEvent("HandcuffPlayer", function(player)
+    if(PlayerData[player].job == "police") then
+	local x, y, z = GetPlayerLocation(player)
+	local listStreamed = GetStreamedPlayersForPlayer(player)
+	local closestDistance = 50000
+	local otherPlayer
+	for k,v in pairs(listStreamed) do
+	    local _x, _y, _z = GetPlayerLocation(v)
+	    local tmpDistance = GetDistance3D(x, y, z, _x, _y, _z)
+	    if(tmpDistance < closestDistance and v ~= player) then
+		closestDistance = tmpDistance
+		otherPlayer = v
+	    end
+	end
+	if(otherPlayer ~= player) then
+	    if(closestDistance < 115) then
+
+		if(GetPlayerPropertyValue(otherPlayer, "cuffed") == nil) then
+		    SetPlayerAnimation(otherPlayer, "CUFF")
+		    SetPlayerHeading(otherPlayer, GetPlayerHeading(player))
+		    SetPlayerPropertyValue(otherPlayer, "cuffed", true, true)
+
+		elseif(GetPlayerPropertyValue(otherPlayer, "cuffed") == true) then
+		    SetPlayerAnimation(otherPlayer, "STOP")
+		    SetPlayerPropertyValue(otherPlayer, "cuffed", false, true)
+		else
+		    SetPlayerAnimation(otherPlayer, "CUFF")
+		    SetPlayerHeading(otherPlayer, GetPlayerHeading(player))
+		    SetPlayerPropertyValue(otherPlayer, "cuffed", true, true)
+
+		end
+	    end
+	end
+    end
+end)
+

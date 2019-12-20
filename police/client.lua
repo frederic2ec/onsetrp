@@ -11,7 +11,7 @@ end)
 
 AddEvent("OnTranslationReady", function()
     policeNpcMenu = Dialog.create(_("police_menu"), nil, _("start_stop_police") ,_("cancel"))
-    policeMenu = Dialog.create(_("police_menu"), nil,  _("spawn_despawn_patrol_car"), _("background_check"), _("laws"), _("call_backup"),_("cancel"))
+    policeMenu = Dialog.create(_("police_menu"), nil,  _("spawn_despawn_patrol_car"), _("handcuff_player"), _("laws"), _("call_backup"),_("cancel"))
 end)
 
 AddEvent("OnKeyPress", function( key )
@@ -38,6 +38,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
             CallRemoteEvent("GetPatrolCar")
         end
         if button == 2 then
+	    CallRemoteEvent("HandcuffPlayer")
         end
     end
 end)
@@ -77,3 +78,8 @@ AddEvent("OnPlayerStreamIn", function(player, otherplayer)
     CallRemoteEvent("ChangeUniformOtherPlayerServer", player, otherplayer)
 end)
 
+AddEvent("OnKeyPress", function(key)
+    if(key == "R" and IsShiftPressed()) then
+	    CallRemoteEvent("HandcuffPlayer")
+    end
+end)
