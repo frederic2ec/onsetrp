@@ -45,6 +45,12 @@ AddRemoteEvent("ServerChangeClothes", function(player, playername, playerhairs, 
     table.insert(PlayerData[player].clothing, getShirtsModel(playershirt))
     table.insert(PlayerData[player].clothing, getPantsModel(playerpants))
     table.insert(PlayerData[player].clothing, getShoesModel(playershoes))
+    
+    table.insert(PlayerData[player].clothing_police, "/Game/CharacterModels/SkeletalMesh/Outfits/HZN_Outfit_Police_Hat_LPR")
+    table.insert(PlayerData[player].clothing_police, playerhairscolor)
+    table.insert(PlayerData[player].clothing_police, "/Game/CharacterModels/SkeletalMesh/Outfits/HZN_Outfit_Police_Shirt-Short_LPR")
+    table.insert(PlayerData[player].clothing_police, "/Game/CharacterModels/Clothing/Meshes/SK_Jeans01")
+    table.insert(PlayerData[player].clothing_police, "/Game/CharacterModels/SkeletalMesh/Outfits/HZN_Outfit_Piece_BusinessShoes_LPR")
 
     playerhairscolor = getHairsColor(PlayerData[player].clothing[2])
     
@@ -73,6 +79,10 @@ AddEvent("OnPlayerSpawn", function( player )
     end
     if PlayerData[player].clothing[1] == nil then
         return
+    end
+    if PlayerData[player].job == "police" then
+	GetUniformServer(player)
+	return
     end
     playerhairscolor = getHairsColor(PlayerData[player].clothing[2])
     CallRemoteEvent(player, "ClientChangeClothing", player, 0, PlayerData[player].clothing[1], playerhairscolor[1], playerhairscolor[2], playerhairscolor[3], playerhairscolor[4])

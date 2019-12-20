@@ -25,7 +25,8 @@
         "delivery/server.lua",
         "scoreboard/server.lua",
         "whitelist/server.lua",
-        "animation/server.lua"
+        "animation/server.lua",
+        "police/server.lua"
     ],
     "client_scripts": [
         "hunger/client.lua",
@@ -50,7 +51,8 @@
         "delivery/client.lua",
         "scoreboard/client.lua",
         "notification/client.lua",
-        "animation/client.lua"
+        "animation/client.lua",
+        "police/client.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",

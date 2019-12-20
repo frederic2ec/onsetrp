@@ -27,6 +27,7 @@ CREATE TABLE `accounts` (
   `steamid` varchar(17) NOT NULL,
   `name` varchar(255) NOT NULL DEFAULT 'Unregistered',
   `clothing` text NOT NULL,
+  `clothing_police` text NOT NULL,
   `inventory` text NOT NULL,
   `admin` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
   `health` float NOT NULL DEFAULT 100,

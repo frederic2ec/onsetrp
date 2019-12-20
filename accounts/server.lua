@@ -96,7 +96,7 @@ function OnAccountCheckIpBan(player)
 end
 
 function CreatePlayerAccount(player)
-	local query = mariadb_prepare(sql, "INSERT INTO accounts (id, steamid, clothing, inventory) VALUES (NULL, '?', '[]' , '[]');",
+	local query = mariadb_prepare(sql, "INSERT INTO accounts (id, steamid, clothing, clothing_police, inventory) VALUES (NULL, '?', '[]' , '[]' , '[]');",
 		tostring(GetPlayerSteamId(player)))
 
 	mariadb_query(sql, query, OnAccountCreated, player)
@@ -134,13 +134,14 @@ function OnAccountLoaded(player)
 		PlayerData[player].bank_balance = math.tointeger(result['bank_balance'])
 		PlayerData[player].name = tostring(result['name'])
 		PlayerData[player].clothing = json_decode(result['clothing'])
+		PlayerData[player].clothing_police = json_decode(result['clothing_police'])
 		PlayerData[player].inventory = json_decode(result['inventory'])
 		PlayerData[player].created = math.tointeger(result['created'])
 
 		SetPlayerHealth(player, tonumber(result['health']))
 		SetPlayerArmor(player, tonumber(result['armor']))
-        setPlayerThirst(player, tonumber(result['thirst']))
-        setPlayerHunger(player, tonumber(result['hunger']))
+		setPlayerThirst(player, tonumber(result['thirst']))
+		setPlayerHunger(player, tonumber(result['hunger']))
 
 		SetPlayerLoggedIn(player)
 
@@ -169,16 +170,17 @@ function CreatePlayerData(player)
 	PlayerData[player].accountid = 0
 	PlayerData[player].name = ""
 	PlayerData[player].clothing = {}
+	PlayerData[player].clothing_police = {}
 	PlayerData[player].inventory = {}
-    PlayerData[player].logged_in = false
+	PlayerData[player].logged_in = false
 	PlayerData[player].admin = 0
 	PlayerData[player].created = 0
 	PlayerData[player].locale = GetPlayerLocale(player)
 	PlayerData[player].steamid = GetPlayerSteamId(player)
 	PlayerData[player].steamname = ""
-    PlayerData[player].thirst = 100
-    PlayerData[player].hunger = 100
-    PlayerData[player].cash = 0
+	PlayerData[player].thirst = 100
+	PlayerData[player].hunger = 100
+	PlayerData[player].cash = 0
 	PlayerData[player].bank_balance = 1000
 	PlayerData[player].job_vehicle = nil
 	PlayerData[player].job = ""
@@ -211,7 +213,7 @@ function SavePlayerAccount(player)
 		return
 	end
 
-	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, cash = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', inventory = '?', created = '?' WHERE id = ? LIMIT 1;",
+	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, cash = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', clothing_police = '?', inventory = '?', created = '?' WHERE id = ? LIMIT 1;",
 		PlayerData[player].admin,
 		PlayerData[player].cash,
 		PlayerData[player].bank_balance,
@@ -221,6 +223,7 @@ function SavePlayerAccount(player)
 		PlayerData[player].thirst,
 		PlayerData[player].name,
 		json_encode(PlayerData[player].clothing),
+		json_encode(PlayerData[player].clothing_police),
 		json_encode(PlayerData[player].inventory),
 		PlayerData[player].created,
 		PlayerData[player].accountid
