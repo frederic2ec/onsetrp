@@ -24,7 +24,8 @@
         "spawn/server.lua",
         "delivery/server.lua",
         "scoreboard/server.lua",
-        "whitelist/server.lua"
+        "whitelist/server.lua",
+        "animation/server.lua"
     ],
     "client_scripts": [
         "hunger/client.lua",
@@ -48,7 +49,8 @@
         "spawn/client.lua",
         "delivery/client.lua",
         "scoreboard/client.lua",
-        "notification/client.lua"
+        "notification/client.lua",
+        "animation/client.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",
@@ -70,6 +72,22 @@
         "notification/notification/notification.html",
         "notification/notification/toastify.js",
         "notification/notification/toastify.min.css",
+        "animation/web/images/crossarms.png",
+        "animation/web/images/dab.png",
+        "animation/web/images/dancing.png",
+        "animation/web/images/laugh.png",
+        "animation/web/images/sit.png",
+        "animation/web/images/smoking.png",
+        "animation/web/images/stop.png",
+        "animation/web/images/vomit.png",
+        "animation/web/images/handsup.png",
+        "animation/web/images/lay.png",
+        "animation/web/images/clap.png",
+        "animation/web/scripts/wheelnav/raphael.min.js",
+        "animation/web/scripts/wheelnav/wheelnav.min.js",
+        "animation/web/scripts/index.js",
+        "animation/web/styles/index.css",
+        "animation/web/index.html",
         "client/files/carLock.mp3",
         "client/files/carUnlock.mp3",
         "client/files/notification.mp3"

@@ -79,6 +79,7 @@ AddRemoteEvent("StartGathering", function(player, gatherzone)
         CallRemoteEvent(player, "MakeNotification", _("gather_success", _(gatherTable[gather].gather_item)), "linear-gradient(to right, #00b09b, #96c93d)")
         PlayerData[player].onAction = false
         CallRemoteEvent(player, "LockControlMove", false)
+        SetPlayerAnimation(player, "STOP")
     end)
 end)
 
@@ -107,6 +108,7 @@ AddRemoteEvent("StartProcessing", function(player, processzone)
             CallRemoteEvent(player, "MakeNotification", _("process_success", _(gatherTable[gather].process_item)), "linear-gradient(to right, #00b09b, #96c93d)")
             PlayerData[player].onAction = false
             CallRemoteEvent(player, "LockControlMove", false)
+            SetPlayerAnimation(player, "STOP")
         end)
     end  
 end)
