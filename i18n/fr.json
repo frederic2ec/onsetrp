@@ -273,9 +273,11 @@
     "give_fine": "Give",
     "finePolice": "Fine",
     "give_player_fine": "Give a fine",
-    "fine_price" : "Amount due",
+    "fine_price": "Amount due",
     "pay": "Pay",
     "reason": "Reason",
     "fine": "Fine",
-    "paid_fine": "You just paid your fine!"
+    "paid_fine": "You just paid your fine!",
+    "new_message": "Nouveau message",
+    "phone": "Téléphone"
 }

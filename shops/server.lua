@@ -11,7 +11,8 @@ ShopTable = {
             health_kit = 50,
             lockpick = 500,
             pickaxe = 20,
-            jerican = 50
+            jerican = 50,
+            phone = 100
 		},
 		location = { 
             { 128748, 77622, 1576, 90 },

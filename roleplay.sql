@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 20, 2019 at 11:57 PM
+-- Generation Time: Dec 21, 2019 at 12:25 AM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -37,7 +37,8 @@ CREATE TABLE `accounts` (
   `hunger` float NOT NULL DEFAULT 100,
   `cash` int(11) DEFAULT 1000,
   `bank_balance` int(11) NOT NULL DEFAULT 0,
-  `created` tinyint(1) NOT NULL
+  `created` tinyint(1) NOT NULL,
+  `phone_number` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -64,6 +65,33 @@ CREATE TABLE `ipbans` (
   `ban_time` int(10) UNSIGNED NOT NULL,
   `reason` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `from` varchar(255) NOT NULL DEFAULT '0',
+  `to` varchar(255) NOT NULL DEFAULT '0',
+  `content` text NOT NULL,
+  `created_at` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `phone_contacts`
+--
+
+CREATE TABLE `phone_contacts` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `owner_id` int(10) NOT NULL DEFAULT 0,
+  `name` varchar(255) NOT NULL DEFAULT '',
+  `phone` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -206,6 +234,18 @@ ALTER TABLE `ipbans`
   ADD PRIMARY KEY (`ip`);
 
 --
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `phone_contacts`
+--
+ALTER TABLE `phone_contacts`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `player_garage`
 --
 ALTER TABLE `player_garage`
@@ -238,6 +278,18 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT for table `bans`
 --
 ALTER TABLE `bans`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `phone_contacts`
+--
+ALTER TABLE `phone_contacts`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --

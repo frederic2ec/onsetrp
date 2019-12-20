@@ -26,7 +26,8 @@
         "scoreboard/server.lua",
         "whitelist/server.lua",
         "animation/server.lua",
-        "police/server.lua"
+        "police/server.lua",
+        "onset-phone/server.lua"
     ],
     "client_scripts": [
         "hunger/client.lua",
@@ -52,7 +53,8 @@
         "scoreboard/client.lua",
         "notification/client.lua",
         "animation/client.lua",
-        "police/client.lua"
+        "police/client.lua",
+        "onset-phone/client.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",
@@ -90,6 +92,10 @@
         "animation/web/scripts/index.js",
         "animation/web/styles/index.css",
         "animation/web/index.html",
+        "onset-phone/ui/dist/index.html",
+        "onset-phone/ui/dist/app.js",
+        "onset-phone/ui/dist/chunk-vendors.js",
+        "onset-phone/ui/dist/app.css",
         "client/files/carLock.mp3",
         "client/files/carUnlock.mp3",
         "client/files/notification.mp3"
