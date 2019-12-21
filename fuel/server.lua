@@ -48,7 +48,7 @@ AddEvent("OnPackageStart", function()
     CreateTimer(function()
         for k,v in pairs(GetAllVehicles()) do
             enginestate = GetVehicleEngineState(k)
-            if enginestate == true then
+            if enginestate then
                 if VehicleData[k] == nil then
                     return
                 end
