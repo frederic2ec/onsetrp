@@ -91,8 +91,9 @@ AddRemoteEvent("StartGathering", function(player, gatherzone)
     PlayerData[player].onAction = true
     
     function DoGathering()
-        if PlayerData[player].onAction then
+        if PlayerData[player].onAction and not PlayerData[player].isActioned then
             CallRemoteEvent(player, "LockControlMove", true)
+            PlayerData[player].isActioned = true
             SetPlayerAnimation(player, animation)
             SetAttachedItem(player, "hand_r", attached_item)
             Delay(4000, function() 
@@ -104,6 +105,7 @@ AddRemoteEvent("StartGathering", function(player, gatherzone)
                 SetPlayerAnimation(player, "STOP")
                 CallRemoteEvent(player, "LockControlMove", false)
                 SetAttachedItem(player, "hand_r", 0)
+                PlayerData[player].isActioned = false
                 return DoGathering()
             end)
         end
@@ -124,7 +126,7 @@ AddRemoteEvent("StartProcessing", function(player, processzone)
     end
     PlayerData[player].onAction = true
     function DoProcessing()
-        if PlayerData[player].onAction then
+        if PlayerData[player].onAction and not PlayerData[player].isActioned then
             if PlayerData[player].inventory[unprocessed_item] == nil then
                 PlayerData[player].onAction = false
                 return CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
@@ -136,6 +138,7 @@ AddRemoteEvent("StartProcessing", function(player, processzone)
                 CallRemoteEvent(player, "LockControlMove", true)
                 RemoveInventory(player, unprocessed_item, 1)
                 SetPlayerAnimation(player, "COMBINE")
+                PlayerData[player].isActioned = true
                 Delay(4000, function() 
                     SetPlayerAnimation(player, "COMBINE")
                 end)
@@ -144,6 +147,7 @@ AddRemoteEvent("StartProcessing", function(player, processzone)
                     CallRemoteEvent(player, "MakeNotification", _("process_success", _(gatherTable[gather].process_item)), "linear-gradient(to right, #00b09b, #96c93d)")
                     CallRemoteEvent(player, "LockControlMove", false)
                     SetPlayerAnimation(player, "STOP")
+                    PlayerData[player].isActioned = false
                     return DoProcessing()
                 end)
             end 

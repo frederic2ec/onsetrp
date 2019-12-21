@@ -17,9 +17,6 @@ function OnPlayerSteamAuth(player)
 	CreatePlayerData(player)
 	PlayerData[player].steamname = GetPlayerName(player)
     
-    AddPlayerChatAll('<span color="#eeeeeeaa">'..GetPlayerName(player)..' from '..PlayerData[player].locale..' joined the server</>')
-    AddPlayerChatAll('<span color="#eeeeeeaa">There are '..GetPlayerCount()..' players on the server</>')
-    
     -- First check if there is an account for this player
 	local query = mariadb_prepare(sql, "SELECT id FROM accounts WHERE steamid = '?' LIMIT 1;",
     tostring(GetPlayerSteamId(player)))
@@ -111,9 +108,6 @@ function OnAccountCreated(player)
 	SetAvailablePhoneNumber(player)
 
 	print("Account ID "..PlayerData[player].accountid.." created for "..player)
-
-	AddPlayerChat(player, '<span color="#ffff00aa" style="bold italic" size="15">SERVER: Welcome to the community, '..GetPlayerName(player)..', have fun and play fair!</>')
-	AddPlayerChatAll('<span color="00ee00ff">We now have'..PlayerData[player].accountid..' accounts registered</>')
 end
 
 function LoadPlayerAccount(player)
@@ -172,7 +166,6 @@ function OnAccountLoaded(player)
 		end
 		
 		LoadPlayerPhoneContacts(player)
-		AddPlayerChat(player, '<span color="#ffff00aa" style="bold italic" size="17">SERVER: Welcome back '..GetPlayerName(player)..', have fun!</>')
 
 		print("Account ID "..PlayerData[player].accountid.." loaded for "..GetPlayerIP(player))
 	end
@@ -235,6 +228,7 @@ function CreatePlayerData(player)
 	PlayerData[player].job_vehicle = nil
 	PlayerData[player].job = ""
 	PlayerData[player].onAction = false
+	PlayerData[player].isActioned = false
 	PlayerData[player].phone_contacts = {}
 	PlayerData[player].phone_number = {}
 
