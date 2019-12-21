@@ -78,8 +78,8 @@ AddRemoteEvent("OpenPoliceFineMenu", function(player)
 	local playersNames = {}
 
 	for k,v in pairs(playersIds) do
-	    local _x, _y, _z = GetPlayerLocation(k)
-	    if(GetDistance3D(x, y, z, _x, _y, _z) < 500 and player ~= k and PlayerData[k].job ~= "police") then
+	    local _x, _y, _z = GetPlayerLocation(v)
+	    if(GetDistance3D(x, y, z, _x, _y, _z) < 500 and player ~= v and PlayerData[k].job ~= "police") then
 		playersNames[tostring(k)] = GetPlayerName(k)
 	    end
 	end
