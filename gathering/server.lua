@@ -90,7 +90,7 @@ AddRemoteEvent("StartGathering", function(player, gatherzone)
     end
     PlayerData[player].onAction = true
     
-    function DoGathering(player)
+    function DoGathering(player, animation, gather, attached_item)
         if PlayerData[player].onAction and not PlayerData[player].isActioned then
             CallRemoteEvent(player, "LockControlMove", true)
             PlayerData[player].isActioned = true
@@ -106,11 +106,11 @@ AddRemoteEvent("StartGathering", function(player, gatherzone)
                 SetPlayerAnimation(player, "STOP")
                 CallRemoteEvent(player, "LockControlMove", false)
                 SetAttachedItem(player, "hand_r", 0)
-                return DoGathering(player)
+                return DoGathering(player, animation, gather, attached_item)
             end)
         end
     end  
-    DoGathering(player)
+    DoGathering(player, animation, gather, attached_item)
 end)
 
 AddRemoteEvent("StartProcessing", function(player, processzone) 
@@ -125,7 +125,7 @@ AddRemoteEvent("StartProcessing", function(player, processzone)
         return
     end
     PlayerData[player].onAction = true
-    function DoProcessing(player)
+    function DoProcessing(player, gather, unprocessed_item)
         if PlayerData[player].onAction and not PlayerData[player].isActioned then
             if PlayerData[player].inventory[unprocessed_item] == nil then
                 PlayerData[player].onAction = false
@@ -148,12 +148,12 @@ AddRemoteEvent("StartProcessing", function(player, processzone)
                     CallRemoteEvent(player, "MakeNotification", _("process_success", _(gatherTable[gather].process_item)), "linear-gradient(to right, #00b09b, #96c93d)")
                     CallRemoteEvent(player, "LockControlMove", false)
                     SetPlayerAnimation(player, "STOP")
-                    return DoProcessing(player)
+                    return DoProcessing(player, gather, unprocessed_item)
                 end)
             end 
         end
     end
-    DoProcessing(player)
+    DoProcessing(player, gather, unprocessed_item)
 end)
 
 function GetGatherByGatherzone(gatherzone)
