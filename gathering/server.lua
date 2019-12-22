@@ -63,6 +63,12 @@ AddEvent("OnPlayerJoin", function(player)
     CallRemoteEvent(player, "gatheringSetup", gatherZoneCached, processZoneCached)
 end)
 
+AddEvent("OnPlayerDeath", function(player)
+    PlayerData[player].onAction = false
+    PlayerData[player].isActioned = false
+end)
+
+
 AddRemoteEvent("StartGathering", function(player, gatherzone) 
     local gather = GetGatherByGatherzone(gatherzone)
     local animation = ""

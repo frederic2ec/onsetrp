@@ -37,6 +37,8 @@ function OnPackageStart()
                 end
                 if VehicleData[v].owner == PlayerData[z].accountid then
                     hasOwner = true
+                    print(VehicleData[v].owner)
+                    print(PlayerData[z].accountid )
                     break
                 end
             end
@@ -53,11 +55,13 @@ function OnPackageStart()
                 end
                 if VehicleData[v].owner == PlayerData[z].accountid then
                     hasOwner = true
+                    print(VehicleData[v].owner)
+                    print(PlayerData[z].accountid )
                     break
                 end
             end
             if not hasOwner then
-                if VehicleData[v].garageid == 0 then
+                if VehicleData[v].garageid ~= 0 then
                     local query = mariadb_prepare(sql, "UPDATE `player_garage` SET `garage`=1 WHERE `id` = ?;",
                     VehicleData[v].garageid
                     )
