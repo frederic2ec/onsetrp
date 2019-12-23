@@ -159,4 +159,3 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
         end
     end
 end)
-
