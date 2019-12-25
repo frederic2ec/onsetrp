@@ -129,6 +129,7 @@ function OnAccountLoaded(player)
 		KickPlayer(player, "An error occured while loading your account 😨")
 	else
 		local result = mariadb_get_assoc(1)
+
 		PlayerData[player].admin = math.tointeger(result['admin'])
 		PlayerData[player].cash = math.tointeger(result['cash'])
 		PlayerData[player].bank_balance = math.tointeger(result['bank_balance'])
@@ -136,6 +137,12 @@ function OnAccountLoaded(player)
 		PlayerData[player].clothing = json_decode(result['clothing'])
 		PlayerData[player].clothing_police = json_decode(result['clothing_police'])
 		PlayerData[player].police = math.tointeger(result['police'])
+		if result['company_id'] then
+			PlayerData[player].company = Companies[math.tointeger(result['company_id'])]
+		else
+			PlayerData[player].company = nil
+		end
+		PlayerData[player].company_job = result['company_job']
 		PlayerData[player].inventory = json_decode(result['inventory'])
 		PlayerData[player].created = math.tointeger(result['created'])
 
