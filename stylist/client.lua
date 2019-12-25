@@ -10,18 +10,16 @@ local playerShirt = ""
 local playerPants = ""
 local playerShoes = ""
 
--- Event ------------------------------------------------------
-
 AddEvent("OnTranslationReady", function()
-	stylistNPC = Dialog.create(("Changer d'apparence"), nil, ("Oui"), _("cancel"))
-	hairsMenu = Dialog.create(_("hairs"), nil, ("Choisir"), _("cancel"))
+	stylistNPC = Dialog.create(_("stylist"), nil, _("yes"), _("cancel"))
+	hairsMenu = Dialog.create(_("hairs"), nil, _("choice"), _("cancel"))
 	Dialog.addSelect(hairsMenu, 1, _("hairs"), 5)
     Dialog.addSelect(hairsMenu, 2, _("color"), 5)
-	shirtMenu = Dialog.create(("Haut"), nil, ("Choisir"), _("cancel"))
-	Dialog.addSelect(shirtMenu, 1, ("Haut"), 5)
-	pantsMenu = Dialog.create(_("pants"), nil, ("Choisir"), _("cancel"))
+	shirtMenu = Dialog.create(_("shirts"), nil, _("choice"),, _("cancel"))
+	Dialog.addSelect(shirtMenu, 1, _("shirts"), 5)
+	pantsMenu = Dialog.create(_("pants"), nil, _("choice"),, _("cancel"))
 	Dialog.addSelect(pantsMenu, 1, _("pants"), 5)
-	shoesMenu = Dialog.create(_("shoes"), nil, ("Choisir"), _("cancel"))
+	shoesMenu = Dialog.create(_("shoes"), nil, _("choice"),, _("cancel"))
 	Dialog.addSelect(shoesMenu, 1, _("shoes"), 5)
 end)
 
@@ -152,9 +150,6 @@ AddRemoteEvent("modifyIG", function(player, part, piece, r, g, b, a)
         DynamicMaterialInstance:SetColorParameter("Hair Color", FLinearColor(r, g, b, a))
     end
 end)
-
-
--- Function ----------------------------------------------------
 
 function GetNeareststylistNPC()
 	local x, y, z = GetPlayerLocation()
