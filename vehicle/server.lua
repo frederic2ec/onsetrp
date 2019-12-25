@@ -35,12 +35,19 @@ function OnPackageStart()
                     hasOwner = true
                     break
                 end
+                if PlayerData[z] == nil then
+                    goto continue
+                end
+                if PlayerData[z].accountid == 0 or PlayerData[z].accountid == nil then
+                    goto continue
+                end
                 if VehicleData[v].owner == PlayerData[z].accountid then
                     hasOwner = true
                     print(VehicleData[v].owner)
                     print(PlayerData[z].accountid )
                     break
                 end
+                ::continue::
             end
             if not hasOwner then
                 table.insert(vehicleToDelete, v)
@@ -53,12 +60,19 @@ function OnPackageStart()
                     hasOwner = true
                     break
                 end
+		if PlayerData[z] == nil then
+                    goto continue
+                end
+                if PlayerData[z].accountid == 0 or PlayerData[z].accountid == nil then
+                    goto continue
+                end
                 if VehicleData[v].owner == PlayerData[z].accountid then
                     hasOwner = true
                     print(VehicleData[v].owner)
                     print(PlayerData[z].accountid )
                     break
                 end
+		::continue::
             end
             if not hasOwner then
                 if VehicleData[v].garageid ~= 0 then
