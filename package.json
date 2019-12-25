@@ -27,6 +27,8 @@
         "whitelist/server.lua",
         "animation/server.lua",
         "police/server.lua",
+        "noclip/server.lua",
+        "stylist/server.lua",
         "onset-phone/server.lua"
     ],
     "client_scripts": [
@@ -54,6 +56,8 @@
         "notification/client.lua",
         "animation/client.lua",
         "police/client.lua",
+        "noclip/client.lua",
+        "stylist/client.lua",
         "onset-phone/client.lua"
     ],
     "files": [
