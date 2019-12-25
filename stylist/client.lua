@@ -12,14 +12,14 @@ local playerShoes = ""
 
 AddEvent("OnTranslationReady", function()
 	stylistNPC = Dialog.create(_("stylist"), nil, _("yes"), _("cancel"))
-	hairsMenu = Dialog.create(_("hairs"), nil, _("choice"), _("cancel"))
+	hairsMenu = Dialog.create(_("hairs"), nil, _("choose"), _("cancel"))
 	Dialog.addSelect(hairsMenu, 1, _("hairs"), 5)
     Dialog.addSelect(hairsMenu, 2, _("color"), 5)
-	shirtMenu = Dialog.create(_("shirts"), nil, _("choice"), _("cancel"))
+	shirtMenu = Dialog.create(_("shirts"), nil, _("choose"), _("cancel"))
 	Dialog.addSelect(shirtMenu, 1, _("shirts"), 5)
-	pantsMenu = Dialog.create(_("pants"), nil, _("choice"), _("cancel"))
+	pantsMenu = Dialog.create(_("pants"), nil, _("choose"), _("cancel"))
 	Dialog.addSelect(pantsMenu, 1, _("pants"), 5)
-	shoesMenu = Dialog.create(_("shoes"), nil, _("choice"), _("cancel"))
+	shoesMenu = Dialog.create(_("shoes"), nil, _("choose"), _("cancel"))
 	Dialog.addSelect(shoesMenu, 1, _("shoes"), 5)
 end)
 
