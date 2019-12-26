@@ -1,0 +1,87 @@
+.hidden {
+    display: none!important;
+}
+  
+@font-face {
+    font-family: "Cedarville-Cursive";
+    src: url('Cedarville-Cursive.ttf');
+}
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+* {
+  font-size: 15px;
+  font-family: 'Open Sans', sans-serif;
+  -webkit-animation: fadein .2s; /* Safari, Chrome and Opera > 12.1 */
+     -moz-animation: fadein .2s; /* Firefox < 16 */
+      -ms-animation: fadein .2s; /* Internet Explorer */
+       -o-animation: fadein .2s; /* Opera < 12.1 */
+          animation: fadein .2s;
+}
+  
+#id-card {
+    width: 400px;
+    position: absolute;
+    bottom: 20px;
+    left: calc(50% - 200px);
+    padding-top: 30px;
+    border-radius: 12px;
+    background: transparent;
+    overflow: hidden;
+}
+  
+header {
+    border-radius: 12px 12px 0 0;
+    padding: 6px 12px;
+    background: #EF7631;
+    color: #fff;
+}
+  
+section {
+    padding: 12px;
+    min-height: 140px;
+    background-color: #ffffff;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='16' viewBox='0 0 12 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 .99C4 .445 4.444 0 5 0c.552 0 1 .45 1 .99v4.02C6 5.555 5.556 6 5 6c-.552 0-1-.45-1-.99V.99zm6 8c0-.546.444-.99 1-.99.552 0 1 .45 1 .99v4.02c0 .546-.444.99-1 .99-.552 0-1-.45-1-.99V8.99z' fill='%23dbdbdb' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+  
+section .image {
+    float: left;
+    margin-right: 12px;
+}
+  
+section svg {
+    width: 80px;
+    height: 80px;
+}
+  
+section .sign {
+    background-color: #fff;
+    font-family: "Cedarville-Cursive", Arial, sans-serif;
+    border: 1px solid #dbdbdb;
+    padding: 0 6px;
+    border-radius: 6px;
+}
+  
+footer {
+    padding: 6px 12px;
+    background: #eee;
+    color: #777;
+}
+
+#hide {
+    cursor: pointer;
+    position: absolute;
+    font-size: 14px;
+    color: #444;
+    right: 12px;
+    top: 0;
+}
+
+.blurred { 
+    backdrop-filter: blur(2px);
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+}

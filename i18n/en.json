@@ -278,6 +278,10 @@
     "fine": "Fine",
     "paid_fine": "You just paid your fine!",
     "new_message": "New message",
+    "id_card_menu": "ID card menu",
+    "see_id_card": "See my ID card",
+    "show_id_card": "Show my ID card",
+    "id_card_shown": "You've shown your ID card to {1}",
     "phone": "Phone",
     "fishing_rod": "Fishing Rod",
     "fish": "Fish"
