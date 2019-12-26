@@ -280,5 +280,12 @@
     "new_message": "New message",
     "phone": "Phone",
     "fishing_rod": "Fishing Rod",
-    "fish": "Fish"
+    "fish": "Fish",
+    "only_walk": "Use alt to walk!",
+    "vehicle_full": "Your vehicle is full!",
+    "police_garage": "Police Garage",
+    "police_garage_menu": "Police Garage",
+    "not_police": "You are not a police officer!",
+    "police_armory": "Police Armory",
+    "get_equipped": "Get equipped"
 }
