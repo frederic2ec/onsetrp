@@ -27,7 +27,6 @@
         "whitelist/server.lua",
         "animation/server.lua",
         "police/server.lua",
-        "companies/server.lua",
         "idcard/server.lua",
         "onset-phone/server.lua"
     ],
