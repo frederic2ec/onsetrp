@@ -55,8 +55,9 @@
         "notification/client.lua",
         "animation/client.lua",
         "police/client.lua",
+        "onset-phone/client.lua",
         "idcard/client.lua",
-        "onset-phone/client.lua"
+        "holiday/client.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",
