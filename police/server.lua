@@ -373,11 +373,13 @@ end
 AddRemoteEvent("GiveFineToPlayer", function(player, amount, toplayer, reason)
     if tonumber(amount) <= 0 then return end
     SetPlayerPropertyValue(toplayer, "fine", amount, true)
+    SetPlayerPropertyValue(toplayer, "fine_giver", player, true)
     CallRemoteEvent(toplayer, "PlayerReceiveFine", amount, reason)
 end)
 
 AddRemoteEvent("PayFine", function(player)
     local fine = tonumber(GetPlayerPropertyValue(player, "fine"))
+    local fineGiver = GetPlayerPropertyValue(player, "fine_giver")
     if(PlayerData[player].cash >= fine) then
 	PlayerData[player].cash = PlayerData[player].cash - fine
     elseif(PlayerData[player].bank_balance >= fine) then
@@ -394,4 +396,7 @@ AddRemoteEvent("PayFine", function(player)
 
     SetPlayerPropertyValue(player, "fine", 0, true)
     CallRemoteEvent(player, "MakeNotification", _("paid_fine"), "linear-gradient(to right, #00b09b, #96c93d)")
+    if(PlayerData[fineGiver] ~= nil) then
+	CallRemoteEvent(fineGiver, "MakeNotification", _("paid_fine_giver"), "linear-gradient(to right, #00b09b, #96c93d)")
+    end
 end)
