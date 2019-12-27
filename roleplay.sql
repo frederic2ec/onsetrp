@@ -29,6 +29,7 @@ CREATE TABLE `accounts` (
   `clothing` text NOT NULL,
   `clothing_police` text NOT NULL,
   `police` tinyint(1) NOT NULL DEFAULT 0,
+  `medic` tinyint(1) NOT NULL DEFAULT 0,
   `inventory` text NOT NULL,
   `admin` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
   `health` float NOT NULL DEFAULT 100,

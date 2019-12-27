@@ -48,8 +48,20 @@ AddEvent("OnPlayerJoin", function(player)
 end)
 
 AddRemoteEvent("StartMedicJob", function(player)
+    if PlayerData[player].medic == 0 then
+	return CallRemoteEvent(player, "MakeNotification", _("not_whitelisted"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+    end
     local nearestMedic = GetNearestMedic(player)
     if PlayerData[player].job == "" then
+	local jobCount = 0
+	for k,v in pairs(PlayerData) do
+	    if v.job == "medic" then
+		jobCount = jobCount + 1
+	    end
+	end
+	if jobCount == 10 then
+	    return CallRemoteEvent(player, "MakeNotification", _("job_full"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+	end
         if PlayerData[player].job_vehicle ~= nil then
             DestroyVehicle(PlayerData[player].job_vehicle)
             DestroyVehicleData(PlayerData[player].job_vehicle)
@@ -100,6 +112,9 @@ AddRemoteEvent("SetupMedicUniformOnStreamIn", function(player, otherplayer)
 end)
 
 AddRemoteEvent("StopMedicJob", function(player,spawncar)
+    if PlayerData[player].medic == 0 then
+	return CallRemoteEvent(player, "MakeNotification", _("not_whitelisted"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+    end
     if PlayerData[player].job == "medic" then
 	if PlayerData[player].job_vehicle ~= nil then
 	    DestroyVehicle(PlayerData[player].job_vehicle)

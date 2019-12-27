@@ -136,6 +136,7 @@ function OnAccountLoaded(player)
 		PlayerData[player].clothing = json_decode(result['clothing'])
 		PlayerData[player].clothing_police = json_decode(result['clothing_police'])
 		PlayerData[player].police = math.tointeger(result['police'])
+		PlayerData[player].medic = math.tointeger(result['medic'])
 		PlayerData[player].inventory = json_decode(result['inventory'])
 		PlayerData[player].created = math.tointeger(result['created'])
 		PlayerData[player].health_state = "alive" 
@@ -216,6 +217,7 @@ function CreatePlayerData(player)
 	PlayerData[player].clothing = {}
 	PlayerData[player].clothing_police = {}
 	PlayerData[player].police = 0
+	PlayerData[player].medic = 0
 	PlayerData[player].inventory = {}
 	PlayerData[player].logged_in = false
 	PlayerData[player].admin = 0
