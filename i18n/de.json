@@ -253,5 +253,12 @@
     "city": "Hauptstadt",
     "unprocessed_rock": "Unbearbeiter Stein",
     "processed_rock": "Bearbeiteter Stein",
-    "not_whitelisted": ""
+    "not_whitelisted": "",
+    "bus_stop": "Bushaltestelle",
+    "transport_menu": "Transport-Menü",
+    "transport_ok": "Lass uns gehen",
+    "transport_stop_available": "Verfügbare Haltestellen",
+    "transport_choose_stop": "Bitte wählen Sie eine Haltestelle",
+    "transport_bus_incoming": "Dein Bus kommt, geh nicht!",
+    "transport_not_enough_money": "Du hast nicht genug Geld"
 }

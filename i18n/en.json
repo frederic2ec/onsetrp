@@ -284,5 +284,12 @@
     "id_card_shown": "You've shown your ID card to {1}",
     "phone": "Phone",
     "fishing_rod": "Fishing Rod",
-    "fish": "Fish"
+    "fish": "Fish",
+    "bus_stop": "Bus stop",
+    "transport_menu": "Transport menu",
+    "transport_ok": "Let's go",
+    "transport_stop_available": "Stops available",
+    "transport_choose_stop": "Please choose a stop",
+    "transport_bus_incoming": "Your bus is incoming, please stand by !",
+    "transport_not_enough_money": "You don't have enough money"
 }

@@ -284,5 +284,12 @@
     "id_card_shown": "Vous montrez votre carte d'identité à {1}",
     "phone": "Téléphone",
     "fishing_rod": "Canne a pêche",
-    "fish": "Poisson"
+    "fish": "Poisson",
+    "bus_stop": "Arrêt de bus",
+    "transport_menu": "Menu de transport",
+    "transport_ok": "C'est parti",
+    "transport_stop_available": "Arrêts disponibles",
+    "transport_choose_stop": "Veuillez sélectionner un arrêt",
+    "transport_bus_incoming": "Votre bus arrive, ne vous éloignez pas !",
+    "transport_not_enough_money": "Vous n'avez pas assez d'argent"
 }
