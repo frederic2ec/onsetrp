@@ -34,6 +34,13 @@ AddEvent("OnPlayerQuit", function(player)
     if(GetPlayerPropertyValue(player, "reviveHint") ~= nil) then
 	DestroyText3D(GetPlayerPropertyValue(player, "reviveHint"))
     end
+    if(GetPlayerPropertyValue(player, "medic_on_the_way") ~= nil) then
+	local reviver = GetPlayerPropertyValue(player, "medic_on_the_way")
+	if(PlayerData[reviver] ~= nil) then
+	    CallRemoteEvent(reviver, "ClientDestroyCurrentWaypoint")
+	    CallRemoteEvent(reviver, "MakeNotification", _("end_of_emergency"), "linear-gradient(to right, #00b09b, #96c93d)")
+	end
+    end
 end)
 
 AddEvent("OnPlayerJoin", function(player)
@@ -58,7 +65,7 @@ AddRemoteEvent("StartMedicJob", function(player)
                     break
                 end
             end
-            if isSpawnable  then
+            if isSpawnable  and medicNpc[nearestMedic] ~= nil then
                 local vehicle = CreateVehicle(8, medicNpc[nearestMedic].spawn[1], medicNpc[nearestMedic].spawn[2], medicNpc[nearestMedic].spawn[3], medicNpc[nearestMedic].spawn[4])
                 PlayerData[player].job_vehicle = vehicle
                 CreateVehicleData(player, vehicle, 8)
@@ -93,16 +100,16 @@ AddRemoteEvent("SetupMedicUniformOnStreamIn", function(player, otherplayer)
 end)
 
 AddRemoteEvent("StopMedicJob", function(player,spawncar)
-  if PlayerData[player].job == "medic" then
-		if PlayerData[player].job_vehicle ~= nil then
-            DestroyVehicle(PlayerData[player].job_vehicle)
-            DestroyVehicleData(PlayerData[player].job_vehicle)
-            PlayerData[player].job_vehicle = nil
-        end
-        PlayerData[player].job = ""
+    if PlayerData[player].job == "medic" then
+	if PlayerData[player].job_vehicle ~= nil then
+	    DestroyVehicle(PlayerData[player].job_vehicle)
+	    DestroyVehicleData(PlayerData[player].job_vehicle)
+	    PlayerData[player].job_vehicle = nil
+	end
+	PlayerData[player].job = ""
 	CallRemoteEvent(player, "MakeNotification", _("quit_medic"), "linear-gradient(to right, #00b09b, #96c93d)")
 	RemoveUniformServer(player)
-        playerMedic[player] = nil
+	playerMedic[player] = nil
     end
 end)
 
@@ -112,20 +119,24 @@ AddEvent("OnPlayerDeath", function(player)
     PlayerData[player].death_pos[1] = x
     PlayerData[player].death_pos[2] = y
     PlayerData[player].death_pos[3] = z
+    SetPlayerPropertyValue(player, "medic_on_the_way", nil, true)
 
     local medic = false
     for k,v in pairs(GetAllPlayers()) do
 	if player ~= v and PlayerData[v].job == "medic" then
 	    local reviveHint = CreateText3D(_("revive_player").."\n".._("press_e"), 18, x, y, z + 50, 0, 0, 0)
 	    SetPlayerPropertyValue(player, "reviveHint", reviveHint, true)
-            SetPlayerRespawnTime(player, 300000)
+            SetPlayerRespawnTime(player, 3600000)
 	    medic = true
 	    NotifyConnectedMedics(player)
 	    break
         end
     end
     if(medic ~= true) then
-	PlayerData[player].health_state = "alive"
+	PlayerData[player].health_state = "no_medic"
+	CallRemoteEvent(player, "MakeNotification", _("no_medic_online"), "linear-gradient(to right, #00b09b, #96c93d)")
+        SetPlayerRespawnTime(player, 5000)
+	SetPlayerSpawnLocation(player, 212124, 159055, 1305, 90)
     end
 end)
 
@@ -153,17 +164,25 @@ AddRemoteEvent("MedicDoRevive", function(player,deadplayer)
     if player ~= deadplayer and PlayerData[player].job == "medic" then
         SetPlayerAnimation(player, "REVIVE")
 
-        Delay(5000, function()
-            SetPlayerAnimation(player, "STOP")
-            SetPlayerRespawnTime(deadplayer, 100)
+	Delay(5000, function()
+	    SetPlayerAnimation(player, "STOP")
+	    SetPlayerRespawnTime(deadplayer, 100)
 	    PlayerData[deadplayer].health_state = "revived"
 	    SetPlayerSpawnLocation(deadplayer, PlayerData[deadplayer].death_pos[1], PlayerData[deadplayer].death_pos[2], PlayerData[deadplayer].death_pos[3], 90)
 	    CallRemoteEvent(player, "MakeNotification", _("revive_player_success"), "linear-gradient(to right, #00b09b, #96c93d)")
 	    CallRemoteEvent(player, "MakeNotification", _("revive_reward"), "linear-gradient(to right, #00b09b, #96c93d)")
 	    PlayerData[player].bank_balance = PlayerData[player].bank_balance + 200
 	    DestroyText3D(GetPlayerPropertyValue(deadplayer, "reviveHint"))
+	    if(GetPlayerPropertyValue(deadplayer, "medic_on_the_way") ~= nil) then
+		local reviver = GetPlayerPropertyValue(deadplayer, "medic_on_the_way")
+		if(PlayerData[reviver] ~= nil) then
+		    CallRemoteEvent(reviver, "ClientDestroyCurrentWaypoint")
+		    CallRemoteEvent(reviver, "MakeNotification", _("end_of_emergency"), "linear-gradient(to right, #00b09b, #96c93d)")
+		end
+	    end
 	    CallRemoteEvent(player, "ClientDestroyCurrentWaypoint")
-        end)
+	    SetPlayerPropertyValue(deadplayer, "medic_on_the_way", nil, true)
+	end)
     end
 end)
 
@@ -207,7 +226,9 @@ AddRemoteEvent("OpenMedicMenu", function(player)
 	    end
 
 	    if(PlayerData[k].health_state == "dead") then
-		playersNames[tostring(k)] = PlayerData[k].name
+		if(GetPlayerPropertyValue(k, "medic_on_the_way") == nil) then
+		    playersNames[tostring(k)] = PlayerData[k].name
+		end
 	    end
 
 	    ::continue::
@@ -218,13 +239,12 @@ end)
 
 AddRemoteEvent("AcceptEmergency", function(player, deadPlayer)
 	    CallRemoteEvent(deadPlayer, "MakeNotification", _("medic_on_their_way"), "linear-gradient(to right, #00b09b, #96c93d)")
+	    SetPlayerRespawnTime(deadPlayer, 3600000)
+
+	    SetPlayerPropertyValue(deadPlayer, "medic_on_the_way", player, true)
 	    local x, y, z = GetPlayerLocation(deadPlayer)
 
 	    CallRemoteEvent(player, "ClientCreateWaypoint", _("emergency"), x, y, z)
 
 	    CallRemoteEvent(player, "MakeNotification", _("accepted_emergency"), "linear-gradient(to right, #00b09b, #96c93d)")
-end)
-
-AddCommand("med", function(player)
-    SetPlayerLocation(player, 211664, 159643, 1320)
 end)

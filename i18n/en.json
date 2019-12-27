@@ -299,5 +299,7 @@
     "accept_emergency": "Accept emergency",
     "medic_on_their_way": "Medics are on their way",
     "emergency": "Emergency",
-    "accepted_emergency": "Go to the Emergency waypoint"
+    "accepted_emergency": "Go to the Emergency waypoint",
+    "end_of_emergency": "End of emergency",
+    "no_medic_online": "No medic online. Respawn in 5 seconds"
 }

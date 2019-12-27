@@ -9,10 +9,16 @@ spawnLocation = {
 }
 
 AddRemoteEvent("ServerSpawnMenu", function(player)
+    if(PlayerData[player].job == "medic") then
+	CallRemoteEvent(player, "UpdateMedicUniform", player)
+    end
     if(PlayerData[player].health_state == "revived") then
 	PlayerData[player].health_state = "alive"
 	SetPlayerHealth(player, 50)
 	SetPlayerSpawnLocation(player, 227603, -65590, 237, 0 )
+    elseif(PlayerData[player].health_state == "no_medic") then
+	PlayerData[player].health_state = "alive"
+	SetPlayerHealth(player, 100)
     else
 	local house = getHouseOwner(player)
 
