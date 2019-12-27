@@ -9,33 +9,39 @@ spawnLocation = {
 }
 
 AddRemoteEvent("ServerSpawnMenu", function(player)
-    local house = getHouseOwner(player)
+    if(PlayerData[player].health_state == "revived") then
+	PlayerData[player].health_state = "alive"
+	SetPlayerHealth(player, 50)
+	SetPlayerSpawnLocation(player, 227603, -65590, 237, 0 )
+    else
+	local house = getHouseOwner(player)
 
-    local hasHouse = false
-    if house ~= 0 then
-        if houses[house].spawnable == 1 then
-            hasHouse = true
-        end
+	local hasHouse = false
+	if house ~= 0 then
+	    if houses[house].spawnable == 1 then
+		hasHouse = true
+	    end
+	end
+
+	CallRemoteEvent(player, "OpenSpawnMenu", spawnLocation, hasHouse)
     end
-
-    CallRemoteEvent(player, "OpenSpawnMenu", spawnLocation, hasHouse)
 end)
 
 AddRemoteEvent("PlayerSpawn", function(player, spawn)
     if spawn == "house" then
-        local house = getHouseOwner(player)
+	local house = getHouseOwner(player)
 
-        if house ~= 0 then
-            if houses[house].spawnable == 1 then
-                SetPlayerLocation(player, houses[house].spawn[1], houses[house].spawn[2], houses[house].spawn[3] + 100)
-                SetPlayerHeading( player, houses[house].spawn[4] )
-            end
-        end
+	if house ~= 0 then
+	    if houses[house].spawnable == 1 then
+		SetPlayerLocation(player, houses[house].spawn[1], houses[house].spawn[2], houses[house].spawn[3] + 100)
+		SetPlayerHeading( player, houses[house].spawn[4] )
+	    end
+	end
     else
-        spawnSelect = GetSpawnLocation(spawn)
-        spawnx = RandomFloat(spawnSelect[1] - 500, spawnSelect[1] + 500)
-        spawny = RandomFloat(spawnSelect[2] - 500, spawnSelect[2] + 500)
-        SetPlayerLocation(player, spawnSelect[4]..spawnx, spawnSelect[5]..spawny, spawnSelect[6]..spawnSelect[3] + 50)
+	spawnSelect = GetSpawnLocation(spawn)
+	spawnx = RandomFloat(spawnSelect[1] - 500, spawnSelect[1] + 500)
+	spawny = RandomFloat(spawnSelect[2] - 500, spawnSelect[2] + 500)
+	SetPlayerLocation(player, spawnSelect[4]..spawnx, spawnSelect[5]..spawny, spawnSelect[6]..spawnSelect[3] + 50)
     end
 end)
 

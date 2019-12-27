@@ -32,6 +32,8 @@ CREATE TABLE `accounts` (
   `inventory` text NOT NULL,
   `admin` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
   `health` float NOT NULL DEFAULT 100,
+  `health_state` varchar(255) NOT NULL DEFAULT 'alive',
+  `death_pos` text NOT NULL,
   `armor` float NOT NULL DEFAULT 0,
   `thirst` float NOT NULL DEFAULT 100,
   `hunger` float NOT NULL DEFAULT 100,

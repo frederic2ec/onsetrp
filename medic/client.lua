@@ -13,25 +13,25 @@ end)
 
 AddEvent("OnKeyPress", function( key )
     if key == "E" then
-        local NearestMedic = GetNearestMedic()
-        if NearestMedic ~= 0 then
-            Dialog.show(medicNpcMenu)
-		end
-		
-		if reviving == false then
-            local x, y, z = GetPlayerLocation()
+	local NearestMedic = GetNearestMedic()
+	if NearestMedic ~= 0 then
+	    Dialog.show(medicNpcMenu)
+	end
 
-            for k,v in pairs (GetAllPlayersInSphere( x, y, z, 250.0 )) do
-                if IsPlayerDead(v) then
-                    CallRemoteEvent("MedicDoRevive",v)
-                    reviving = true
-                    Delay(6000,function()
-                        reviving = false
-                    end)
-	                break
-		        end
-		    end
+	if reviving == false then
+	    local x, y, z = GetPlayerLocation()
+
+	    for k,v in pairs (GetAllPlayersInSphere( x, y, z, 200.0 )) do
+		if IsPlayerDead(v) then
+		    CallRemoteEvent("MedicDoRevive",v)
+		    reviving = true
+		    Delay(6000,function()
+			reviving = false
+		    end)
+		    break
 		end
+	    end
+	end
     end
 end)
 
@@ -48,22 +48,29 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
 end)
 
 function GetNearestMedic()
-	local x, y, z = GetPlayerLocation()
-	
-	for k,v in pairs(GetStreamedNPC()) do
-        local x2, y2, z2 = GetNPCLocation(v)
-		local dist = GetDistance3D(x, y, z, x2, y2, z2)
+    local x, y, z = GetPlayerLocation()
 
-		if dist < 250.0 then
-			for k,i in pairs(medicNpc) do
-				if v == i then
-					return v
-				end
-			end
+    for k,v in pairs(GetStreamedNPC()) do
+	local x2, y2, z2 = GetNPCLocation(v)
+	local dist = GetDistance3D(x, y, z, x2, y2, z2)
+
+	if dist < 250.0 then
+	    for k,i in pairs(medicNpc) do
+		if v == i then
+		    return v
 		end
+	    end
 	end
+    end
 
-	return 0
+    return 0
 end
 
+function UpdateMedicUniform(playerToUpdate)
+    SetPlayerClothingPreset(playerToUpdate, 17)
+end
+AddRemoteEvent("UpdateMedicUniform", UpdateMedicUniform)
 
+AddEvent("OnPlayerStreamIn", function(player, otherplayer)
+    CallRemoteEvent("SetupMedicUniformOnStreamIn", player, otherplayer)
+end)

@@ -93,7 +93,7 @@ function OnAccountCheckIpBan(player)
 end
 
 function CreatePlayerAccount(player)
-	local query = mariadb_prepare(sql, "INSERT INTO accounts (id, steamid, clothing, clothing_police, inventory) VALUES (NULL, '?', '[]' , '[]' , '[]');",
+	local query = mariadb_prepare(sql, "INSERT INTO accounts (id, steamid, clothing, clothing_police, death_pos, inventory) VALUES (NULL, '?', '[]' , '[]' , '[]' , '[]');",
 		tostring(GetPlayerSteamId(player)))
 
 	mariadb_query(sql, query, OnAccountCreated, player)
@@ -138,6 +138,8 @@ function OnAccountLoaded(player)
 		PlayerData[player].police = math.tointeger(result['police'])
 		PlayerData[player].inventory = json_decode(result['inventory'])
 		PlayerData[player].created = math.tointeger(result['created'])
+		PlayerData[player].health_state = tostring(result['health_state'])
+		PlayerData[player].death_pos = json_decode(result['death_pos'])
 
 		if result['phone_number'] and result['phone_number'] ~= "" then
 			PlayerData[player].phone_number = tostring(result['phone_number'])
@@ -231,6 +233,8 @@ function CreatePlayerData(player)
 	PlayerData[player].isActioned = false
 	PlayerData[player].phone_contacts = {}
 	PlayerData[player].phone_number = {}
+	PlayerData[player].health_state = "alive"
+	PlayerData[player].death_pos = {}
 
     print("Data created for : "..player)
 end
@@ -259,13 +263,15 @@ function SavePlayerAccount(player)
 		return
 	end
 
-	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, cash = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', clothing_police = '?', inventory = '?', created = '?' WHERE id = ? LIMIT 1;",
+	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, cash = ?, bank_balance = ?, health = ?, health_state = '?', death_pos = '?', armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', clothing_police = '?', inventory = '?', created = '?' WHERE id = ? LIMIT 1;",
 		PlayerData[player].admin,
 		PlayerData[player].cash,
 		PlayerData[player].bank_balance,
-		GetPlayerHealth(player),
-        GetPlayerArmor(player),
-        PlayerData[player].hunger,
+		100,
+		PlayerData[player].health_state,
+		json_encode(PlayerData[player].death_pos),
+		GetPlayerArmor(player),
+		PlayerData[player].hunger,
 		PlayerData[player].thirst,
 		PlayerData[player].name,
 		json_encode(PlayerData[player].clothing),

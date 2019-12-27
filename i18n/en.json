@@ -284,5 +284,14 @@
     "id_card_shown": "You've shown your ID card to {1}",
     "phone": "Phone",
     "fishing_rod": "Fishing Rod",
-    "fish": "Fish"
+    "fish": "Fish",
+    "medic_menu": "Medic Menu",
+    "start_medic": "Start medic",
+    "stop_medic": "Stop medic",
+    "medic_job": "Medic job",
+    "join_medic": "You are now a medic!",
+    "quit_medic": "You are no longer a medic!",
+    "revive_player_success": "You successfully revived this player",
+    "revive_player": "Revive Player",
+    "revive_reward": "You received 200$"
 }
