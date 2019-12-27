@@ -6,11 +6,9 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 local licenseNpcMenu
 local licenseNpcId = { }
 
-local lastShop
-
 AddEvent("OnTranslationReady", function()
-    licenseNpcMenu = Dialog.create(_("shop"), nil, _("cancel"))
-    Dialog.addSelect(licenseNpcMenu, 1, _("licenseNpcMenu"), 5)
+    licenseNpcMenu = Dialog.create(_("license_shop"), nil, _("cancel"))
+    Dialog.addSelect(licenseNpcMenu, 1, _("license"), 5)
     Dialog.setButtons(licenseNpcMenu, 1, _("buy"))
 end)
 
@@ -29,17 +27,12 @@ end
 AddEvent("OnKeyPress", OnKeyPress)
 
 AddEvent("OnDialogSubmit", function(dialog, button, ...)
-    local args = { ... }
-    if dialog == idCardMenu then
+    if dialog == licenseNpcMenu then
+        local args = { ... }
         if args[1] == "" then
             MakeNotification(_("select_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
         else
-            if args[1] == 1 then
-                CallRemoteEvent("BuyDriverLicense")
-            end
-            if args[1] == 2 then
-                CallRemoteEvent("BuyGunLicense")
-            end
+            CallRemoteEvent("BuyLicense", args[1])
         end
     end
 end)
@@ -64,7 +57,7 @@ end
 AddRemoteEvent("OpenLicenses", function(licenses)
 	local licenseItems = {}
 	for k, v in pairs(licenses) do
-		licenseItems[k] = _(k).."["..v.."]"
+		licenseItems[k] = _(k).." ["..v.._("currency").."]"
 	end
     
 	Dialog.setSelectLabeledOptions(licenseNpcMenu, 1, 1, licenseItems)

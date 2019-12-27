@@ -7,7 +7,8 @@ let translations = {
     jobTitle: "Job Title: ",
     issued: "Issued: ",
     signature: "Signature: ",
-    hide: "Hide"
+    hide: "Hide",
+    licenses: "Licenses: "
   },
   fr: {
     idTitle: "Onset City",
@@ -17,7 +18,8 @@ let translations = {
     jobTitle: "Poste: ",
     issued: "Délivrée: ",
     signature: "Signature: ",
-    hide: "Fermer"
+    hide: "Fermer",
+    licenses: "Permis: "
   }
 }
 

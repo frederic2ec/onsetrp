@@ -4,6 +4,7 @@
     "atm": "Guichet automatique",
     "bank_balance": "Argent en banque",
     "currency": "€",
+    "price_in_currency": "{1}€",
     "cash": "Argent",
     "withdraw": "Retirer",
     "deposit": "Déposer",
@@ -108,8 +109,8 @@
     "quantity": "Quantité",
     "select_item": "Veuillez sélectionner un objet !",
     "select_amount": "Veuilez sélectionner une quantité !",
-    "shop_success_buy": "Vous avez acheté un/e : {1} pour {2} {3}",
-    "shop_success_sell": "Vous avez vendu un/e : {1} pour {2} {3}",
+    "shop_success_buy": "Vous avez acheté un/e : {1} pour {2}",
+    "shop_success_sell": "Vous avez vendu un/e : {1} pour {2}",
     "not_enough_item": "Vous n'avez pas assez de cet objet !",
     "use": "Utiliser",
     "give": "Donner",
@@ -284,5 +285,12 @@
     "id_card_shown": "Vous montrez votre carte d'identité à {1}",
     "phone": "Téléphone",
     "fishing_rod": "Canne a pêche",
-    "fish": "Poisson"
+    "fish": "Poisson",
+    "license_shop": "Préfecture",
+    "license": "Permis: ",
+    "driver_license": "Conduite",
+    "gun_license": "Port d'armes",
+    "helicopter_license": "Vol",
+    "gun_dealer": "Armurier",
+    "no_gun_license": "Vous n'avez pas de permis de port d'armes"
 }

@@ -3,7 +3,7 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 AddRemoteEvent("SeeIdCard", function(player)
     -- Coming soon: job and jobTitle
     -- CallRemoteEvent(player, "OnCardDataLoaded", PlayerData[player].name, playerInfo['company']['name'], playerInfo['job'])
-    CallRemoteEvent(player, "OnCardDataLoaded", PlayerData[player].accountid, PlayerData[player].name)
+    CallRemoteEvent(player, "OnCardDataLoaded", PlayerData[player].accountid, PlayerData[player].name, PlayerData[player].driver_license, PlayerData[player].gun_license, PlayerData[player].helicopter_license)
 end)
 
 AddRemoteEvent("ShowIdCard", function(player)

@@ -9,4 +9,7 @@ ALTER TABLE `accounts`
 ALTER TABLE `accounts`
 	ADD `gun_license` tinyint(1) NOT NULL DEFAULT 0;
 
+ALTER TABLE `accounts`
+	ADD `helicopter_license` tinyint(1) NOT NULL DEFAULT 0;
+
 COMMIT;

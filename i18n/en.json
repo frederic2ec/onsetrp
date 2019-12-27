@@ -4,6 +4,7 @@
     "atm": "ATM",
     "bank_balance": "Bank Balance",
     "currency": "$",
+    "price_in_currency": "${1}",
     "cash": "Cash",
     "withdraw": "Withdraw",
     "deposit": "Deposit",
@@ -108,8 +109,8 @@
     "quantity": "Quantity",
     "select_item": "Please select an item !",
     "select_amount": "Please select an amount !",
-    "shop_success_buy": "You successfully bought a : {1} for {2} {3}",
-    "shop_success_sell": "You successfully sell a : {1} for {2} {3}",
+    "shop_success_buy": "You successfully bought a : {1} for {2}",
+    "shop_success_sell": "You successfully sell a : {1} for {2}",
     "not_enough_item": "You don't have enough of that item !",
     "use": "Use",
     "give": "Give",
@@ -284,5 +285,12 @@
     "id_card_shown": "You've shown your ID card to {1}",
     "phone": "Phone",
     "fishing_rod": "Fishing Rod",
-    "fish": "Fish"
+    "fish": "Fish",
+    "license_shop": "Licenses seller",
+    "license": "License: ",
+    "driver_license": "Driving",
+    "gun_license": "Firearms",
+    "helicopter_license": "Flight",
+    "gun_dealer": "Gun dealer",
+    "no_gun_license": "You don't have your Firearms license"
 }

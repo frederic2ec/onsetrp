@@ -138,6 +138,7 @@ function OnAccountLoaded(player)
 		PlayerData[player].police = math.tointeger(result['police'])
 		PlayerData[player].driver_license = math.tointeger(result['driver_license'])
 		PlayerData[player].gun_license = math.tointeger(result['gun_license'])
+		PlayerData[player].helicopter_license = math.tointeger(result['helicopter_license'])
 		PlayerData[player].inventory = json_decode(result['inventory'])
 		PlayerData[player].created = math.tointeger(result['created'])
 
@@ -218,6 +219,7 @@ function CreatePlayerData(player)
 	PlayerData[player].police = 0
 	PlayerData[player].driver_license = 0
 	PlayerData[player].gun_license = 0
+	PlayerData[player].helicopter_license = 0
 	PlayerData[player].inventory = {}
 	PlayerData[player].logged_in = false
 	PlayerData[player].admin = 0
@@ -263,7 +265,7 @@ function SavePlayerAccount(player)
 		return
 	end
 
-	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, cash = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', clothing_police = '?', inventory = '?', created = '?', driver_license = '?', gun_license = '?' WHERE id = ? LIMIT 1;",
+	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, cash = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', clothing_police = '?', inventory = '?', created = '?', driver_license = ?, gun_license = ?, helicopter_license = ? WHERE id = ? LIMIT 1;",
 		PlayerData[player].admin,
 		PlayerData[player].cash,
 		PlayerData[player].bank_balance,
@@ -278,6 +280,7 @@ function SavePlayerAccount(player)
 		PlayerData[player].created,
 		PlayerData[player].driver_license,
 		PlayerData[player].gun_license,
+		PlayerData[player].helicopter_license,
 		PlayerData[player].accountid
 	)
         

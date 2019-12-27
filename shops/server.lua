@@ -16,6 +16,7 @@ ShopTable = {
             fishing_rod = 20,
             fish = 100
 		},
+        type = "miscellaneous",
 		location = { 
             { 128748, 77622, 1576, 90 },
             { 42694, 137926, 1581, 90 },
@@ -47,6 +48,7 @@ ShopTable = {
             weapon_19 = 20000,
             weapon_20 = 30000
         },
+        type = "weapons",
         location = {
             { -181943, -40882, 1163, 90 },
             { 206071, 193057, 1357, 180 }
@@ -69,6 +71,7 @@ ShopTable = {
         items = {
             processed_rock = 160,
         },
+        type = "mine",
         location = {
             { 67862, 184741, 535, 90 }
         },
@@ -100,8 +103,13 @@ AddRemoteEvent("shopInteract", function(player, shopobject)
 
 		if dist < 250 then
 			for k,v in pairs(ShopTable) do
-				if shopobject == v.npc[npcid] then
-					CallRemoteEvent(player, "openShop", PlayerData[player].inventory, v.items, v.npc[npcid])
+                if shopobject == v.npc[npcid] then
+                    print(v.type)
+                    if v.type == "weapons" and PlayerData[player].gun_license == 0 then
+                        CallRemoteEvent(player, "openShop", PlayerData[player].inventory, v.items, v.npc[npcid])
+                    else
+                        CallRemoteEvent(player, "MakeNotification", _("no_gun_license"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+                    end
 				end
 			end  
 			
@@ -139,7 +147,7 @@ AddRemoteEvent("ShopBuy", function(player, shopid, item, amount)
         CallRemoteEvent(player, "MakeNotification", _("not_enought_cash"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     else
         PlayerData[player].cash = PlayerData[player].cash - price
-        CallRemoteEvent(player, "MakeNotification", _("shop_success_buy", _(item), price, _("currency")), "linear-gradient(to right, #00b09b, #96c93d)")
+        CallRemoteEvent(player, "MakeNotification", _("shop_success_buy", _(item), _("price_in_currency", price)), "linear-gradient(to right, #00b09b, #96c93d)")
         AddInventory(player, item, amount)
     end
 end)
@@ -155,7 +163,7 @@ AddRemoteEvent("ShopSell", function(player, shopid, item, amount)
         CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     else
         PlayerData[player].cash = PlayerData[player].cash + math.ceil(price)
-        CallRemoteEvent(player, "MakeNotification", _("shop_success_sell", _(item), price, _("currency")), "linear-gradient(to right, #00b09b, #96c93d)")
+        CallRemoteEvent(player, "MakeNotification", _("shop_success_sell", _(item), _("price_in_currency", price)), "linear-gradient(to right, #00b09b, #96c93d)")
         RemoveInventory(player, item, amount)
     end
 end)

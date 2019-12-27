@@ -37,16 +37,18 @@ end)
 
 -- LOADING
 
-AddRemoteEvent("OnCardDataLoaded", function(id, name)
+AddRemoteEvent("OnCardDataLoaded", function(id, name, driverLicense, gunLicense, helicopterLicense)
     print("OnCardDataLoaded")
     SetIgnoreLookInput(true)
     SetIgnoreMoveInput(true)
     ShowMouseCursor(true)
     SetInputMode(INPUT_GAMEANDUI)
     SetWebVisibility(webIdCard, WEB_VISIBLE)
+    local licenses = ""
+    
     -- Coming soon: job and jobTitle
     -- ExecuteWebJS(web, 'LoadCardFromData('..json_encode({ name = name, age = "32", job = company, jobTitle = job, issued = "23/12/2019" })..');')
-    ExecuteWebJS(webIdCard, 'LoadCardFromData('..json_encode({ id = id, name = name, age = "32", issued = "23/12/2019" })..');')
+    ExecuteWebJS(webIdCard, 'LoadCardFromData('..json_encode({ id = id, name = name, driverLicense = driverLicense, gunLicense = gunLicense, helicopterLicense = helicopterLicense, age = "32", issued = "23/12/2019" })..');')
 end)
 
 AddRemoteEvent("ConfirmIdCardShow", function(shownTo)
