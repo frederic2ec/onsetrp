@@ -120,6 +120,7 @@ AddEvent("OnPlayerDeath", function(player)
 	    SetPlayerPropertyValue(player, "reviveHint", reviveHint, true)
             SetPlayerRespawnTime(player, 300000)
 	    medic = true
+	    NotifyConnectedMedics(player)
 	    break
         end
     end
@@ -127,6 +128,26 @@ AddEvent("OnPlayerDeath", function(player)
 	PlayerData[player].health_state = "alive"
     end
 end)
+
+function NotifyConnectedMedics(player)
+    for k,v in pairs(GetAllPlayers()) do
+	if PlayerData[k] == nil then
+	    goto continue
+	end
+	if PlayerData[k].name == nil then
+	    goto continue
+	end
+	if PlayerData[k].steamname == nil then
+	    goto continue
+	end
+	if player == v or PlayerData[v].job ~= "medic" then
+	    goto continue
+	end
+
+	CallRemoteEvent(k, "MakeNotification", _("medic_notification_on_death"), "linear-gradient(to right, #00b09b, #96c93d)")
+	::continue::
+    end
+end
 
 AddRemoteEvent("MedicDoRevive", function(player,deadplayer)
     if player ~= deadplayer and PlayerData[player].job == "medic" then
@@ -141,6 +162,7 @@ AddRemoteEvent("MedicDoRevive", function(player,deadplayer)
 	    CallRemoteEvent(player, "MakeNotification", _("revive_reward"), "linear-gradient(to right, #00b09b, #96c93d)")
 	    PlayerData[player].bank_balance = PlayerData[player].bank_balance + 200
 	    DestroyText3D(GetPlayerPropertyValue(deadplayer, "reviveHint"))
+	    CallRemoteEvent(player, "ClientDestroyCurrentWaypoint")
         end)
     end
 end)
@@ -163,3 +185,46 @@ function GetNearestMedic(player)
 
 	return 0
 end
+
+AddRemoteEvent("OpenMedicMenu", function(player)
+    if PlayerData[player].job == "medic" then
+	local x, y, z = GetPlayerLocation(player)
+	local playersIds = GetAllPlayers()
+	local playersNames = {}
+
+	for k,v in pairs(playersIds) do
+	    if PlayerData[k] == nil then
+		goto continue
+	    end
+	    if PlayerData[k].name == nil then
+		goto continue
+	    end
+	    if PlayerData[k].steamname == nil then
+		goto continue
+	    end
+	    if player == k then
+		goto continue
+	    end
+
+	    if(PlayerData[k].health_state == "dead") then
+		playersNames[tostring(k)] = PlayerData[k].name
+	    end
+
+	    ::continue::
+	end
+	CallRemoteEvent(player, "MedicMenu", playersNames)
+    end
+end)
+
+AddRemoteEvent("AcceptEmergency", function(player, deadPlayer)
+	    CallRemoteEvent(deadPlayer, "MakeNotification", _("medic_on_their_way"), "linear-gradient(to right, #00b09b, #96c93d)")
+	    local x, y, z = GetPlayerLocation(deadPlayer)
+
+	    CallRemoteEvent(player, "ClientCreateWaypoint", _("emergency"), x, y, z)
+
+	    CallRemoteEvent(player, "MakeNotification", _("accepted_emergency"), "linear-gradient(to right, #00b09b, #96c93d)")
+end)
+
+AddCommand("med", function(player)
+    SetPlayerLocation(player, 211664, 159643, 1320)
+end)

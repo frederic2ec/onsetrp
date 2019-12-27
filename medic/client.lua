@@ -3,8 +3,13 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 
 local medicNpc
 local reviving = false
+
+
 AddEvent("OnTranslationReady", function()
     medicNpcMenu = Dialog.create(_("medic_menu"), nil, _("start_medic") , _("stop_medic") ,_("cancel"))
+    medicEmergencyMenu = Dialog.create(_("medic_emergency"), nil, _("accept_emergency"), _("cancel"))
+    Dialog.addSelect(medicEmergencyMenu, 1, _("player"), 3)
+
 end)
 
 AddRemoteEvent("SetupMedic", function(medicnpc) 
@@ -33,17 +38,33 @@ AddEvent("OnKeyPress", function( key )
 	    end
 	end
     end
+    if key == "F3" and not onSpawn and not onCharacterCreation then
+	CallRemoteEvent("OpenMedicMenu")
+    end
+end)
+
+AddRemoteEvent("MedicMenu", function(playerNames)
+    Dialog.setSelectLabeledOptions(medicEmergencyMenu, 1, 1, playerNames)
+    Dialog.show(medicEmergencyMenu)
 end)
 
 
 AddEvent("OnDialogSubmit", function(dialog, button, ...)
-	if dialog == medicNpcMenu then
-		if button == 1 then	 
-		    CallRemoteEvent("StartMedicJob") 
-        end
-		if button == 2 then
-			CallRemoteEvent("StopMedicJob") 
-        end
+    local args = { ... }
+    if dialog == medicNpcMenu then
+	if button == 1 then	 
+	    CallRemoteEvent("StartMedicJob") 
+	end
+	if button == 2 then
+	    CallRemoteEvent("StopMedicJob") 
+	end
+    end
+    if dialog == medicEmergencyMenu then
+	if button == 1 then
+	    if(args[1] ~= nil) then
+		CallRemoteEvent("AcceptEmergency", args[1])
+	    end
+	end
     end
 end)
 

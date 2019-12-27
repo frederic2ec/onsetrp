@@ -293,5 +293,11 @@
     "quit_medic": "You are no longer a medic!",
     "revive_player_success": "You successfully revived this player",
     "revive_player": "Revive Player",
-    "revive_reward": "You received 200$"
+    "revive_reward": "You received 200$",
+    "medic_notification_on_death": "NEW EMERGENCY (F3)",
+    "medic_emergency": "Emergency",
+    "accept_emergency": "Accept emergency",
+    "medic_on_their_way": "Medics are on their way",
+    "emergency": "Emergency",
+    "accepted_emergency": "Go to the Emergency waypoint"
 }

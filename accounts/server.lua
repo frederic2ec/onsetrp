@@ -138,7 +138,7 @@ function OnAccountLoaded(player)
 		PlayerData[player].police = math.tointeger(result['police'])
 		PlayerData[player].inventory = json_decode(result['inventory'])
 		PlayerData[player].created = math.tointeger(result['created'])
-		PlayerData[player].health_state = tostring(result['health_state'])
+		PlayerData[player].health_state = "alive" 
 		PlayerData[player].death_pos = json_decode(result['death_pos'])
 
 		if result['phone_number'] and result['phone_number'] ~= "" then
