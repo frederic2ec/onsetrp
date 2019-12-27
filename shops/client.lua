@@ -63,6 +63,9 @@ end)
 
 function GetNearestShop()
 	local x, y, z = GetPlayerLocation()
+
+	print("Position:")
+	print(x..", "..y..", "..z)
 	
 	for k,v in pairs(GetStreamedNPC()) do
         local x2, y2, z2 = GetNPCLocation(v)
