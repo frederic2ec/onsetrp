@@ -141,7 +141,7 @@ AddEvent("OnPlayerDeath", function(player)
 	if player ~= v and PlayerData[v].job == "medic" then
 	    local reviveHint = CreateText3D(_("revive_player").."\n".._("press_e"), 18, x, y, z + 50, 0, 0, 0)
 	    SetPlayerPropertyValue(player, "reviveHint", reviveHint, true)
-            SetPlayerRespawnTime(player, 3600000)
+            SetPlayerRespawnTime(player, 120000)
 	    medic = true
 	    NotifyConnectedMedics(player)
 	    break
