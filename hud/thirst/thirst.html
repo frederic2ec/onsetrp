@@ -84,6 +84,9 @@
             let thirstElt = document.getElementById('thirst');
             let pourcentageElt = document.getElementById('pourcentage');
 
+            pourcentageElt.innerText = Math.round(thirst);
+            pourcentageElt.style.color = "#b6b6b6";
+
             if (thirst > 50 && thirst <= 100) {
                 thirstElt.style.opacity = "0.0";
                 pourcentageElt.style.opacity = "0.0";
@@ -91,27 +94,23 @@
 
             if (thirst > 40 && thirst <= 50) {
                 thirstElt.style.opacity = "0.4";
-                pourcentageElt.innerText = Math.round(thirst);
                 pourcentageElt.style.opacity = "0.9";
             }
 
             if (thirst > 20 && thirst <= 40) {
                 thirstElt.style.opacity = "0.6";
-                pourcentageElt.innerText = Math.round(thirst);
                 pourcentageElt.style.color = "#ffd000";
                 pourcentageElt.style.opacity = "0.9";
             }
 
             if (thirst > 10 && thirst <= 20) {
                 thirstElt.style.opacity = "0.8";
-                pourcentageElt.innerText = Math.round(thirst);
                 pourcentageElt.style.color = "#ff7b00";
                 pourcentageElt.style.opacity = "0.9";
             }
 
             if (thirst >= 0 && thirst <= 10) {
                 thirstElt.style.opacity = "1";
-                pourcentageElt.innerText = Math.round(thirst);
                 pourcentageElt.style.color = "#ff1100";
                 pourcentageElt.style.opacity = "0.9";
             }

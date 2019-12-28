@@ -86,6 +86,9 @@
             let hungerElt = document.getElementById('hunger');
             let pourcentageElt = document.getElementById('pourcentage');
 
+            pourcentageElt.innerText = Math.round(hunger);
+            pourcentageElt.style.color = "#b6b6b6";
+
             if (hunger > 50 && hunger <= 100) {
                 hungerElt.style.opacity = "0.0";
                 pourcentageElt.style.opacity = "0.0";
@@ -93,27 +96,23 @@
 
             if (hunger > 40 && hunger <= 50) {
                 hungerElt.style.opacity = "0.4";
-                pourcentageElt.innerText = Math.round(hunger);
                 pourcentageElt.style.opacity = "0.9";
             }
 
             if (hunger > 20 && hunger <= 40) {
                 hungerElt.style.opacity = "0.6";
-                pourcentageElt.innerText = Math.round(hunger);
                 pourcentageElt.style.color = "#ffd000";
                 pourcentageElt.style.opacity = "0.9";
             }
 
             if (hunger > 10 && hunger <= 20) {
                 hungerElt.style.opacity = "0.8";
-                pourcentageElt.innerText = Math.round(hunger);
                 pourcentageElt.style.color = "#ff7b00";
                 pourcentageElt.style.opacity = "0.9";
             }
 
             if (hunger >= 0 && hunger <= 10) {
                 hungerElt.style.opacity = "1";
-                pourcentageElt.innerText = Math.round(hunger);
                 pourcentageElt.style.color = "#ff1100";
                 pourcentageElt.style.opacity = "0.9";
             }

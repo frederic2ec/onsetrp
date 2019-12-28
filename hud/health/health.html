@@ -84,34 +84,33 @@
             let healthElt = document.getElementById('health');
             let pourcentageElt = document.getElementById('pourcentage');
 
+            pourcentageElt.innerText = Math.round(healthlife);
+            pourcentageElt.style.color = "#b6b6b6";
+
             if (healthlife > 50 && healthlife <= 100) {
                 healthElt.style.opacity = "0.0";
                 pourcentageElt.style.opacity = "0.0";
             }
 
             if (healthlife > 40 && healthlife <= 50) {
-                healthElt.style.opacity = "0.4";
-                pourcentageElt.innerText = Math.round(healthlife);
+                healthElt.style.opacity = "0.4";                
                 pourcentageElt.style.opacity = "0.9";
             }
 
             if (healthlife > 20 && healthlife <= 40) {
                 healthElt.style.opacity = "0.6";
-                pourcentageElt.innerText = Math.round(healthlife);
                 pourcentageElt.style.color = "#ffd000";
                 pourcentageElt.style.opacity = "0.9";
             }
 
             if (healthlife > 10 && healthlife <= 20) {
                 healthElt.style.opacity = "0.8";
-                pourcentageElt.innerText = Math.round(healthlife);
                 pourcentageElt.style.color = "#ff7b00";
                 pourcentageElt.style.opacity = "0.9";
             }
 
             if (healthlife >= 0 && healthlife <= 10) {
                 healthElt.style.opacity = "1";
-                pourcentageElt.innerText = Math.round(healthlife);
                 pourcentageElt.style.color = "#ff1100";
                 pourcentageElt.style.opacity = "0.9";
             }
