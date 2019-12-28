@@ -44,11 +44,35 @@ AddRemoteEvent("OnCardDataLoaded", function(id, name, driverLicense, gunLicense,
     ShowMouseCursor(true)
     SetInputMode(INPUT_GAMEANDUI)
     SetWebVisibility(webIdCard, WEB_VISIBLE)
-    local licenses = ""
+    local licenses
+
+    if driverLicense or gunLicense or helicopterLicense then
+        licenses = ""
+        if driverLicense then     
+            if licenses ~= "" then
+                licenses = licenses..", "
+            end
+            licenses = licenses.._("driver_license")
+        end
+        if gunLicense then     
+            if licenses ~= "" then
+                licenses = licenses..", "
+            end
+            licenses = licenses.._("gun_license")
+        end
+        if helicopterLicense then     
+            if licenses ~= "" then
+                licenses = licenses..", "
+            end
+            licenses = licenses.._("helicopter_license")
+        end
+    else
+        licenses = _("no_license")
+    end
     
     -- Coming soon: job and jobTitle
     -- ExecuteWebJS(web, 'LoadCardFromData('..json_encode({ name = name, age = "32", job = company, jobTitle = job, issued = "23/12/2019" })..');')
-    ExecuteWebJS(webIdCard, 'LoadCardFromData('..json_encode({ id = id, name = name, driverLicense = driverLicense, gunLicense = gunLicense, helicopterLicense = helicopterLicense, age = "32", issued = "23/12/2019" })..');')
+    ExecuteWebJS(webIdCard, 'LoadCardFromData('..json_encode({ id = id, name = name, licenses = licenses, age = "32", issued = "23/12/2019" })..');')
 end)
 
 AddRemoteEvent("ConfirmIdCardShow", function(shownTo)

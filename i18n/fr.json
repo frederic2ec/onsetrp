@@ -291,6 +291,7 @@
     "driver_license": "Conduite",
     "gun_license": "Port d'armes",
     "helicopter_license": "Vol",
+    "no_license": "Aucun permis",
     "gun_dealer": "Armurier",
     "no_gun_license": "Vous n'avez pas de permis de port d'armes"
 }

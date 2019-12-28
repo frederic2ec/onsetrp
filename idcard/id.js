@@ -4,7 +4,6 @@ let translations = {
     name: "Name: ",
     age: "Age: ",
     job: "Job: ",
-    jobTitle: "Job Title: ",
     issued: "Issued: ",
     signature: "Signature: ",
     hide: "Hide",
@@ -15,7 +14,6 @@ let translations = {
     name: "Nom: ",
     age: "Âge: ",
     job: "Travail: ",
-    jobTitle: "Poste: ",
     issued: "Délivrée: ",
     signature: "Signature: ",
     hide: "Fermer",
@@ -42,7 +40,7 @@ function LoadCardFromData(data) {
   document.getElementById('id-card').classList.remove('hidden')
   cardInfoDiv.innerHTML = ''
 
-  let keys = ['name', 'age', 'job', 'jobTitle', 'issued']
+  let keys = ['name', 'age', 'licenses', 'job', 'issued']
 
   for (var i = 0; i < keys.length; i++) {
     let key = keys[i]
