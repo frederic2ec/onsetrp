@@ -104,11 +104,10 @@ AddRemoteEvent("shopInteract", function(player, shopobject)
 		if dist < 250 then
 			for k,v in pairs(ShopTable) do
                 if shopobject == v.npc[npcid] then
-                    print(v.type)
                     if v.type == "weapons" and PlayerData[player].gun_license == 0 then
-                        CallRemoteEvent(player, "openShop", PlayerData[player].inventory, v.items, v.npc[npcid])
-                    else
                         CallRemoteEvent(player, "MakeNotification", _("no_gun_license"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+                    else
+                        CallRemoteEvent(player, "openShop", PlayerData[player].inventory, v.items, v.npc[npcid])
                     end
 				end
 			end  
