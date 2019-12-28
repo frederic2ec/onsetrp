@@ -58,7 +58,6 @@
             font-family: Arial, Helvetica, sans-serif;
             font-size: 20px;
             font-weight: bold;
-            color: #b6b6b6;
             text-shadow:
                 -1px -1px 0 #262626,
                 1px -1px 0 #262626,
@@ -81,40 +80,47 @@
     <script>
 
 
-        function SetHunger(hunger) {
+        function SetHunger(hunger, menuIsOpen = 0) {
 
             let hungerElt = document.getElementById('hunger');
             let pourcentageElt = document.getElementById('pourcentage');
 
             pourcentageElt.innerText = Math.round(hunger);
-            pourcentageElt.style.color = "#b6b6b6";
 
-            if (hunger > 50 && hunger <= 100) {
-                hungerElt.style.opacity = "0.0";
-                pourcentageElt.style.opacity = "0.0";
-            }
-
-            if (hunger > 40 && hunger <= 50) {
-                hungerElt.style.opacity = "0.4";
-                pourcentageElt.style.opacity = "0.9";
-            }
-
-            if (hunger > 20 && hunger <= 40) {
-                hungerElt.style.opacity = "0.6";
+            // On définie la couleur du pourcentage
+            if (hunger > 40)
+                pourcentageElt.style.color = "#ececec";
+            if (hunger > 20 && hunger <= 40)
                 pourcentageElt.style.color = "#ffd000";
-                pourcentageElt.style.opacity = "0.9";
-            }
-
-            if (hunger > 10 && hunger <= 20) {
-                hungerElt.style.opacity = "0.8";
+            if (hunger > 10 && hunger <= 20)
                 pourcentageElt.style.color = "#ff7b00";
-                pourcentageElt.style.opacity = "0.9";
-            }
-
-            if (hunger >= 0 && hunger <= 10) {
-                hungerElt.style.opacity = "1";
+            if (hunger >= 0 && hunger <= 10)
                 pourcentageElt.style.color = "#ff1100";
+
+            if (menuIsOpen == 1) { // Si le menu perso est ouvert, on affiche quoi qu'il arrive
+                hungerElt.style.opacity = "1";
                 pourcentageElt.style.opacity = "0.9";
+            } else { // Sinon, on applique la règle de base
+                if (hunger > 50 && hunger <= 100) {
+                    hungerElt.style.opacity = "0.0";
+                    pourcentageElt.style.opacity = "0.0";
+                }
+                if (hunger > 40 && hunger <= 50) {
+                    hungerElt.style.opacity = "0.4";
+                    pourcentageElt.style.opacity = "0.9";
+                }
+                if (hunger > 20 && hunger <= 40) {
+                    hungerElt.style.opacity = "0.6";
+                    pourcentageElt.style.opacity = "0.9";
+                }
+                if (hunger > 10 && hunger <= 20) {
+                    hungerElt.style.opacity = "0.8";
+                    pourcentageElt.style.opacity = "0.9";
+                }
+                if (hunger >= 0 && hunger <= 10) {
+                    hungerElt.style.opacity = "1";
+                    pourcentageElt.style.opacity = "0.9";
+                }
             }
 
         }

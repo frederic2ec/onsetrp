@@ -58,7 +58,6 @@
             font-family: Arial, Helvetica, sans-serif;
             font-size: 20px;
             font-weight: bold;
-            color: #b6b6b6;
             text-shadow:
                 -1px -1px 0 #262626,
                 1px -1px 0 #262626,
@@ -79,40 +78,47 @@
     <script>
 
 
-        function SetThirst(thirst) {
+        function SetThirst(thirst, menuIsOpen = 0) {
 
             let thirstElt = document.getElementById('thirst');
             let pourcentageElt = document.getElementById('pourcentage');
 
             pourcentageElt.innerText = Math.round(thirst);
-            pourcentageElt.style.color = "#b6b6b6";
-
-            if (thirst > 50 && thirst <= 100) {
-                thirstElt.style.opacity = "0.0";
-                pourcentageElt.style.opacity = "0.0";
-            }
-
-            if (thirst > 40 && thirst <= 50) {
-                thirstElt.style.opacity = "0.4";
-                pourcentageElt.style.opacity = "0.9";
-            }
-
-            if (thirst > 20 && thirst <= 40) {
-                thirstElt.style.opacity = "0.6";
+            
+            // On définie la couleur du pourcentage
+            if (thirst > 40)
+                pourcentageElt.style.color = "#ececec";
+            if (thirst > 20 && thirst <= 40)
                 pourcentageElt.style.color = "#ffd000";
-                pourcentageElt.style.opacity = "0.9";
-            }
-
-            if (thirst > 10 && thirst <= 20) {
-                thirstElt.style.opacity = "0.8";
+            if (thirst > 10 && thirst <= 20)
                 pourcentageElt.style.color = "#ff7b00";
-                pourcentageElt.style.opacity = "0.9";
-            }
-
-            if (thirst >= 0 && thirst <= 10) {
-                thirstElt.style.opacity = "1";
+            if (thirst >= 0 && thirst <= 10)
                 pourcentageElt.style.color = "#ff1100";
+
+            if (menuIsOpen == 1) { // Si le menu perso est ouvert, on affiche quoi qu'il arrive
+                thirstElt.style.opacity = "1";
                 pourcentageElt.style.opacity = "0.9";
+            } else { // Sinon, on applique la règle de base
+                if (thirst > 50 && thirst <= 100) {
+                    thirstElt.style.opacity = "0.0";
+                    pourcentageElt.style.opacity = "0.0";
+                }
+                if (thirst > 40 && thirst <= 50) {
+                    thirstElt.style.opacity = "0.4";
+                    pourcentageElt.style.opacity = "0.9";
+                }
+                if (thirst > 20 && thirst <= 40) {
+                    thirstElt.style.opacity = "0.6";
+                    pourcentageElt.style.opacity = "0.9";
+                }
+                if (thirst > 10 && thirst <= 20) {
+                    thirstElt.style.opacity = "0.8";
+                    pourcentageElt.style.opacity = "0.9";
+                }
+                if (thirst >= 0 && thirst <= 10) {
+                    thirstElt.style.opacity = "1";
+                    pourcentageElt.style.opacity = "0.9";
+                }
             }
 
         }
