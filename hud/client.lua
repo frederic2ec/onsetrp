@@ -53,7 +53,7 @@ function OnPackageStart()
     SetWebURL(minimap, "http://asset/onsetrp/hud/minimap/minimap.html")
     
 	ShowHealthHUD(false)
-    ShowWeaponHUD(true)
+    ShowWeaponHUD(false)
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
