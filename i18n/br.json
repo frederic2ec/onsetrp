@@ -260,5 +260,6 @@
     "transport_stop_available": "Paradas disponíveis",
     "transport_choose_stop": "Por favor selecione uma parada",
     "transport_bus_incoming": "Seu ônibus está chegando, não vá!",
-    "transport_not_enough_money": "Você não tem dinheiro suficiente"
+    "transport_not_enough_money": "Você não tem dinheiro suficiente",
+    "transport_you_are_there": "(Voce esta la)"
 }

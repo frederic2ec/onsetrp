@@ -46,9 +46,10 @@ AddEvent("OnTranslationReady", function()
 end)
 
 AddRemoteEvent("TransportMenuCOpenMenu", function(transportMenuListe)
+    
     local transportListe = {}
     for k,v in pairs(transportMenuListe) do
-        transportListe[k] = v
+        transportListe[k] = v.label.. " - "..v.distance.." m - "..v.prix.." $"
     end
     Dialog.setSelectLabeledOptions(transportMenu, 1, 1, transportListe)
 

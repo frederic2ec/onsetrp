@@ -291,5 +291,6 @@
     "transport_stop_available": "Arrêts disponibles",
     "transport_choose_stop": "Veuillez sélectionner un arrêt",
     "transport_bus_incoming": "Votre bus arrive, ne vous éloignez pas !",
-    "transport_not_enough_money": "Vous n'avez pas assez d'argent"
+    "transport_not_enough_money": "Vous n'avez pas assez d'argent",
+    "transport_you_are_there": "(Vous y êtes)"
 }

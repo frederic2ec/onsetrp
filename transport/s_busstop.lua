@@ -24,8 +24,16 @@ local bus_stops = {
 }
 
 local ticketPrice = 5
+local kilometerPrice = 2
 
 bus_stops_cached = {}
+
+function CalculerPrix(distance) 
+    if distance <= 4 then
+        return 0
+    end
+    return (math.floor(distance / 1000) * kilometerPrice) + ticketPrice
+end
 
 AddEvent("OnPackageStart", function() -- Création des halos jaunes sur les arrêts de bus
     for i,j in pairs(bus_stops.location) do
@@ -45,23 +53,29 @@ end)
 
 AddRemoteEvent("TransportMenuSGetListe", function(player) -- Récupération de la liste des arrêts de bus et envoie au menu
     transportMenuListe = {}
-
+    local x,y = GetPlayerLocation(player)
     for k,v in pairs(bus_stops.location) do
-        transportMenuListe[k] = v.labelArret.."  - "..ticketPrice.." $"
+        local distance = math.floor(tonumber(GetDistance2D(x, y, v.x, v.y)) / 100)
+        transportMenuListe[k] = { label= v.labelArret, distance= distance, prix= CalculerPrix(distance)}
+        if distance <= 4 then
+            transportMenuListe[k].label = transportMenuListe[k].label.." ".._("transport_you_are_there")
+        end
     end
-
     CallRemoteEvent(player, "TransportMenuCOpenMenu", transportMenuListe)
 end)
 
 AddRemoteEvent("TransportMenuSTeleportPlayer", function(player, arret) -- Téléport du joueur a l'arrêt de bus
     for k,v in pairs(bus_stops.location) do
         if k == tonumber(arret) then
-            if PlayerData[player].cash >= ticketPrice then
+            local x,y = GetPlayerLocation(player)
+            local prix = CalculerPrix(math.floor(tonumber(GetDistance2D(x, y, v.x, v.y)) / 100))
+
+            if PlayerData[player].cash >= prix then                
                 CallRemoteEvent(player, "TransportMenuCPresentToastSuccess")
                 
                 Delay(10000, function() -- Timer de 10s pour plus de RP
                     SetPlayerLocation(player, v.x, v.y, v.z + 200) -- pour éviter la chute sous le sol (marche pas tout le temps :( )
-                    PlayerData[player].cash = PlayerData[player].cash - ticketPrice
+                    PlayerData[player].cash = PlayerData[player].cash - prix
                 end)                
             else
                 CallRemoteEvent(player, "TransportMenuCPresentNotEnoughMoney")
