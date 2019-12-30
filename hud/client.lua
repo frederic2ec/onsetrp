@@ -102,3 +102,28 @@ function SetHUDMarker(name, h, r, g, b)
 end
 
 AddRemoteEvent("SetHUDMarker", SetHUDMarker)
+
+function hideRPHud()
+    SetWebVisibility(HungerFoodHud, WEB_HIDDEN)
+    SetWebVisibility(ThirstHud, WEB_HIDDEN)
+    SetWebVisibility(HealthHud, WEB_HIDDEN)
+    SetWebVisibility(VehicleSpeedHud, WEB_HIDDEN)
+    SetWebVisibility(VehicleFuelHud, WEB_HIDDEN)
+    SetWebVisibility(VehicleHealthHud, WEB_HIDDEN)
+    SetWebVisibility(SpeakingHud, WEB_HIDDEN)
+    SetWebVisibility(minimap, WEB_HIDDEN)
+end
+
+function showRPHud()
+    SetWebVisibility(HungerFoodHud, WEB_HITINVISIBLE)
+    SetWebVisibility(ThirstHud, WEB_HITINVISIBLE)
+    SetWebVisibility(HealthHud, WEB_HITINVISIBLE)
+    SetWebVisibility(VehicleSpeedHud, WEB_HITINVISIBLE)
+    SetWebVisibility(VehicleFuelHud, WEB_HITINVISIBLE)
+    SetWebVisibility(VehicleHealthHud, WEB_HITINVISIBLE)
+    SetWebVisibility(SpeakingHud, WEB_HITINVISIBLE)
+    SetWebVisibility(minimap, WEB_HITINVISIBLE)
+end
+
+AddFunctionExport("hideRPHud", hideRPHud)
+AddFunctionExport("showRPHud", showRPHud)
