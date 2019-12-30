@@ -63,14 +63,23 @@ end)
 AddRemoteEvent("shopInteract", function(player, shopNpc)
     local shop = GetShopByObject(shopNpc)
 
+    if v.type == "weapons" and PlayerData[player].gun_license == 0 then
+        CallRemoteEvent(player, "MakeNotification", _("no_gun_license"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+    else
+        CallRemoteEvent(player, "openShop", PlayerData[player].inventory, v.items, v.npc[npcid])
+    end
+
     if shop then
 		local x, y, z = GetNPCLocation(shop.npc)
 		local x2, y2, z2 = GetPlayerLocation(player)
         local dist = GetDistance3D(x, y, z, x2, y2, z2)
 
         if dist < 250 then
-            print('shopInteract')
-            CallRemoteEvent(player, "openShop", PlayerData[player].inventory, shop.items, shop.npc)
+            if shop.type == "weapons" and PlayerData[player].gun_license == 0 then
+                CallRemoteEvent(player, "MakeNotification", _("no_gun_license"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+            else
+                CallRemoteEvent(player, "openShop", PlayerData[player].inventory, shop.items, shop.npc)
+            end
 		end
 	end
 end)

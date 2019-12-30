@@ -7,7 +7,9 @@ local teleportPlace = {
     diner = { 212405, 94489, 1340 },
     city = { 211526, 176056, 1250 },
     desert_town = { -16223, -8033, 2062 },
-    old_town = { 39350, 138061, 1570 }
+    old_town = { 39350, 138061, 1570 },
+    gun_dealer = { 206071, 193057, 1357 },
+    license_shop = { 183339, 182525, 1291 }
 }
 
 local weaponList = {

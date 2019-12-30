@@ -2,7 +2,7 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 PlayerData = {}
 
 function OnPackageStart()
-    -- Save all player data automatically
+    -- Save all player data automatically 
     CreateTimer(function()
 		for k, v in pairs(GetAllPlayers()) do
             SavePlayerAccount(v)
@@ -16,7 +16,7 @@ function OnPlayerSteamAuth(player)
 
 	CreatePlayerData(player)
 	PlayerData[player].steamname = GetPlayerName(player)
-
+    
     -- First check if there is an account for this player
 	local query = mariadb_prepare(sql, "SELECT id FROM accounts WHERE steamid = '?' LIMIT 1;",
     tostring(GetPlayerSteamId(player)))
@@ -34,7 +34,7 @@ AddEvent("OnPlayerQuit", OnPlayerQuit)
 
 function OnAccountLoadId(player)
 	if (mariadb_get_row_count() == 0) then
-		--There is no account for this player, continue by checking if their IP was banned
+		--There is no account for this player, continue by checking if their IP was banned		
         local query = mariadb_prepare(sql, "SELECT FROM_UNIXTIME(bans.ban_time), bans.reason FROM bans WHERE bans.steamid = ?;",
 			tostring(GetPlayerSteamId(player)))
 
@@ -83,7 +83,7 @@ function OnAccountCheckIpBan(player)
 		print("Kicking "..GetPlayerName(player).." because their IP was banned")
 
 		local result = mariadb_get_assoc(1)
-
+        
         KickPlayer(player, "🚨 You have been banned from the server.")
 	end
 end
@@ -133,6 +133,9 @@ function OnAccountLoaded(player)
 		PlayerData[player].clothing = json_decode(result['clothing'])
 		PlayerData[player].clothing_police = json_decode(result['clothing_police'])
 		PlayerData[player].police = math.tointeger(result['police'])
+		PlayerData[player].driver_license = math.tointeger(result['driver_license'])
+		PlayerData[player].gun_license = math.tointeger(result['gun_license'])
+		PlayerData[player].helicopter_license = math.tointeger(result['helicopter_license'])
 		PlayerData[player].inventory = json_decode(result['inventory'])
 		PlayerData[player].created = math.tointeger(result['created'])
 		PlayerData[player].position = json_decode(result['position'])
@@ -155,7 +158,7 @@ function OnAccountLoaded(player)
 			CallRemoteEvent(player, "askClientCreation")
 		else
 			SetPlayerName(player, PlayerData[player].name)
-
+		
 			playerhairscolor = getHairsColor(PlayerData[player].clothing[2])
 			CallRemoteEvent(player, "ClientChangeClothing", player, 0, PlayerData[player].clothing[1], playerhairscolor[1], playerhairscolor[2], playerhairscolor[3], playerhairscolor[4])
 			CallRemoteEvent(player, "ClientChangeClothing", player, 1, PlayerData[player].clothing[3], 0, 0, 0, 0)
@@ -163,7 +166,7 @@ function OnAccountLoaded(player)
 			CallRemoteEvent(player, "ClientChangeClothing", player, 5, PlayerData[player].clothing[5], 0, 0, 0, 0)
 			CallRemoteEvent(player, "AskSpawnMenu")
 		end
-
+		
 		LoadPlayerPhoneContacts(player)
 
 		print("Account ID "..PlayerData[player].accountid.." loaded for "..GetPlayerIP(player))
@@ -222,6 +225,9 @@ function CreatePlayerData(player)
 	PlayerData[player].clothing = {}
 	PlayerData[player].clothing_police = {}
 	PlayerData[player].police = 0
+	PlayerData[player].driver_license = 0
+	PlayerData[player].gun_license = 0
+	PlayerData[player].helicopter_license = 0
 	PlayerData[player].inventory = {}
 	PlayerData[player].logged_in = false
 	PlayerData[player].admin = 0
@@ -248,7 +254,7 @@ function DestroyPlayerData(player)
 	if (PlayerData[player] == nil) then
 		return
 	end
-
+	
 	if PlayerData[player].job_vehicle ~= nil then
         DestroyVehicle(PlayerData[player].job_vehicle)
         DestroyVehicleData( PlayerData[player].job_vehicle)
@@ -272,7 +278,7 @@ function SavePlayerAccount(player)
 	local x, y, z = GetPlayerLocation(player)
 	PlayerData[player].position = {x= x, y= y, z= z}
 
-	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, cash = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', clothing_police = '?', inventory = '?', created = '?', position = '?' WHERE id = ? LIMIT 1;",
+	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, cash = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', clothing_police = '?', inventory = '?', created = '?', position = '?', driver_license = ?, gun_license = ?, helicopter_license = ? WHERE id = ? LIMIT 1;",
 		PlayerData[player].admin,
 		PlayerData[player].cash,
 		PlayerData[player].bank_balance,
@@ -285,13 +291,22 @@ function SavePlayerAccount(player)
 		json_encode(PlayerData[player].clothing_police),
 		json_encode(PlayerData[player].inventory),
 		PlayerData[player].created,
+		PlayerData[player].driver_license,
+		PlayerData[player].gun_license,
+		PlayerData[player].helicopter_license,
 		json_encode(PlayerData[player].position),
 		PlayerData[player].accountid
-		)
-
+	)
+        
 	mariadb_query(sql, query)
 end
 
 function SetPlayerLoggedIn(player)
     PlayerData[player].logged_in = true
 end
+
+function IsAdmin(player)
+	return PlayerData[player].admin
+end
+
+AddFunctionExport("isAdmin", IsAdmin)

@@ -30,6 +30,7 @@
         "noclip/server.lua",
         "stylist/server.lua",
         "idcard/server.lua",
+        "licenses/server.lua",
         "onset-phone/server.lua",
         "transport/s_busstop.lua"
     ],
@@ -62,6 +63,7 @@
         "stylist/client.lua",
         "onset-phone/client.lua",
         "idcard/client.lua",
+        "licenses/client.lua",
         "holiday/client.lua",
         "transport/c_busstop.lua"
     ],
