@@ -1,4 +1,8 @@
 {
+    "city": "Innenstadt",
+    "desert_town": "Lagerhallen",
+    "old_town": "Motel und Camping",
+    "town": "Industrielle Vororte",
     "enter_higher_number": "Bitte eine höhere Anzahl eingeben!",
     "valid_number": "Bitte eine gültige Menge eingeben!",
     "atm": "Bankomat",
@@ -157,7 +161,6 @@
     "banned_for": "🚨 Du wurdest gebannt:\nReason: {1}\nTime: {2}",
     "kicked_for": "🚨 Du wurdest Permanent gebannt:\nReason: {1}",
     "gas_station": "Tankstelle",
-    "town": "Dorf",
     "prison": "Gefängnis",
     "diner": "Diner",
     "admin_menu": "Admin Menü",
@@ -224,8 +227,6 @@
     "transfer": "Überweisen",
     "successful_transfer": "Du hast erfolgreich {1} {2} an {3} überwiesen",
     "received_transfer": "du hast {1} {2} von {3} erhalten",
-    "desert_town": "Wüstenstadt",
-    "old_town": "Altstadt",
     "select_city": "Bitte eine Stadt auswählen !",
     "spawn_menu": "Spawn Menü",
     "vehicle_health": "Fahrzeugzustand :",
@@ -250,7 +251,6 @@
     "no_delivery": "Du hast aktuell keine Lieferung !",
     "no_delivery_point": "Du bist nicht an deinem Zielort !",
     "finished_delivery": "Du hast deine Lieferung für {1} {2} abgeschlossen",
-    "city": "Hauptstadt",
     "unprocessed_rock": "Unbearbeiter Stein",
     "processed_rock": "Bearbeiteter Stein",
     "not_whitelisted": ""
