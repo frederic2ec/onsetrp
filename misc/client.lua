@@ -4,7 +4,7 @@ function PlayAudioFile(file)
 	DestroySound(LastSoundPlayed)
 
 	LastSoundPlayed = CreateSound("client/files/"..file)
-	SetSoundVolume(LastSoundPlayed, 1.1)
+	SetSoundVolume(LastSoundPlayed, 0.7)
 end
 AddRemoteEvent("PlayAudioFile", PlayAudioFile)
 
