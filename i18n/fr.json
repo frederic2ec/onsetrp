@@ -287,5 +287,13 @@
     "id_card_shown": "Vous montrez votre carte d'identité à {1}",
     "phone": "Téléphone",
     "fishing_rod": "Canne a pêche",
-    "fish": "Poisson"
+    "fish": "Poisson",
+    "only_walk": "Use alt to walk!",
+    "vehicle_full": "Your vehicle is full!",
+    "police_garage": "Police Garage",
+    "police_garage_menu": "Police Garage",
+    "not_police": "You are not a police officer!",
+    "police_armory": "Police Armory",
+    "get_equipped": "Get equipped",
+    "paid_fine_giver": "The player paid his fine"
 }
