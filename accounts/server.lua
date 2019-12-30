@@ -2,7 +2,7 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 PlayerData = {}
 
 function OnPackageStart()
-    -- Save all player data automatically 
+    -- Save all player data automatically
     CreateTimer(function()
 		for k, v in pairs(GetAllPlayers()) do
             SavePlayerAccount(v)
@@ -16,7 +16,7 @@ function OnPlayerSteamAuth(player)
 
 	CreatePlayerData(player)
 	PlayerData[player].steamname = GetPlayerName(player)
-    
+
     -- First check if there is an account for this player
 	local query = mariadb_prepare(sql, "SELECT id FROM accounts WHERE steamid = '?' LIMIT 1;",
     tostring(GetPlayerSteamId(player)))
@@ -24,10 +24,6 @@ function OnPlayerSteamAuth(player)
     mariadb_async_query(sql, query, OnAccountLoadId, player)
 end
 AddEvent("OnPlayerSteamAuth", OnPlayerSteamAuth)
-
-AddEvent("OnPlayerJoin", function(player)
-	SetPlayerSpawnLocation(player, 227603, -65590, 237, 0 )
-end)
 
 function OnPlayerQuit(player)
     SavePlayerAccount(player)
@@ -38,7 +34,7 @@ AddEvent("OnPlayerQuit", OnPlayerQuit)
 
 function OnAccountLoadId(player)
 	if (mariadb_get_row_count() == 0) then
-		--There is no account for this player, continue by checking if their IP was banned		
+		--There is no account for this player, continue by checking if their IP was banned
         local query = mariadb_prepare(sql, "SELECT FROM_UNIXTIME(bans.ban_time), bans.reason FROM bans WHERE bans.steamid = ?;",
 			tostring(GetPlayerSteamId(player)))
 
@@ -87,7 +83,7 @@ function OnAccountCheckIpBan(player)
 		print("Kicking "..GetPlayerName(player).." because their IP was banned")
 
 		local result = mariadb_get_assoc(1)
-        
+
         KickPlayer(player, "🚨 You have been banned from the server.")
 	end
 end
@@ -106,6 +102,7 @@ function OnAccountCreated(player)
 
 	SetPlayerLoggedIn(player)
 	SetAvailablePhoneNumber(player)
+	setPositionAndSpawn(player, nil)
 
 	print("Account ID "..PlayerData[player].accountid.." created for "..player)
 end
@@ -138,6 +135,7 @@ function OnAccountLoaded(player)
 		PlayerData[player].police = math.tointeger(result['police'])
 		PlayerData[player].inventory = json_decode(result['inventory'])
 		PlayerData[player].created = math.tointeger(result['created'])
+		PlayerData[player].position = json_decode(result['position'])
 
 		if result['phone_number'] and result['phone_number'] ~= "" then
 			PlayerData[player].phone_number = tostring(result['phone_number'])
@@ -149,6 +147,7 @@ function OnAccountLoaded(player)
 		SetPlayerArmor(player, tonumber(result['armor']))
 		setPlayerThirst(player, tonumber(result['thirst']))
 		setPlayerHunger(player, tonumber(result['hunger']))
+		setPositionAndSpawn(player, PlayerData[player].position)
 
 		SetPlayerLoggedIn(player)
 
@@ -156,7 +155,7 @@ function OnAccountLoaded(player)
 			CallRemoteEvent(player, "askClientCreation")
 		else
 			SetPlayerName(player, PlayerData[player].name)
-		
+
 			playerhairscolor = getHairsColor(PlayerData[player].clothing[2])
 			CallRemoteEvent(player, "ClientChangeClothing", player, 0, PlayerData[player].clothing[1], playerhairscolor[1], playerhairscolor[2], playerhairscolor[3], playerhairscolor[4])
 			CallRemoteEvent(player, "ClientChangeClothing", player, 1, PlayerData[player].clothing[3], 0, 0, 0, 0)
@@ -164,10 +163,19 @@ function OnAccountLoaded(player)
 			CallRemoteEvent(player, "ClientChangeClothing", player, 5, PlayerData[player].clothing[5], 0, 0, 0, 0)
 			CallRemoteEvent(player, "AskSpawnMenu")
 		end
-		
+
 		LoadPlayerPhoneContacts(player)
 
 		print("Account ID "..PlayerData[player].accountid.." loaded for "..GetPlayerIP(player))
+	end
+end
+
+function setPositionAndSpawn(player, position) 
+	SetPlayerSpawnLocation(player, 227603, -65590, 400, 0 )
+	if position ~= nil and position.x ~= nil and position.y ~= nil and position.z ~= nil then
+		SetPlayerLocation(player, PlayerData[player].position.x, PlayerData[player].position.y, PlayerData[player].position.z + 150) -- Pour empêcher de se retrouver sous la map
+	else
+		SetPlayerLocation(player, 227603, -65590, 400)
 	end
 end
 
@@ -231,6 +239,7 @@ function CreatePlayerData(player)
 	PlayerData[player].isActioned = false
 	PlayerData[player].phone_contacts = {}
 	PlayerData[player].phone_number = {}
+	PlayerData[player].position = {}
 
     print("Data created for : "..player)
 end
@@ -239,7 +248,7 @@ function DestroyPlayerData(player)
 	if (PlayerData[player] == nil) then
 		return
 	end
-	
+
 	if PlayerData[player].job_vehicle ~= nil then
         DestroyVehicle(PlayerData[player].job_vehicle)
         DestroyVehicleData( PlayerData[player].job_vehicle)
@@ -259,7 +268,11 @@ function SavePlayerAccount(player)
 		return
 	end
 
-	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, cash = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', clothing_police = '?', inventory = '?', created = '?' WHERE id = ? LIMIT 1;",
+	-- Sauvegarde de la position du joueur
+	local x, y, z = GetPlayerLocation(player)
+	PlayerData[player].position = {x= x, y= y, z= z}
+
+	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, cash = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', clothing_police = '?', inventory = '?', created = '?', position = '?' WHERE id = ? LIMIT 1;",
 		PlayerData[player].admin,
 		PlayerData[player].cash,
 		PlayerData[player].bank_balance,
@@ -272,14 +285,13 @@ function SavePlayerAccount(player)
 		json_encode(PlayerData[player].clothing_police),
 		json_encode(PlayerData[player].inventory),
 		PlayerData[player].created,
+		json_encode(PlayerData[player].position),
 		PlayerData[player].accountid
 		)
-        
+
 	mariadb_query(sql, query)
 end
 
 function SetPlayerLoggedIn(player)
     PlayerData[player].logged_in = true
-
-    CallEvent("OnPlayerJoin", player)
 end

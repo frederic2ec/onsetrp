@@ -29,6 +29,7 @@
         "police/server.lua",
         "noclip/server.lua",
         "stylist/server.lua",
+        "idcard/server.lua",
         "onset-phone/server.lua"
     ],
     "client_scripts": [
@@ -58,7 +59,9 @@
         "police/client.lua",
         "noclip/client.lua",
         "stylist/client.lua",
-        "onset-phone/client.lua"
+        "onset-phone/client.lua",
+        "idcard/client.lua",
+        "holiday/client.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",
@@ -102,6 +105,9 @@
         "onset-phone/ui/dist/app.css",
         "client/files/carLock.mp3",
         "client/files/carUnlock.mp3",
-        "client/files/notification.mp3"
+        "idcard/id.html",
+        "idcard/id.js",
+        "idcard/id.css",
+        "idcard/Cedarville-Cursive.ttf"
     ]
 }

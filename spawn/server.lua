@@ -2,10 +2,10 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 
 spawnLocation = {
     -- The three last value are temporary until RandomFloat is fixed
-    town = { 170402, 38013, 1170, "-", "-", "" },
-    city = { 211526, 176056, 1260, "", "", "" },
-    desert_town = { 16223, 8033, 2070, "-", "-", "" },
-    old_town = { 39350, 138061, 1580, "", "", "" }
+    town = { 170402, 38013, 1180, "-", "-", "" },
+    city = { 211526, 176056, 1450, "", "", "" },
+    desert_town = { 16223, 8033, 2080, "-", "-", "" },
+    old_town = { 39350, 138061, 1690, "", "", "" }
 }
 
 AddRemoteEvent("ServerSpawnMenu", function(player)
@@ -35,7 +35,7 @@ AddRemoteEvent("PlayerSpawn", function(player, spawn)
         spawnSelect = GetSpawnLocation(spawn)
         spawnx = RandomFloat(spawnSelect[1] - 500, spawnSelect[1] + 500)
         spawny = RandomFloat(spawnSelect[2] - 500, spawnSelect[2] + 500)
-        SetPlayerLocation(player, spawnSelect[4]..spawnx, spawnSelect[5]..spawny, spawnSelect[6]..spawnSelect[3] + 50)
+        SetPlayerLocation(player, spawnSelect[4]..spawnx, spawnSelect[5]..spawny, spawnSelect[6]..spawnSelect[3] + 200)
     end
 end)
 

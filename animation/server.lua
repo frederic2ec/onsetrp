@@ -27,8 +27,10 @@ local offsets = {
 local objects = {}
 
 function Server_OnPlayerAnimation(player, id)
+    if(not GetPlayerPropertyValue(player, "cuffed")) then
 	SetPlayerAnimation(player, "STOP")
 	SetPlayerAnimation(player, id)
+    end
 end
 
 AddRemoteEvent("Server_OnPlayerAnimation", Server_OnPlayerAnimation)
