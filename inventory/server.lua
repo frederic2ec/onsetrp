@@ -148,12 +148,13 @@ end)
 
 AddRemoteEvent("TransferInventory", function(player, item, amount, toplayer)
     if PlayerData[player].inventory[item] < tonumber(amount) then
-        AddPlayerChat(player, _("not_enough_item"))
+        CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     else
         AddInventory(tonumber(toplayer), item, tonumber(amount))
         RemoveInventory(tonumber(player ), item, tonumber(amount))
-        AddPlayerChat(player, _("successful_transfer", amount, item, GetPlayerName(tonumber(toplayer))))
-        AddPlayerChat(tonumber(toplayer), _("received_transfer", amount, item, GetPlayerName(player)))
+        
+        CallRemoteEvent(player, "MakeNotification", _("successful_transfer", amount, item, GetPlayerName(tonumber(toplayer))), "linear-gradient(to right, #00b09b, #96c93d)")
+        CallRemoteEvent(tonumber(toplayer), "MakeNotification", _("received_transfer", amount, item, GetPlayerName(player)), "linear-gradient(to right, #00b09b, #96c93d)")
     end
 end)
 
@@ -197,6 +198,13 @@ end
 function RemovePlayerCash(player, amount)
     RemoveInventory(player, 'cash', math.tointeger(amount))
 end
+
+AddFunctionExport("AddInventory", AddInventory)
+AddFunctionExport("RemoveInventory", RemoveInventory)
+AddFunctionExport("GetPlayerCash", GetPlayerCash)
+AddFunctionExport("SetPlayerCash", SetPlayerCash)
+AddFunctionExport("AddPlayerCash", AddPlayerCash)
+AddFunctionExport("RemovePlayerCash", RemovePlayerCash)
 
 AddEvent("OnPackageStart", function()
 
