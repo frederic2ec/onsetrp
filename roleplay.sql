@@ -320,3 +320,6 @@ ALTER TABLE `whitelist`
 ALTER TABLE `player_garage`
   ADD CONSTRAINT `player_garage_ibfk_1` FOREIGN KEY (`ownerid`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
+
+
+ALTER TABLE `accounts` ADD COLUMN `position` TEXT NOT NULL DEFAULT '{}'; -- POSITION MANAGER
