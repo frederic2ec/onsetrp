@@ -30,7 +30,8 @@
         "noclip/server.lua",
         "stylist/server.lua",
         "idcard/server.lua",
-        "onset-phone/server.lua"
+        "onset-phone/server.lua",
+        "transport/s_busstop.lua"
     ],
     "client_scripts": [
         "hunger/client.lua",
@@ -61,7 +62,8 @@
         "stylist/client.lua",
         "onset-phone/client.lua",
         "idcard/client.lua",
-        "holiday/client.lua"
+        "holiday/client.lua",
+        "transport/c_busstop.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",
