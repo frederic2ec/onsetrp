@@ -27,6 +27,8 @@
         "whitelist/server.lua",
         "animation/server.lua",
         "police/server.lua",
+        "noclip/server.lua",
+        "stylist/server.lua",
         "idcard/server.lua",
         "onset-phone/server.lua"
     ],
@@ -55,6 +57,8 @@
         "notification/client.lua",
         "animation/client.lua",
         "police/client.lua",
+        "noclip/client.lua",
+        "stylist/client.lua",
         "onset-phone/client.lua",
         "idcard/client.lua",
         "holiday/client.lua"
