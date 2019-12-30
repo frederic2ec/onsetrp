@@ -63,7 +63,7 @@ end)
 
 function GetNearestShop()
 	local x, y, z = GetPlayerLocation()
-	
+
 	for k,v in pairs(GetStreamedNPC()) do
         local x2, y2, z2 = GetNPCLocation(v)
 		local dist = GetDistance3D(x, y, z, x2, y2, z2)
@@ -85,11 +85,13 @@ AddRemoteEvent("openShop", function(inventory, items, shopid)
 
 	local inventoryitems = {}
 	for k,v in pairs(inventory) do
-		inventoryitems[k] = _(k).."["..v.."]"
+    if k ~= "cash" then
+		  inventoryitems[k] = _(k).." ["..v.."]"
+    end
 	end
 	local shopitems = {}
 	for k,v in pairs(items) do
-		shopitems[k] = _(k).."["..v.._("currency").."]"
+		shopitems[k] = _(k).." ["..v.._("currency").."]"
 	end
 	Dialog.setSelectLabeledOptions(shop, 1, 1, inventoryitems)
 	Dialog.setSelectLabeledOptions(shop, 2, 1, shopitems)

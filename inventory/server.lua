@@ -9,7 +9,7 @@ AddRemoteEvent("ServerPersonalMenu", function(player)
             playerList[tostring(k)] = GetPlayerName(k)
         end
     end
-    CallRemoteEvent(player, "OpenPersonalMenu", PlayerData[player].cash, PlayerData[player].bank_balance, PlayerData[player].inventory, playerList)
+    CallRemoteEvent(player, "OpenPersonalMenu", GetPlayerCash(player), PlayerData[player].bank_balance, PlayerData[player].inventory, playerList)
 end)
 
 
@@ -20,7 +20,7 @@ function getWeaponID(modelid)
     return 0
 end
 
-AddRemoteEvent("UseInventory", function(player, item, amount) 
+AddRemoteEvent("UseInventory", function(player, item, amount)
     weapon = getWeaponID(item)
     if tonumber(PlayerData[player].inventory[item]) < tonumber(amount) then
         AddPlayerChat(player, _("not_enough_item"))
@@ -60,7 +60,7 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                     else
                         CallRemoteEvent(player, "LockControlMove", true)
                         SetPlayerAnimation(player, "COMBINE")
-                        Delay(4000, function() 
+                        Delay(4000, function()
                             RemoveInventory(player, item, amount)
                             SetVehicleHealth(nearestCar, 5000)
                             for i=1,8 do
@@ -81,7 +81,7 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                     else
                         CallRemoteEvent(player, "LockControlMove", true)
                         SetPlayerAnimation(player, "COMBINE")
-                        Delay(4000, function() 
+                        Delay(4000, function()
                             RemoveInventory(player, item, amount)
                             VehicleData[nearestCar].fuel = 100
                             AddPlayerChat(player, _("car_refuelled"))
@@ -101,7 +101,7 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                             SetPlayerAnimation(player, "LOCKDOOR")
                             Delay(3000, function()
                                 SetPlayerAnimation(player, "LOCKDOOR")
-                            end) 
+                            end)
                             Delay(6000, function()
                                 SetPlayerAnimation(player, "LOCKDOOR")
                             end)
@@ -111,7 +111,7 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                                 RemoveInventory(player, item, amount)
                                 CallRemoteEvent(player, "LockControlMove", false)
                                 SetPlayerAnimation(player, "STOP")
-                            end)       
+                            end)
                         else
                             AddPlayerChat(player, _("vehicle_already_unlocked"))
                         end
@@ -125,7 +125,7 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                             SetPlayerAnimation(player, "LOCKDOOR")
                             Delay(3000, function()
                                 SetPlayerAnimation(player, "LOCKDOOR")
-                            end) 
+                            end)
                             Delay(6000, function()
                                 SetPlayerAnimation(player, "LOCKDOOR")
                             end)
@@ -135,7 +135,7 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                                 RemoveInventory(player, item, amount)
                                 CallRemoteEvent(player, "LockControlMove", false)
                                 SetPlayerAnimation(player, "STOP")
-                            end)   
+                            end)
                         else
                             AddPlayerChat(player, _("house_already_unlock"))
                         end
@@ -187,7 +187,7 @@ function GetPlayerCash(player)
 end
 
 function SetPlayerCash(player, amount)
-    PlayerData[player].inventory['cash'] = math.tointeger(amount)
+    PlayerData[player].inventory['cash'] = math.max(math.tointeger(amount), 0)
 end
 
 function AddPlayerCash(player, amount)
@@ -199,5 +199,5 @@ function RemovePlayerCash(player, amount)
 end
 
 AddEvent("OnPackageStart", function()
-    
+
 end)
