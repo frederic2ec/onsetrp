@@ -28,7 +28,7 @@ local kilometerPrice = 2
 
 bus_stops_cached = {}
 
-function CalculerPrix(distance) 
+function CalculateAmount(distance) 
     if distance <= 4 then
         return 0
     end
@@ -56,7 +56,7 @@ AddRemoteEvent("TransportMenuSGetListe", function(player) -- Récupération de l
     local x,y = GetPlayerLocation(player)
     for k,v in pairs(bus_stops.location) do
         local distance = math.floor(tonumber(GetDistance2D(x, y, v.x, v.y)) / 100)
-        transportMenuListe[k] = { label= v.labelArret, distance= distance, prix= CalculerPrix(distance)}
+        transportMenuListe[k] = { label= v.labelArret, distance= distance, amount= CalculateAmount(distance)}
         if distance <= 4 then
             transportMenuListe[k].label = transportMenuListe[k].label.." ".._("transport_you_are_there")
         end
@@ -68,14 +68,14 @@ AddRemoteEvent("TransportMenuSTeleportPlayer", function(player, arret) -- Télé
     for k,v in pairs(bus_stops.location) do
         if k == tonumber(arret) then
             local x,y = GetPlayerLocation(player)
-            local prix = CalculerPrix(math.floor(tonumber(GetDistance2D(x, y, v.x, v.y)) / 100))
+            local amount = CalculateAmount(math.floor(tonumber(GetDistance2D(x, y, v.x, v.y)) / 100))
 
-            if PlayerData[player].cash >= prix then                
+            if GetPlayerCash(player) >= amount then                
                 CallRemoteEvent(player, "TransportMenuCPresentToastSuccess")
                 
                 Delay(10000, function() -- Timer de 10s pour plus de RP
                     SetPlayerLocation(player, v.x, v.y, v.z + 200) -- pour éviter la chute sous le sol (marche pas tout le temps :( )
-                    PlayerData[player].cash = PlayerData[player].cash - prix
+                    RemovePlayerCash(player, amount)
                 end)                
             else
                 CallRemoteEvent(player, "TransportMenuCPresentNotEnoughMoney")

@@ -33,10 +33,10 @@ end)
 AddRemoteEvent("BuyLicense", function (player, license)
     local price = Licenses[license]
 
-    if PlayerData[player].cash < price then
+    if GetPlayerCash(player) < price then
         CallRemoteEvent(player, "MakeNotification", _("not_enought_cash"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     else
-        PlayerData[player].cash = PlayerData[player].cash - price
+        RemovePlayerCash(player, price)
         PlayerData[player][license] = 1
         CallRemoteEvent(player, "MakeNotification", _("shop_success_buy", _("license").._(license), _("price_in_currency", price)), "linear-gradient(to right, #00b09b, #96c93d)")
     end
