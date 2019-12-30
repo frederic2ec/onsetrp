@@ -63,12 +63,6 @@ end)
 AddRemoteEvent("shopInteract", function(player, shopNpc)
     local shop = GetShopByObject(shopNpc)
 
-    if v.type == "weapons" and PlayerData[player].gun_license == 0 then
-        CallRemoteEvent(player, "MakeNotification", _("no_gun_license"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-    else
-        CallRemoteEvent(player, "openShop", PlayerData[player].inventory, v.items, v.npc[npcid])
-    end
-
     if shop then
 		local x, y, z = GetNPCLocation(shop.npc)
 		local x2, y2, z2 = GetPlayerLocation(player)
@@ -114,10 +108,10 @@ end
 AddRemoteEvent("ShopBuy", function(player, shopid, item, amount)
     local itemPrice = item.price * amount
 
-    if PlayerData[player].cash < itemPrice then
+    if GetPlayerCash(player) < itemPrice then
         CallRemoteEvent(player, "MakeNotification", _("not_enought_cash"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     else
-        PlayerData[player].cash = PlayerData[player].cash - itemPrice
+        RemovePlayerCash(player, itemPrice)
         CallRemoteEvent(player, "MakeNotification", _("shop_success_buy", tostring(amount), _(item.name), itemPrice, _("currency")), "linear-gradient(to right, #00b09b, #96c93d)")
         AddInventory(player, item.name, amount)
     end
@@ -134,7 +128,7 @@ AddRemoteEvent("ShopSell", function(player, shopid, item, amount)
     if tonumber(PlayerData[player].inventory[itemName]) < tonumber(amount) then
         CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     else
-        PlayerData[player].cash = PlayerData[player].cash + math.ceil(itemPrice)
+        AddPlayerCash(player, math.ceil(itemPrice))
         CallRemoteEvent(player, "MakeNotification", _("shop_success_sell", tostring(amount), _(itemName), itemPrice, _("currency")), "linear-gradient(to right, #00b09b, #96c93d)")
         RemoveInventory(player, itemName, amount)
     end

@@ -127,7 +127,6 @@ function OnAccountLoaded(player)
 	else
 		local result = mariadb_get_assoc(1)
 		PlayerData[player].admin = math.tointeger(result['admin'])
-		PlayerData[player].cash = math.tointeger(result['cash'])
 		PlayerData[player].bank_balance = math.tointeger(result['bank_balance'])
 		PlayerData[player].name = tostring(result['name'])
 		PlayerData[player].clothing = json_decode(result['clothing'])
@@ -225,10 +224,10 @@ function CreatePlayerData(player)
 	PlayerData[player].clothing = {}
 	PlayerData[player].clothing_police = {}
 	PlayerData[player].police = 0
+	PlayerData[player].inventory = { cash = 100 }
 	PlayerData[player].driver_license = 0
 	PlayerData[player].gun_license = 0
 	PlayerData[player].helicopter_license = 0
-	PlayerData[player].inventory = {}
 	PlayerData[player].logged_in = false
 	PlayerData[player].admin = 0
 	PlayerData[player].created = 0
@@ -237,8 +236,7 @@ function CreatePlayerData(player)
 	PlayerData[player].steamname = ""
 	PlayerData[player].thirst = 100
 	PlayerData[player].hunger = 100
-	PlayerData[player].cash = 0
-	PlayerData[player].bank_balance = 1000
+	PlayerData[player].bank_balance = 900
 	PlayerData[player].job_vehicle = nil
 	PlayerData[player].job = ""
 	PlayerData[player].onAction = false
@@ -278,9 +276,8 @@ function SavePlayerAccount(player)
 	local x, y, z = GetPlayerLocation(player)
 	PlayerData[player].position = {x= x, y= y, z= z}
 
-	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, cash = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', clothing_police = '?', inventory = '?', created = '?', position = '?', driver_license = ?, gun_license = ?, helicopter_license = ? WHERE id = ? LIMIT 1;",
+	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', clothing_police = '?', inventory = '?', created = '?', position = '?', driver_license = ?, gun_license = ?, helicopter_license = ? WHERE id = ? LIMIT 1;",
 		PlayerData[player].admin,
-		PlayerData[player].cash,
 		PlayerData[player].bank_balance,
 		GetPlayerHealth(player),
         GetPlayerArmor(player),

@@ -935,11 +935,11 @@ houses = {
         spawn = { -24115, -5507, 2343, 0},
         text = { -23994, -5466, 2345 },
         doors = {
-            { 
+            {
                 entity = -1,
                 model = 50,
-                x = -24040.953125, 
-                y = -5436.2216796875, 
+                x = -24040.953125,
+                y = -5436.2216796875,
                 z = 2245.0,
                 r = 20
             }
@@ -954,11 +954,11 @@ houses = {
         spawn = { -23819, -6269, 2343, 0},
         text = { -23717, -6229, 2345 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -23760.482421875, 
-                y = -6206.7641601563, 
+            {
+                entity = -1,
+                model = 50,
+                x = -23760.482421875,
+                y = -6206.7641601563,
                 z = 2245.0,
                 r = 20
             }
@@ -973,11 +973,11 @@ houses = {
         spawn = { -23755, -5407, 2343, 0},
         text = { -23652, -6407, 2345 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -23698.90234375, 
-                y = -6375.904296875, 
+            {
+                entity = -1,
+                model = 50,
+                x = -23698.90234375,
+                y = -6375.904296875,
                 z = 2245.0,
                 r = 20
             }
@@ -992,11 +992,11 @@ houses = {
         spawn = { -23488, -7210, 2343, 0},
         text = { -23374, -7169, 2345 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -23418.43359375, 
-                y = -7146.447265625, 
+            {
+                entity = -1,
+                model = 50,
+                x = -23418.43359375,
+                y = -7146.447265625,
                 z = 2245.0,
                 r = 20
             }
@@ -1011,11 +1011,11 @@ houses = {
         spawn = { -23424, -7380, 2343, 0},
         text = { -23311, -7344, 2345 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -23356.876953125, 
-                y = -7315.5932617188, 
+            {
+                entity = -1,
+                model = 50,
+                x = -23356.876953125,
+                y = -7315.5932617188,
                 z = 2245.0,
                 r = 20
             }
@@ -1030,11 +1030,11 @@ houses = {
         spawn = { -23174, -8155, 2343, 0},
         text = { -23029, -8118, 2345 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -23076.404296875, 
-                y = -8086.1352539063, 
+            {
+                entity = -1,
+                model = 50,
+                x = -23076.404296875,
+                y = -8086.1352539063,
                 z = 2245.0,
                 r = 20
             }
@@ -1049,7 +1049,7 @@ houses = {
         spawn = { -23121, -8332, 2343, 0},
         text = { -22968, -8285, 2345 },
         doors = {
-            { 
+            {
                 entity = -1,
                 model = 50,
                 x = -23014.845703125,
@@ -1068,11 +1068,11 @@ houses = {
         spawn = { -22801, -9090, 2343, 0},
         text = { -22687, -9058, 2345 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -22734.3671875, 
-                y = -9025.8203125, 
+            {
+                entity = -1,
+                model = 50,
+                x = -22734.3671875,
+                y = -9025.8203125,
                 z = 2245.0,
                 r = 20
             }
@@ -1087,11 +1087,11 @@ houses = {
         spawn = { -22801, -9090, 2343, 0},
         text = { -22687, -9058, 2345 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -22734.3671875, 
-                y = -9025.8203125, 
+            {
+                entity = -1,
+                model = 50,
+                x = -22734.3671875,
+                y = -9025.8203125,
                 z = 2245.0,
                 r = 20
             }
@@ -1106,11 +1106,11 @@ houses = {
         spawn = { -24115, -5507, 2073, 0},
         text = { -23994, -5466, 2075 },
         doors = {
-            { 
+            {
                 entity = -1,
                 model = 50,
-                x = -24040.953125, 
-                y = -5436.2216796875, 
+                x = -24040.953125,
+                y = -5436.2216796875,
                 z = 1975.0,
                 r = 20
             }
@@ -1125,11 +1125,11 @@ houses = {
         spawn = { -23819, -6269, 2073, 0},
         text = { -23717, -6229, 2075 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -23760.482421875, 
-                y = -6206.7641601563, 
+            {
+                entity = -1,
+                model = 50,
+                x = -23760.482421875,
+                y = -6206.7641601563,
                 z = 1975.0,
                 r = 20
             }
@@ -1144,11 +1144,11 @@ houses = {
         spawn = { -23755, -5407, 2073, 0},
         text = { -23652, -6407, 2075 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -23698.90234375, 
-                y = -6375.904296875, 
+            {
+                entity = -1,
+                model = 50,
+                x = -23698.90234375,
+                y = -6375.904296875,
                 z = 1975.0,
                 r = 20
             }
@@ -1163,11 +1163,11 @@ houses = {
         spawn = { -23488, -7210, 2073, 0},
         text = { -23374, -7169, 2075 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -23418.43359375, 
-                y = -7146.447265625, 
+            {
+                entity = -1,
+                model = 50,
+                x = -23418.43359375,
+                y = -7146.447265625,
                 z = 1975.0,
                 r = 20
             }
@@ -1182,11 +1182,11 @@ houses = {
         spawn = { -23424, -7380, 2073, 0},
         text = { -23311, -7344, 2075 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -23356.876953125, 
-                y = -7315.5932617188, 
+            {
+                entity = -1,
+                model = 50,
+                x = -23356.876953125,
+                y = -7315.5932617188,
                 z = 1975.0,
                 r = 20
             }
@@ -1201,11 +1201,11 @@ houses = {
         spawn = { -23174, -8155, 2073, 0},
         text = { -23029, -8118, 2075 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -23076.404296875, 
-                y = -8086.1352539063, 
+            {
+                entity = -1,
+                model = 50,
+                x = -23076.404296875,
+                y = -8086.1352539063,
                 z = 1975.0,
                 r = 20
             }
@@ -1220,7 +1220,7 @@ houses = {
         spawn = { -23121, -8332, 2073, 0},
         text = { -22968, -8285, 2075 },
         doors = {
-            { 
+            {
                 entity = -1,
                 model = 50,
                 x = -23014.845703125,
@@ -1239,11 +1239,11 @@ houses = {
         spawn = { -22801, -9090, 2073, 0},
         text = { -22687, -9058, 2075 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -22734.3671875, 
-                y = -9025.8203125, 
+            {
+                entity = -1,
+                model = 50,
+                x = -22734.3671875,
+                y = -9025.8203125,
                 z = 1975.0,
                 r = 20
             }
@@ -1258,11 +1258,11 @@ houses = {
         spawn = { -22801, -9090, 2073, 0},
         text = { -22687, -9058, 2075 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -22734.3671875, 
-                y = -9025.8203125, 
+            {
+                entity = -1,
+                model = 50,
+                x = -22734.3671875,
+                y = -9025.8203125,
                 z = 1975.0,
                 r = 20
             }
@@ -1278,10 +1278,10 @@ houses = {
         text = { -25357, -5952, 2345 },
         doors = {
             {
-                 entity = -1, 
-                 model = 50, 
-                 x = -25311.31640625, 
-                 y = -5982.5869140625, 
+                 entity = -1,
+                 model = 50,
+                 x = -25311.31640625,
+                 y = -5982.5869140625,
                  z = 2245.0,
                  r = 200
             }
@@ -1296,11 +1296,11 @@ houses = {
         spawn = { -24987, -6691, 2343, 0},
         text = { -25076, -6723, 2345 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
+            {
+                entity = -1,
+                model = 50,
                 x = -25030.845703125,
-                y = -6753.1303710938, 
+                y = -6753.1303710938,
                 z = 2245.0,
                 r = 200
             }
@@ -1315,12 +1315,12 @@ houses = {
         spawn = { -24888, -6845, 2343, 0},
         text = { -25012, -6899, 2345 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -24969.28125, 
-                y = -6922.2744140625, 
-                z = 2245.0, 
+            {
+                entity = -1,
+                model = 50,
+                x = -24969.28125,
+                y = -6922.2744140625,
+                z = 2245.0,
                 r = 200
             }
         }
@@ -1334,12 +1334,12 @@ houses = {
         spawn = { -24629, -7623, 2343, 0},
         text = { -24735, -7659, 2345 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -24688.818359375, 
-                y = -7692.8208007813, 
-                z = 2245.0, 
+            {
+                entity = -1,
+                model = 50,
+                x = -24688.818359375,
+                y = -7692.8208007813,
+                z = 2245.0,
                 r = 200
             }
         }
@@ -1353,12 +1353,12 @@ houses = {
         spawn = { -24552, -7810, 2343, 0},
         text = { -24677, -7837, 2345 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -24627.255859, 
-                y = -7861.965820, 
-                z = 2245.0, 
+            {
+                entity = -1,
+                model = 50,
+                x = -24627.255859,
+                y = -7861.965820,
+                z = 2245.0,
                 r = 200
             }
         }
@@ -1372,12 +1372,12 @@ houses = {
         spawn = { -24291, -8577, 2343, 0},
         text = { -24393, -8601, 2345 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -24346.783203125, 
-                y = -8632.505859375, 
-                z = 2245.0, 
+            {
+                entity = -1,
+                model = 50,
+                x = -24346.783203125,
+                y = -8632.505859375,
+                z = 2245.0,
                 r = 200
             }
         }
@@ -1391,13 +1391,13 @@ houses = {
         spawn = { -24218, -8735, 2343, 0},
         text = { -24330, -8774, 2345 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -24285.216796875, 
-                y = -8801.6494140625, 
-                z = 2245.0, 
-                r = 200 
+            {
+                entity = -1,
+                model = 50,
+                x = -24285.216796875,
+                y = -8801.6494140625,
+                z = 2245.0,
+                r = 200
             }
         }
     },
@@ -1410,12 +1410,12 @@ houses = {
         spawn = { -23970, -9512, 2343, 0},
         text = { -24051, -9540, 2345 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -24004.7578125, 
-                y = -9572.19140625, 
-                z = 2245.0, 
+            {
+                entity = -1,
+                model = 50,
+                x = -24004.7578125,
+                y = -9572.19140625,
+                z = 2245.0,
                 r = 200
             }
         }
@@ -1430,10 +1430,10 @@ houses = {
         text = { -25357, -5952, 2045 },
         doors = {
             {
-                 entity = -1, 
-                 model = 50, 
-                 x = -25311.31640625, 
-                 y = -5982.5869140625, 
+                 entity = -1,
+                 model = 50,
+                 x = -25311.31640625,
+                 y = -5982.5869140625,
                  z = 1975.0,
                  r = 200
             }
@@ -1448,11 +1448,11 @@ houses = {
         spawn = { -24987, -6691, 2043, 0},
         text = { -25076, -6723, 2045 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
+            {
+                entity = -1,
+                model = 50,
                 x = -25030.845703125,
-                y = -6753.1303710938, 
+                y = -6753.1303710938,
                 z = 1975.0,
                 r = 200
             }
@@ -1467,12 +1467,12 @@ houses = {
         spawn = { -24888, -6845, 2043, 0},
         text = { -25012, -6899, 2045 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -24969.28125, 
-                y = -6922.2744140625, 
-                z = 1975.0, 
+            {
+                entity = -1,
+                model = 50,
+                x = -24969.28125,
+                y = -6922.2744140625,
+                z = 1975.0,
                 r = 200
             }
         }
@@ -1486,12 +1486,12 @@ houses = {
         spawn = { -24629, -7623, 2043, 0},
         text = { -24735, -7659, 2045 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -24688.818359375, 
-                y = -7692.8208007813, 
-                z = 1975.0, 
+            {
+                entity = -1,
+                model = 50,
+                x = -24688.818359375,
+                y = -7692.8208007813,
+                z = 1975.0,
                 r = 200
             }
         }
@@ -1505,12 +1505,12 @@ houses = {
         spawn = { -24552, -7810, 2043, 0},
         text = { -24677, -7837, 2045 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -24627.255859, 
-                y = -7861.965820, 
-                z = 1975.0, 
+            {
+                entity = -1,
+                model = 50,
+                x = -24627.255859,
+                y = -7861.965820,
+                z = 1975.0,
                 r = 200
             }
         }
@@ -1524,12 +1524,12 @@ houses = {
         spawn = { -24291, -8577, 2043, 0},
         text = { -24393, -8601, 2045 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -24346.783203125, 
-                y = -8632.505859375, 
-                z = 1975.0, 
+            {
+                entity = -1,
+                model = 50,
+                x = -24346.783203125,
+                y = -8632.505859375,
+                z = 1975.0,
                 r = 200
             }
         }
@@ -1543,13 +1543,13 @@ houses = {
         spawn = { -24218, -8735, 2043, 0},
         text = { -24330, -8774, 2045 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -24285.216796875, 
-                y = -8801.6494140625, 
-                z = 1975.0, 
-                r = 200 
+            {
+                entity = -1,
+                model = 50,
+                x = -24285.216796875,
+                y = -8801.6494140625,
+                z = 1975.0,
+                r = 200
             }
         }
     },
@@ -1562,12 +1562,12 @@ houses = {
         spawn = { -23970, -9512, 2043, 0},
         text = { -24051, -9540, 2045 },
         doors = {
-            { 
-                entity = -1, 
-                model = 50, 
-                x = -24004.7578125, 
-                y = -9572.19140625, 
-                z = 1975.0, 
+            {
+                entity = -1,
+                model = 50,
+                x = -24004.7578125,
+                y = -9572.19140625,
+                z = 1975.0,
                 r = 200
             }
         }
@@ -1581,36 +1581,36 @@ houses = {
         spawn = { 216331, 166735, 1389, 0},
         text = { 216335, 166735, 1397 },
         doors = {
-            { 
-                entity = -1, 
-                model = 23, 
-                x = 216289.0, 
-                y = 166768.0, 
-                z = 1297.0, 
+            {
+                entity = -1,
+                model = 23,
+                x = 216289.0,
+                y = 166768.0,
+                z = 1297.0,
                 r = 90
             },
-            { 
-                entity = -1, 
-                model = 24, 
-                x = 216138.0, 
-                y = 167899.0, 
-                z = 1297.0, 
-                r = -90
-            },
-            { 
+            {
                 entity = -1,
-                model = 21, 
-                x = 216178.0, 
-                y = 168302.0, 
+                model = 24,
+                x = 216138.0,
+                y = 167899.0,
                 z = 1297.0,
                 r = -90
             },
-            { 
-                entity = -1, 
-                model = 41, 
-                x = 214824.0, 
+            {
+                entity = -1,
+                model = 21,
+                x = 216178.0,
+                y = 168302.0,
+                z = 1297.0,
+                r = -90
+            },
+            {
+                entity = -1,
+                model = 41,
+                x = 214824.0,
                 y = 166962.0,
-                z = 1215.0, 
+                z = 1215.0,
                 r = 0
             }
         }
@@ -1624,36 +1624,36 @@ houses = {
         spawn = { 212924, 167134, 1399, 0},
         text = { 212782, 166947, 1400 },
         doors = {
-            { 
-                entity = -1, 
-                model = 23, 
-                x = 212728.0, 
-                y = 166980.0, 
-                z = 1300.0, 
+            {
+                entity = -1,
+                model = 23,
+                x = 212728.0,
+                y = 166980.0,
+                z = 1300.0,
                 r = 90
             },
-            { 
-                entity = -1, 
-                model = 24, 
-                x = 212683.0, 
-                y = 167192.0, 
-                z = 1301.0, 
+            {
+                entity = -1,
+                model = 24,
+                x = 212683.0,
+                y = 167192.0,
+                z = 1301.0,
                 r = 0
             },
-            { 
-                entity = -1, 
-                model = 22, 
-                x = 213177.0, 
-                y = 167813.0, 
-                z = 1301.0, 
+            {
+                entity = -1,
+                model = 22,
+                x = 213177.0,
+                y = 167813.0,
+                z = 1301.0,
                 r = -90
             },
-            { 
-                entity = -1, 
-                model = 41, 
-                x = 211319.0, 
-                y = 166962.0, 
-                z = 1215.0, 
+            {
+                entity = -1,
+                model = 41,
+                x = 211319.0,
+                y = 166962.0,
+                z = 1215.0,
                 r = 0
             }
         }
@@ -1667,28 +1667,28 @@ houses = {
         spawn = { 215599, 171999, 1392, 0},
         text = { 215594, 172208, 1395 },
         doors = {
-            { 
-                entity = -1, 
-                model = 23, 
-                x = 215638.0, 
-                y = 172176.0, 
-                z = 1295.0, 
+            {
+                entity = -1,
+                model = 23,
+                x = 215638.0,
+                y = 172176.0,
+                z = 1295.0,
                 r = -90
             },
-            { 
-                entity = -1, 
-                model = 24, 
-                x = 214773.0, 
-                y = 171476.0, 
-                z = 1295.0, 
+            {
+                entity = -1,
+                model = 24,
+                x = 214773.0,
+                y = 171476.0,
+                z = 1295.0,
                 r = -90
             },
-            { 
-                entity = -1, 
-                model = 41, 
-                x = 217059.0, 
-                y = 171935.0, 
-                z = 1215.0, 
+            {
+                entity = -1,
+                model = 41,
+                x = 217059.0,
+                y = 171935.0,
+                z = 1215.0,
                 r = 180
             }
         }
@@ -1702,37 +1702,37 @@ houses = {
         spawn = { 211890, 171806, 1401, 0},
         text = { 212052, 171976, 1402 },
         doors = {
-            { 
-                entity = -1, 
-                model = 23, 
-                x = 212094.0, 
-                y = 171944.0, 
-                z = 1302.0, 
+            {
+                entity = -1,
+                model = 23,
+                x = 212094.0,
+                y = 171944.0,
+                z = 1302.0,
                 r = -90
             },
-            { 
-                entity = -1, 
-                model = 24, 
-                x = 212141.0, 
-                y = 171732.0, 
-                z = 1303.0, 
+            {
+                entity = -1,
+                model = 24,
+                x = 212141.0,
+                y = 171732.0,
+                z = 1303.0,
                 r = 180
             },
-            { 
-                entity = -1, 
-                model = 22, 
-                x = 211646.0, 
-                y = 171114.0, 
-                z = 1303.0, 
+            {
+                entity = -1,
+                model = 22,
+                x = 211646.0,
+                y = 171114.0,
+                z = 1303.0,
                 r = 90
             },
-            { 
-                entity = -1, 
-                model = 41, 
+            {
+                entity = -1,
+                model = 41,
                 x = 213558.0,
-                y = 171935.0, 
-                z = 1215.0, 
-                r = 180 
+                y = 171935.0,
+                z = 1215.0,
+                r = 180
             }
         }
     },
@@ -1745,18 +1745,18 @@ houses = {
         spawn = { 162822, 211600, 1403 },
         text = { 162822, 211679, 1402 },
         doors = {
-            { 
-                entity = -1, 
-                model = 23, 
-                x = 162870.0, 
-                y = 211647.0, 
+            {
+                entity = -1,
+                model = 23,
+                x = 162870.0,
+                y = 211647.0,
                 z = 1313.0,
                 r = -90
             },
-            { 
-                entity = -1, 
-                model = 24, 
-                x = 163233.0, 
+            {
+                entity = -1,
+                model = 24,
+                x = 163233.0,
                 y = 211441.0,
                 z = 1313.0,
                 r = 180
@@ -1766,15 +1766,15 @@ houses = {
 }
 
 function OnPackageStart()
-    -- Save all player data automatically 
+    -- Save all player data automatically
     CreateTimer(function()
 		for k,v in pairs(houses) do
             SaveHouseData(k)
-            
+
         end
         print("All houses have been saved !")
     end, 30000)
-    
+
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
@@ -1812,7 +1812,7 @@ AddEvent("database:connected", function()
         for i=1,mariadb_get_row_count() do
             local result = mariadb_get_assoc(i)
             local id = getHouseID(tonumber(result['id']))
-            
+
 
             houses[id].owner = tonumber(result['ownerid'])
             houses[id].spawnable = tonumber(result['spawn'])
@@ -1832,10 +1832,10 @@ AddEvent("database:connected", function()
             end
         end
     end)
-    
+
 end)
 
-AddRemoteEvent("interactHouse", function(player, door) 
+AddRemoteEvent("interactHouse", function(player, door)
     local house = getHouseDoor(door)
 
     if houses == 0 then
@@ -1872,21 +1872,21 @@ AddEvent("OnPlayerInteractDoor", function( player, door, bWantsOpen )
 end)
 
 AddRemoteEvent("BuyHouse", function(player, house)
-    if PlayerData[player].cash < houses[house].price then
+    if GetPlayerCash(player) < houses[house].price then
         return CallRemoteEvent(player, "MakeNotification", _("not_enought_cash"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     end
 
     if getHouseOwner(player) ~= 0 then
         CallRemoteEvent(player, "MakeNotification", _("already_house_owner"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     else
-        PlayerData[player].cash = PlayerData[player].cash - houses[house].price
+        RemovePlayerCash(houses[house].price)
         houses[house].owner = tonumber(PlayerData[player].accountid)
         DestroyText3D(houses[house].txtentities[2])
-        houses[house].txtentities[2] = CreateText3D( _("owner").." "..GetPlayerName(player), 10, houses[house].text[1] , houses[house].text[2], houses[house].text[3], 0, 0, 0 )        
+        houses[house].txtentities[2] = CreateText3D( _("owner").." "..GetPlayerName(player), 10, houses[house].text[1] , houses[house].text[2], houses[house].text[3], 0, 0, 0 )
     end
 end)
 
-AddRemoteEvent("UnlockHouse", function(player, house) 
+AddRemoteEvent("UnlockHouse", function(player, house)
     if houses[house].owner == tonumber(PlayerData[player].accountid) then
         if houses[house].lock then
             houses[house].lock = false
@@ -1898,14 +1898,14 @@ AddRemoteEvent("UnlockHouse", function(player, house)
     end
 end)
 
-AddRemoteEvent("SellHouse", function(player, house) 
+AddRemoteEvent("SellHouse", function(player, house)
     if houses[house].owner == tonumber(PlayerData[player].accountid) then
         price = math.ceil(houses[house].price * 0.25)
-        PlayerData[player].cash = PlayerData[player].cash + price
+        AddPlayerCash(player, price)
         houses[house].owner = 0
         CallRemoteEvent(player, "MakeNotification", _("house_sell", price, _("currency")), "linear-gradient(to right, #00b09b, #96c93d)")
         DestroyText3D(houses[house].txtentities[2])
-        houses[house].txtentities[2] = CreateText3D( _("price").." "..houses[house].price.._("currency"), 10, houses[house].text[1] , houses[house].text[2], houses[house].text[3], 0, 0, 0 )        
+        houses[house].txtentities[2] = CreateText3D( _("price").." "..houses[house].price.._("currency"), 10, houses[house].text[1] , houses[house].text[2], houses[house].text[3], 0, 0, 0 )
     end
 end)
 
@@ -1921,13 +1921,13 @@ AddRemoteEvent("SetHouseSpawn", function(player, house)
     end
 end)
 
-function SaveHouseData(house) 
+function SaveHouseData(house)
     local query = mariadb_prepare(sql, "UPDATE player_house SET ownerid = '?', spawn = '?' WHERE id = '?' LIMIT 1;",
     houses[house].owner,
     houses[house].spawnable,
     houses[house].id
     )
-    
+
 mariadb_query(sql, query)
 end
 

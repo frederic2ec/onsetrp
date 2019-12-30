@@ -15,8 +15,12 @@ AddRemoteEvent("OpenPersonalMenu", function(cash, bank, inventory, playerList)
     Dialog.setVariable(personalMenu, "cash", cash)
     Dialog.setVariable(personalMenu, "bank", bank)
     local items = {}
-	for k,v in pairs(inventory) do
-		items[k] = _(k).."["..v.."]"
+    for k,v in pairs(inventory) do
+        if k == "cash" then
+		    items[k] = v.._("currency")
+        else
+		    items[k] = v.." x ".._(k)
+        end
     end
     Dialog.setSelectLabeledOptions(personalMenu, 1, 1, items)
     Dialog.setSelectLabeledOptions(personalMenu, 1, 3, playerList)

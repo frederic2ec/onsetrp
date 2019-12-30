@@ -29,14 +29,13 @@ CREATE TABLE `accounts` (
   `clothing` text NOT NULL,
   `clothing_police` text NOT NULL,
   `police` tinyint(1) NOT NULL DEFAULT 0,
-  `inventory` text NOT NULL,
+  `inventory` text NOT NULL DEFAULT '{"cash":100}',
   `admin` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
   `health` float NOT NULL DEFAULT 100,
   `armor` float NOT NULL DEFAULT 0,
   `thirst` float NOT NULL DEFAULT 100,
   `hunger` float NOT NULL DEFAULT 100,
-  `cash` int(11) DEFAULT 1000,
-  `bank_balance` int(11) NOT NULL DEFAULT 0,
+  `bank_balance` int(11) NOT NULL DEFAULT 900,
   `created` tinyint(1) NOT NULL DEFAULT 0,
   `phone_number` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

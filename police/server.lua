@@ -1,19 +1,19 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 local policeNpc = {
-            {
-                location = { 169277, 193489, 1307, 180 },
+	{
+		location = { 169277, 193489, 1307, 180 },
 		npc = {}
-            },
-	    {
+	},
+	{
 		location = { 170068, 191498, 1308, 180 },
-                spawn = { 168382, 190227, 1307, 35}, 
+		spawn = { 168382, 190227, 1307, 35}, 
 		npc = {}
-	    },
-	    {
+	},
+	{
 		location = { 170057, 191880, 1308, 180 },
 		npc = {}
-	    }
+	}
 }
 
 local policeNpcCached = {}
@@ -63,7 +63,7 @@ AddRemoteEvent("StartStopPolice", function(player)
 	GetUniformServer(player)
 	CallRemoteEvent(player, "MakeNotification", _("join_police"), "linear-gradient(to right, #00b09b, #96c93d)")
 	return
-    end 
+    end
     elseif PlayerData[player].job == "police" then
         if PlayerData[player].job_vehicle ~= nil then
             DestroyVehicle(PlayerData[player].job_vehicle)
@@ -111,7 +111,7 @@ end)
 
 function GetNearestPolice(player)
 	local x, y, z = GetPlayerLocation(player)
-	
+
 	for k,v in pairs(GetAllNPC()) do
         local x2, y2, z2 = GetNPCLocation(v)
 		local dist = GetDistance3D(x, y, z, x2, y2, z2)
@@ -135,7 +135,7 @@ function GetUniformServer(player)
     CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing_police[5], 5)
 
     SetPlayerWeapon(player, 4, 200, false, 1, true)
-    
+
     for k,v in pairs(GetStreamedPlayersForPlayer(player)) do
 	ChangeUniformOtherPlayerServer(k, player)
     end
@@ -167,7 +167,7 @@ function RemoveUniformServer(player)
     CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing[4], 4)
     CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing[5], 5)
     SetPlayerWeapon(player, 1, 0, true, 1)
-    
+
     for k,v in pairs(GetStreamedPlayersForPlayer(player)) do
 	RemoveUniformOtherPlayerServer(k, player)
     end
@@ -380,18 +380,17 @@ end)
 AddRemoteEvent("PayFine", function(player)
     local fine = tonumber(GetPlayerPropertyValue(player, "fine"))
     local fineGiver = GetPlayerPropertyValue(player, "fine_giver")
-    if(PlayerData[player].cash >= fine) then
-	PlayerData[player].cash = PlayerData[player].cash - fine
+    if(GetPlayerCash(player) >= fine) then
+	RemovePlayerCash(player, fine)
     elseif(PlayerData[player].bank_balance >= fine) then
-	PlayerData[player].bank_balance = PlayerData[player].bank_balance - fine
+	   PlayerData[player].bank_balance = PlayerData[player].bank_balance - fine
 
-    elseif((PlayerData[player].bank_balance + PlayerData[player].cash) > fine) then
-	local amount = PlayerData[player].cash
-	PlayerData[player].cash = 0
-	PlayerData[player].bank_balance = PlayerData[player].bank_balance - (fine - amount)
+    elseif((PlayerData[player].bank_balance + GetPlayerCash(player)) > fine) then
+    	PlayerData[player].bank_balance = PlayerData[player].bank_balance - (fine - GetPlayerCash(player))
+    	SetPlayerCash(player, 0)
     else
-	PlayerData[player].cash = 0
-	PlayerData[player].bank_balance = 0
+    	SetPlayerCash(player, 0)
+    	PlayerData[player].bank_balance = 0
     end
 
     SetPlayerPropertyValue(player, "fine", 0, true)
