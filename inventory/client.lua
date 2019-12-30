@@ -21,6 +21,7 @@ AddRemoteEvent("OpenPersonalMenu", function(cash, bank, inventory, playerList)
     Dialog.setSelectLabeledOptions(personalMenu, 1, 1, items)
     Dialog.setSelectLabeledOptions(personalMenu, 1, 3, playerList)
     Dialog.show(personalMenu)
+    personalMenuIsOpen = 1 -- Affiche le HUD santé faim soif
 end)
 
 AddEvent("OnDialogSubmit", function(dialog, button, ...)
@@ -51,7 +52,9 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
                     CallRemoteEvent("UseInventory", args[1], math.floor(args[2]))
 				end
 			end
-		end
+        end
+        
+        personalMenuIsOpen = 0 -- Cache le HUD santé faim soif
     end
 end)
 

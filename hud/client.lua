@@ -9,6 +9,9 @@ local VehicleFuelHud
 local VehicleHealthHud
 local SpeakingHud
 local minimap
+
+personalMenuIsOpen = 0
+
 function OnPackageStart()
     HungerFoodHud = CreateWebUI(0, 0, 0, 0, 0, 28)
     SetWebAlignment(HungerFoodHud, 1.0, 0.0)
@@ -53,14 +56,14 @@ function OnPackageStart()
     SetWebURL(minimap, "http://asset/onsetrp/hud/minimap/minimap.html")
     
 	ShowHealthHUD(false)
-    ShowWeaponHUD(true)
+    ShowWeaponHUD(false)
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
-function updateHud(hunger, thirst, cash, bank, healthlife, vehiclefuel)
-    ExecuteWebJS(HealthHud, "SetHealth("..healthlife..");")
-    ExecuteWebJS(ThirstHud, "SetThirst("..thirst..");")
-    ExecuteWebJS(HungerFoodHud, "SetHunger("..hunger..");")
+function updateHud(hunger, thirst, cash, bank, healthlife, vehiclefuel)    
+    ExecuteWebJS(HealthHud, "SetHealth("..healthlife..", "..personalMenuIsOpen..");")
+    ExecuteWebJS(ThirstHud, "SetThirst("..thirst..", "..personalMenuIsOpen..");")
+    ExecuteWebJS(HungerFoodHud, "SetHunger("..hunger..", "..personalMenuIsOpen..");")
 
     if GetPlayerVehicle() ~= 0 then
         vehiclespeed = math.floor(GetVehicleForwardSpeed(GetPlayerVehicle()))
@@ -100,7 +103,6 @@ function SetHUDMarker(name, h, r, g, b)
         ExecuteWebJS(minimap, "SetHUDMarker(\""..name.."\", "..h..", "..r..", "..g..", "..b..");");
     end
 end
-
 AddRemoteEvent("SetHUDMarker", SetHUDMarker)
 
 function hideRPHud()

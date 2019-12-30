@@ -1,96 +1,130 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Thirst</title>
 
     <script>
-			(function(obj)
-			{
-				ue.game = {};
-				ue.game.callevent = function(name, ...args)
-				{
-					if (typeof name != "string") {
-						return;
-					}
-		
-					if (args.length == 0) {
-						obj.callevent(name, "")
-					}
-					else {
-						let params = []
-						for (let i = 0; i < args.length; i++) {
-							params[i] = args[i];
-						}
-						obj.callevent(name, JSON.stringify(params));
-					}
-				};
-			})(ue.game);
-			CallEvent = ue.game.callevent;
+        (function (obj) {
+            ue.game = {};
+            ue.game.callevent = function (name, ...args) {
+                if (typeof name != "string") {
+                    return;
+                }
+
+                if (args.length == 0) {
+                    obj.callevent(name, "")
+                }
+                else {
+                    let params = []
+                    for (let i = 0; i < args.length; i++) {
+                        params[i] = args[i];
+                    }
+                    obj.callevent(name, JSON.stringify(params));
+                }
+            };
+        })(ue.game);
+        CallEvent = ue.game.callevent;
     </script>
-  <style>
- 
- 
+    <style>
+        .container {
+            position: fixed;
+            bottom: 2%;
+            right: 90px;
+            height: 50px;
+            width: 50px;
+        }
 
+        .container-thirst {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    
-   #thirst {
-    position: fixed;
-    bottom: 2%;
-    right : 90px;
-    height : 50px;
-    width: 50px;   
-    }
+        #thirst,
+        .container-thirst {
+            width: 100%;
+            height: 100%
+        }
 
-   
+        #thirst,
+        #pourcentage {
+            position: absolute;
+        }
 
+        #pourcentage {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow:
+                -1px -1px 0 #262626,
+                1px -1px 0 #262626,
+                -1px 1px 0 #262626,
+                1px 1px 0 #262626;
+        }
     </style>
 </head>
+
 <body>
-    
-    <img src="thirst.png" id="thirst">
-  
+    <div class="container">
+        <div class="container-thirst">
+            <img src="thirst.png" id="thirst">
+            <span id="pourcentage"></span>
+        </div>
+    </div>
+
     <script>
-    
 
-        function SetThirst(thirst)
-        {
 
-           let toModifyOpacity = document.getElementById('thirst');
+        function SetThirst(thirst, menuIsOpen = 0) {
 
-            if (thirst > 80 && thirst <= 100) {
-                toModifyOpacity.style.opacity = "0.0"; 
+            let thirstElt = document.getElementById('thirst');
+            let pourcentageElt = document.getElementById('pourcentage');
 
+            pourcentageElt.innerText = Math.round(thirst);
+            
+            // On définie la couleur du pourcentage
+            if (thirst > 40)
+                pourcentageElt.style.color = "#ececec";
+            if (thirst > 20 && thirst <= 40)
+                pourcentageElt.style.color = "#ffd000";
+            if (thirst > 10 && thirst <= 20)
+                pourcentageElt.style.color = "#ff7b00";
+            if (thirst >= 0 && thirst <= 10)
+                pourcentageElt.style.color = "#ff1100";
+
+            if (menuIsOpen == 1) { // Si le menu perso est ouvert, on affiche quoi qu'il arrive
+                thirstElt.style.opacity = "1";
+                pourcentageElt.style.opacity = "0.9";
+            } else { // Sinon, on applique la règle de base
+                if (thirst > 50 && thirst <= 100) {
+                    thirstElt.style.opacity = "0.0";
+                    pourcentageElt.style.opacity = "0.0";
                 }
-
-            if (thirst > 60 && thirst <= 80 ) {
-                toModifyOpacity.style.opacity = "0.2"; 
-
+                if (thirst > 40 && thirst <= 50) {
+                    thirstElt.style.opacity = "0.4";
+                    pourcentageElt.style.opacity = "0.9";
                 }
-           
-            if (thirst > 40 && thirst <= 60 ) {
-                toModifyOpacity.style.opacity = "0.4"; 
-
+                if (thirst > 20 && thirst <= 40) {
+                    thirstElt.style.opacity = "0.6";
+                    pourcentageElt.style.opacity = "0.9";
                 }
-
-            if (thirst > 20 && thirst <= 40 ) {
-                toModifyOpacity.style.opacity = "0.6"; 
-
+                if (thirst > 10 && thirst <= 20) {
+                    thirstElt.style.opacity = "0.8";
+                    pourcentageElt.style.opacity = "0.9";
                 }
-
-           if (thirst > 10 && thirst <= 20 ) {
-                 toModifyOpacity.style.opacity = "0.8"; 
-
-                } 
-
-           if (thirst >= 0 && thirst <= 10 ) {
-              toModifyOpacity.style.opacity = "1"; 
-
-                }    
+                if (thirst >= 0 && thirst <= 10) {
+                    thirstElt.style.opacity = "1";
+                    pourcentageElt.style.opacity = "0.9";
+                }
+            }
 
         }
 
-  
+
     </script>
 </body>
+
 </html>
