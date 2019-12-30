@@ -178,6 +178,26 @@ function RemoveInventory(player, item, amount)
     end
 end
 
+function GetPlayerCash(player)
+    if PlayerData[player].inventory['cash'] then
+        return math.tointeger(PlayerData[player].inventory['cash'])
+    else
+        return 0
+    end
+end
+
+function SetPlayerCash(player, amount)
+    PlayerData[player].inventory['cash'] = math.tointeger(amount)
+end
+
+function AddPlayerCash(player, amount)
+    AddInventory(player, 'cash', math.tointeger(amount))
+end
+
+function RemovePlayerCash(player, amount)
+    RemoveInventory(player, 'cash', math.tointeger(amount))
+end
+
 AddEvent("OnPackageStart", function()
     
 end)
