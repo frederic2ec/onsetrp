@@ -7,7 +7,9 @@ local teleportPlace = {
     diner = { 212405, 94489, 1340 },
     city = { 211526, 176056, 1250 },
     desert_town = { -16223, -8033, 2062 },
-    old_town = { 39350, 138061, 1570 }
+    old_town = { 39350, 138061, 1570 },
+    gun_dealer = { 206071, 193057, 1357 },
+    license_shop = { 183339, 182525, 1291 }
 }
 
 local weaponList = {
@@ -88,7 +90,7 @@ AddRemoteEvent("AdminTeleportToPlace", function(player, place)
 
     for k,v in pairs(teleportPlace) do
         if k == place then
-            SetPlayerLocation(player, v[1], v[2], v[3])
+            SetPlayerLocation(player, v[1], v[2], v[3] + 200)
         end
     end
 end)
@@ -96,13 +98,13 @@ end)
 AddRemoteEvent("AdminTeleportToPlayer", function(player, toPlayer)
     if tonumber(PlayerData[player].admin) ~= 1 then return end
     local x, y, z  = GetPlayerLocation(tonumber(toPlayer))
-    SetPlayerLocation(player, x, y, z)
+    SetPlayerLocation(player, x, y, z + 200)
 end)
 
 AddRemoteEvent("AdminTeleportPlayer", function(toPlayer, player)
     if tonumber(PlayerData[toPlayer].admin) ~= 1 then return end
     local x, y, z  = GetPlayerLocation(tonumber(toPlayer))
-    SetPlayerLocation(player, x, y, z)
+    SetPlayerLocation(player, x, y, z + 200)
 end)
 
 AddRemoteEvent("AdminGiveWeapon", function(player, weaponName)

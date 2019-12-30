@@ -1,19 +1,30 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 local policeNpc = {
-            {
-                location = { 169277, 193489, 1307, 180 },
-                spawn = { 169213, 191438, 1307, 90}
-            }
+	{
+		location = { 169277, 193489, 1307, 180 },
+		npc = {}
+	},
+	{
+		location = { 170068, 191498, 1308, 180 },
+		spawn = { 168382, 190227, 1307, 35}, 
+		npc = {}
+	},
+	{
+		location = { 170057, 191880, 1308, 180 },
+		npc = {}
+	}
 }
 
 local policeNpcCached = {}
 local playerPolice = {}
+local policeText3D = {"police_job", "police_garage", "police_armory"}
 
 AddEvent("OnPackageStart", function()
     for k,v in pairs(policeNpc) do
-        policeNpc[k].npc = CreateNPC(policeNpc[k].location[1], policeNpc[k].location[2], policeNpc[k].location[3], policeNpc[k].location[4])
-        CreateText3D(_("police_job").."\n".._("press_e"), 18, policeNpc[k].location[1], policeNpc[k].location[2], policeNpc[k].location[3] + 120, 0, 0, 0)
+        policeNpc[k].npc[1] = CreateNPC(policeNpc[k].location[1], policeNpc[k].location[2], policeNpc[k].location[3], policeNpc[k].location[4])
+	policeNpc[k].npc[2] = policeText3D[k]
+        CreateText3D(_(policeText3D[k]).."\n".._("press_e"), 18, policeNpc[k].location[1], policeNpc[k].location[2], policeNpc[k].location[3] + 120, 0, 0, 0)
         table.insert(policeNpcCached, policeNpc[k].npc)
     end
 end)
@@ -29,9 +40,9 @@ AddEvent("OnPlayerJoin", function(player)
 end)
 
 AddRemoteEvent("StartStopPolice", function(player)
-	if PlayerData[player].police == 0 then
-		return CallRemoteEvent(player, "MakeNotification", _("not_whitelisted"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-	end
+    if PlayerData[player].police == 0 then
+	return CallRemoteEvent(player, "MakeNotification", _("not_whitelisted"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+    end
     if PlayerData[player].job == "" then
         if PlayerData[player].job_vehicle ~= nil then
             DestroyVehicle(PlayerData[player].job_vehicle)
@@ -74,14 +85,25 @@ end)
 AddRemoteEvent("OpenPoliceFineMenu", function(player)
     if PlayerData[player].job == "police" then
 	local x, y, z = GetPlayerLocation(player)
-	local playersIds = GetAllPlayers()
+	local playersIds = GetStreamedPlayersForPlayer(player)
 	local playersNames = {}
 
 	for k,v in pairs(playersIds) do
-	    local _x, _y, _z = GetPlayerLocation(v)
-	    if(GetDistance3D(x, y, z, _x, _y, _z) < 500 and player ~= v and PlayerData[k].job ~= "police") then
-		playersNames[tostring(k)] = GetPlayerName(k)
+	    if PlayerData[k] == nil then
+		goto continue
 	    end
+	    if PlayerData[k].name == nil then
+		goto continue
+	    end
+	    if PlayerData[k].steamname == nil then
+		goto continue
+	    end
+	    
+	    local _x, _y, _z = GetPlayerLocation(k)
+	    if(GetDistance3D(x, y, z, _x, _y, _z) < 500 and player ~= k and PlayerData[k].job ~= "police") then
+		playersNames[tostring(k)] = PlayerData[k].name 
+	    end
+	    ::continue::
 	end
 	CallRemoteEvent(player, "OpenPoliceFineMenu", playersNames)
     end
@@ -96,8 +118,8 @@ function GetNearestPolice(player)
 
 		if dist < 250.0 then
 			for k,i in pairs(policeNpc) do
-				if v == i.npc then
-					return k
+				if v == i.npc[1] then
+					return k, i.npc[2]
 				end
 			end
 		end
@@ -162,8 +184,14 @@ function RemoveUniformOtherPlayerServer(player, otherplayer)
 end
 
 function GetPatrolCar(player)
-    local nearestPolice = GetNearestPolice(player)
-    if (nearestPolice ~= 0) then
+    if PlayerData[player].police == 0 then
+	return CallRemoteEvent(player, "MakeNotification", _("not_whitelisted"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+    end
+    if PlayerData[player].job ~= "police" then
+	return CallRemoteEvent(player, "MakeNotification", _("not_police"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+    end
+    local nearestPolice, purpose = GetNearestPolice(player)
+    if (nearestPolice ~= 0 and purpose == "police_garage") then
 	if(PlayerData[player].job_vehicle ~= nil) then
             DestroyVehicle(PlayerData[player].job_vehicle)
             DestroyVehicleData(PlayerData[player].job_vehicle)
@@ -193,17 +221,30 @@ function GetPatrolCar(player)
 end
 AddRemoteEvent("GetPatrolCar", GetPatrolCar)
 
+function GetEquipped(player)
+    if PlayerData[player].police == 0 then
+	return CallRemoteEvent(player, "MakeNotification", _("not_whitelisted"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+    end
+    if PlayerData[player].job ~= "police" then
+	return CallRemoteEvent(player, "MakeNotification", _("not_police"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+    end
+    SetPlayerWeapon(player, 4, 200, false, 1, true)
+end
+AddRemoteEvent("GetEquipped", GetEquipped)
+
 AddRemoteEvent("HandcuffPlayerSetup", function(player)
     if(PlayerData[player].job == "police") then
 	local info = GetNearestPlayer(player, 115)
 	if(info ~= nil) then
-	    SetPlayerAnimation(info[1], "STOP")
-	    if(GetPlayerPropertyValue(info[1], "cuffed") ~= true) then
-		HandcuffPlayer(player, info[1], _x, _y, _z)
-	    elseif(GetPlayerPropertyValue(info[1], "cuffed") == true) then
-		FreeHandcuffPlayer(info[1])
-	    else
-		HandcuffPlayer(player, info[1], _x, _y, _z)
+	    if(PlayerData[info[1]].job ~= "police") then
+		SetPlayerAnimation(info[1], "STOP")
+		if(GetPlayerPropertyValue(info[1], "cuffed") ~= true) then
+		    HandcuffPlayer(player, info[1], _x, _y, _z)
+		elseif(GetPlayerPropertyValue(info[1], "cuffed") == true) then
+		    FreeHandcuffPlayer(info[1])
+		else
+		    HandcuffPlayer(player, info[1], _x, _y, _z)
+		end
 	    end
 	else
 	    CallRemoteEvent(player, "MakeNotification", _("no_players_around"), "linear-gradient(to right, #ff5f6d, #ffc371)")
@@ -232,6 +273,7 @@ AddRemoteEvent("FreeHandcuffPlayer", FreeHandcuffPlayer)
 AddRemoteEvent("DisableMovementForCuffedPlayer", function(player)
     local pos = GetPlayerPropertyValue(player, "cuffed_pos")
     SetPlayerLocation(player, pos[1], pos[2], pos[3])
+    CallRemoteEvent(player, "MakeNotification", _("only_walk"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 end)
 
 AddRemoteEvent("UpdateCuffPosition", function(player, x, y, z)
@@ -247,7 +289,14 @@ AddRemoteEvent("PutPlayerInVehicle", function(player)
 		if(playerVehicle ~= nil) then
 		    local x, y, z = GetVehicleLocation(playerVehicle)
 		    if(GetDistance3D(x, y, z, info[2], info[3], info[4]) < 500) then
-			SetPlayerInVehicle(info[1], playerVehicle, 3)
+			if(GetVehiclePassenger(playerVehicle, 3) == 0) then
+			    SetPlayerInVehicle(info[1], playerVehicle, 3)
+			elseif(GetVehiclePassenger(playerVehicle, 4) == 0) then
+			    SetPlayerInVehicle(info[1], playerVehicle, 4)
+			else
+			    CallRemoteEvent(player, "MakeNotification", _("vehicle_full"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+			end
+
 		    else
 			CallRemoteEvent(player, "MakeNotification", _("no_vehicle_around"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 		    end
@@ -257,6 +306,10 @@ AddRemoteEvent("PutPlayerInVehicle", function(player)
 	    CallRemoteEvent(player, "MakeNotification", _("no_players_around"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 	end
     end
+end)
+
+AddRemoteEvent("PreventCuffedPlayerFromLeavingVehicle", function(player, vehicle, seat)
+	print("V:"..vehicle..", s:"..seat)
 end)
 
 AddRemoteEvent("RemovePlayerOfVehicle", function(player)
@@ -320,13 +373,15 @@ end
 AddRemoteEvent("GiveFineToPlayer", function(player, amount, toplayer, reason)
     if tonumber(amount) <= 0 then return end
     SetPlayerPropertyValue(toplayer, "fine", amount, true)
+    SetPlayerPropertyValue(toplayer, "fine_giver", player, true)
     CallRemoteEvent(toplayer, "PlayerReceiveFine", amount, reason)
 end)
 
 AddRemoteEvent("PayFine", function(player)
     local fine = tonumber(GetPlayerPropertyValue(player, "fine"))
+    local fineGiver = GetPlayerPropertyValue(player, "fine_giver")
     if(GetPlayerCash(player) >= fine) then
-      RemovePlayerCash(player, fine)
+	RemovePlayerCash(player, fine)
     elseif(PlayerData[player].bank_balance >= fine) then
 	   PlayerData[player].bank_balance = PlayerData[player].bank_balance - fine
 
@@ -340,4 +395,7 @@ AddRemoteEvent("PayFine", function(player)
 
     SetPlayerPropertyValue(player, "fine", 0, true)
     CallRemoteEvent(player, "MakeNotification", _("paid_fine"), "linear-gradient(to right, #00b09b, #96c93d)")
+    if(PlayerData[fineGiver] ~= nil) then
+	CallRemoteEvent(fineGiver, "MakeNotification", _("paid_fine_giver"), "linear-gradient(to right, #00b09b, #96c93d)")
+    end
 end)
