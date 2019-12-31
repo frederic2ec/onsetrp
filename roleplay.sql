@@ -30,6 +30,7 @@ CREATE TABLE `accounts` (
   `clothing_police` text NOT NULL,
   `police` tinyint(1) NOT NULL DEFAULT 0,
   `inventory` text NOT NULL,
+  `position` text NOT NULL,
   `admin` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
   `health` float NOT NULL DEFAULT 100,
   `armor` float NOT NULL DEFAULT 0,
@@ -319,6 +320,3 @@ ALTER TABLE `whitelist`
 ALTER TABLE `player_garage`
   ADD CONSTRAINT `player_garage_ibfk_1` FOREIGN KEY (`ownerid`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
-
-
-ALTER TABLE `accounts` ADD COLUMN `position` TEXT NOT NULL DEFAULT '{}'; -- POSITION MANAGER
