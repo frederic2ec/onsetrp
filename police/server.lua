@@ -135,6 +135,7 @@ function GetUniformServer(player)
     CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing_police[5], 5)
 
     SetPlayerWeapon(player, 4, 200, false, 1, true)
+    SetPlayerWeapon(player, 21, 50, false, 2, true)
 
     for k,v in pairs(GetStreamedPlayersForPlayer(player)) do
 	ChangeUniformOtherPlayerServer(k, player)
@@ -167,6 +168,7 @@ function RemoveUniformServer(player)
     CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing[4], 4)
     CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing[5], 5)
     SetPlayerWeapon(player, 1, 0, true, 1)
+    SetPlayerWeapon(player, 1, 0, true, 2)
 
     for k,v in pairs(GetStreamedPlayersForPlayer(player)) do
 	RemoveUniformOtherPlayerServer(k, player)
@@ -229,6 +231,7 @@ function GetEquipped(player)
 	return CallRemoteEvent(player, "MakeNotification", _("not_police"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     end
     SetPlayerWeapon(player, 4, 200, false, 1, true)
+    SetPlayerWeapon(player, 21, 50, false, 2, true)
 end
 AddRemoteEvent("GetEquipped", GetEquipped)
 
