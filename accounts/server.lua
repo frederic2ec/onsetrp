@@ -288,10 +288,10 @@ function SavePlayerAccount(player)
 		json_encode(PlayerData[player].clothing_police),
 		json_encode(PlayerData[player].inventory),
 		PlayerData[player].created,
+		json_encode(PlayerData[player].position),
 		PlayerData[player].driver_license,
 		PlayerData[player].gun_license,
 		PlayerData[player].helicopter_license,
-		json_encode(PlayerData[player].position),
 		PlayerData[player].accountid
 	)
         
