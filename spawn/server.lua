@@ -9,28 +9,40 @@ spawnLocation = {
 }
 
 AddRemoteEvent("ServerSpawnMenu", function(player)
-    local house = getHouseOwner(player)
-
-    local hasHouse = false
-    if house ~= 0 then
-        if houses[house].spawnable == 1 then
-            hasHouse = true
-        end
+    if(PlayerData[player].job == "medic") then
+	CallRemoteEvent(player, "UpdateMedicUniform", player)
     end
+    if(PlayerData[player].health_state == "revived") then
+	PlayerData[player].health_state = "alive"
+	SetPlayerHealth(player, 50)
+	SetPlayerSpawnLocation(player, 227603, -65590, 237, 0 )
+    elseif(PlayerData[player].health_state == "no_medic") then
+	PlayerData[player].health_state = "alive"
+	SetPlayerHealth(player, 100)
+    else
+	local house = getHouseOwner(player)
 
-    CallRemoteEvent(player, "OpenSpawnMenu", spawnLocation, hasHouse)
+	local hasHouse = false
+	if house ~= 0 then
+	    if houses[house].spawnable == 1 then
+		hasHouse = true
+	    end
+	end
+
+	CallRemoteEvent(player, "OpenSpawnMenu", spawnLocation, hasHouse)
+    end
 end)
 
 AddRemoteEvent("PlayerSpawn", function(player, spawn)
     if spawn == "house" then
-        local house = getHouseOwner(player)
+	local house = getHouseOwner(player)
 
-        if house ~= 0 then
-            if houses[house].spawnable == 1 then
-                SetPlayerLocation(player, houses[house].spawn[1], houses[house].spawn[2], houses[house].spawn[3] + 100)
-                SetPlayerHeading( player, houses[house].spawn[4] )
-            end
-        end
+	if house ~= 0 then
+	    if houses[house].spawnable == 1 then
+		SetPlayerLocation(player, houses[house].spawn[1], houses[house].spawn[2], houses[house].spawn[3] + 100)
+		SetPlayerHeading( player, houses[house].spawn[4] )
+	    end
+	end
     else
         spawnSelect = GetSpawnLocation(spawn)
         spawnx = RandomFloat(spawnSelect[1] - 500, spawnSelect[1] + 500)
