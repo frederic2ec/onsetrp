@@ -9,7 +9,7 @@ AddRemoteEvent("ServerPersonalMenu", function(player)
             playerList[tostring(k)] = GetPlayerName(k)
         end
     end
-    CallRemoteEvent(player, "OpenPersonalMenu", GetPlayerCash(player), PlayerData[player].bank_balance, PlayerData[player].inventory, playerList)
+    CallRemoteEvent(player, "OpenPersonalMenu", GetPlayerCash(player), PlayerData[player].bank_balance, PlayerData[player].inventory, playerList, GetPlayerBag(player))
 end)
 
 
@@ -199,12 +199,21 @@ function RemovePlayerCash(player, amount)
     RemoveInventory(player, 'cash', math.tointeger(amount))
 end
 
+function GetPlayerBag(player)
+    if PlayerData[player].inventory['item_backpack'] and math.tointeger(PlayerData[player].inventory['item_backpack']) > 0 then
+        return 1
+    else
+        return 0
+    end
+end
+
 AddFunctionExport("AddInventory", AddInventory)
 AddFunctionExport("RemoveInventory", RemoveInventory)
 AddFunctionExport("GetPlayerCash", GetPlayerCash)
 AddFunctionExport("SetPlayerCash", SetPlayerCash)
 AddFunctionExport("AddPlayerCash", AddPlayerCash)
 AddFunctionExport("RemovePlayerCash", RemovePlayerCash)
+AddFunctionExport("GetPlayerBag", GetPlayerBag)
 
 AddEvent("OnPackageStart", function()
 

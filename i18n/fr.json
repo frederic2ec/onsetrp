@@ -332,5 +332,6 @@
     "not_police": "You are not a police officer!",
     "police_armory": "Police Armory",
     "get_equipped": "Get equipped",
-    "paid_fine_giver": "The player paid his fine"
+    "paid_fine_giver": "The player paid his fine",
+    "item_backpack": "Sac à dos"
 }
