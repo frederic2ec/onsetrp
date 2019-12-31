@@ -89,7 +89,7 @@ function OnAccountCheckIpBan(player)
 end
 
 function CreatePlayerAccount(player)
-	local query = mariadb_prepare(sql, "INSERT INTO accounts (id, steamid, clothing, clothing_police, inventory, position) VALUES (NULL, '?', '[]' , '[]' , '[]' , '[]');",
+	local query = mariadb_prepare(sql, "INSERT INTO accounts (id, steamid) VALUES (NULL, '?');",
 		tostring(GetPlayerSteamId(player)))
 
 	mariadb_query(sql, query, OnAccountCreated, player)
@@ -163,7 +163,7 @@ function OnAccountLoaded(player)
 			CallRemoteEvent(player, "ClientChangeClothing", player, 1, PlayerData[player].clothing[3], 0, 0, 0, 0)
 			CallRemoteEvent(player, "ClientChangeClothing", player, 4, PlayerData[player].clothing[4], 0, 0, 0, 0)
 			CallRemoteEvent(player, "ClientChangeClothing", player, 5, PlayerData[player].clothing[5], 0, 0, 0, 0)
-			CallRemoteEvent(player, "AskSpawnMenu")
+			--CallRemoteEvent(player, "AskSpawnMenu") -- Si le compte existe, il a déjà une position, donc on ne demande pas de TP
 		end
 		
 		LoadPlayerPhoneContacts(player)
@@ -276,7 +276,8 @@ function SavePlayerAccount(player)
 	local x, y, z = GetPlayerLocation(player)
 	PlayerData[player].position = {x= x, y= y, z= z}
 
-	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', clothing_police = '?', inventory = '?', created = '?', position = '?', driver_license = ?, gun_license = ?, helicopter_license = ? WHERE id = ? LIMIT 1;",
+	--local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', clothing_police = '?', inventory = '?', created = '?', position = '?', driver_license = ?, gun_license = ?, helicopter_license = ? WHERE id = ? LIMIT 1;", -- les licences n'existent pas en base
+	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', clothing_police = '?', inventory = '?', created = ?, position = '?' WHERE id = ? LIMIT 1;",
 		PlayerData[player].admin,
 		PlayerData[player].bank_balance,
 		GetPlayerHealth(player),
@@ -289,9 +290,6 @@ function SavePlayerAccount(player)
 		json_encode(PlayerData[player].inventory),
 		PlayerData[player].created,
 		json_encode(PlayerData[player].position),
-		PlayerData[player].driver_license,
-		PlayerData[player].gun_license,
-		PlayerData[player].helicopter_license,
 		PlayerData[player].accountid
 	)
         
