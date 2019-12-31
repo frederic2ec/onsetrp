@@ -28,7 +28,7 @@ CREATE TABLE `accounts` (
   `id` int(10) UNSIGNED NOT NULL,
   `steamid` varchar(17) NOT NULL,
   `name` varchar(255) NOT NULL DEFAULT 'Unregistered',
-  `clothing` text NOT NULL DEFAULT '[]', -- Définir la valeur par défaut ici, et non dans une requêtes a la création du perso, pour réduire les effets de bords
+  `clothing` text NOT NULL DEFAULT '[]',
   `clothing_police` text NOT NULL DEFAULT '[]',
   `police` tinyint(1) NOT NULL DEFAULT 0,
   `inventory` text NOT NULL DEFAULT '[]',
