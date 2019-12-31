@@ -1,3 +1,5 @@
+use roleplay; -- Fix pour éviter d'utiliser la mauvaise db
+
 -- phpMyAdmin SQL Dump
 -- version 4.9.0.1
 -- https://www.phpmyadmin.net/
@@ -26,11 +28,11 @@ CREATE TABLE `accounts` (
   `id` int(10) UNSIGNED NOT NULL,
   `steamid` varchar(17) NOT NULL,
   `name` varchar(255) NOT NULL DEFAULT 'Unregistered',
-  `clothing` text NOT NULL,
-  `clothing_police` text NOT NULL,
+  `clothing` text NOT NULL DEFAULT '[]', -- Définir la valeur par défaut ici, et non dans une requêtes a la création du perso, pour réduire les effets de bords
+  `clothing_police` text NOT NULL DEFAULT '[]',
   `police` tinyint(1) NOT NULL DEFAULT 0,
-  `inventory` text NOT NULL,
-  `position` text NOT NULL,
+  `inventory` text NOT NULL DEFAULT '[]',
+  `position` text NOT NULL DEFAULT '{}',
   `admin` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
   `health` float NOT NULL DEFAULT 100,
   `armor` float NOT NULL DEFAULT 0,
