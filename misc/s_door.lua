@@ -1,5 +1,5 @@
 AddEvent("OnPackageStart", function()
-	-- City houses 2
+	-- City houses 2 (done)
 	
 	-- Desert Town Houses and Garages
 	CreateDoor(41, -25864.644531, 4765.184082, 1958.000000, 20.0, true)
