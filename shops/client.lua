@@ -4,9 +4,9 @@ Dialog.setGlobalTheme("flat")
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 local shop
-local ShopIds = { }
-
 local lastShop
+local ShopIds = { }
+local lastItems = { }
 
 AddEvent("OnTranslationReady", function()
     shop = Dialog.create(_("shop"), nil, _("cancel"))
@@ -24,7 +24,7 @@ end)
 
 function OnKeyPress(key)
     if key == "E" and not onSpawn and not onCharacterCreation then
-        local NearestShop = GetNearestShop()
+		local NearestShop = GetNearestShop()
         if NearestShop ~= 0 then
             CallRemoteEvent("shopInteract", NearestShop)
 		end
@@ -42,7 +42,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
 				if args[2] == "" or math.floor(args[2]) < 1 then
 					MakeNotification(_("select_amount"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 				else
-					CallRemoteEvent("ShopSell", lastShop, args[1], math.floor(args[2]))
+					CallRemoteEvent("ShopSell", lastShop, lastItems[tonumber(args[1])], math.floor(args[2]))
 				end
 			end
 		end
@@ -53,7 +53,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
 				if args[4] == ""  or math.floor(args[4]) < 1 then
 					MakeNotification(_("select_amount"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 				else
-					CallRemoteEvent("ShopBuy", lastShop, args[3], math.floor(args[4]))
+					CallRemoteEvent("ShopBuy", lastShop, lastItems[tonumber(args[3])], math.floor(args[4]))
 				end
 			end
 		end
@@ -63,7 +63,7 @@ end)
 
 function GetNearestShop()
 	local x, y, z = GetPlayerLocation()
-	
+
 	for k,v in pairs(GetStreamedNPC()) do
         local x2, y2, z2 = GetNPCLocation(v)
 		local dist = GetDistance3D(x, y, z, x2, y2, z2)
@@ -81,17 +81,26 @@ function GetNearestShop()
 end
 
 AddRemoteEvent("openShop", function(inventory, items, shopid)
-    lastShop = shopid
+	local inventoryItems = {}	
+	local shopItems = {}
 
-	local inventoryitems = {}
-	for k,v in pairs(inventory) do
-		inventoryitems[k] = _(k).."["..v.."]"
+	for inventoryItem, inventoryCount in pairs(inventory) do
+		-- Check if this NPC can buy this item (NPCs can only buy items they're selling)
+		for key, item in pairs(items) do
+			if inventoryItem == item.name then
+				inventoryItems[key] = inventoryCount.." x ".._(inventoryItem)
+			end
+		end
 	end
-	local shopitems = {}
-	for k,v in pairs(items) do
-		shopitems[k] = _(k).."["..v.._("currency").."]"
+
+	for key, item in pairs(items) do
+		shopItems[key] = _(item.name).." (".._("price_in_currency", item.price)..")"
 	end
-	Dialog.setSelectLabeledOptions(shop, 1, 1, inventoryitems)
-	Dialog.setSelectLabeledOptions(shop, 2, 1, shopitems)
+
+	lastItems = items
+	lastShop = shopid
+
+	Dialog.setSelectLabeledOptions(shop, 1, 1, inventoryItems)
+	Dialog.setSelectLabeledOptions(shop, 2, 1, shopItems)
 	Dialog.show(shop)
 end)

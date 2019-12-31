@@ -7,7 +7,9 @@ local teleportPlace = {
     diner = { 212405, 94489, 1340 },
     city = { 211526, 176056, 1250 },
     desert_town = { -16223, -8033, 2062 },
-    old_town = { 39350, 138061, 1570 }
+    old_town = { 39350, 138061, 1570 },
+    gun_dealer = { 206071, 193057, 1357 },
+    license_shop = { 183339, 182525, 1291 }
 }
 
 local weaponList = {
@@ -75,7 +77,7 @@ AddRemoteEvent("ServerAdminMenu", function(player)
             if PlayerData[k].steamname == nil then
                 goto continue
             end
-            playersNames[tostring(k)] = PlayerData[k].name.." ["..PlayerData[k].steamname.."]" 
+            playersNames[tostring(k)] = PlayerData[k].name.." ["..PlayerData[k].steamname.."]"
             ::continue::
         end
         CallRemoteEvent(player, "OpenAdminMenu", teleportPlace, playersNames, weaponList, vehicleList)
@@ -85,10 +87,10 @@ end)
 
 AddRemoteEvent("AdminTeleportToPlace", function(player, place)
     if tonumber(PlayerData[player].admin) ~= 1 then return end
-            
+
     for k,v in pairs(teleportPlace) do
         if k == place then
-            SetPlayerLocation(player, v[1], v[2], v[3])
+            SetPlayerLocation(player, v[1], v[2], v[3] + 200)
         end
     end
 end)
@@ -96,13 +98,13 @@ end)
 AddRemoteEvent("AdminTeleportToPlayer", function(player, toPlayer)
     if tonumber(PlayerData[player].admin) ~= 1 then return end
     local x, y, z  = GetPlayerLocation(tonumber(toPlayer))
-    SetPlayerLocation(player, x, y, z)
+    SetPlayerLocation(player, x, y, z + 200)
 end)
 
 AddRemoteEvent("AdminTeleportPlayer", function(toPlayer, player)
     if tonumber(PlayerData[toPlayer].admin) ~= 1 then return end
     local x, y, z  = GetPlayerLocation(tonumber(toPlayer))
-    SetPlayerLocation(player, x, y, z)
+    SetPlayerLocation(player, x, y, z + 200)
 end)
 
 AddRemoteEvent("AdminGiveWeapon", function(player, weaponName)
@@ -127,7 +129,7 @@ end)
 AddRemoteEvent("AdminGiveMoney", function(player, toPlayer, account, amount)
     if tonumber(PlayerData[player].admin) ~= 1 then return end
     if account == "Cash" then
-        PlayerData[tonumber(toPlayer)].cash = PlayerData[tonumber(toPlayer)].cash + tonumber(amount)
+        AddPlayerCash(tonumber(toPlayer), amount)
     end
     if account == "Bank" then
         PlayerData[tonumber(toPlayer)].bank_balance = PlayerData[tonumber(toPlayer)].bank_balance + tonumber(amount)
@@ -138,7 +140,7 @@ AddRemoteEvent("AdminKickBan", function(player, toPlayer, type, reason)
     if tonumber(PlayerData[player].admin) ~= 1 then return end
     if type == "Ban" then
         mariadb_query(sql, "INSERT INTO `bans` (`steamid`, `ban_time`, `reason`) VALUES ('"..PlayerData[tonumber(toPlayer)].steamid.."', '"..os.time(os.date('*t')).."', '"..reason.."');")
-        
+
         KickPlayer(tonumber(toPlayer), _("banned_for", reason, os.date('%Y-%m-%d %H:%M:%S', os.time())))
     end
     if type == "Kick" then
@@ -146,10 +148,10 @@ AddRemoteEvent("AdminKickBan", function(player, toPlayer, type, reason)
     end
 end)
 
-AddCommand("delveh", function(player) 
+AddCommand("delveh", function(player)
     if tonumber(PlayerData[player].admin) ~= 1 then return end
     local vehicle = GetPlayerVehicle(player)
-    
+
     if vehicle ~= nil then
         DestroyVehicle( vehicle )
     end

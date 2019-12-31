@@ -31,6 +31,7 @@ CREATE TABLE `accounts` (
   `police` tinyint(1) NOT NULL DEFAULT 0,
   `medic` tinyint(1) NOT NULL DEFAULT 0,
   `inventory` text NOT NULL,
+  `position` text NOT NULL,
   `admin` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
   `health` float NOT NULL DEFAULT 100,
   `health_state` varchar(255) NOT NULL DEFAULT 'alive',
@@ -38,8 +39,7 @@ CREATE TABLE `accounts` (
   `armor` float NOT NULL DEFAULT 0,
   `thirst` float NOT NULL DEFAULT 100,
   `hunger` float NOT NULL DEFAULT 100,
-  `cash` int(11) DEFAULT 1000,
-  `bank_balance` int(11) NOT NULL DEFAULT 0,
+  `bank_balance` int(11) NOT NULL DEFAULT 900,
   `created` tinyint(1) NOT NULL DEFAULT 0,
   `phone_number` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

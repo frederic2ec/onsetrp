@@ -44,10 +44,10 @@ AddRemoteEvent("PlayerSpawn", function(player, spawn)
 	    end
 	end
     else
-	spawnSelect = GetSpawnLocation(spawn)
-	spawnx = RandomFloat(spawnSelect[1] - 500, spawnSelect[1] + 500)
-	spawny = RandomFloat(spawnSelect[2] - 500, spawnSelect[2] + 500)
-	SetPlayerLocation(player, spawnSelect[4]..spawnx, spawnSelect[5]..spawny, spawnSelect[6]..spawnSelect[3] + 50)
+        spawnSelect = GetSpawnLocation(spawn)
+        spawnx = RandomFloat(spawnSelect[1] - 500, spawnSelect[1] + 500)
+        spawny = RandomFloat(spawnSelect[2] - 500, spawnSelect[2] + 500)
+        SetPlayerLocation(player, spawnSelect[4]..spawnx, spawnSelect[5]..spawny, spawnSelect[6]..spawnSelect[3] + 200)
     end
 end)
 

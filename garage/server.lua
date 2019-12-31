@@ -20,10 +20,10 @@ GarageDealerTable = {
     }
  }
 
- GarageStoreTable = { 
+ GarageStoreTable = {
     {
         modelid = 2,
-        location = { 
+        location = {
             { 23432, 145697, 1550 },
             { 20752, 168878, 1306 },
             { 207516, 168554, 1306 },
@@ -51,16 +51,16 @@ end)
  AddEvent("OnPackageStart", function()
 	for k,v in pairs(GarageDealerTable) do
         v.npc = CreateNPC(v.location[1], v.location[2], v.location[3], v.location[4])
-        
+
 		CreateText3D(_("garage").."\n".._("press_e"), 18, v.location[1], v.location[2], v.location[3] + 120, 0, 0, 0)
 
 		table.insert(GarageDealerObjectsCached, v.npc)
     end
-    
+
     for k,v in pairs(GarageStoreTable) do
         for i,j in pairs(v.location) do
             v.object[i] = CreatePickup(v.modelid , v.location[i][1], v.location[i][2], v.location[i][3])
-            
+
 
             table.insert(GarageStoreObjectsCached, v.object[i])
         end
@@ -114,7 +114,7 @@ function OnGarageListLoaded(player)
         lVehicle[id].price = price
     end
     CallRemoteEvent(player, "openGarageDealer", lVehicle)
-    
+
 end
 
 function OnPlayerPickupHit(player, pickup)
@@ -210,11 +210,9 @@ function sellCarServerLoaded(player)
         local name = _("vehicle_"..modelid)
         local price = math.ceil(result["price"] * 0.25)
 
-        local query = mariadb_prepare(sql, "DELETE FROM `player_garage` WHERE `id` = ?;",
-        tostring(id)
-        )
+        local query = mariadb_prepare(sql, "DELETE FROM `player_garage` WHERE `id` = ?;", tostring(id))
         mariadb_async_query(sql, query)
-        PlayerData[player].cash = PlayerData[player].cash + tonumber(price)
+        AddPlayerCash(player, price)
         return CallRemoteEvent(player, "MakeNotification", _("sell_vehicle_success", tostring(name), price, _("currency")), "linear-gradient(to right, #00b09b, #96c93d)")
 	end
 end

@@ -1,9 +1,9 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 CarDealerObjectsCached = { }
-CarDealerTable = { 
+CarDealerTable = {
 	{
-		vehicles = { 
+		vehicles = {
 				vehicle_1 = 3000,
 				vehicle_4 = 3000,
 				vehicle_5 = 3000,
@@ -24,7 +24,7 @@ CarDealerTable = {
 		spawn = { -175442, -64850, 1130, 180 }
     },
     {
-		vehicles = { 
+		vehicles = {
 			vehicle_1 = 3000,
 			vehicle_4 = 3000,
 			vehicle_5 = 3000,
@@ -45,7 +45,7 @@ CarDealerTable = {
 		spawn = { 204692, 168415, 1306, 180 }
     },
     {
-		vehicles = { 
+		vehicles = {
 			vehicle_1 = 3000,
 			vehicle_4 = 3000,
 			vehicle_5 = 3000,
@@ -91,8 +91,8 @@ AddRemoteEvent("carDealerInteract", function(player, cardealerobject)
 				if cardealerobject == v.npc then
 					CallRemoteEvent(player, "openCarDealer", v.vehicles, v.colors)
 				end
-			end  
-			
+			end
+
 		end
 	end
 end)
@@ -127,7 +127,7 @@ function buyCarServer(player, modelid, color, cardealerobject)
 	local color = getVehicleColor(color, cardealerobject)
 	local modelid = getVehicleId(modelid)
 
-	if tonumber(price) > PlayerData[player].cash then
+	if tonumber(price) > GetPlayerCash(player) then
         MakeNotification(player, _("no_money_car"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     else
         local x, y, z = GetPlayerLocation(player)
@@ -152,7 +152,7 @@ function buyCarServer(player, modelid, color, cardealerobject)
                     SetVehiclePropertyValue(vehicle, "locked", true, true)
                     CreateVehicleData(player, vehicle, modelid)
                     CreateVehicleDatabase(player, vehicle, modelid, color, price)
-                    PlayerData[player].cash = PlayerData[player].cash - tonumber(price)
+                    RemovePlayerCash(player, price)
                     CallRemoteEvent(player, "closeCarDealer")
                     return CallRemoteEvent(player, "MakeNotification", _("car_buy_sucess", name, price, _("currency")), "linear-gradient(to right, #00b09b, #96c93d)")
                 else

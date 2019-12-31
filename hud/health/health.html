@@ -1,102 +1,128 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Health</title>
-    
+
 
     <script>
-			(function(obj)
-			{
-				ue.game = {};
-				ue.game.callevent = function(name, ...args)
-				{
-					if (typeof name != "string") {
-						return;
-					}
-		
-					if (args.length == 0) {
-						obj.callevent(name, "")
-					}
-					else {
-						let params = []
-						for (let i = 0; i < args.length; i++) {
-							params[i] = args[i];
-						}
-						obj.callevent(name, JSON.stringify(params));
-					}
-				};
-			})(ue.game);
-			CallEvent = ue.game.callevent;
+        (function (obj) {
+            ue.game = {};
+            ue.game.callevent = function (name, ...args) {
+                if (typeof name != "string") {
+                    return;
+                }
+
+                if (args.length == 0) {
+                    obj.callevent(name, "")
+                }
+                else {
+                    let params = []
+                    for (let i = 0; i < args.length; i++) {
+                        params[i] = args[i];
+                    }
+                    obj.callevent(name, JSON.stringify(params));
+                }
+            };
+        })(ue.game);
+        CallEvent = ue.game.callevent;
     </script>
-  <style>
- 
-  
+    <style>
+        .container {
+            position: fixed;
+            bottom: 2%;
+            right: 200px;
+            height: 50px;
+            width: 50px;
+        }
 
-    #health {
-    position: fixed;
-    bottom: 2%;
-    right : 200px;
-    height : 50px;
-    width: 50px;   
-    }
+        .container-health {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-   
-   
+        #health,
+        .container-health {
+            width: 100%;
+            height: 100%
+        }
 
+        #health,
+        #pourcentage {
+            position: absolute;
+        }
+
+        #pourcentage {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow:
+                -1px -1px 0 #262626,
+                1px -1px 0 #262626,
+                -1px 1px 0 #262626,
+                1px 1px 0 #262626;
+        }
     </style>
 </head>
+
 <body>
-    <img src="health.png" id="health">
-    
+    <div class="container">
+        <div class="container-health">
+            <img src="health.png" id="health">
+            <span id="pourcentage"></span>
+        </div>
+    </div>
+
+
     <script>
-        function SetCash(cash)
-        {
+        function SetHealth(healthlife, menuIsOpen = 0) {
 
-            let toModify = document.getElementById("cash");
-            toModify.innerHTML = cash + " "  + "€";    
-         
+            let healthElt = document.getElementById('health');
+            let pourcentageElt = document.getElementById('pourcentage');
+
+            pourcentageElt.innerText = Math.round(healthlife);
+
+            // On définie la couleur du pourcentage
+            if (healthlife > 40)
+                pourcentageElt.style.color = "#ececec";
+            if (healthlife > 20 && healthlife <= 40)
+                pourcentageElt.style.color = "#ffd000";
+            if (healthlife > 10 && healthlife <= 20)
+                pourcentageElt.style.color = "#ff7b00";
+            if (healthlife >= 0 && healthlife <= 10)
+                pourcentageElt.style.color = "#ff1100";
+
+            if (menuIsOpen == 1) { // Si le menu perso est ouvert, on affiche quoi qu'il arrive
+                healthElt.style.opacity = "1";
+                pourcentageElt.style.opacity = "0.9";
+            } else { // Sinon, on applique la règle de base
+                if (healthlife > 50 && healthlife <= 100) {
+                    healthElt.style.opacity = "0.0";
+                    pourcentageElt.style.opacity = "0.0";
+                }
+                if (healthlife > 40 && healthlife <= 50) {
+                    healthElt.style.opacity = "0.4";
+                    pourcentageElt.style.opacity = "0.9";
+                }
+                if (healthlife > 20 && healthlife <= 40) {
+                    healthElt.style.opacity = "0.6";
+                    pourcentageElt.style.opacity = "0.9";
+                }
+                if (healthlife > 10 && healthlife <= 20) {
+                    healthElt.style.opacity = "0.8";
+                    pourcentageElt.style.opacity = "0.9";
+                }
+                if (healthlife >= 0 && healthlife <= 10) {
+                    healthElt.style.opacity = "1";
+                    pourcentageElt.style.opacity = "0.9";
+                }
+            }
         }
 
-
-        function SetHealth(healthlife)
-        {
-
-           let toModifyOpacity = document.getElementById('health');
-
-            if (healthlife > 80 && healthlife <= 100) {
-                toModifyOpacity.style.opacity = "0.0"; 
-
-                }
-
-            if (healthlife > 60 && healthlife <= 80 ) {
-                toModifyOpacity.style.opacity = "0.2"; 
-
-                }
-           
-            if (healthlife > 40 && healthlife <= 60 ) {
-                toModifyOpacity.style.opacity = "0.4"; 
-
-                }
-
-            if (healthlife > 20 && healthlife <= 40 ) {
-                toModifyOpacity.style.opacity = "0.6"; 
-
-                }
-
-           if (healthlife > 10 && healthlife <= 20 ) {
-                 toModifyOpacity.style.opacity = "0.8"; 
-
-                } 
-
-           if (healthlife >= 0 && healthlife <= 10 ) {
-              toModifyOpacity.style.opacity = "1"; 
-
-                }    
-
-        }
-
-  
     </script>
 </body>
+
 </html>
