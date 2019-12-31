@@ -1,8 +1,5 @@
 AddEvent("OnPackageStart", function()
 	-- City houses 2
-	--CreateDoor(23, 165337.000000, 218768.000000, 1316.000000, -90.0, true)
-	--CreateDoor(41, 166781.000000, 218698.000000, 1245.000000, 180.0, true)
-	CreateDoor(41, 167559.000000, 221959.000000, 1245.000000, 0.0, true)
 	
 	-- Desert Town Houses and Garages
 	CreateDoor(41, -25864.644531, 4765.184082, 1958.000000, 20.0, true)
