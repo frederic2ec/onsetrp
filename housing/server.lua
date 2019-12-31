@@ -1953,7 +1953,7 @@ houses = {
         lock = true,
         spawnable = 0,
         owner = 0,
-        spawn = { 158980, 222779, 1407 },
+        spawn = { 158980, 222779, 1507 },
         text = { 158759, 222933, 1396 },
         doors = {
             {
@@ -1988,7 +1988,7 @@ houses = {
         lock = true,
         spawnable = 0,
         owner = 0,
-        spawn = { 162361, 222520, 1407 },
+        spawn = { 162361, 222520, 1507 },
         text = { 162203, 222328, 1400 },
         doors = {
             {
@@ -2006,6 +2006,33 @@ houses = {
                 y = 223340,
                 z = 1309,
                 r = -90
+            },
+        }
+    },
+    {
+        id = 81,
+        price = 100,
+        lock = true,
+        spawnable = 0,
+        owner = 0,
+        spawn = { 164995, 222224, 1506 },
+        text = { 164860, 222092, 1396 },
+        doors = {
+            {
+                entity = -1,
+                model = 23,
+                x = 164809,
+                y = 222136,
+                z = 1308,
+                r = 90
+            },
+            {
+                entity = -1,
+                model = 24,
+                x = 164758,
+                y = 222527,
+                z = 1308,
+                r = 0
             },
         }
     },
