@@ -8,7 +8,7 @@ function OnPackageStart()
             SavePlayerAccount(v)
 		end
 		print("All accounts have been saved !")
-    end, 10000) -- For developement purpose
+    end, 30000)
 end
 AddEvent("OnPackageStart", OnPackageStart)
 

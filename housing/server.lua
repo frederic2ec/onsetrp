@@ -2126,11 +2126,9 @@ function OnPackageStart()
         print("All houses have been saved !")
     end, 30000)
 
-    for k,v in pairs(houses) do -- Pour voir les maisons déjà faites de loin, ne pas tenir compte
-        CreateObject(2, v.spawn[1],v.spawn[2],v.spawn[3]+1000, 0, 0, 0, 5, 5, 5)
-        
-
-    end
+    -- for k,v in pairs(houses) do -- Pour voir les maisons déjà faites de loin, ne pas tenir compte
+    --     CreateObject(2, v.spawn[1],v.spawn[2],v.spawn[3]+1000, 0, 0, 0, 5, 5, 5)
+    -- end
 
 end
 AddEvent("OnPackageStart", OnPackageStart)
