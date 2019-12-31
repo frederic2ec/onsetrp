@@ -38,7 +38,10 @@ CREATE TABLE `accounts` (
   `hunger` float NOT NULL DEFAULT 100,
   `bank_balance` int(11) NOT NULL DEFAULT 900,
   `created` tinyint(1) NOT NULL DEFAULT 0,
-  `phone_number` varchar(255) DEFAULT NULL
+  `phone_number` varchar(255) DEFAULT NULL,
+  `driver_license` tinyint(1) NOT NULL DEFAULT 0,
+  `gun_license` tinyint(1) NOT NULL DEFAULT 0,
+  `helicopter_license` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
