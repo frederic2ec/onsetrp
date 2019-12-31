@@ -1763,6 +1763,104 @@ houses = {
             }
         }
     },
+    -- Ajouté par Soljian
+    {
+        id = 74,
+        price = 100,
+        lock = true,
+        spawnable = 0,
+        owner = 0,
+        spawn = { 158949, 211510, 1493 },
+        text = { 159132, 211694, 1390 },
+        doors = {
+            {
+                entity = -1,
+                model = 23,
+                x = 159179,
+                y = 211638,
+                z = 1295,
+                r = -90
+            },
+            {
+                entity = -1,
+                model = 24,
+                x = 159122,
+                y = 210974,
+                z = 1295,
+                r = -180
+            },
+            {
+                entity = -1,
+                model = 41,
+                x = 160607,
+                y = 211848,
+                z = 1245,
+                r = 180
+            }
+        }
+    },
+    {
+        id = 75,
+        price = 100,
+        lock = true,
+        spawnable = 0,
+        owner = 0,
+        spawn = { 163614, 215403, 1509 },
+        text = { 163461, 215177, 1402 },
+        doors = {
+            {
+                entity = -1,
+                model = 21,
+                x = 163420,
+                y = 215213,
+                z = 1311,
+                r = 90
+            },
+            {
+                entity = -1,
+                model = 24,
+                x = 163477,
+                y = 215877,
+                z = 1312,
+                r = 0
+            },
+            {
+                entity = -1,
+                model = 41,
+                x = 161978,
+                y = 215099,
+                z = 1245,
+                r = 0
+            }
+        }
+    },
+    {
+        id = 76,
+        price = 100,
+        lock = true,
+        spawnable = 0,
+        owner = 0,
+        spawn = { 159322, 215371, 1407 },
+        text = { 159164, 215195, 1396 },
+        doors = {
+            {
+                entity = -1,
+                model = 23,
+                x = 159112,
+                y = 215228,
+                z = 1309,
+                r = 90
+            },
+            {
+                entity = -1,
+                model = 24,
+                x = 159354,
+                y = 215701,
+                z = 1309,
+                r = 0
+            }
+        }
+    },
 }
 
 function OnPackageStart()
@@ -1774,6 +1872,12 @@ function OnPackageStart()
         end
         print("All houses have been saved !")
     end, 30000)
+
+    for k,v in pairs(houses) do
+        CreateObject(2, v.spawn[1],v.spawn[2],v.spawn[3]+1000, 0, 0, 0, 5, 5, 5)
+        
+
+    end
 
 end
 AddEvent("OnPackageStart", OnPackageStart)
