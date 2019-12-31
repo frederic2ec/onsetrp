@@ -332,5 +332,6 @@
     "helicopter_license": "Vol",
     "no_license": "Aucun permis",
     "gun_dealer": "Armurier",
-    "no_gun_license": "Vous n'avez pas de permis de port d'armes"
+    "no_gun_license": "Vous n'avez pas de permis de port d'armes",
+    "item_backpack": "Sac à dos"
 }

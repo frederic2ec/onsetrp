@@ -332,5 +332,6 @@
     "helicopter_license": "Flight",
     "no_license": "",
     "gun_dealer": "Gun dealer",
-    "no_gun_license": "You don't have your Firearms license"
+    "no_gun_license": "You don't have your Firearms license",
+    "item_backpack": "Rucksack"
 }
