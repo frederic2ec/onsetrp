@@ -1,5 +1,7 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
+local inventory_base_max_slots = 32
+
 AddRemoteEvent("ServerPersonalMenu", function(player)
     local x, y, z = GetPlayerLocation(player)
     local nearestPlayers = GetPlayersInRange3D(x, y, z, 1000)
@@ -9,7 +11,8 @@ AddRemoteEvent("ServerPersonalMenu", function(player)
             playerList[tostring(k)] = GetPlayerName(k)
         end
     end
-    CallRemoteEvent(player, "OpenPersonalMenu", GetPlayerCash(player), PlayerData[player].bank_balance, PlayerData[player].inventory, playerList, GetPlayerBag(player))
+    local inventorySlots = GetPlayerUsedSlots(player).." / "..GetPlayerMaxSlots(player)
+    CallRemoteEvent(player, "OpenPersonalMenu", GetPlayerCash(player), PlayerData[player].bank_balance, PlayerData[player].inventory, playerList, GetPlayerBag(player), inventorySlots)
 end)
 
 
@@ -160,10 +163,16 @@ end)
 
 
 function AddInventory(player, item, amount)
-    if PlayerData[player].inventory[item] == nil then
-        PlayerData[player].inventory[item] = amount
+    local slotsAvailables = tonumber(GetPlayerMaxSlots(player)) - tonumber(GetPlayerUsedSlots(player))
+    if slotsAvailables >= amount then
+        if PlayerData[player].inventory[item] == nil then
+            PlayerData[player].inventory[item] = amount
+        else
+            PlayerData[player].inventory[item] = PlayerData[player].inventory[item] + amount
+        end
+        return true
     else
-        PlayerData[player].inventory[item] = PlayerData[player].inventory[item] + amount
+        return false
     end
 end
 
@@ -200,11 +209,32 @@ function RemovePlayerCash(player, amount)
 end
 
 function GetPlayerBag(player)
+    -- items ids : 818,820,821,823
     if PlayerData[player].inventory['item_backpack'] and math.tointeger(PlayerData[player].inventory['item_backpack']) > 0 then
         return 1
     else
         return 0
     end
+end
+
+function GetPlayerMaxSlots(player)
+    if PlayerData[player].inventory['item_backpack'] and math.tointeger(PlayerData[player].inventory['item_backpack']) > 0 then
+        return math.floor(inventory_base_max_slots * 1.25)
+    else
+        return inventory_base_max_slots
+    end
+end
+
+function GetPlayerUsedSlots(player)
+    local usedSlots = 0
+    for k,v in pairs(PlayerData[player].inventory) do
+        if k == 'cash' then
+            usedSlots = usedSlots + 1
+        else
+            usedSlots = usedSlots + v
+        end
+    end
+    return usedSlots
 end
 
 AddFunctionExport("AddInventory", AddInventory)
@@ -214,7 +244,10 @@ AddFunctionExport("SetPlayerCash", SetPlayerCash)
 AddFunctionExport("AddPlayerCash", AddPlayerCash)
 AddFunctionExport("RemovePlayerCash", RemovePlayerCash)
 AddFunctionExport("GetPlayerBag", GetPlayerBag)
+AddFunctionExport("GetPlayerMaxSlots", GetPlayerMaxSlots)
+AddFunctionExport("GetPlayerUsedSlots", GetPlayerUsedSlots)
 
 AddEvent("OnPackageStart", function()
 
 end)
+

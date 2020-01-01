@@ -333,5 +333,6 @@
     "police_armory": "Police Armory",
     "get_equipped": "Get equipped",
     "paid_fine_giver": "The player paid his fine",
-    "item_backpack": "Sac à dos"
+    "item_backpack": "Sac à dos",
+    "inventory_not_enough_space": "Pas assez de place dans l'inventaire"
 }

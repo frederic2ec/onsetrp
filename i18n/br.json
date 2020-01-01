@@ -269,5 +269,6 @@
     "transport_bus_incoming": "Seu ônibus está chegando, não vá!",
     "transport_not_enough_money": "Você não tem dinheiro suficiente",
     "transport_you_are_there": "(Voce esta la)",
-    "item_backpack": "Mochila"
+    "item_backpack": "Mochila",
+    "inventory_not_enough_space": "Espaço insuficiente no inventário"
 }

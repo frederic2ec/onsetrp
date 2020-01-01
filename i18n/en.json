@@ -332,5 +332,6 @@
     "stylist": "Stylist",
     "yes": "Yes",
     "choose": "Choose",
-    "item_backpack": "Backpack"
+    "item_backpack": "Backpack",
+    "inventory_not_enough_space": "Not enough space in the inventory"
 }
