@@ -333,5 +333,6 @@
     "no_license": "No license",
     "gun_dealer": "Gun dealer",
     "no_gun_license": "You don't have your Firearms license",
-    "item_backpack": "Backpack"
+    "item_backpack": "Backpack",
+    "inventory_not_enough_space": "Not enough space in the inventory"
 }
