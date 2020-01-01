@@ -208,8 +208,7 @@ function RemovePlayerCash(player, amount)
     RemoveInventory(player, 'cash', math.tointeger(amount))
 end
 
-function GetPlayerBag(player)
-    -- items ids : 818,820,821,823
+function GetPlayerBag(player)    
     if PlayerData[player].inventory['item_backpack'] and math.tointeger(PlayerData[player].inventory['item_backpack']) > 0 then
         return 1
     else
@@ -237,6 +236,16 @@ function GetPlayerUsedSlots(player)
     return usedSlots
 end
 
+function DisplayPlayerBackpack(player)
+    -- items ids : 818,820,821,823
+    if GetPlayerBag(player) == 1 then
+        local x, y, z = GetPlayerLocation(player)
+	    PlayerData[player].backpack = CreateObject(820, x, y, z)
+
+	    SetObjectAttached(PlayerData[player].backpack, ATTACH_PLAYER, player, -30.0, -9.0, 0.0, -90.0, 0.0, 0.0, "spine_03")
+    end
+end
+
 AddFunctionExport("AddInventory", AddInventory)
 AddFunctionExport("RemoveInventory", RemoveInventory)
 AddFunctionExport("GetPlayerCash", GetPlayerCash)
@@ -246,8 +255,11 @@ AddFunctionExport("RemovePlayerCash", RemovePlayerCash)
 AddFunctionExport("GetPlayerBag", GetPlayerBag)
 AddFunctionExport("GetPlayerMaxSlots", GetPlayerMaxSlots)
 AddFunctionExport("GetPlayerUsedSlots", GetPlayerUsedSlots)
+AddFunctionExport("DisplayPlayerBackpack", DisplayPlayerBackpack)
 
 AddEvent("OnPackageStart", function()
 
 end)
+
+
 
