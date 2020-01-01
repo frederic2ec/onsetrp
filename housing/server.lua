@@ -1763,6 +1763,357 @@ houses = {
             }
         }
     },
+    -- Ajouté par Soljian
+    {
+        id = 74,
+        price = 100,
+        lock = true,
+        spawnable = 0,
+        owner = 0,
+        spawn = { 158949, 211510, 1493 },
+        text = { 159132, 211694, 1390 },
+        doors = {
+            {
+                entity = -1,
+                model = 23,
+                x = 159179,
+                y = 211638,
+                z = 1295,
+                r = -90
+            },
+            {
+                entity = -1,
+                model = 24,
+                x = 159122,
+                y = 210974,
+                z = 1295,
+                r = -180
+            },
+            {
+                entity = -1,
+                model = 41,
+                x = 160607,
+                y = 211848,
+                z = 1245,
+                r = 180
+            }
+        }
+    },
+    {
+        id = 75,
+        price = 100,
+        lock = true,
+        spawnable = 0,
+        owner = 0,
+        spawn = { 163614, 215403, 1509 },
+        text = { 163461, 215177, 1402 },
+        doors = {
+            {
+                entity = -1,
+                model = 21,
+                x = 163420,
+                y = 215213,
+                z = 1311,
+                r = 90
+            },
+            {
+                entity = -1,
+                model = 24,
+                x = 163477,
+                y = 215877,
+                z = 1312,
+                r = 0
+            },
+            {
+                entity = -1,
+                model = 41,
+                x = 161978,
+                y = 215099,
+                z = 1245,
+                r = 0
+            }
+        }
+    },
+    {
+        id = 76,
+        price = 100,
+        lock = true,
+        spawnable = 0,
+        owner = 0,
+        spawn = { 159322, 215371, 1407 },
+        text = { 159164, 215195, 1396 },
+        doors = {
+            {
+                entity = -1,
+                model = 23,
+                x = 159112,
+                y = 215228,
+                z = 1309,
+                r = 90
+            },
+            {
+                entity = -1,
+                model = 24,
+                x = 159354,
+                y = 215701,
+                z = 1309,
+                r = 0
+            }
+        }
+    },
+    {
+        id = 77,
+        price = 100,
+        lock = true,
+        spawnable = 0,
+        owner = 0,
+        spawn = { 155287, 215647, 1510 },
+        text = { 155465, 215522, 1398 },
+        doors = {
+            {
+                entity = -1,
+                model = 23,
+                x = 155434,
+                y = 215472,
+                z = 1314,
+                r = -180
+            },
+            {
+                entity = -1,
+                model = 24,
+                x = 155152,
+                y = 215273,
+                z = 1313,
+                r = -180
+            },
+            {
+                entity = -1,
+                model = 22,
+                x = 154456,
+                y = 215781,
+                z = 1314,
+                r = 0
+            },
+            {
+                entity = -1,
+                model = 25,
+                x = 154919,
+                y = 215779,
+                z = 1036,
+                r = 0
+            },
+            {
+                entity = -1,
+                model = 41,
+                x = 155309,
+                y = 217108,
+                z = 1245,
+                r = 90
+            },
+        }
+    },
+    {
+        id = 78,
+        price = 100,
+        lock = true,
+        spawnable = 0,
+        owner = 0,
+        spawn = { 158982, 218650, 1509 },
+        text = { 159120, 218784, 1398 },
+        doors = {
+            {
+                entity = -1,
+                model = 23,
+                x = 159174,
+                y = 218746,
+                z = 1312,
+                r = -90
+            },
+            {
+                entity = -1,
+                model = 24,
+                x = 159116,
+                y = 217933,
+                z = 1312,
+                r = 180
+            },
+            {
+                entity = -1,
+                model = 41,
+                x = 160614,
+                y = 218698,
+                z = 1245,
+                r = 180
+            },
+        }
+    },
+    {
+        id = 79,
+        price = 100,
+        lock = true,
+        spawnable = 0,
+        owner = 0,
+        spawn = { 158980, 222779, 1507 },
+        text = { 158759, 222933, 1396 },
+        doors = {
+            {
+                entity = -1,
+                model = 21,
+                x = 158792,
+                y = 222885,
+                z = 1309,
+                r = 180
+            },
+            {
+                entity = -1,
+                model = 24,
+                x = 159921,
+                y = 222735,
+                z = 1309,
+                r = 0
+            },
+            {
+                entity = -1,
+                model = 22,
+                x = 160322,
+                y = 222774,
+                z = 1309,
+                r = 0
+            },
+        }
+    },
+    {
+        id = 80,
+        price = 100,
+        lock = true,
+        spawnable = 0,
+        owner = 0,
+        spawn = { 162361, 222520, 1507 },
+        text = { 162203, 222328, 1400 },
+        doors = {
+            {
+                entity = -1,
+                model = 23,
+                x = 162157,
+                y = 222370,
+                z = 1309,
+                r = 90
+            },
+            {
+                entity = -1,
+                model = 24,
+                x = 162465,
+                y = 223340,
+                z = 1309,
+                r = -90
+            },
+        }
+    },
+    {
+        id = 81,
+        price = 100,
+        lock = true,
+        spawnable = 0,
+        owner = 0,
+        spawn = { 164995, 222224, 1506 },
+        text = { 164860, 222092, 1396 },
+        doors = {
+            {
+                entity = -1,
+                model = 23,
+                x = 164809,
+                y = 222136,
+                z = 1308,
+                r = 90
+            },
+            {
+                entity = -1,
+                model = 24,
+                x = 164758,
+                y = 222527,
+                z = 1308,
+                r = 0
+            },
+        }
+    },
+    {
+        id = 82,
+        price = 100,
+        lock = true,
+        spawnable = 0,
+        owner = 0,
+        spawn = { 165153, 218605, 1514 },
+        text = { 165285, 218826, 1397 },
+        doors = {
+            {
+                entity = -1,
+                model = 23,
+                x = 165337,
+                y = 218768,
+                z = 1316,
+                r = -90
+            },
+            {
+                entity = -1,
+                model = 41,
+                x = 166781,
+                y = 218698,
+                z = 1245,
+                r = 180
+            },
+        }
+    },
+    {
+        id = 83,
+        price = 100,
+        lock = true,
+        spawnable = 0,
+        owner = 0,
+        spawn = { 168877, 222381, 1497 },
+        text = { 168728, 222226, 1396 },
+        doors = {
+            {
+                entity = -1,
+                model = 23,
+                x = 168685,
+                y = 222265,
+                z = 1300,
+                r = 90
+            },
+            {
+                entity = -1,
+                model = 24,
+                x = 169552,
+                y = 222965,
+                z = 1300,
+                r = 90
+            },
+            {
+                entity = -1,
+                model = 24,
+                x = 169180,
+                y = 222923,
+                z = 1637,
+                r = 180
+            },
+            {
+                entity = -1,
+                model = 24,
+                x = 168702,
+                y = 222685,
+                z = 1637,
+                r = 90
+            },
+            {
+                entity = -1,
+                model = 41,
+                x = 167559,
+                y = 221959,
+                z = 1245,
+                r = 0
+            },
+        }
+    },
 }
 
 function OnPackageStart()
@@ -1774,6 +2125,10 @@ function OnPackageStart()
         end
         print("All houses have been saved !")
     end, 30000)
+
+    -- for k,v in pairs(houses) do -- Pour voir les maisons déjà faites de loin, ne pas tenir compte
+    --     CreateObject(2, v.spawn[1],v.spawn[2],v.spawn[3]+1000, 0, 0, 0, 5, 5, 5)
+    -- end
 
 end
 AddEvent("OnPackageStart", OnPackageStart)
@@ -1879,7 +2234,7 @@ AddRemoteEvent("BuyHouse", function(player, house)
     if getHouseOwner(player) ~= 0 then
         CallRemoteEvent(player, "MakeNotification", _("already_house_owner"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     else
-        RemovePlayerCash(houses[house].price)
+        RemovePlayerCash(player, houses[house].price)
         houses[house].owner = tonumber(PlayerData[player].accountid)
         DestroyText3D(houses[house].txtentities[2])
         houses[house].txtentities[2] = CreateText3D( _("owner").." "..GetPlayerName(player), 10, houses[house].text[1] , houses[house].text[2], houses[house].text[3], 0, 0, 0 )
