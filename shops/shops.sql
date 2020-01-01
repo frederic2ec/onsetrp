@@ -74,6 +74,7 @@ INSERT INTO `items` (`id`, `name`, `category`, `price`, `weight`, `hunger`, `thi
 (29, 'weapon_19', 'weapons', 20000, 5000, 0, 0),
 (30, 'weapon_20', 'weapons', 30000, 6000, 0, 0),
 (31, 'processed_rock', 'mine', 160, 1000, 0, 0);
+(32, 'item_backpack', 'miscellaneous', 100, 1, 0, 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
