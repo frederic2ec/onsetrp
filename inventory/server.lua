@@ -165,10 +165,16 @@ end)
 function AddInventory(player, item, amount)
     local slotsAvailables = tonumber(GetPlayerMaxSlots(player)) - tonumber(GetPlayerUsedSlots(player))
     if slotsAvailables >= amount then
+        if item == "item_backpack" and GetPlayerBag(player) == 1 then -- On ne peux pas acheter plusieurs sacs
+            return false
+        end
         if PlayerData[player].inventory[item] == nil then
-            PlayerData[player].inventory[item] = amount
+            PlayerData[player].inventory[item] = amount            
         else
             PlayerData[player].inventory[item] = PlayerData[player].inventory[item] + amount
+        end
+        if item == "item_backpack" then -- Affichage du sac sur le perso
+            DisplayPlayerBackpack(player, 1)
         end
         return true
     else
@@ -178,13 +184,17 @@ end
 
 function RemoveInventory(player, item, amount)
     if PlayerData[player].inventory[item] == nil then
-        return
+        return false
     else
         if PlayerData[player].inventory[item] - amount < 1 then
             PlayerData[player].inventory[item] = nil
         else
             PlayerData[player].inventory[item] = PlayerData[player].inventory[item] - amount
         end
+        if item == "item_backpack" then
+            DisplayPlayerBackpack(player, 1)
+        end
+        return true
     end
 end
 
@@ -236,14 +246,29 @@ function GetPlayerUsedSlots(player)
     return usedSlots
 end
 
-function DisplayPlayerBackpack(player)
+function DisplayPlayerBackpack(player, anim)
     -- items ids : 818,820,821,823
     if GetPlayerBag(player) == 1 then
         local x, y, z = GetPlayerLocation(player)
 	    PlayerData[player].backpack = CreateObject(820, x, y, z)
-
-	    SetObjectAttached(PlayerData[player].backpack, ATTACH_PLAYER, player, -30.0, -9.0, 0.0, -90.0, 0.0, 0.0, "spine_03")
+        SetObjectAttached(PlayerData[player].backpack, ATTACH_PLAYER, player, -30.0, -9.0, 0.0, -90.0, 0.0, 0.0, "spine_03")
+        if anim == 1 then BackpackPutOnAnim(player) end -- Petite animation RP
+    else
+        if PlayerData[player].backpack ~= nil then
+            if anim == 1 then BackpackPutOnAnim(player, 2500) end -- Petite animation RP
+            Delay(2500, function() 
+                DestroyObject(PlayerData[player].backpack)  
+            end)
+        end
     end
+end
+
+function BackpackPutOnAnim(player, timer)
+    if timer == nil then timer = 5000 end
+    SetPlayerAnimation(player, "CHECK_EQUIPMENT3")
+    Delay(timer, function()
+        SetPlayerAnimation(player, "STOP")
+    end)
 end
 
 AddFunctionExport("AddInventory", AddInventory)
@@ -262,4 +287,14 @@ AddEvent("OnPackageStart", function()
 end)
 
 
+ -- DEV MODE ajout/suppression sac à dos TODO : a supprimer lorsque le shop sera finalisé
+AddCommand("gbag", function(player)
+    print('give bag dev mode')
+    local success = AddInventory(player, "item_backpack", 1)
+end)
+
+AddCommand("rbag", function(player)
+    print('remove bag dev mode')
+    local success = RemoveInventory(player, "item_backpack", 1)
+end)
 
