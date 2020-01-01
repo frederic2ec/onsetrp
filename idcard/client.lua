@@ -12,7 +12,7 @@ SetWebURL(webIdCard, "http://asset/onsetrp/idcard/id.html")
 local idCardMenu
 
 AddEvent("OnKeyPress", function(key)
-    if key == "F1" then
+    if key == "F2" then
         Dialog.show(idCardMenu)
     end
 end)

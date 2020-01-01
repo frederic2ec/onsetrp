@@ -128,7 +128,7 @@ function buyCarServer(player, modelid, color, cardealerobject)
 	local modelid = getVehicleId(modelid)
 
 	if tonumber(price) > GetPlayerCash(player) then
-        MakeNotification(player, _("no_money_car"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+        CallRemoteEvent(player, "MakeNotification",_("no_money_car"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     else
         local x, y, z = GetPlayerLocation(player)
 

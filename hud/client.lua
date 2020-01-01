@@ -60,24 +60,21 @@ function OnPackageStart()
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
-function updateHud(hunger, thirst, cash, bank, healthlife, vehiclefuel)    
-    ExecuteWebJS(HealthHud, "SetHealth("..healthlife..", "..personalMenuIsOpen..");")
-    ExecuteWebJS(ThirstHud, "SetThirst("..thirst..", "..personalMenuIsOpen..");")
-    ExecuteWebJS(HungerFoodHud, "SetHunger("..hunger..", "..personalMenuIsOpen..");")
+function updateHud()    
+    ExecuteWebJS(HealthHud, "SetHealth("..GetPlayerHealth()..", "..personalMenuIsOpen..");")
+    ExecuteWebJS(ThirstHud, "SetThirst("..GetPlayerPropertyValue(GetPlayerId(), "thirst")..", "..personalMenuIsOpen..");")
+    ExecuteWebJS(HungerFoodHud, "SetHunger("..GetPlayerPropertyValue(GetPlayerId(), "hunger")..", "..personalMenuIsOpen..");")
 
     if GetPlayerVehicle() ~= 0 then
-        vehiclespeed = math.floor(GetVehicleForwardSpeed(GetPlayerVehicle()))
-        vehiclehealth = math.floor(GetVehicleHealth(GetPlayerVehicle()))
-        SetTextBoxText(VehicleSpeedHud, _("speed")..vehiclespeed.."KM/H")
-        SetTextBoxText(VehicleHealthHud, _("vehicle_health")..vehiclehealth)
-        SetTextBoxText(VehicleFuelHud, _("fuel")..vehiclefuel)
+        SetTextBoxText(VehicleSpeedHud, _("speed")..math.floor(GetVehicleForwardSpeed(GetPlayerVehicle())).."KM/H")
+        SetTextBoxText(VehicleHealthHud, _("vehicle_health")..math.floor(GetVehicleHealth(GetPlayerVehicle())))
+        SetTextBoxText(VehicleFuelHud, _("fuel")..GetVehiclePropertyValue(GetPlayerVehicle(), "fuel"))
     else
         SetTextBoxText(VehicleSpeedHud, "")
         SetTextBoxText(VehicleFuelHud, "")
         SetTextBoxText(VehicleHealthHud, "")
     end
 end
-AddRemoteEvent("updateHud", updateHud)
 
 AddEvent( "OnGameTick", function()
     --Speaking icon check
@@ -93,7 +90,7 @@ AddEvent( "OnGameTick", function()
     ExecuteWebJS(minimap, "SetHUDHeading("..(360-y)..");")
     ExecuteWebJS(minimap, "SetMap("..px..","..py..","..y..");")
     -- Hud refresh
-    CallRemoteEvent("getHudData")
+    updateHud()
 end )
 
 function SetHUDMarker(name, h, r, g, b)

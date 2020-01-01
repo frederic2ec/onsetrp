@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2019 at 12:25 AM
+-- Generation Time: Jan 01, 2020 at 04:57 AM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -71,6 +71,59 @@ CREATE TABLE `ipbans` (
   `ban_time` int(10) UNSIGNED NOT NULL,
   `reason` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `items`
+--
+
+CREATE TABLE `items` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `price` int(11) NOT NULL,
+  `weight` int(11) NOT NULL COMMENT 'in grams',
+  `hunger` int(11) NOT NULL,
+  `thirst` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `items`
+--
+
+INSERT INTO `items` (`id`, `name`, `category`, `price`, `weight`, `hunger`, `thirst`) VALUES
+(1, 'water_bottle', 'miscellaneous', 5, 1, 0, 30),
+(2, 'apple', 'miscellaneous', 5, 500, 30, 0),
+(3, 'donut', 'miscellaneous', 5, 500, 30, 0),
+(4, 'repair_kit', 'miscellaneous', 50, 3000, 0, 0),
+(5, 'health_kit', 'miscellaneous', 50, 3000, 0, 0),
+(6, 'lockpick', 'miscellaneous', 500, 5000, 0, 0),
+(7, 'pickaxe', 'miscellaneous', 20, 5000, 0, 0),
+(8, 'jerican', 'miscellaneous', 50, 10000, 0, 0),
+(9, 'phone', 'miscellaneous', 150, 500, 0, 0),
+(10, 'fishing_rod', 'miscellaneous', 20, 2000, 0, 0),
+(11, 'fish', 'miscellaneous', 100, 2000, 10, 0),
+(12, 'weapon_2', 'weapons', 5000, 2000, 0, 0),
+(13, 'weapon_3', 'weapons', 5000, 2000, 0, 0),
+(14, 'weapon_4', 'weapons', 5000, 2000, 0, 0),
+(15, 'weapon_5', 'weapons', 5000, 2000, 0, 0),
+(16, 'weapon_6', 'weapons', 15000, 4000, 0, 0),
+(17, 'weapon_7', 'weapons', 15000, 4000, 0, 0),
+(18, 'weapon_8', 'weapons', 10000, 4000, 0, 0),
+(19, 'weapon_9', 'weapons', 10000, 4000, 0, 0),
+(20, 'weapon_10', 'weapons', 20000, 5000, 0, 0),
+(21, 'weapon_11', 'weapons', 20000, 5000, 0, 0),
+(22, 'weapon_12', 'weapons', 30000, 5000, 0, 0),
+(23, 'weapon_13', 'weapons', 20000, 5000, 0, 0),
+(24, 'weapon_14', 'weapons', 20000, 5000, 0, 0),
+(25, 'weapon_15', 'weapons', 20000, 5000, 0, 0),
+(26, 'weapon_16', 'weapons', 20000, 5000, 0, 0),
+(27, 'weapon_17', 'weapons', 20000, 5000, 0, 0),
+(28, 'weapon_18', 'weapons', 20000, 5000, 0, 0),
+(29, 'weapon_19', 'weapons', 20000, 5000, 0, 0),
+(30, 'weapon_20', 'weapons', 30000, 6000, 0, 0),
+(31, 'processed_rock', 'mine', 160, 1000, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -204,7 +257,47 @@ INSERT INTO `player_house` (`id`, `ownerid`, `spawn`) VALUES
 (70, 0, 0),
 (71, 0, 0),
 (72, 0, 0),
-(73, 0, 0);
+(73, 0, 0),
+(74, 0, 0),
+(75, 0, 0),
+(76, 0, 0),
+(77, 0, 0),
+(78, 0, 0),
+(79, 0, 0),
+(80, 0, 0),
+(81, 0, 0),
+(82, 0, 0),
+(83, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shops`
+--
+
+CREATE TABLE `shops` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `x` int(11) NOT NULL,
+  `y` int(11) NOT NULL,
+  `z` int(11) NOT NULL,
+  `h` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `shops`
+--
+
+INSERT INTO `shops` (`id`, `name`, `category`, `x`, `y`, `z`, `h`) VALUES
+(1, 'twentyfour', 'miscellaneous', 128748, 77622, 1576, 90),
+(2, 'twentyfour', 'miscellaneous', 42694, 137926, 1581, 90),
+(3, 'twentyfour', 'miscellaneous', -15402, -2773, 2065, 90),
+(4, 'twentyfour', 'miscellaneous', -169093, -39441, 1149, 90),
+(5, 'twentyfour', 'miscellaneous', 171131, 203562, 1413, -180),
+(6, 'gunshop', 'weapons', -181943, -40882, 1163, 90),
+(7, 'gunshop', 'weapons', 206071, 193057, 1357, 180),
+(8, 'rockshop', 'mine', 67862, 184741, 535, 90);
 
 -- --------------------------------------------------------
 
@@ -240,6 +333,12 @@ ALTER TABLE `ipbans`
   ADD PRIMARY KEY (`ip`);
 
 --
+-- Indexes for table `items`
+--
+ALTER TABLE `items`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `messages`
 --
 ALTER TABLE `messages`
@@ -265,6 +364,12 @@ ALTER TABLE `player_house`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `shops`
+--
+ALTER TABLE `shops`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `whitelist`
 --
 ALTER TABLE `whitelist`
@@ -285,6 +390,12 @@ ALTER TABLE `accounts`
 --
 ALTER TABLE `bans`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `items`
+--
+ALTER TABLE `items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -308,7 +419,13 @@ ALTER TABLE `player_garage`
 -- AUTO_INCREMENT for table `player_house`
 --
 ALTER TABLE `player_house`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+
+--
+-- AUTO_INCREMENT for table `shops`
+--
+ALTER TABLE `shops`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `whitelist`
