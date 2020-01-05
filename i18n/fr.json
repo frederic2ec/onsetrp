@@ -333,6 +333,11 @@
     "no_license": "Aucun permis",
     "gun_dealer": "Armurier",
     "no_gun_license": "Vous n'avez pas de permis de port d'armes",
+    "radio_radios_availables": "Radios disponibles",
+    "radio_turning_on": "La radio se met en route",
+    "radio_turning_off": "La radio s'éteint",
+    "radio_station": "Station",
+    "radio_switching_radio": "Changement de station",
     "item_backpack": "Sac à dos",
     "inventory_not_enough_space": "Pas assez de place dans l'inventaire"
 }
