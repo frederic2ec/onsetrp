@@ -32,7 +32,8 @@
         "medic/server.lua",
         "licenses/server.lua",
         "onset-phone/server.lua",
-        "transport/s_busstop.lua"
+        "transport/s_busstop.lua",
+        "vehicle_radio/server.lua"
     ],
     "client_scripts": [
         "hunger/client.lua",
@@ -65,7 +66,8 @@
         "holiday/client.lua",
         "medic/client.lua",
         "licenses/client.lua",
-        "transport/c_busstop.lua"
+        "transport/c_busstop.lua",
+        "vehicle_radio/client.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",
