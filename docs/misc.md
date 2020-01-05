@@ -23,8 +23,8 @@
 
 #### Syntax
 
-- Client : `PlayerPlayerSound(file, volume)`
-- Server : `PlayerPlayerSound(player, file, volume)`
+- Client : `PlayPlayerSound(file, volume)`
+- Server : `PlayPlayerSound(player, file, volume)`
 
 #### Parameters
 
