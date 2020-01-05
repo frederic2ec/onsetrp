@@ -236,7 +236,6 @@ function CreatePlayerData(player)
 	PlayerData[player].logged_in = false
 	PlayerData[player].admin = 0
 	PlayerData[player].created = 0
-	PlayerData[player].locale = GetPlayerLocale(player)
 	PlayerData[player].steamid = GetPlayerSteamId(player)
 	PlayerData[player].steamname = ""
 	PlayerData[player].thirst = 100
