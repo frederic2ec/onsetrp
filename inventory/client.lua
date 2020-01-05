@@ -4,20 +4,26 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 local personalMenu
 
 AddEvent("OnTranslationReady", function()
-    personalMenu = Dialog.create(_("personal_menu"), _("bank_balance").." : {bank} ".._("currency").." | ".._("cash").." : {cash} ".._("currency"), _("transfer") ,_("use"), _("cancel"))
-    Dialog.addSelect(personalMenu, 1, _("inventory"), 5)
+    personalMenu = Dialog.create(_("personal_menu"),
+        _("bank_balance").." : {bank} ".._("currency").." | ".._("cash").." : {cash} ".._("currency").." | ".._("item_backpack").." : {backpack}",
+        _("transfer") ,_("use"), _("cancel"))
+    Dialog.addSelect(personalMenu, 1, _("inventory").."  {inventory_slots}", 5)
     Dialog.addTextInput(personalMenu, 1, _("quantity"))
     Dialog.addSelect(personalMenu, 1, _("player"), 3)
 end)
 
 
-AddRemoteEvent("OpenPersonalMenu", function(cash, bank, inventory, playerList)
+AddRemoteEvent("OpenPersonalMenu", function(cash, bank, inventory, playerList, backpack, inventorySlots)
     Dialog.setVariable(personalMenu, "cash", cash)
     Dialog.setVariable(personalMenu, "bank", bank)
+    Dialog.setVariable(personalMenu, "backpack", backpack)
+    Dialog.setVariable(personalMenu, "inventory_slots", inventorySlots)
     local items = {}
     for k,v in pairs(inventory) do
         if k == "cash" then
-		    items[k] = v.._("currency")
+            items[k] = v.._("currency")
+        elseif k == "item_backpack" then
+            items[k] = _(k)
         else
 		    items[k] = v.." x ".._(k)
         end

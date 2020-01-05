@@ -337,5 +337,9 @@
     "radio_turning_on": "The radio is turning on",
     "radio_turning_off": "The radio is turning off",
     "radio_station": "Station",
-    "radio_switching_radio": "Switching station"
+    "radio_switching_radio": "Switching station",
+    "item_backpack": "Backpack",
+    "inventory_not_enough_space": "Not enough space in the inventory"  
 }
+    
+

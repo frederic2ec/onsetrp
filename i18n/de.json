@@ -337,5 +337,7 @@
     "radio_turning_on": "Das Radio geht an",
     "radio_turning_off": "Das Radio schaltet sich aus",
     "radio_station": "Station",
-    "radio_switching_radio": "Wechsel der Station"
+    "radio_switching_radio": "Wechsel der Station",
+    "item_backpack": "Rucksack",
+    "inventory_not_enough_space": "Nicht genügend Platz im Inventar"
 }
