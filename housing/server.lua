@@ -1764,6 +1764,7 @@ houses = {
         }
     },
     -- Ajouté par Soljian
+    -- CITY
     {
         id = 74,
         price = 100,
@@ -2111,6 +2112,171 @@ houses = {
                 y = 221959,
                 z = 1245,
                 r = 0
+            },
+        }
+    },
+    -- WAREHOUSES (Desert town)
+    {
+        id = 84,
+        price = 100,
+        lock = true,
+        spawnable = 0,
+        owner = 0,
+        spawn = { -27575, 4224, 2266 },
+        text = { -27343, 4078, 2160 },
+        doors = {
+            {
+                entity = -1,
+                model = 20,
+                x = -27359,
+                y = 4023,
+                z = 2068,
+                r = 200
+            },
+            {
+                entity = -1,
+                model = 24,
+                x = -27539,
+                y = 3908,
+                z = 2067,
+                r = 110
+            },
+            {
+                entity = -1,
+                model = 41,
+                x = -25864,
+                y = 4765,
+                z = 1958,
+                r = 20
+            },
+            {
+                entity = -1,
+                model = 54,
+                x = -26797,
+                y = 3300,
+                z = 2014,
+                r = 20
+            },
+        }
+    },
+    {
+        id = 85,
+        price = 100,
+        lock = true,
+        spawnable = 0,
+        owner = 0,
+        spawn = { -25541, -789, 2262 },
+        text = { -25736, -667, 2160 },
+        doors = {
+            {
+                entity = -1,
+                model = 20,
+                x = -25719,
+                y = -615,
+                z = 2065,
+                r = 20
+            },
+            {
+                entity = -1,
+                model = 24,
+                x = -25538,
+                y = -500,
+                z = 2065,
+                r = -70
+            },
+            {
+                entity = -1,
+                model = 21,
+                x = -24787,
+                y = -753,
+                z = 2065,
+                r = -160
+            },
+            {
+                entity = -1,
+                model = 41,
+                x = -26143,
+                y = 709,
+                z = 1978,
+                r = -70
+            },
+            {
+                entity = -1,
+                model = 54,
+                x = -26633,
+                y = -1060,
+                z = 2014,
+                r = 110
+            },
+        }
+    },
+    {
+        id = 86,
+        price = 100,
+        lock = true,
+        spawnable = 0,
+        owner = 0,
+        spawn = { -30213, -1958, 2260 },
+        text = { -30109, -1759, 2160 },
+        doors = {
+            {
+                entity = -1,
+                model = 20,
+                x = -30048,
+                y = -1784,
+                z = 2064,
+                r = -70
+            },
+            {
+                entity = -1,
+                model = 21,
+                x = -29420,
+                y = -3184,
+                z = 2065,
+                r = 110
+            },
+            {
+                entity = -1,
+                model = 24,
+                x = -29520,
+                y = -2795,
+                z = 2064,
+                r = 110
+            },
+            {
+                entity = -1,
+                model = 41,
+                x = -31693,
+                y = -2401,
+                z = 1965,
+                r = -160
+            },
+        }
+    },
+    {
+        id = 87,
+        price = 100,
+        lock = true,
+        spawnable = 0,
+        owner = 0,
+        spawn = { -29215, -7850, 2263 },
+        text = { -29407, -7778, 2160 },
+        doors = {
+            {
+                entity = -1,
+                model = 21,
+                x = -29388,
+                y = -7724,
+                z = 2064,
+                r = 20
+            },
+            {
+                entity = -1,
+                model = 24,
+                x = -29203,
+                y = -7612,
+                z = 2064,
+                r = -70
             },
         }
     },

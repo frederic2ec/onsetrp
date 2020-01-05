@@ -332,5 +332,13 @@
     "helicopter_license": "Flight",
     "no_license": "",
     "gun_dealer": "Gun dealer",
-    "no_gun_license": "You don't have your Firearms license"
+    "no_gun_license": "You don't have your Firearms license",
+    "peach": "Pfirsiche",
+    "radio_radios_availables": "Radios zur Verfügung",
+    "radio_turning_on": "Das Radio geht an",
+    "radio_turning_off": "Das Radio schaltet sich aus",
+    "radio_station": "Station",
+    "radio_switching_radio": "Wechsel der Station",
+    "item_backpack": "Rucksack",
+    "inventory_not_enough_space": "Nicht genügend Platz im Inventar"
 }

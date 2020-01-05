@@ -111,10 +111,13 @@ AddRemoteEvent("ShopBuy", function(player, shopid, item, amount)
 
     if GetPlayerCash(player) < itemPrice then
         CallRemoteEvent(player, "MakeNotification", _("not_enought_cash"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-    else
-        RemovePlayerCash(player, itemPrice)
-        CallRemoteEvent(player, "MakeNotification", _("shop_success_buy", tostring(amount), _(item.name), _("price_in_currency", itemPrice)), "linear-gradient(to right, #00b09b, #96c93d)")
-        AddInventory(player, item.name, amount)
+    else        
+        if AddInventory(player, item.name, amount) == true then
+            RemovePlayerCash(player, itemPrice)
+            CallRemoteEvent(player, "MakeNotification", _("shop_success_buy", tostring(amount), _(item.name), _("price_in_currency", itemPrice)), "linear-gradient(to right, #00b09b, #96c93d)")
+        else
+            CallRemoteEvent(player, "MakeNotification",_("inventory_not_enough_space"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+        end
     end
 end)
 

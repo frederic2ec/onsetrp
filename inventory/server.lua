@@ -1,5 +1,7 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
+local inventory_base_max_slots = 32
+
 AddRemoteEvent("ServerPersonalMenu", function(player)
     local x, y, z = GetPlayerLocation(player)
     local nearestPlayers = GetPlayersInRange3D(x, y, z, 1000)
@@ -9,7 +11,8 @@ AddRemoteEvent("ServerPersonalMenu", function(player)
             playerList[tostring(k)] = GetPlayerName(k)
         end
     end
-    CallRemoteEvent(player, "OpenPersonalMenu", GetPlayerCash(player), PlayerData[player].bank_balance, PlayerData[player].inventory, playerList)
+    local inventorySlots = GetPlayerUsedSlots(player).." / "..GetPlayerMaxSlots(player)
+    CallRemoteEvent(player, "OpenPersonalMenu", GetPlayerCash(player), PlayerData[player].bank_balance, PlayerData[player].inventory, playerList, GetPlayerBag(player), inventorySlots)
 end)
 
 
@@ -37,6 +40,12 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                 SetPlayerAnimation(player, "DRINKING")
                 RemoveInventory(player, item, amount)
                 addPlayerHunger(player, 5*amount)
+            end
+            if item == "peach" then
+                SetPlayerAnimation(player, "DRINKING")
+                RemoveInventory(player, item, amount)
+                addPlayerHunger(player, 10*amount)
+                addPlayerThirst(player, 5*amount)
             end
             if item == "water_bottle" then
                 SetPlayerAnimation(player, "DRINKING")
@@ -160,22 +169,38 @@ end)
 
 
 function AddInventory(player, item, amount)
-    if PlayerData[player].inventory[item] == nil then
-        PlayerData[player].inventory[item] = amount
+    local slotsAvailables = tonumber(GetPlayerMaxSlots(player)) - tonumber(GetPlayerUsedSlots(player))
+     if slotsAvailables >= amount or item == "cash"then
+        if item == "item_backpack" and GetPlayerBag(player) == 1 then -- On ne peux pas acheter plusieurs sacs
+            return false
+        end
+        if PlayerData[player].inventory[item] == nil then
+            PlayerData[player].inventory[item] = amount            
+        else
+            PlayerData[player].inventory[item] = PlayerData[player].inventory[item] + amount
+        end
+        if item == "item_backpack" then -- Affichage du sac sur le perso
+            DisplayPlayerBackpack(player, 1)
+        end
+        return true
     else
-        PlayerData[player].inventory[item] = PlayerData[player].inventory[item] + amount
+        return false
     end
 end
 
 function RemoveInventory(player, item, amount)
     if PlayerData[player].inventory[item] == nil then
-        return
+        return false
     else
         if PlayerData[player].inventory[item] - amount < 1 then
             PlayerData[player].inventory[item] = nil
         else
             PlayerData[player].inventory[item] = PlayerData[player].inventory[item] - amount
         end
+        if item == "item_backpack" then
+            DisplayPlayerBackpack(player, 1)
+        end
+        return true
     end
 end
 
@@ -199,13 +224,83 @@ function RemovePlayerCash(player, amount)
     RemoveInventory(player, 'cash', math.tointeger(amount))
 end
 
+function GetPlayerBag(player)    
+    if PlayerData[player].inventory['item_backpack'] and math.tointeger(PlayerData[player].inventory['item_backpack']) > 0 then
+        return 1
+    else
+        return 0
+    end
+end
+
+function GetPlayerMaxSlots(player)
+    if PlayerData[player].inventory['item_backpack'] and math.tointeger(PlayerData[player].inventory['item_backpack']) > 0 then
+        return math.floor(inventory_base_max_slots * 1.25)
+    else
+        return inventory_base_max_slots
+    end
+end
+
+function GetPlayerUsedSlots(player)
+    local usedSlots = 0
+    for k,v in pairs(PlayerData[player].inventory) do
+        if k == 'cash' then
+            usedSlots = usedSlots + 1
+        else
+            usedSlots = usedSlots + v
+        end
+    end
+    return usedSlots
+end
+
+function DisplayPlayerBackpack(player, anim)
+    -- items ids : 818,820,821,823
+    if GetPlayerBag(player) == 1 then
+        local x, y, z = GetPlayerLocation(player)
+	    PlayerData[player].backpack = CreateObject(820, x, y, z)
+        SetObjectAttached(PlayerData[player].backpack, ATTACH_PLAYER, player, -30.0, -9.0, 0.0, -90.0, 0.0, 0.0, "spine_03")
+        if anim == 1 then BackpackPutOnAnim(player) end -- Petite animation RP
+    else
+        if PlayerData[player].backpack ~= nil then
+            if anim == 1 then BackpackPutOnAnim(player, 2500) end -- Petite animation RP
+            Delay(2500, function() 
+                DestroyObject(PlayerData[player].backpack)  
+            end)
+        end
+    end
+end
+
+function BackpackPutOnAnim(player, timer)
+    if timer == nil then timer = 5000 end
+    SetPlayerAnimation(player, "CHECK_EQUIPMENT3")
+    Delay(timer, function()
+        SetPlayerAnimation(player, "STOP")
+    end)
+end
+
 AddFunctionExport("AddInventory", AddInventory)
 AddFunctionExport("RemoveInventory", RemoveInventory)
 AddFunctionExport("GetPlayerCash", GetPlayerCash)
 AddFunctionExport("SetPlayerCash", SetPlayerCash)
 AddFunctionExport("AddPlayerCash", AddPlayerCash)
 AddFunctionExport("RemovePlayerCash", RemovePlayerCash)
+AddFunctionExport("GetPlayerBag", GetPlayerBag)
+AddFunctionExport("GetPlayerMaxSlots", GetPlayerMaxSlots)
+AddFunctionExport("GetPlayerUsedSlots", GetPlayerUsedSlots)
+AddFunctionExport("DisplayPlayerBackpack", DisplayPlayerBackpack)
 
 AddEvent("OnPackageStart", function()
 
 end)
+
+
+ -- DEV MODE ajout/suppression sac à dos TODO : a supprimer lorsque le shop sera finalisé
+AddCommand("gbag", function(player)
+    print('give bag dev mode')
+    local success = AddInventory(player, "item_backpack", 1)
+end)
+
+AddCommand("rbag", function(player)
+    print('remove bag dev mode')
+    local success = RemoveInventory(player, "item_backpack", 1)
+end)
+

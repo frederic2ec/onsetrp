@@ -332,5 +332,13 @@
     "helicopter_license": "Flight",
     "no_license": "",
     "gun_dealer": "Gun dealer",
-    "no_gun_license": "You don't have your Firearms license"
+    "no_gun_license": "You don't have your Firearms license",
+    "peach": "Pêssegos",
+    "radio_radios_availables": "Rádios disponíveis",
+    "radio_turning_on": "O rádio continua",
+    "radio_turning_off": "O rádio desliga",
+    "radio_station": "estação",
+    "radio_switching_radio": "Mudança de estação",
+    "item_backpack": "Mochila",
+    "inventory_not_enough_space": "Espaço insuficiente no inventário"
 }
