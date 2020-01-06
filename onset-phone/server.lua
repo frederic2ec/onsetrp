@@ -80,20 +80,20 @@ AddRemoteEvent("ContactDeleted", ContactDeleted)
 function MessageCreated(player, phone, content)
     local created_at = tostring(os.time(os.date("!*t")))
 
-    local from = nil
+    local fromPlayer = nil
     if player ~= -1 then 
-        from = PlayerData[player].phone_number
+        fromPlayer = PlayerData[player].phone_number
     else
-        from = "Anonymous"
+        fromPlayer = "Anonymous"
     end
     local query = mariadb_prepare(sql, "INSERT INTO messages (`id`, `from`, `to`, `content`, `created_at`) VALUES (NULL, '?', '?', '?', '?');",
-        tostring(from), phone, content, created_at)
+        tostring(fromPlayer), phone, content, created_at)
 
     local playersIds = GetAllPlayers()
 
     for playerId, v in pairs(playersIds) do
         if PlayerData[playerId].phone_number == phone then
-            CallRemoteEvent(playerId, "NewMessage", from, phone, content, created_at)
+            CallRemoteEvent(playerId, "NewMessage", fromPlayer, phone, content, created_at)
         end
     end
 	
