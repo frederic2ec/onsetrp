@@ -60,10 +60,10 @@ function OnPackageStart()
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
-function updateHud()    
-    ExecuteWebJS(HealthHud, "SetHealth("..GetPlayerHealth()..", "..personalMenuIsOpen..");")
-    ExecuteWebJS(ThirstHud, "SetThirst("..GetPlayerPropertyValue(GetPlayerId(), "thirst")..", "..personalMenuIsOpen..");")
-    ExecuteWebJS(HungerFoodHud, "SetHunger("..GetPlayerPropertyValue(GetPlayerId(), "hunger")..", "..personalMenuIsOpen..");")
+function updateHud()   
+    if HealthHud ~= nil then ExecuteWebJS(HealthHud, "SetHealth("..GetPlayerHealth()..", "..personalMenuIsOpen..");") end -- Fix robustesse
+    if ThirstHud ~= nil then ExecuteWebJS(ThirstHud, "SetThirst("..GetPlayerPropertyValue(GetPlayerId(), "thirst")..", "..personalMenuIsOpen..");") end
+    if HungerFoodHud ~= nil then ExecuteWebJS(HungerFoodHud, "SetHunger("..GetPlayerPropertyValue(GetPlayerId(), "hunger")..", "..personalMenuIsOpen..");") end
 
     if GetPlayerVehicle() ~= 0 then
         SetTextBoxText(VehicleSpeedHud, _("speed")..math.floor(GetVehicleForwardSpeed(GetPlayerVehicle())).."KM/H")
