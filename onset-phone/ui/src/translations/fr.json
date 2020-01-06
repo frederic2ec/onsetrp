@@ -1,0 +1,40 @@
+{
+  "homescreen": {
+    "title": "Page d'accueil"
+  },
+  "conversations": {
+    "title": "Conversations",
+    "message_placeholder": "Message..."
+  },
+  "contacts": {
+    "me": "Mon numéro: ",
+    "search": "Recherche",
+    "title": "Contacts",
+    "new": "Nouveau contact",
+    "name": "Nom :",
+    "name_placeholder": "John Doe",
+    "phone": "Téléphone :",
+    "phone_placeholder": "555XXXXXX",
+    "new": "Créer un contact",
+    "save": "Modifier le contact",
+    "message": "Envoyer un message",
+    "delete": "Supprimer le contact",
+    "are_you_sure": "Êtes vous sûrs?",
+    "yes": "Oui",
+    "no": "Non",
+    "errors": {
+      "no_name": "Le nom est obligatoire pour créer un contact",
+      "no_phone": "Le numéro de téléphone doit être sous la forme \"555XXXXXX\"",
+      "existing": "Un contact existe déjà avec ce numéro de téléphone: "
+    }
+  },
+  "bank": {
+    "title": "Imminent Wealth Bank",
+    "balance": "Argent sur mon compte : ",
+    "history": "Opérations passées",
+    "loan": "Demander un prêt",
+    "sendmoney": "Envoyer de l'argent",
+    "bills": "Payer une facture",
+    "comingsoon": "Arrive bientôt"
+  }
+}

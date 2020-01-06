@@ -1,0 +1,40 @@
+{
+  "homescreen": {
+    "title": "Homepage"
+  },
+  "conversations": {
+    "title": "Conversations",
+    "message_placeholder": "Message..."
+  },
+  "contacts": {
+    "me": "My number: ",
+    "search": "Search",
+    "title": "Contacts",
+    "new": "New contact",
+    "name": "Name:",
+    "name_placeholder": "John Doe",
+    "phone": "Phone:",
+    "phone_placeholder": "555XXXXXX",
+    "new": "Create contact",
+    "save": "Update contact",
+    "message": "Send a message",
+    "delete": "Delete contact",
+    "are_you_sure": "Are you sure?",
+    "yes": "Yes",
+    "no": "No",
+    "errors": {
+      "no_name": "Name is needed to create a contact.",
+      "no_phone": "Phone number should match \"555XXXXXX\"",
+      "existing": "A contact already exist with this phone number: "
+    }
+  },
+  "bank": {
+    "title": "Imminent Wealth Bank",
+    "balance": "Money on my account: ",
+    "history": "History",
+    "loan": "Get loans",
+    "sendmoney": "Send money",
+    "bills": "Pay bills",
+    "comingsoon": "Coming soon"
+  }
+}

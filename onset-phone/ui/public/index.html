@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>onset-phone</title>
+    <style type="text/css">
+      #close-phone {
+        border-radius: 50%;
+        padding: 10px;
+        background: #fff;
+        display: inline-block;
+        position: absolute;
+        border: 1px solid #d8dfe3;
+        bottom: 650px;
+        left: 20px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but onset-phone doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <svg id="close-phone" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    <div id="app">1</div>
+    <!-- built files will be auto injected -->
+    <!-- Game API files -->
+    <script>
+      function initPhone (data) { 
+        window.phoneApp.currentUserPhone = data.currentUserPhone
+        window.phoneApp.contacts = data.contacts
+        window.phoneApp.messages = data.messages
+        window.phoneApp.loaded = true
+      }
+
+      function newMessage (message) {
+        window.phoneApp.messages.push(message)
+      }
+
+      function closePhone () {
+        if (window.ue) {
+          window.ue.game.callevent("ClosePhone", "[]");
+        } else {
+          console.warn('You can\'t close the phone in development mode. \n-> In game, window.ue.game.callevent("ClosePhone", "[]") will be triggered')
+        }
+      }
+
+      document.getElementById('close-phone').addEventListener('click', closePhone)
+    </script>
+  </body>
+</html>
