@@ -60,10 +60,13 @@ function OnPackageStart()
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
-function updateHud()   
-    if HealthHud ~= nil then ExecuteWebJS(HealthHud, "SetHealth("..GetPlayerHealth()..", "..personalMenuIsOpen..");") end -- Fix robustesse
-    if ThirstHud ~= nil then ExecuteWebJS(ThirstHud, "SetThirst("..GetPlayerPropertyValue(GetPlayerId(), "thirst")..", "..personalMenuIsOpen..");") end
-    if HungerFoodHud ~= nil then ExecuteWebJS(HungerFoodHud, "SetHunger("..GetPlayerPropertyValue(GetPlayerId(), "hunger")..", "..personalMenuIsOpen..");") end
+function updateHud()
+    local pHealth = GetPlayerHealth()
+    local pHunger = GetPlayerPropertyValue(GetPlayerId(), "hunger")
+    local pThirst = GetPlayerPropertyValue(GetPlayerId(), "thirst")
+    if HealthHud ~= nil and pHealth ~= nil then ExecuteWebJS(HealthHud, "SetHealth("..pHealth..", "..personalMenuIsOpen..");") end -- Fix robustesse
+    if ThirstHud ~= nil and pHunger ~= nil then ExecuteWebJS(ThirstHud, "SetThirst("..pThirst..", "..personalMenuIsOpen..");") end
+    if HungerFoodHud ~= nil and pThirst ~= nil then ExecuteWebJS(HungerFoodHud, "SetHunger("..pHunger..", "..personalMenuIsOpen..");") end
 
     if GetPlayerVehicle() ~= 0 then
         SetTextBoxText(VehicleSpeedHud, _("speed")..math.floor(GetVehicleForwardSpeed(GetPlayerVehicle())).."KM/H")
