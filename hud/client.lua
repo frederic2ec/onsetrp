@@ -68,7 +68,7 @@ function updateHud()
     if GetPlayerVehicle() ~= 0 then
         SetTextBoxText(VehicleSpeedHud, _("speed")..math.floor(GetVehicleForwardSpeed(GetPlayerVehicle())).."KM/H")
         SetTextBoxText(VehicleHealthHud, _("vehicle_health")..math.floor(GetVehicleHealth(GetPlayerVehicle())))
-        SetTextBoxText(VehicleFuelHud, _("fuel")..GetVehiclePropertyValue(GetPlayerVehicle(), "fuel"))
+        SetTextBoxText(VehicleFuelHud, _("fuel")..GetVehiclePropertyValue(GetPlayerVehicle(), "fuel")) -- y a un bug ici
     else
         SetTextBoxText(VehicleSpeedHud, "")
         SetTextBoxText(VehicleFuelHud, "")

@@ -44,7 +44,8 @@ CREATE TABLE `accounts` (
   `phone_number` varchar(255) DEFAULT NULL,
   `driver_license` tinyint(1) NOT NULL DEFAULT 0,
   `gun_license` tinyint(1) NOT NULL DEFAULT 0,
-  `helicopter_license` tinyint(1) NOT NULL DEFAULT 0
+  `helicopter_license` tinyint(1) NOT NULL DEFAULT 0,
+  `drug_knowledge` text NOT NULL DEFAULT '{}'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

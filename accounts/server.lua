@@ -141,6 +141,7 @@ function OnAccountLoaded(player)
 		PlayerData[player].inventory = json_decode(result['inventory'])
 		PlayerData[player].created = math.tointeger(result['created'])
 		PlayerData[player].position = json_decode(result['position'])
+		PlayerData[player].drug_knowledge = json_decode(result['drug_knowledge'])
     
 
 		if result['phone_number'] and result['phone_number'] ~= "" then
@@ -252,6 +253,7 @@ function CreatePlayerData(player)
 	PlayerData[player].death_pos = {}
 	PlayerData[player].position = {}
 	PlayerData[player].backpack = nil
+	PlayerData[player].drug_knowledge = {}
 
 
     print("Data created for : "..player)
@@ -286,7 +288,7 @@ function SavePlayerAccount(player)
 	local x, y, z = GetPlayerLocation(player)
 	PlayerData[player].position = {x= x, y= y, z= z}
 
-	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, bank_balance = ?, health = ?, health_state = '?', death_pos = '?', armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', clothing_police = '?', inventory = '?', created = '?', position = '?', driver_license = ?, gun_license = ?, helicopter_license = ? WHERE id = ? LIMIT 1;",
+	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, bank_balance = ?, health = ?, health_state = '?', death_pos = '?', armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', clothing_police = '?', inventory = '?', created = '?', position = '?', driver_license = ?, gun_license = ?, helicopter_license = ?, drug_knowledge = '?' WHERE id = ? LIMIT 1;",
 		PlayerData[player].admin,
 		PlayerData[player].bank_balance,
 		100,
@@ -304,6 +306,7 @@ function SavePlayerAccount(player)
 		PlayerData[player].driver_license,
 		PlayerData[player].gun_license,
 		PlayerData[player].helicopter_license,
+		json_encode(PlayerData[player].drug_knowledge),
 		PlayerData[player].accountid
 	)
         
