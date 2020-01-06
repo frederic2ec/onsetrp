@@ -167,6 +167,13 @@ AddRemoteEvent("TransferInventory", function(player, item, amount, toplayer)
     end
 end)
 
+AddEvent("OnPlayerSpawn", function(player)
+    if PlayerData[player] ~= nil then
+        DestroyObject(PlayerData[player].backpack)        
+        PlayerData[player].backpack = nil
+        DisplayPlayerBackpack(player)
+    end
+end)
 
 function AddInventory(player, item, amount)
     local slotsAvailables = tonumber(GetPlayerMaxSlots(player)) - tonumber(GetPlayerUsedSlots(player))
@@ -255,10 +262,12 @@ end
 function DisplayPlayerBackpack(player, anim)
     -- items ids : 818,820,821,823
     if GetPlayerBag(player) == 1 then
-        local x, y, z = GetPlayerLocation(player)
-	    PlayerData[player].backpack = CreateObject(820, x, y, z)
-        SetObjectAttached(PlayerData[player].backpack, ATTACH_PLAYER, player, -30.0, -9.0, 0.0, -90.0, 0.0, 0.0, "spine_03")
-        if anim == 1 then BackpackPutOnAnim(player) end -- Petite animation RP
+        if PlayerData[player].backpack == nil then -- Pour vérifier s'il n'a pas déjà un sac
+            local x, y, z = GetPlayerLocation(player)
+            PlayerData[player].backpack = CreateObject(820, x, y, z)
+            SetObjectAttached(PlayerData[player].backpack, ATTACH_PLAYER, player, -30.0, -9.0, 0.0, -90.0, 0.0, 0.0, "spine_03")
+            if anim == 1 then BackpackPutOnAnim(player) end -- Petite animation RP
+        end
     else
         if PlayerData[player].backpack ~= nil then
             if anim == 1 then BackpackPutOnAnim(player, 2500) end -- Petite animation RP
