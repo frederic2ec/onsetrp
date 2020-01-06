@@ -11,6 +11,7 @@ Roleplay framework for the game [Onset](https://store.steampowered.com/app/11058
 
 - [i18n](https://github.com/OnfireNetwork/i18n)
 - [dialogui](https://github.com/OnfireNetwork/dialogui)
+- [cinematicui](https://github.com/rdlh/cinematicui)
 
 ## How To Install OnsetRP
 
