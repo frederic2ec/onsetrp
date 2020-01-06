@@ -89,7 +89,7 @@ function OnAccountCheckIpBan(player)
 end
 
 function CreatePlayerAccount(player)
-	local query = mariadb_prepare(sql, "INSERT INTO accounts (id, steamid, clothing, clothing_police, death_pos, inventory, position) VALUES (NULL, '?', '[]' , '[]' , '[]' , '[]' , '[]');",
+	local query = mariadb_prepare(sql, "INSERT INTO accounts (id, steamid, clothing, clothing_police, death_pos, inventory, position, drug_knowledge) VALUES (NULL, '?', '[]' , '[]' , '[]' , '[]' , '[]', '[]');",
 		tostring(GetPlayerSteamId(player)))
 
 	mariadb_query(sql, query, OnAccountCreated, player)
