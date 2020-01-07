@@ -298,3 +298,13 @@ function RemoveVehicleInventory(vehicle, item, amount)
         end
     end
 end
+
+AddRemoteEvent("ToggleEngine", function(player, vehicle)
+    if vehicle ~= 0 then
+        if GetVehicleEngineState(vehicle) then
+            StopVehicleEngine(vehicle)
+        else
+            StartVehicleEngine(vehicle)
+        end
+    end
+end)
