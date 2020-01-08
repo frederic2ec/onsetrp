@@ -192,6 +192,7 @@ function GetNearestNpc()
     
     for k, v in pairs(npcTableIds) do
         local x2, y2, z2 = GetNPCLocation(v)
+        if x2 == nil or x2 == false then return 0 end
         local dist = GetDistance3D(x, y, z, x2, y2, z2)
         
         if dist < 200.0 then
