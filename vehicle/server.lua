@@ -319,3 +319,46 @@ AddRemoteEvent("ToggleEngine", function(player, vehicle)
     end
 end)
 
+function OpenTrunkAnimation(vehicle)    
+    SetVehicleTrunkRatio(vehicle) = GetVehicleTrunkRatio(vehicle) + 1.0;
+end
+
+
+AddRemoteEvent("OpenTrunk", function(vehicle)
+    if vehicle ~= 0 then
+        if (GetPlayerVehicleSeat(player) ~= 1) then
+            return 
+        else
+            if GetVehicleTrunkRatio(vehicle) > 0.0 and GetVehicleTrunkRatio(vehicle) < 45.0 then
+                return
+            else
+                if GetVehicleTrunkRatio(vehicle) == 45.0 then
+                    return
+                else
+                    CreateCountTimer(OpenTrunkAnimation(), 50000, 45 , vehicle)
+                end 
+            end
+        end
+    end
+end)
+
+AddRemoteEvent("CloseTrunk", function(player, vehicle)
+    if vehicle ~= 0 then
+        if (GetPlayerVehicleSeat(player) ~= 1) then
+            return 
+        else
+            if GetVehicleEngineState(vehicle) then
+                StopVehicleEngine(vehicle)
+            else
+                if VehicleData[vehicle] ~= nil then
+                    if VehicleData[vehicle].fuel > 0 then
+                        StartVehicleEngine(vehicle)
+                    end
+                else
+                    StartVehicleEngine(vehicle)
+                end
+            end
+        end
+    end
+end)
+

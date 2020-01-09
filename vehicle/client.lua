@@ -70,6 +70,14 @@ function OnKeyPress(key)
             CallRemoteEvent("ToggleEngine", veh)
         end
     end
+
+    if key == "T" and not onSpawn and not onCharacterCreation and GetPlayerVehicleSeat(player) == 1 then
+        local player = GetPlayerId()
+        local veh = GetPlayerVehicle(player)
+        if veh ~= 0 then
+            CallRemoteEvent("OpenTrunk", veh)
+        end
+    end
 end
 AddEvent("OnKeyPress", OnKeyPress)
 
