@@ -324,17 +324,21 @@ function OpenTrunkAnimation(vehicle)
 end
 
 
-AddRemoteEvent("OpenTrunk", function(vehicle)
+AddRemoteEvent("OpenTrunk", function(player, vehicle)
     if vehicle ~= 0 then
         if (GetPlayerVehicleSeat(player) ~= 1) then
             return 
         else
+            print("OpenTrunk Function was called !")
             if GetVehicleTrunkRatio(vehicle) > 0.0 and GetVehicleTrunkRatio(vehicle) < 45.0 then
+                print("Animation was already running !")
                 return
             else
                 if GetVehicleTrunkRatio(vehicle) == 45.0 then
+                    print("Trunk already fully opened !")
                     return
                 else
+                    print("Calling Animation Function !")
                     CreateCountTimer(OpenTrunkAnimation(vehicle), 50000, 45 , vehicle)
                 end 
             end
