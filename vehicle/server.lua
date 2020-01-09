@@ -335,7 +335,7 @@ AddRemoteEvent("OpenTrunk", function(vehicle)
                 if GetVehicleTrunkRatio(vehicle) == 45.0 then
                     return
                 else
-                    CreateCountTimer(OpenTrunkAnimation(), 50000, 45 , vehicle)
+                    CreateCountTimer(OpenTrunkAnimation(vehicle), 50000, 45 , vehicle)
                 end 
             end
         end
