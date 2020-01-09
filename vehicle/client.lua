@@ -75,8 +75,8 @@ function OnKeyPress(key)
         local player = GetPlayerId()
         local veh = GetPlayerVehicle(player)
         if veh ~= 0 then
-            AddPlayerChat("OpenTrunk Function Called !")
-            CallRemoteEvent("OpenTrunk", player, veh)
+            AddPlayerChat("OpenTrunkWithoutMenu Function Called !")
+            CallRemoteEvent("OpenTrunkWithoutMenu", player, veh)
         end
     end
 end
