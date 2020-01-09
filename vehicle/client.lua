@@ -55,11 +55,19 @@ function OnKeyPress(key)
     if key == "U" and not onSpawn and not onCharacterCreation then
         CallRemoteEvent("unlockVehicle")
     end
+    
     local nearestVehicle = getNearestVehicle()
-
     if key == "F1" and not onSpawn and not onCharacterCreation then
         if nearestVehicle ~= 0 then
             CallRemoteEvent("ServerVehicleMenu", nearestVehicle)
+        end
+    end
+
+    if key == "E" and not onSpawn and not onCharacterCreation and IsPlayerInVehicle() then
+        local player = GetPlayerId()
+        local veh = GetPlayerVehicle(player)
+        if veh ~= 0 then
+            CallRemoteEvent("ToggleEngine", veh)
         end
     end
 end
