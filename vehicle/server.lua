@@ -304,7 +304,7 @@ AddRemoteEvent("ToggleEngine", function(player, vehicle)
         if GetVehicleEngineState(vehicle) then
             StopVehicleEngine(vehicle)
         else
-            if VehicleData[vehicle].fuel >= 100 then
+            if VehicleData[vehicle].fuel >= 0 then
 	        StartVehicleEngine(vehicle)
 	    end
         end
