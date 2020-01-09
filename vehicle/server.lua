@@ -320,12 +320,14 @@ AddRemoteEvent("ToggleEngine", function(player, vehicle)
 end)
 
 function OpenTrunkAnimation(vehicle)    
-    SetVehicleTrunkRatio(vehicle, GetVehicleTrunkRatio(vehicle) + 1.0)
+    vehicle = tonumber(vehicle)
+    local trunkratio = GetVehicleTrunkRatio(vehicle) + 1.0
+    SetVehicleTrunkRatio(vehicle, trunkratio)
 end
 
 
 AddRemoteEvent("OpenTrunkWithoutMenu", function(player, vehicle)
-    if vehicle ~= 0 then
+    if vehicle ~= nil then
         if (GetPlayerVehicleSeat(player) ~= 1) then
             return 
         else
@@ -341,7 +343,7 @@ AddRemoteEvent("OpenTrunkWithoutMenu", function(player, vehicle)
                     print("Calling Animation Function !")
                     CreateCountTimer(function()
                         OpenTrunkAnimation(vehicle)
-                    end, 50000, 60 , vehicle)
+                    end, 50, 60 , vehicle)
                 end 
             end
         end
@@ -349,7 +351,7 @@ AddRemoteEvent("OpenTrunkWithoutMenu", function(player, vehicle)
 end)
 
 AddRemoteEvent("CloseTrunkWithoutMenu", function(player, vehicle)
-    if vehicle ~= 0 then
+    if vehicle ~= nil then
         if (GetPlayerVehicleSeat(player) ~= 1) then
             return 
         else
