@@ -80,7 +80,7 @@ function updateHud()
     end
 end
 
-AddEvent( "OnRenderHUD", function()
+AddEvent( "OnGameTick", function()
     --Speaking icon check
     local player = GetPlayerId()
     if IsPlayerTalking(player) then
