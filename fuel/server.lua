@@ -52,7 +52,9 @@ AddEvent("OnPackageStart", function()
                 if VehicleData[k] == nil then
                     return
                 end
-                VehicleData[k].fuel = VehicleData[k].fuel - 1
+                if VehicleData[k].fuel ~= 0 then
+                    VehicleData[k].fuel = VehicleData[k].fuel - 1
+                end
                 if VehicleData[k].fuel == 0 then
                     StopVehicleEngine(k)
                     VehicleData[k].fuel = 0
