@@ -320,7 +320,7 @@ AddRemoteEvent("ToggleEngine", function(player, vehicle)
 end)
 
 function OpenTrunkAnimation(vehicle)    
-    SetVehicleTrunkRatio(vehicle) = GetVehicleTrunkRatio(vehicle) + 1.0;
+    SetVehicleTrunkRatio(GetVehicleTrunkRatio(vehicle) + 1.0)
 end
 
 
