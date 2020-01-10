@@ -327,7 +327,7 @@ end
 
 
 AddRemoteEvent("OpenTrunkWithoutMenu", function(player, vehicle)
-    if vehicle ~= nil then
+    if vehicle ~= 0 then
         if (GetPlayerVehicleSeat(player) ~= 1) then
             return 
         else
@@ -351,7 +351,7 @@ AddRemoteEvent("OpenTrunkWithoutMenu", function(player, vehicle)
 end)
 
 AddRemoteEvent("CloseTrunkWithoutMenu", function(player, vehicle)
-    if vehicle ~= nil then
+    if vehicle ~= 0 then
         if (GetPlayerVehicleSeat(player) ~= 1) then
             return 
         else
