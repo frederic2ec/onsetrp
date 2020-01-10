@@ -1,17 +1,8 @@
-function OnScriptError(message) --Standard copy&paste code from onset lua script examples for printing out lua errors
-    AddPlayerChat('<span color="#ff0000bb" style="bold" size="10">'..message..'</>')
-end
-AddEvent("OnScriptError", OnScriptError)
-
 local mapGui = nil
 local miniMapGui = nil
 local devMode = false
 local mapUILoaded = false
 local minimapUILoaded
-
-local function PinLog(msg) --I use this instead of the default AddPlayerChat just so it looks pretty and makes it clear what package my messages are from
-	AddPlayerChat('<span color="#33DD33" style="bold" size="12">[Pinmap]</> - ' .. msg)
-end
 
 local function OnPackageStart()
 	local screenX, screenY = GetScreenSize()
