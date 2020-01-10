@@ -319,52 +319,26 @@ AddRemoteEvent("ToggleEngine", function(player, vehicle)
     end
 end)
 
-function OpenTrunkAnimation(vehicle)    
-    vehicle = tonumber(vehicle)
-    local trunkratio = GetVehicleTrunkRatio(vehicle) + 1.0
-    SetVehicleTrunkRatio(vehicle, trunkratio)
-end
-
-
-AddRemoteEvent("OpenTrunkWithoutMenu", function(player, vehicle)
-    if vehicle ~= 0 then
-        if (GetPlayerVehicleSeat(player) ~= 1) then
-            return 
-        else
-            print("OpenTrunk Function was called !")
+AddRemoteEvent("ToggleTrunk", function(player)
+    if IsPlayerInVehicle(player) then
+        if GetPlayerVehicleSeat(player) == 1 then
+            vehicle = GetPlayerVehicle(player)
             if GetVehicleTrunkRatio(vehicle) > 0.0 and GetVehicleTrunkRatio(vehicle) < 60.0 then
-                print("Animation was already running !")
-                return
-            else
-                if GetVehicleTrunkRatio(vehicle) == 60.0 then
-                    print("Trunk already fully opened !")
-                    return
-                else
-                    print("Calling Animation Function !")
-                    CreateCountTimer(function()
-                        OpenTrunkAnimation(vehicle)
-                    end, 50, 60, vehicle)
-                end 
-            end
-        end
-    end
-end)
-
-AddRemoteEvent("CloseTrunkWithoutMenu", function(player, vehicle)
-    if vehicle ~= 0 then
-        if (GetPlayerVehicleSeat(player) ~= 1) then
-            return 
-        else
-            if GetVehicleEngineState(vehicle) then
-                StopVehicleEngine(vehicle)
-            else
-                if VehicleData[vehicle] ~= nil then
-                    if VehicleData[vehicle].fuel > 0 then
-                        StartVehicleEngine(vehicle)
+                -- Animation was already running
+            elseif GetVehicleTrunkRatio(vehicle) == 60.0 then
+                CreateCountTimer(function()
+                    openRatio = GetVehicleTrunkRatio(vehicle) - 0.5
+                    if openRatio >= 0.0 then
+                        SetVehicleTrunkRatio(vehicle, openRatio)
                     end
-                else
-                    StartVehicleEngine(vehicle)
-                end
+                end, 25, 120)
+            else
+                CreateCountTimer(function()
+                    openRatio = GetVehicleTrunkRatio(vehicle) + 0.5
+                    if openRatio <= 60.0 then
+                        SetVehicleTrunkRatio(vehicle, openRatio)
+                    end
+                end, 25, 120)
             end
         end
     end
