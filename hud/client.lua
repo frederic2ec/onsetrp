@@ -8,7 +8,6 @@ local VehicleSpeedHud
 local VehicleFuelHud
 local VehicleHealthHud
 local SpeakingHud
-local minimap
 
 personalMenuIsOpen = 0
 
@@ -48,12 +47,6 @@ function OnPackageStart()
     SetWebAlignment( SpeakingHud, 0, 0 )
     SetWebAnchors( SpeakingHud, 0, 0, 1, 1 )
     SetWebVisibility( SpeakingHud, WEB_HITINVISIBLE )
-
-    minimap = CreateWebUI(0, 0, 0, 0, 0, 32)
-    SetWebVisibility(minimap, WEB_HITINVISIBLE)
-    SetWebAnchors(minimap, 0, 0, 1, 1)
-    SetWebAlignment(minimap, 0, 0)
-    SetWebURL(minimap, "http://asset/onsetrp/hud/minimap/minimap.html")
     
 	ShowHealthHUD(false)
     ShowWeaponHUD(false)
@@ -88,23 +81,9 @@ AddEvent( "OnGameTick", function()
     else
         SetWebVisibility(SpeakingHud, WEB_HIDDEN)
     end
-    --Minimap refresh
-    local x, y, z = GetCameraRotation()
-    local px,py,pz = GetPlayerLocation()
-    ExecuteWebJS(minimap, "SetHUDHeading("..(360-y)..");")
-    ExecuteWebJS(minimap, "SetMap("..px..","..py..","..y..");")
     -- Hud refresh
     updateHud()
 end )
-
-function SetHUDMarker(name, h, r, g, b)
-    if h == nil then
-        ExecuteWebJS(minimap, "SetHUDMarker(\""..name.."\");");
-    else
-        ExecuteWebJS(minimap, "SetHUDMarker(\""..name.."\", "..h..", "..r..", "..g..", "..b..");");
-    end
-end
-AddRemoteEvent("SetHUDMarker", SetHUDMarker)
 
 function hideRPHud()
     SetWebVisibility(HungerFoodHud, WEB_HIDDEN)
@@ -114,7 +93,6 @@ function hideRPHud()
     SetWebVisibility(VehicleFuelHud, WEB_HIDDEN)
     SetWebVisibility(VehicleHealthHud, WEB_HIDDEN)
     SetWebVisibility(SpeakingHud, WEB_HIDDEN)
-    SetWebVisibility(minimap, WEB_HIDDEN)
 end
 
 function showRPHud()
@@ -125,7 +103,6 @@ function showRPHud()
     SetWebVisibility(VehicleFuelHud, WEB_HITINVISIBLE)
     SetWebVisibility(VehicleHealthHud, WEB_HITINVISIBLE)
     SetWebVisibility(SpeakingHud, WEB_HITINVISIBLE)
-    SetWebVisibility(minimap, WEB_HITINVISIBLE)
 end
 
 AddFunctionExport("hideRPHud", hideRPHud)

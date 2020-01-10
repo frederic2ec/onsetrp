@@ -22,7 +22,7 @@ var windowWidth = 0;
 var windowHeight = 0;
 //runningFromBrowser will be determined OnLoad and special logic can be called for debugging via browser
 var runningFromBrowser = true;
-var mapOrientation = 0; //Default is 0, but if you want to change it to rotate the map, here is where you would do that. Expected input is in degrees. ex. 90
+var mapOrientation = -90; //Default is 0, but if you want to change it to rotate the map, here is where you would do that. Expected input is in degrees. ex. 90
 
 
 function OnLoad()
