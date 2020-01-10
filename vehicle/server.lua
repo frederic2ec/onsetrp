@@ -344,3 +344,27 @@ AddRemoteEvent("ToggleTrunk", function(player)
     end
 end)
 
+AddRemoteEvent("ToggleHood", function(player)
+    if IsPlayerInVehicle(player) then
+        if GetPlayerVehicleSeat(player) == 1 then
+            vehicle = GetPlayerVehicle(player)
+            if GetVehicleHoodRatio(vehicle) > 0.0 and GetVehicleHoodRatio(vehicle) < 60.0 then
+                -- Animation was already running
+            elseif GetVehicleHoodRatio(vehicle) == 60.0 then
+                CreateCountTimer(function()
+                    openRatio = GetVehicleHoodRatio(vehicle) - 0.5
+                    if openRatio >= 0.0 then
+                        SetVehicleHoodRatio(vehicle, openRatio)
+                    end
+                end, 25, 120)
+            else
+                CreateCountTimer(function()
+                    openRatio = GetVehicleHoodRatio(vehicle) + 0.5
+                    if openRatio <= 60.0 then
+                        SetVehicleHoodRatio(vehicle, openRatio)
+                    end
+                end, 25, 120)
+            end
+        end
+    end
+end)
