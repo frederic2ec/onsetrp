@@ -34,7 +34,8 @@
         "licenses/server.lua",
         "onset-phone/server.lua",
         "transport/s_busstop.lua",
-        "vehicle_radio/server.lua"
+        "vehicle_radio/server.lua",
+        "hud/pinmap/server/main.lua"
     ],
     "client_scripts": [
         "hunger/client.lua",
@@ -69,7 +70,8 @@
         "medic/client.lua",
         "licenses/client.lua",
         "transport/c_busstop.lua",
-        "vehicle_radio/client.lua"
+        "vehicle_radio/client.lua",
+        "hud/pinmap/client/main.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",
@@ -116,6 +118,30 @@
         "idcard/id.html",
         "idcard/id.js",
         "idcard/id.css",
-        "idcard/Cedarville-Cursive.ttf"
+        "idcard/Cedarville-Cursive.ttf",
+        "hud/pinmap/client/web/map.html",
+		"hud/pinmap/client/web/map.css",
+		"hud/pinmap/client/web/map.js",
+        "hud/pinmap/client/web/map.jpg",
+        "hud/pinmap/client/web/minimap.html",
+        "hud/pinmap/client/web/minimap.css",
+		"hud/pinmap/client/web/minimap.js",
+		"hud/pinmap/client/web/playermarker.png",
+		"hud/pinmap/client/web/destination.png",
+		"hud/pinmap/client/web/icons/check.png",
+		"hud/pinmap/client/web/icons/gunstore.png",
+		"hud/pinmap/client/web/icons/market.png",
+		"hud/pinmap/client/web/icons/x.png",
+        "hud/pinmap/client/web/icons/atm.png",
+        "hud/pinmap/client/web/icons/transport.png",
+        "hud/pinmap/client/web/icons/cardealer.png",
+        "hud/pinmap/client/web/icons/garage.png",
+        "hud/pinmap/client/web/icons/medic.png",
+        "hud/pinmap/client/web/icons/delivery.png",
+        "hud/pinmap/client/web/icons/miner.png",
+        "hud/pinmap/client/web/icons/fishing.png",
+        "hud/pinmap/client/web/icons/police.png",
+		"hud/pinmap/client/web/fonts/Roboto-Regular.ttf",
+		"hud/pinmap/client/web/fonts/Roboto-Light.ttf"
     ]
 }
