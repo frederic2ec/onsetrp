@@ -343,7 +343,7 @@ AddRemoteEvent("OpenTrunkWithoutMenu", function(player, vehicle)
                     print("Calling Animation Function !")
                     CreateCountTimer(function()
                         OpenTrunkAnimation(vehicle)
-                    end, 50, 60 , vehicle)
+                    end, 50, 60, vehicle)
                 end 
             end
         end

@@ -73,10 +73,9 @@ function OnKeyPress(key)
 
     if key == "Z" and not onSpawn and not onCharacterCreation and IsPlayerInVehicle() then
         local player = GetPlayerId()
-        local veh = GetPlayerVehicle(player)
-        if veh ~= 0 then
+        if GetPlayerVehicle(player) ~= 0 then
             AddPlayerChat("OpenTrunkWithoutMenu Function Called !")
-            CallRemoteEvent("OpenTrunkWithoutMenu", veh)
+            CallRemoteEvent("OpenTrunkWithoutMenu", GetPlayerVehicle(player))
         end
     end
 end
