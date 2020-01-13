@@ -21,6 +21,10 @@ function playAnimation(id) {
     CallEvent("OnPlayerAnimation", id);
 }
 
+function drop(){
+    CallEvent("drop");
+}
+
 var piemenu = new wheelnav("piemenu");
 piemenu.clockwise = false;
 piemenu.wheelRadius = piemenu.wheelRadius * 0.83;

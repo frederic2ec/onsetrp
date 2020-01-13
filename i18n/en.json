@@ -362,5 +362,6 @@
     "drugdealer_dealmsg": "Listen boy, I can give you",
     "drugdealer_for": "{1}$ for {2} of {3}",
     "drugdealer_yousolddrugs": "You have successfully sold {1}$ of drugs",
-    "inventory_notenoughspace": "You don't have enough space for that"
+    "inventory_notenoughspace": "You don't have enough space for that",
+    "nothing_todrop": "You don't have weapons to drop"
 }
