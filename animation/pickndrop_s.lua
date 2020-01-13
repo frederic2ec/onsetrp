@@ -10,14 +10,22 @@ AddRemoteEvent("DropGun", function(player)
         SetPlayerWeapon(player, 1, 0, true, GetPlayerEquippedWeaponSlot(player), false)
         SetPlayerAnimation(player, "CARRY_SHOULDER_SETDOWN")
             if GetPlayerWeapon(player, GetPlayerEquippedWeaponSlot(player)) ~= 21 then
-                droppedgun = CreateObject(model + 2 ,x, y, z - 95, 90, h -90)
+                Delay(1000, function()
+                    droppedgun = CreateObject(model + 2 ,x, y, z - 95, 90, h -90)
+                    SetObjectPropertyValue(droppedgun, "isgun", true, true)
+		    SetObjectPropertyValue(droppedgun, "collision", false, true)
+		    SetObjectPropertyValue(droppedgun, "model", model, true)
+                    SetObjectPropertyValue(droppedgun, "ammo", ammo, true)
+                end)
             else
-                droppedgun = CreateObject(model + 1387, x, y, z - 95, 90, h - 90)
+                Delay(1000, function()
+                    droppedgun = CreateObject(model + 1387, x, y, z - 95, 90, h - 90)
+                    SetObjectPropertyValue(droppedgun, "isgun", true, true)
+		    SetObjectPropertyValue(droppedgun, "collision", false, true)
+		    SetObjectPropertyValue(droppedgun, "model", model, true)
+                    SetObjectPropertyValue(droppedgun, "ammo", ammo, true)
+                end)    
             end
-        SetObjectPropertyValue(droppedgun, "isgun", true, true)
-		SetObjectPropertyValue(droppedgun, "collision", false, true)
-		SetObjectPropertyValue(droppedgun, "model", model, true)
-        SetObjectPropertyValue(droppedgun, "ammo", ammo, true)
 		--SetObjectPropertyValue(droppedgun, "magazine", magazine, true)
         
     else
