@@ -24,7 +24,7 @@ end)
 AddRemoteEvent("drugdealer:prepareconversation", function(player)
     local wts = 0
     if PlayerData[player].inventory['cocaine'] ~= nil and PlayerData[player].inventory['cocaine'] > 0 then wts = 1 end
-    CallRemoteEvent(player, "drugdealer:startconversation", PlayerData[player].drug_knowledge, PlayerData[player].police, PlayerData[player].medic, wts)    
+    CallRemoteEvent(player, "drugdealer:startconversation", PlayerData[player].drug_knowledge, PlayerData[player].job, wts)    
 end)
 
 AddRemoteEvent("drugdealer:proceedpayment", function(player, amount, knowledge)
