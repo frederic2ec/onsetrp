@@ -67,6 +67,10 @@ AddRemoteEvent("PickupGun", function(player)
                 local model = GetObjectPropertyValue(closest.id, "model")
                 local ammo = GetObjectPropertyValue(closest.id, "ammo")
                 --local magazine = GetObjectPropertyValue(closest.id, "magazine")
+		local max = AddInventory(player, item, 1)
+                    if max == false then
+                        return CallRemoteEvent(player, "MakeNotification",_("inventory_not_enough_space"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+                    end
 		local item = "weapon_" .. tostring(model)
                 if GetPlayerWeapon(player, GetPlayerEquippedWeaponSlot(player)) ~= 1 then
                     for i = 1, 3 do
@@ -86,13 +90,12 @@ AddRemoteEvent("PickupGun", function(player)
                     
                     DestroyObject(closest.id)
                     SetPlayerAnimation(player, "PICKUP_LOWER")
-                    AddInventory(player, item, 1)
                 
                 else
-                    AddInventory(player, item, 1)
                     SetPlayerWeapon(player, model, ammo, true, GetPlayerEquippedWeaponSlot(player), false)
+		    DestroyObject(closest.id) 
                     SetPlayerAnimation(player, "PICKUP_LOWER")
-                    DestroyObject(closest.id) 
+                    
                 end
                 CallRemoteEvent(player, "MakeNotification", _("store_item"), "linear-gradient(to right, #00b09b, #96c93d)")
             else
