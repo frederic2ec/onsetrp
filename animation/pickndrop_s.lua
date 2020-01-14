@@ -27,8 +27,8 @@ AddRemoteEvent("DropGun", function(player)
                 end)    
             end
 	--SetObjectPropertyValue(droppedgun, "magazine", magazine, true)
-      	item = "weapon_" .. tostring(model)
-        RemoveInventory(player, item, 1)  
+	local item = "weapon_" .. tostring(model)
+	RemoveInventory(player, item, 1)  
     else
         return CallRemoteEvent(player, "MakeNotification", _("nothing_todrop"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     end
