@@ -36,7 +36,6 @@
         "onset-phone/server.lua",
         "transport/s_busstop.lua",
         "vehicle_radio/server.lua",
-        "animation/pickndrop_s.lua"
     ],
     "client_scripts": [
         "hunger/client.lua",
@@ -104,7 +103,6 @@
         "animation/web/images/handsup.png",
         "animation/web/images/lay.png",
         "animation/web/images/clap.png",
-        "animation/web/images/drop.png",
         "animation/web/scripts/wheelnav/raphael.min.js",
         "animation/web/scripts/wheelnav/wheelnav.min.js",
         "animation/web/scripts/index.js",
