@@ -65,7 +65,6 @@
         "stylist/client.lua",
         "onset-phone/client.lua",
         "idcard/client.lua",
-        "holiday/client.lua",
         "medic/client.lua",
         "licenses/client.lua",
         "transport/c_busstop.lua",
