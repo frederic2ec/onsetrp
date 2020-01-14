@@ -43,8 +43,8 @@ function OnPlayerAnimation(id)
 	ShowMouseCursor(false)
 	SetInputMode(INPUT_GAME)
 	CallRemoteEvent("Server_OnPlayerAnimation", id)
-	--alreadyInteracting = false
 end
+
 AddEvent("OnPlayerAnimation", OnPlayerAnimation)
 
 AddEvent("drop", function(player)
@@ -52,7 +52,6 @@ AddEvent("drop", function(player)
 	ShowMouseCursor(false)
 	SetInputMode(INPUT_GAME)
 	CallRemoteEvent("DropGun")
-	--alreadyInteracting = false
 end)
 
 AddEvent("OnObjectStreamIn", function(object)
