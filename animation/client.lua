@@ -18,6 +18,8 @@ AddEvent("OnKeyPress", function(key)
 			SetWebVisibility(animationWheelUI, WEB_VISIBLE)
 			ShowMouseCursor(true)
 			SetInputMode(INPUT_GAMEANDUI)
+			local ScreenX, ScreenY = GetScreenSize()
+			SetMouseLocation(math.floor(ScreenX / 2), math.floor(ScreenY / 2))
 			--alreadyInteracting = true   if set to true, can't close with key
 		else
 			SetWebVisibility(animationWheelUI, WEB_HIDDEN)
