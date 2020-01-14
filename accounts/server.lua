@@ -12,6 +12,14 @@ function OnPackageStart()
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
+AddEvent("OnPackageStop", function()
+	for k, v in pairs(GetAllPlayers()) do
+		SavePlayerAccount(v)
+	end
+	print("All accounts have been saved !")
+end)
+
+
 function OnPlayerSteamAuth(player)
 
 	CreatePlayerData(player)
@@ -89,7 +97,7 @@ function OnAccountCheckIpBan(player)
 end
 
 function CreatePlayerAccount(player)
-	local query = mariadb_prepare(sql, "INSERT INTO accounts (id, steamid, clothing, clothing_police, death_pos, inventory, position, drug_knowledge) VALUES (NULL, '?', '[]' , '[]' , '[]' , '[]' , '[]', '[]');",
+	local query = mariadb_prepare(sql, "INSERT INTO accounts (id, steamid, clothing, death_pos, inventory, position, drug_knowledge) VALUES (NULL, '?', '[]' , '[]' , '[]' , '[]', '[]');",
 		tostring(GetPlayerSteamId(player)))
 
 	mariadb_query(sql, query, OnAccountCreated, player)
@@ -130,7 +138,6 @@ function OnAccountLoaded(player)
 		PlayerData[player].bank_balance = math.tointeger(result['bank_balance'])
 		PlayerData[player].name = tostring(result['name'])
 		PlayerData[player].clothing = json_decode(result['clothing'])
-		PlayerData[player].clothing_police = json_decode(result['clothing_police'])
 		PlayerData[player].police = math.tointeger(result['police'])
 		PlayerData[player].medic = math.tointeger(result['medic'])
 		PlayerData[player].health_state = "alive" 
@@ -228,7 +235,6 @@ function CreatePlayerData(player)
 	PlayerData[player].accountid = 0
 	PlayerData[player].name = ""
 	PlayerData[player].clothing = {}
-	PlayerData[player].clothing_police = {}
 	PlayerData[player].police = 0
 	PlayerData[player].medic = 0
 	PlayerData[player].inventory = { cash = 100 }
@@ -293,7 +299,7 @@ function SavePlayerAccount(player)
 	local x, y, z = GetPlayerLocation(player)
 	PlayerData[player].position = {x= x, y= y, z= z}
 
-	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, bank_balance = ?, health = ?, health_state = '?', death_pos = '?', armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', clothing_police = '?', inventory = '?', created = '?', position = '?', driver_license = ?, gun_license = ?, helicopter_license = ?, drug_knowledge = '?' WHERE id = ? LIMIT 1;",
+	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, bank_balance = ?, health = ?, health_state = '?', death_pos = '?', armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', inventory = '?', created = '?', position = '?', driver_license = ?, gun_license = ?, helicopter_license = ?, drug_knowledge = '?' WHERE id = ? LIMIT 1;",
 		PlayerData[player].admin,
 		PlayerData[player].bank_balance,
 		100,
@@ -304,7 +310,6 @@ function SavePlayerAccount(player)
 		PlayerData[player].thirst,
 		PlayerData[player].name,
 		json_encode(PlayerData[player].clothing),
-		json_encode(PlayerData[player].clothing_police),
 		json_encode(PlayerData[player].inventory),
 		PlayerData[player].created,
 		json_encode(PlayerData[player].position),

@@ -27,7 +27,6 @@ CREATE TABLE `accounts` (
   `steamid` varchar(17) NOT NULL,
   `name` varchar(255) NOT NULL DEFAULT 'Unregistered',
   `clothing` text NOT NULL,
-  `clothing_police` text NOT NULL,
   `police` tinyint(1) NOT NULL DEFAULT 0,
   `medic` tinyint(1) NOT NULL DEFAULT 0,
   `inventory` text NOT NULL,
@@ -126,6 +125,7 @@ INSERT INTO `items` (`id`, `name`, `category`, `price`, `weight`, `hunger`, `thi
 (30, 'weapon_20', 'weapons', 30000, 6000, 0, 0),
 (31, 'processed_rock', 'mine', 160, 1000, 0, 0),
 (32, 'peach', 'miscellaneous', 5, 1, 30, 5);
+(33, 'item_backpack', 'miscellaneous', 150, 1, 0, 0);
 
 -- --------------------------------------------------------
 
