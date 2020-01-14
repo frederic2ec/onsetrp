@@ -7,7 +7,6 @@ function OnPackageStart()
 		for k, v in pairs(GetAllPlayers()) do
             SavePlayerAccount(v)
 		end
-		print("All accounts have been saved !")
     end, 30000)
 end
 AddEvent("OnPackageStart", OnPackageStart)
