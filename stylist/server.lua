@@ -1,44 +1,5 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
-PlayerData = {}
-
-local shirtsModel = {
-    formal_shirt_1 = "/Game/CharacterModels/SkeletalMesh/Outfits/HZN_Outfit_Piece_FormalShirt_LPR",
-    formal_shirt_2 ="/Game/CharacterModels/SkeletalMesh/Outfits/HZN_Outfit_Piece_FormalShirt2_LPR",
-    simple_shirt = "/Game/CharacterModels/SkeletalMesh/Outfits/HZN_Outfit_Piece_Shirt_LPR",
-    knitted_shirt_2 = "/Game/CharacterModels/SkeletalMesh/Outfits/HZN_Outfit_Piece_TShirt_Knitted2_LPR",
-    knitted_shirt_1 = "/Game/CharacterModels/SkeletalMesh/Outfits/HZN_Outfit_Piece_TShirt_Knitted_LPR",
-    tshirt = "/Game/CharacterModels/SkeletalMesh/Outfits/HZN_Outfit_Piece_TShirt_LPR",
-}
-
-local pantsModel = {
-    cargo_pants = "/Game/CharacterModels/SkeletalMesh/Outfits/HZN_Outfit_Piece_CargoPants_LPR",
-    denim_pants = "/Game/CharacterModels/SkeletalMesh/Outfits/HZN_Outfit_Piece_DenimPants_LPR",
-    formal_pants = "/Game/CharacterModels/SkeletalMesh/Outfits/HZN_Outfit_Piece_FormalPants_LPR"
-}
-
-local shoesModel = {
-    normal_shoes = "/Game/CharacterModels/SkeletalMesh/Outfits/HZN_Outfit_Piece_NormalShoes_LPR",
-    business_shoes = "/Game/CharacterModels/SkeletalMesh/Outfits/HZN_Outfit_Piece_BusinessShoes_LPR"
-}
-
-local hairsModel = {
-    hairs_business = "/Game/CharacterModels/SkeletalMesh/HZN_CH3D_Hair_Business_LP",
-    hairs_scientist ="/Game/CharacterModels/SkeletalMesh/HZN_CH3D_Hair_Scientist_LP",
-    hairs_1 = "/Game/CharacterModels/SkeletalMesh/HZN_CH3D_Normal_Hair_01_LPR",
-    hairs_3 = "/Game/CharacterModels/SkeletalMesh/HZN_CH3D_Normal_Hair_03_LPR",
-    hairs_2 = "/Game/CharacterModels/SkeletalMesh/HZN_CH3D_Normal_Hair_02_LPR"
-}
-
-local hairsColor = {
-    blond = { 250, 240, 190, 1 },
-    black = { 0, 0, 0, 1 },
-    red = { 255, 0, 0, 1 },
-	green = { 0, 255, 0, 1 },
-	blue = { 0, 0, 255, 1 },
-    brown = { 139, 69, 19, 1 }
-}
-
 StylistNPCObjectsCached = { }
 StylistNPCTable = {
 	{
@@ -87,7 +48,14 @@ end)
 
 AddRemoteEvent("ModifyEvent", function(player, hairsChoice, shirtsChoice, pantsChoice, shoesChoice, colorChoice)
 local clothesRequest = "[\""..hairsModel[hairsChoice].."\",\""..colorChoice.."\",\""..shirtsModel[shirtsChoice].."\",\""..pantsModel[pantsChoice].."\",\""..shoesModel[shoesChoice].."\"]"
-	
+	if GetPlayerCash(player) < 200 then
+		return CallRemoteEvent(player, "MakeNotification", _("not_enought_cash"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+	else
+		RemovePlayerCash(player, 200)
+		CallRemoteEvent(player, "MakeNotification", _("clothes_changed"), "linear-gradient(to right, #00b09b, #96c93d)")
+	end
+
+
 	local query = mariadb_prepare(sql, "UPDATE accounts SET clothing = '?' WHERE id = ? LIMIT 1;",
 	clothesRequest,
 	player
@@ -101,19 +69,10 @@ local clothesRequest = "[\""..hairsModel[hairsChoice].."\",\""..colorChoice.."\"
     table.insert(PlayerData[player].clothing, shirtsModel[shirtsChoice])
     table.insert(PlayerData[player].clothing, pantsModel[pantsChoice])
     table.insert(PlayerData[player].clothing, shoesModel[shoesChoice])
+
 	
-	playerhairscolor = hairsColor[colorChoice]
-	
-	CallRemoteEvent(player, "modifyIG", player, 0, hairsModel[hairsChoice], playerhairscolor[1], playerhairscolor[2], playerhairscolor[3], playerhairscolor[4])
-    CallRemoteEvent(player, "modifyIG", player, 1, shirtsModel[shirtsChoice], 0, 0, 0, 0)
-    CallRemoteEvent(player, "modifyIG", player, 4, pantsModel[pantsChoice], 0, 0, 0, 0)
-    CallRemoteEvent(player, "modifyIG", player, 5, shoesModel[shoesChoice], 0, 0, 0, 0)
-	
+	UpdateClothes(player)
 	SavePlayerAccount(player)
-	
-
-
-
 end)
 
 -- Function ----------------------------------------------------

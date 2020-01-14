@@ -1,3 +1,5 @@
+local i18n = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
+
 local mapGui = nil
 local miniMapGui = nil
 local devMode = false
@@ -58,8 +60,9 @@ AddEvent("OnMinimapUILoaded", InitializeMinimapValues) --This event is called by
 
 
 function PinmapRegisterLegendKey(id, displayText, iconPath)
-    ExecuteWebJS(mapGui, "RegisterLegendKey('" .. id .. "', '" .. displayText .. "', '" .. iconPath .. "');")
-	ExecuteWebJS(miniMapGui, "RegisterLegendKey('" .. id .. "', '" .. displayText .. "', '" .. iconPath .. "');")
+    ExecuteWebJS(mapGui, "RegisterLegendKey('" .. id .. "', '" .. i18n(displayText) .. "', '" .. iconPath .. "');")
+	ExecuteWebJS(miniMapGui, "RegisterLegendKey('" .. id .. "', '" .. i18n(displayText) .. "', '" .. iconPath .. "');")	
+	ExecuteWebJS(mapGui, "UpdateText('" .. i18n("legend") .. "', '" .. i18n("set_destination") .. "', '" .. i18n("clear_destination") .. "');")
 end
 AddRemoteEvent("PinmapRegisterLegendKey", PinmapRegisterLegendKey)
 
