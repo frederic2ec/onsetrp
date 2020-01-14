@@ -370,5 +370,6 @@
     "drugdealer_for": "{1}$ pour {2} de {3}",
     "drugdealer_yousolddrugs": "Vous avez vendu pour {1}$ de drogue avec succès",
     "inventory_notenoughspace": "Vous n'avez pas assez de place pour ça",
-    "nothing_todrop": "Vous n'avez pas d'armes à déposer"
+    "nothing_todrop": "Vous n'avez pas d'armes à déposer",
+    "store_item": "Vous avez rangé cet item dans votre inventaire"
 }
