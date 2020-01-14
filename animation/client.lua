@@ -1,29 +1,29 @@
 -- Based on MasterCedric (https://github.com/MasterCedric/)
 
-web = nil
+animationWheelUI = nil
 
 function OnPackageStart()
-	web = CreateWebUI(0, 0, 0, 0, 10)
-	LoadWebFile(web, "http://asset/" .. GetPackageName() .. "/animation/web/index.html")
-	SetWebSize(web, 700, 700)
-	SetWebAlignment(web, 0.5, 0.5)
-	SetWebAnchors(web, 0.5, 0.5, 0.5, 0.5)
-	SetWebVisibility(web, WEB_HIDDEN)
+	animationWheelUI = CreateWebUI(0, 0, 0, 0, 10)
+	LoadWebFile(animationWheelUI, "http://asset/" .. GetPackageName() .. "/animation/web/index.html")
+	SetWebSize(animationWheelUI, 700, 700)
+	SetWebAlignment(animationWheelUI, 0.5, 0.5)
+	SetWebAnchors(animationWheelUI, 0.5, 0.5, 0.5, 0.5)
+	SetWebVisibility(animationWheelUI, WEB_HIDDEN)
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
 AddEvent("OnKeyPress", function(key)
 	if key == "G" and not alreadyInteracting then
-		if(GetWebVisibility(web) == 0) then
-			SetWebVisibility(web, WEB_VISIBLE)
+		if(GetWebVisibility(animationWheelUI) == 0) then
+			SetWebVisibility(animationWheelUI, WEB_VISIBLE)
 			ShowMouseCursor(true)
 			SetInputMode(INPUT_GAMEANDUI)
-			alreadyInteracting = true
+			--alreadyInteracting = true   if set to true, can't close with key
 		else
-			SetWebVisibility(web, WEB_HIDDEN)
+			SetWebVisibility(animationWheelUI, WEB_HIDDEN)
 			ShowMouseCursor(false)
 			SetInputMode(INPUT_GAME)
-			alreadyInteracting = false
+			--alreadyInteracting = false
 		end
 	elseif key == "E" and not alreadyInteracting then
 		CallRemoteEvent("PickupGun")	
@@ -31,20 +31,20 @@ AddEvent("OnKeyPress", function(key)
 end)
 
 function OnPlayerAnimation(id)
-	SetWebVisibility(web, WEB_HIDDEN)
+	SetWebVisibility(animationWheelUI, WEB_HIDDEN)
 	ShowMouseCursor(false)
 	SetInputMode(INPUT_GAME)
 	CallRemoteEvent("Server_OnPlayerAnimation", id)
-	alreadyInteracting = false
+	--alreadyInteracting = false
 end
 AddEvent("OnPlayerAnimation", OnPlayerAnimation)
 
 AddEvent("drop", function(player)
-	SetWebVisibility(web, WEB_HIDDEN)
+	SetWebVisibility(animationWheelUI, WEB_HIDDEN)
 	ShowMouseCursor(false)
 	SetInputMode(INPUT_GAME)
 	CallRemoteEvent("DropGun")
-	alreadyInteracting = false
+	--alreadyInteracting = false
 end)
 
 AddEvent("OnObjectStreamIn", function(object)
