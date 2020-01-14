@@ -18,10 +18,12 @@ AddEvent("OnKeyPress", function(key)
 			SetWebVisibility(web, WEB_VISIBLE)
 			ShowMouseCursor(true)
 			SetInputMode(INPUT_GAMEANDUI)
+			alreadyInteracting = true
 		else
 			SetWebVisibility(web, WEB_HIDDEN)
 			ShowMouseCursor(false)
 			SetInputMode(INPUT_GAME)
+			alreadyInteracting = false
 		end
 	elseif key == "E" and not alreadyInteracting then
 		CallRemoteEvent("PickupGun")	
@@ -33,6 +35,7 @@ function OnPlayerAnimation(id)
 	ShowMouseCursor(false)
 	SetInputMode(INPUT_GAME)
 	CallRemoteEvent("Server_OnPlayerAnimation", id)
+	alreadyInteracting = false
 end
 AddEvent("OnPlayerAnimation", OnPlayerAnimation)
 
@@ -41,6 +44,7 @@ AddEvent("drop", function(player)
 	ShowMouseCursor(false)
 	SetInputMode(INPUT_GAME)
 	CallRemoteEvent("DropGun")
+	alreadyInteracting = false
 end)
 
 AddEvent("OnObjectStreamIn", function(object)
