@@ -35,7 +35,9 @@
         "onset-phone/server.lua",
         "transport/s_busstop.lua",
         "vehicle_radio/server.lua",
-        "animation/pickndrop_s.lua"
+        "animation/pickndrop_s.lua",
+        "vehicle/ragP/server.lua",
+        "vehicle/ragP/settings.lua"
     ],
     "client_scripts": [
         "hunger/client.lua",
@@ -66,11 +68,11 @@
         "stylist/client.lua",
         "onset-phone/client.lua",
         "idcard/client.lua",
-        "holiday/client.lua",
         "medic/client.lua",
         "licenses/client.lua",
         "transport/c_busstop.lua",
-        "vehicle_radio/client.lua"
+        "vehicle_radio/client.lua",
+        "vehicle/ragP/client.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",
