@@ -171,6 +171,7 @@ AddRemoteEvent("StartGathering", function(player, gatherzone)
                     return DoGathering(player, animation, gather, attached_item)
                 else
                     CallRemoteEvent(player, "MakeNotification", _("inventory_notenoughspace"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+                    PlayerData[player].onAction = false
                     return false
                 end
             end)
