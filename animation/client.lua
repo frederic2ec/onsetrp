@@ -27,13 +27,13 @@ AddEvent("OnKeyPress", function(key)
 				SetInputMode(INPUT_GAME)
 			end
 		else
-			--player in car / prevent from opening wheel
+			return CallRemoteEvent(player, "MakeNotification", _("cant_do_that"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 		end
 	elseif key == "E" and not alreadyInteracting then
 		if GetPlayerVehicle(GetPlayerId()) == 0 then
 			CallRemoteEvent("PickupGun")
 		else
-			--Player in car
+			return CallRemoteEvent(player, "MakeNotification", _("cant_do_that"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 		end
 	end
 end)
