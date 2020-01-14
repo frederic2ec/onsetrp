@@ -379,5 +379,7 @@
     "vehicle_dealer": "Vehicle Dealer",
     "police_station": "Police Station",
     "hospital": "Hospital",
-    "fishing_zone": "Fishing Zone"
+    "fishing_zone": "Fishing Zone",
+    "clothes_changed": "You clothes have been changed !",
+    "cant_do_that": "You can't do that !"
 }
