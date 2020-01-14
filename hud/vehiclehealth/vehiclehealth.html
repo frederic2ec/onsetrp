@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>vehiclehealth</title>
+
+    <script>
+			(function(obj)
+			{
+				ue.game = {};
+				ue.game.callevent = function(name, ...args)
+				{
+					if (typeof name != "string") {
+						return;
+					}
+		
+					if (args.length == 0) {
+						obj.callevent(name, "")
+					}
+					else {
+						let params = []
+						for (let i = 0; i < args.length; i++) {
+							params[i] = args[i];
+						}
+						obj.callevent(name, JSON.stringify(params));
+					}
+				};
+			})(ue.game);
+			CallEvent = ue.game.callevent;
+    </script>
+  <style>
+ 
+ #vehiclehealth{
+  
+    position: fixed;
+    bottom: 2%;
+    right : 142px;
+    height : 50px;
+    width: 50px;   
+    }
+
+    </style>
+</head>
+<body>
+    
+    <img src="vehiclehealth.png" id="vehiclehealth">
+    <script>
+    
+
+        function SetVehicleHealth(vehiclehealth)
+        {
+          
+
+           let toModifyOpacity = document.getElementById('vehiclehealth');
+
+            if (vehiclehealth > 4500 && vehiclehealth <= 5000) {
+                toModifyOpacity.style.opacity = "0.0"; 
+
+                }
+
+            if (vehiclehealth > 3000 && vehiclehealth <= 4500 ) {
+                toModifyOpacity.style.opacity = "0.2"; 
+
+                }
+           
+            if (vehiclehealth > 2000 && vehiclehealth <= 3000 ) {
+                toModifyOpacity.style.opacity = "0.4"; 
+
+                }
+
+            if (vehiclehealth > 1000 && vehiclehealth <= 2000 ) {
+                toModifyOpacity.style.opacity = "0.6"; 
+
+                }
+
+           if (vehiclehealth > 500 && vehiclehealth <= 1000 ) {
+                 toModifyOpacity.style.opacity = "0.8"; 
+
+                } 
+
+           if (vehiclehealth >= 0 && vehiclehealth <= 500 ) {
+              toModifyOpacity.style.opacity = "1"; 
+                }    
+
+        }
+
+  
+    </script>
+</body>
+</html>
