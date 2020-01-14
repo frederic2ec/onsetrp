@@ -35,7 +35,7 @@
         "licenses/server.lua",
         "onset-phone/server.lua",
         "transport/s_busstop.lua",
-        "vehicle_radio/server.lua",
+        "vehicle_radio/server.lua"
     ],
     "client_scripts": [
         "hunger/client.lua",
