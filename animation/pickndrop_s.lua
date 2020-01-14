@@ -64,9 +64,9 @@ AddRemoteEvent("PickupGun", function(player)
         
         if closest.id and closest.distance ~= nil then
             if closest.distance / 100 < 1.5 then
-                local model = GetObjectPropertyValue(closest.id, "model")
-                local ammo = GetObjectPropertyValue(closest.id, "ammo")
-                --local magazine = GetObjectPropertyValue(closest.id, "magazine")
+		local model = GetObjectPropertyValue(closest.id, "model")
+		local ammo = GetObjectPropertyValue(closest.id, "ammo")
+		--local magazine = GetObjectPropertyValue(closest.id, "magazine")
 		local item = "weapon_" .. tostring(model)
 		local max = AddInventory(player, item, 1)
                     if max == false then
@@ -93,9 +93,9 @@ AddRemoteEvent("PickupGun", function(player)
                     SetPlayerAnimation(player, "PICKUP_LOWER")
                 
                 else
-                    SetPlayerWeapon(player, model, ammo, true, GetPlayerEquippedWeaponSlot(player), false)
-		    DestroyObject(closest.id) 
-                    SetPlayerAnimation(player, "PICKUP_LOWER")
+			SetPlayerWeapon(player, model, ammo, true, GetPlayerEquippedWeaponSlot(player), false)
+			DestroyObject(closest.id) 
+			SetPlayerAnimation(player, "PICKUP_LOWER")
                     
                 end
                 CallRemoteEvent(player, "MakeNotification", _("store_item"), "linear-gradient(to right, #00b09b, #96c93d)")
