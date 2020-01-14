@@ -31,17 +31,23 @@ function OnPackageStart()
 	LoadWebFile(HealthHud, "http://asset/onsetrp/hud/health/health.html")
     SetWebVisibility(HealthHud, WEB_HITINVISIBLE)
     
-    VehicleSpeedHud = CreateTextBox(-15, 260, "Speed", "right" )
-    SetTextBoxAnchors(VehicleSpeedHud, 1.0, 0.0, 1.0, 0.0)
-    SetTextBoxAlignment(VehicleSpeedHud, 1.0, 0.0)
-    
-    VehicleHealthHud = CreateTextBox(-15, 280, "Health", "right" )
-    SetTextBoxAnchors(VehicleHealthHud, 1.0, 0.0, 1.0, 0.0)
-	SetTextBoxAlignment(VehicleHealthHud, 1.0, 0.0)
+    VehicleHealthHud = CreateWebUI(0, 0, 0, 0, 0, 28)
+	SetWebAlignment(VehicleHealthHud, 1.0, 0.0)
+	SetWebAnchors(VehicleHealthHud, 0.0, 0.0, 1.0, 1.0) 
+	LoadWebFile(VehicleHealthHud, "http://asset/onsetrp/hud/vehiclehealth/vehiclehealth.html")
+    SetWebVisibility(VehicleHealthHud, WEB_HIDDEN)
 
-    VehicleFuelHud = CreateTextBox(-15, 300, "Fuel", "right" )
-    SetTextBoxAnchors(VehicleFuelHud, 1.0, 0.0, 1.0, 0.0)
-	SetTextBoxAlignment(VehicleFuelHud, 1.0, 0.0)
+    VehicleFuelHud = CreateWebUI(0, 0, 0, 0, 0, 28)
+	SetWebAlignment(VehicleFuelHud, 1.0, 0.0)
+	SetWebAnchors(VehicleFuelHud, 0.0, 0.0, 1.0, 1.0) 
+	LoadWebFile(VehicleFuelHud, "http://asset/onsetrp/hud/vehiclefuel/vehiclefuel.html")
+    SetWebVisibility(VehicleFuelHud, WEB_HIDDEN)
+
+    VehicleSpeedHud = CreateWebUI(0, 0, 0, 0, 0, 28)
+	SetWebAlignment(VehicleSpeedHud, 1.0, 0.0)
+	SetWebAnchors(VehicleSpeedHud, 0.0, 0.0, 1.0, 1.0) 
+	LoadWebFile(VehicleSpeedHud, "http://asset/onsetrp/hud/vehiclespeed/vehiclespeed.html")
+    SetWebVisibility(VehicleSpeedHud, WEB_HIDDEN)
 
     SpeakingHud = CreateWebUI( 0, 0, 0, 0, 0, 48 )
     LoadWebFile( SpeakingHud, "http://asset/onsetrp/hud/speaking/hud.html" )
@@ -69,18 +75,22 @@ function updateHud()
     if HungerFoodHud ~= nil and pHunger ~= nil then ExecuteWebJS(HungerFoodHud, "SetHunger("..pHunger..", "..personalMenuIsOpen..");") end
 
     if GetPlayerVehicle() ~= 0 then
-        SetTextBoxText(VehicleSpeedHud, _("speed")..math.floor(GetVehicleForwardSpeed(GetPlayerVehicle())).."KM/H")
-        SetTextBoxText(VehicleHealthHud, _("vehicle_health")..math.floor(GetVehicleHealth(GetPlayerVehicle())))
-        local fuel = GetVehiclePropertyValue(GetPlayerVehicle(), "fuel")
-        if fuel ~= nil then SetTextBoxText(VehicleFuelHud, _("fuel")..fuel) end
+        local vehiclespeed = math.floor(GetVehicleForwardSpeed(GetPlayerVehicle()))
+        local vehiclehealth = math.floor(GetVehicleHealth(GetPlayerVehicle()))
+        local vehiclefuel = GetVehiclePropertyValue(GetPlayerVehicle(), "fuel")
+        ExecuteWebJS(VehicleHealthHud, "SetVehicleHealth("..vehiclehealth..");")
+        SetWebVisibility(VehicleHealthHud, WEB_VISIBLE)
+        if vehiclefuel ~= nil then ExecuteWebJS(VehicleFuelHud, "SetVehicleFuel("..vehiclefuel..");") end
+        SetWebVisibility(VehicleFuelHud, WEB_VISIBLE)
+        ExecuteWebJS(VehicleSpeedHud, "SetVehicleSpeed("..vehiclespeed..");")
+        SetWebVisibility(VehicleSpeedHud, WEB_VISIBLE)
     else
-        SetTextBoxText(VehicleSpeedHud, "")
-        SetTextBoxText(VehicleFuelHud, "")
-        SetTextBoxText(VehicleHealthHud, "")
+        SetWebVisibility(VehicleHealthHud, WEB_HIDDEN)
+        SetWebVisibility(VehicleFuelHud, WEB_HIDDEN)
+        SetWebVisibility(VehicleSpeedHud, WEB_HIDDEN)
     end
 end
-
-AddEvent( "OnGameTick", function()
+CreateTimer(function()
     --Speaking icon check
     local player = GetPlayerId()
     if IsPlayerTalking(player) then
@@ -95,7 +105,7 @@ AddEvent( "OnGameTick", function()
     ExecuteWebJS(minimap, "SetMap("..px..","..py..","..y..");")
     -- Hud refresh
     updateHud()
-end )
+end, 100)
 
 function SetHUDMarker(name, h, r, g, b)
     if h == nil then
