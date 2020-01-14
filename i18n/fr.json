@@ -381,5 +381,6 @@
     "hospital": "Hopital",
     "fishing_zone": "Zone de Pêche",
     "clothes_changed": "Vos vêtements ont été changés !",
-    "cant_do_that": "Vous ne pouvez pas faire ça !"
+    "cant_do_that": "Vous ne pouvez pas faire ça !",
+    "gather_cancelled": "Récolte annulée, veuillez attendre..."
 }
