@@ -14,21 +14,27 @@ AddEvent("OnPackageStart", OnPackageStart)
 
 AddEvent("OnKeyPress", function(key)
 	if key == "G" and not alreadyInteracting then
-		if(GetWebVisibility(animationWheelUI) == 0) then
-			local ScreenX, ScreenY = GetScreenSize()
-			SetMouseLocation(math.floor(ScreenX / 2), math.floor(ScreenY / 2))
-			SetWebVisibility(animationWheelUI, WEB_VISIBLE)
-			ShowMouseCursor(true)
-			SetInputMode(INPUT_GAMEANDUI)
-			--alreadyInteracting = true   if set to true, can't close with key
+		if GetPlayerVehicle(GetPlayerId()) == 0 then
+			if(GetWebVisibility(animationWheelUI) == 0) then
+				local ScreenX, ScreenY = GetScreenSize()
+				SetMouseLocation(math.floor(ScreenX / 2), math.floor(ScreenY / 2))
+				SetWebVisibility(animationWheelUI, WEB_VISIBLE)
+				ShowMouseCursor(true)
+				SetInputMode(INPUT_GAMEANDUI)
+			else
+				SetWebVisibility(animationWheelUI, WEB_HIDDEN)
+				ShowMouseCursor(false)
+				SetInputMode(INPUT_GAME)
+			end
 		else
-			SetWebVisibility(animationWheelUI, WEB_HIDDEN)
-			ShowMouseCursor(false)
-			SetInputMode(INPUT_GAME)
-			--alreadyInteracting = false
+			--player in car / prevent from opening wheel
 		end
 	elseif key == "E" and not alreadyInteracting then
-		CallRemoteEvent("PickupGun")	
+		if GetPlayerVehicle(GetPlayerId()) == 0 then
+			CallRemoteEvent("PickupGun")
+		else
+			--Player in car
+		end
 	end
 end)
 
