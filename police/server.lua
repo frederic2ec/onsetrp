@@ -60,7 +60,7 @@ AddRemoteEvent("StartStopPolice", function(player)
 		return CallRemoteEvent(player, "MakeNotification", _("job_full"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 	    end
 	PlayerData[player].job = "police"
-	GetUniformServer(player)
+	UpdateClothes(player)
 	CallRemoteEvent(player, "MakeNotification", _("join_police"), "linear-gradient(to right, #00b09b, #96c93d)")
 	return
     end
@@ -72,7 +72,7 @@ AddRemoteEvent("StartStopPolice", function(player)
         end
 	CallRemoteEvent(player, "MakeNotification", _("quit_police"), "linear-gradient(to right, #00b09b, #96c93d)")
         PlayerData[player].job = ""
-	RemoveUniformServer(player)
+		UpdateClothes(player)
     end
 end)
 
@@ -126,65 +126,6 @@ function GetNearestPolice(player)
 	end
 
 	return 0
-end
-
-function GetUniformServer(player)
-    CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing_police[1], 0)
-    CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing_police[3], 1)
-    CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing_police[4], 4)
-    CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing_police[5], 5)
-
-    SetPlayerWeapon(player, 4, 200, false, 1, true)
-	SetPlayerWeapon(player, 21, 50, false, 2, true)
-	SetPlayerArmor(player, 100)
-
-    for k,v in pairs(GetStreamedPlayersForPlayer(player)) do
-	ChangeUniformOtherPlayerServer(k, player)
-    end
-end
-AddRemoteEvent("GetUniformServer", GetUniformServer)
-
-function ChangeUniformOtherPlayerServer(player, otherplayer)
-
-    if PlayerData[otherplayer] == nil then
-	return
-    end
-    if(PlayerData[otherplayer].job ~= "police") then
-	return
-    end
-
-    if PlayerData[otherplayer].clothing_police == nil then
-	return
-    end
-    CallRemoteEvent(player, "ChangeUniformClient", otherplayer, PlayerData[otherplayer].clothing_police[1], 0)
-    CallRemoteEvent(player, "ChangeUniformClient", otherplayer, PlayerData[otherplayer].clothing_police[3], 1)
-    CallRemoteEvent(player, "ChangeUniformClient", otherplayer, PlayerData[otherplayer].clothing_police[4], 4)
-    CallRemoteEvent(player, "ChangeUniformClient", otherplayer, PlayerData[otherplayer].clothing_police[5], 5)
-end
-AddRemoteEvent("ChangeUniformOtherPlayerServer", ChangeUniformOtherPlayerServer)
-
-function RemoveUniformServer(player)
-    CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing[1], 0)
-    CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing[3], 1)
-    CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing[4], 4)
-    CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing[5], 5)
-    SetPlayerWeapon(player, 1, 0, true, 1)
-	SetPlayerWeapon(player, 1, 0, true, 2)
-	SetPlayerArmor(player, 0)
-
-    for k,v in pairs(GetStreamedPlayersForPlayer(player)) do
-	RemoveUniformOtherPlayerServer(k, player)
-    end
-end
-
-function RemoveUniformOtherPlayerServer(player, otherplayer)
-    if PlayerData[otherplayer] == nil then
-	return
-    end
-    CallRemoteEvent(player, "ChangeUniformClient", otherplayer, PlayerData[otherplayer].clothing[1], 0)
-    CallRemoteEvent(player, "ChangeUniformClient", otherplayer, PlayerData[otherplayer].clothing[3], 1)
-    CallRemoteEvent(player, "ChangeUniformClient", otherplayer, PlayerData[otherplayer].clothing[4], 4)
-    CallRemoteEvent(player, "ChangeUniformClient", otherplayer, PlayerData[otherplayer].clothing[5], 5)
 end
 
 function GetPatrolCar(player)
