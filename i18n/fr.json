@@ -381,11 +381,11 @@
     "hospital": "Hopital",
     "fishing_zone": "Zone de Pêche",
     "clothes_changed": "Vos vêtements ont été changés !",
-    "cant_do_that": "Vous ne pouvez pas faire ça !"
+    "cant_do_that": "Vous ne pouvez pas faire ça !",
     "gather_cancelled": "Récolte annulée, veuillez attendre...",
     "weapon_menu": "Menu d'arme",
     "log_menu": "Menu des logs",
-    "log": "Logs,
+    "log": "Logs",
     "nothing_todrop": "Vous n'avez pas d'armes à déposer",
     "store_item": "Vous avez rangé cet item dans votre inventaire"
 
