@@ -385,7 +385,7 @@
     "gather_cancelled": "Gathering cancelled, please wait...",
     "weapon_menu": "Weapons Menu",
     "log_menu": "Logs Menu",
-    "log": "Logs"
+    "log": "Logs",
     "nothing_todrop": "You have no weapons to drop",
     "store_item": "You stored this item into your inventory"
 }
