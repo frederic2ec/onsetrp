@@ -15,7 +15,7 @@ local teleportPlace = {
     airport = { 151187, -145085, 1250 },
     harbour = { 66726, 185960, 536 },
     western = { -80339, -157846, 3223 },
-    mountain = { -188901, -1548, 3223 },
+    mountain = { -190210, -1831, 7462 },
     training = { -13789, 136500, 1544 } -- Last updates by Bibou
 }
 
