@@ -30,12 +30,14 @@ gatherTable = {
             gather_item = "unprocessed_rock",
             gather_tool = "pickaxe",
             process_zone = {-82629, 90991, 481},
-            process_item = "processed_rock"
+            process_item = "processed_rock",
+            pickup_animation = "PICKAXE_SWING",
         },
         {
             gather_zone = {232464, 193521, 112},
             gather_item = "fish",
             gather_tool = "fishing_rod",
+            pickup_animation= "FISHING",
         },
         {
             gather_zone = {-45600, -106988, 2574},
@@ -131,16 +133,14 @@ AddRemoteEvent("StartGathering", function(player, gatherzone)
     end
     if PlayerData[player].onAction then
         PlayerData[player].onAction = false
-        return
+        return CallRemoteEvent(player, "MakeNotification", _("gather_cancelled"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     end
     if GetPlayerVehicle(player) ~= 0 then
         return
     end
     if gatherTable[gather].gather_tool == "pickaxe" then
-        animation = "PICKAXE_SWING"
         attached_item = 1063
     elseif gatherTable[gather].gather_tool == "fishing_rod" then
-        animation = "FISHING"
         attached_item = 1111
     end
 
@@ -171,6 +171,7 @@ AddRemoteEvent("StartGathering", function(player, gatherzone)
                     return DoGathering(player, animation, gather, attached_item)
                 else
                     CallRemoteEvent(player, "MakeNotification", _("inventory_notenoughspace"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+                    PlayerData[player].onAction = false
                     return false
                 end
             end)

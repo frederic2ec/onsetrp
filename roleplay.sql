@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 01, 2020 at 04:57 AM
+-- Generation Time: Jan 15, 2020 at 01:14 AM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -27,7 +27,6 @@ CREATE TABLE `accounts` (
   `steamid` varchar(17) NOT NULL,
   `name` varchar(255) NOT NULL DEFAULT 'Unregistered',
   `clothing` text NOT NULL,
-  `clothing_police` text NOT NULL,
   `police` tinyint(1) NOT NULL DEFAULT 0,
   `medic` tinyint(1) NOT NULL DEFAULT 0,
   `inventory` text NOT NULL,
@@ -125,7 +124,20 @@ INSERT INTO `items` (`id`, `name`, `category`, `price`, `weight`, `hunger`, `thi
 (29, 'weapon_19', 'weapons', 20000, 5000, 0, 0),
 (30, 'weapon_20', 'weapons', 30000, 6000, 0, 0),
 (31, 'processed_rock', 'mine', 160, 1000, 0, 0),
-(32, 'peach', 'miscellaneous', 5, 1, 30, 5);
+(32, 'peach', 'miscellaneous', 5, 1, 30, 5),
+(33, 'item_backpack', 'miscellaneous', 150, 1, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logs`
+--
+
+CREATE TABLE `logs` (
+  `id` int(11) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `action` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -345,6 +357,12 @@ ALTER TABLE `items`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `logs`
+--
+ALTER TABLE `logs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `messages`
 --
 ALTER TABLE `messages`
@@ -401,7 +419,13 @@ ALTER TABLE `bans`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
+-- AUTO_INCREMENT for table `logs`
+--
+ALTER TABLE `logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -425,7 +449,7 @@ ALTER TABLE `player_garage`
 -- AUTO_INCREMENT for table `player_house`
 --
 ALTER TABLE `player_house`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `shops`

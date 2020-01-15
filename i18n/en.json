@@ -381,8 +381,13 @@
     "hospital": "Hospital",
     "fishing_zone": "Fishing Zone",
     "clothes_changed": "Your clothes have been changed !",
-    "cant_do_that": "You can't do that !"
-    "nothing_todrop": "You don't have weapons to drop",
+    "cant_do_that": "You can't do that !",
+    "gather_cancelled": "Gathering cancelled, please wait...",
+    "weapon_menu": "Weapons Menu",
+    "log_menu": "Logs Menu",
+    "log": "Logs"
+    "nothing_todrop": "You have no weapons to drop",
     "store_item": "You stored this item into your inventory"
 }
+
 
