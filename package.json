@@ -38,7 +38,7 @@
         "hud/pinmap/server/main.lua",
         "vehicle/ragP/server.lua",
         "vehicle/ragP/settings.lua"
-        "animation/pickndrop_s.lua",
+        "animation/pickndrop_s.lua"
     ],
     "client_scripts": [
         "hunger/client.lua",
