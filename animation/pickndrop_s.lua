@@ -37,8 +37,6 @@ end)
 AddRemoteEvent("ReturnedObjects", function(player, objects)
     _objects = objects
 end)
-        
-
 
 AddRemoteEvent("PickupGun", function(player)
     closest = { id = nil, distance = nil }
@@ -91,12 +89,12 @@ AddRemoteEvent("PickupGun", function(player)
                             end
                         end
                     else
-			            SetPlayerWeapon(player, model, ammo, true, GetPlayerEquippedWeaponSlot(player), false)
-			            DestroyObject(closest.id) 
-			            SetPlayerAnimation(player, "PICKUP_LOWER")
+			SetPlayerWeapon(player, model, ammo, true, GetPlayerEquippedWeaponSlot(player), false)
+			DestroyObject(closest.id) 
+			SetPlayerAnimation(player, "PICKUP_LOWER")
                     
                     end
-                    CallRemoteEvent(player, "MakeNotification", _("store_item"), "linear-gradient(to right, #00b09b, #96c93d)")
+            	CallRemoteEvent(player, "MakeNotification", _("store_item"), "linear-gradient(to right, #00b09b, #96c93d)")
             else
                 -- too far
             end
