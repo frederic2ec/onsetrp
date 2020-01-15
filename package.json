@@ -3,6 +3,7 @@
     "version": "1.0",
     "server_scripts": [
         "misc/s_database.lua",
+        "misc/tazer.lua",
         "accounts/server.lua",
         "chat/server.lua",
         "hud/server.lua",
