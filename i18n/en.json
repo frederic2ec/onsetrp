@@ -382,5 +382,8 @@
     "fishing_zone": "Fishing Zone",
     "clothes_changed": "You clothes have been changed !",
     "cant_do_that": "You can't do that !",
-    "gather_cancelled": "Gathering cancelled, please wait..."
+    "gather_cancelled": "Gathering cancelled, please wait...",
+    "weapon_menu": "Weapons Menu",
+    "log_menu": "Logs Menu",
+    "log": "Logs"
 }
