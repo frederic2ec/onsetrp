@@ -123,6 +123,7 @@ INSERT INTO `items` (`id`, `name`, `category`, `price`, `weight`, `hunger`, `thi
 (28, 'weapon_18', 'weapons', 20000, 5000, 0, 0),
 (29, 'weapon_19', 'weapons', 20000, 5000, 0, 0),
 (30, 'weapon_20', 'weapons', 30000, 6000, 0, 0),
+(31, 'weapon_21', 'weapons', 5000, 2000, 0, 0),
 (31, 'processed_rock', 'mine', 160, 1000, 0, 0),
 (32, 'peach', 'miscellaneous', 5, 1, 30, 5),
 (33, 'item_backpack', 'miscellaneous', 150, 1, 0, 0);
