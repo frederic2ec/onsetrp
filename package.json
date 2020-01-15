@@ -37,7 +37,7 @@
         "vehicle_radio/server.lua",
         "hud/pinmap/server/main.lua",
         "vehicle/ragP/server.lua",
-        "vehicle/ragP/settings.lua"
+        "vehicle/ragP/settings.lua",
         "animation/pickndrop_s.lua"
     ],
     "client_scripts": [
