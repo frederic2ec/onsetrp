@@ -87,9 +87,24 @@ AddRemoteEvent("ServerAdminMenu", function(player)
             playersNames[tostring(k)] = PlayerData[k].name.." ["..PlayerData[k].steamname.."]"
             ::continue::
         end
-        CallRemoteEvent(player, "OpenAdminMenu", teleportPlace, playersNames, weaponList, vehicleList)
+        local query = mariadb_prepare(sql, "SELECT * FROM logs ORDER BY id DESC LIMIT 50;")
+    
+        mariadb_async_query(sql, query, OnLogListLoadd, player, playersNames)
     end
 end)
+
+function OnLogListLoadd(player, playersName)
+    local logList = {}
+    for i=1,mariadb_get_row_count() do
+        local result = mariadb_get_assoc(i)
+
+        local id = tostring(result["id"])
+        local action = result["action"]
+        logList[tostring(id)] = action
+    end
+    CallRemoteEvent(player, "OpenAdminMenu", teleportPlace, playersNames, weaponList, vehicleList, logList)
+
+end
 
 
 AddRemoteEvent("AdminTeleportToPlace", function(player, place)
@@ -162,4 +177,47 @@ AddCommand("delveh", function(player)
     if vehicle ~= nil then
         DestroyVehicle( vehicle )
     end
+end)
+
+AddEvent("OnPlayerDeath", function(player, instigator)
+    message = GetPlayerName(player) .. " was killed by " .. GetPlayerName(instigator)
+    local query = mariadb_prepare(sql, "INSERT INTO logs VALUES (NULL, NULL, '?');",
+		message)
+
+	mariadb_async_query(sql, query)
+end)
+
+AddEvent("OnPlayerDamage", function(player, damagetype, amount)
+    local DamageName = {
+		"Weapon",
+		"Explosion",
+		"Fire",
+		"Fall",
+		"Vehicle Collision"
+	}
+
+    message = GetPlayerName(player).."("..player..") took "..amount.." damage of type "..DamageName[damagetype]
+    local query = mariadb_prepare(sql, "INSERT INTO logs VALUES (NULL, NULL, '?');",
+    message)
+
+    mariadb_async_query(sql, query)
+end)
+
+AddEvent("OnPlayerWeaponShot", function(player, weapon, hittype, hitid, hitX, hitY, hitZ, startX, startY, startY, normalX, normalY, normalZ)
+	local action = {
+		"in the air",
+		"at player",
+		"at vehicle",
+		"an NPC",
+		"at object",
+		"on ground",
+		"in water"
+	}
+	
+	message = GetPlayerName(player).."("..player..") shot "..action[hittype].." (ID "..hitid..") using weapon ("..weapon..")"
+	
+	local query = mariadb_prepare(sql, "INSERT INTO logs VALUES (NULL, NULL, '?');",
+    message)
+
+    mariadb_async_query(sql, query) 
 end)

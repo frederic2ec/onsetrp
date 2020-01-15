@@ -7,6 +7,11 @@ function OnPlayerChat(player, message)
     for k,v in pairs(streamedPlayers) do
         AddPlayerChat(k, message)
     end
+
+    local query = mariadb_prepare(sql, "INSERT INTO logs VALUES (NULL, UNIX_TIMESTAMP(), '?');",
+		message)
+
+	mariadb_async_query(sql, query)
 end
 AddEvent("OnPlayerChat", OnPlayerChat)
 
@@ -21,6 +26,10 @@ AddCommand("g", function(player, ...)
         message = message..args[i]
     end
     message = '['.._("global")..'] <span>'..GetPlayerName(player)..'('..player..'):</> '..message
+    local query = mariadb_prepare(sql, "INSERT INTO logs VALUES (NULL, NULL, '?');",
+		message)
+
+	mariadb_async_query(sql, query)
     AddPlayerChatAll(message)
 end)
 
@@ -42,6 +51,10 @@ AddCommand("/", function(player, ...)
             AddPlayerChat(k, message)
         end
     end
+    local query = mariadb_prepare(sql, "INSERT INTO logs VALUES (NULL, NULL, '?');",
+		message)
+
+	mariadb_async_query(sql, query)
 end)
 
 -- Private message
