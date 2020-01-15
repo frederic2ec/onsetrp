@@ -14,7 +14,7 @@ AddEvent("OnPackageStart", OnPackageStart)
 
 AddEvent("OnKeyPress", function(key)
 	if key == "G" and not IsPlayerInVehicle(GetPlayerId()) and not alreadyInteracting then
-		if(GetWebVisibility(animationWheelUI) == 0) then
+		if (GetWebVisibility(animationWheelUI) == 0) then
 				local ScreenX, ScreenY = GetScreenSize()
 				SetMouseLocation(math.floor(ScreenX / 2), math.floor(ScreenY / 2))
 				SetWebVisibility(animationWheelUI, WEB_VISIBLE)
@@ -37,14 +37,17 @@ function OnPlayerAnimation(id)
 	SetInputMode(INPUT_GAME)
 	CallRemoteEvent("Server_OnPlayerAnimation", id)
 end
-
 AddEvent("OnPlayerAnimation", OnPlayerAnimation)
 
 AddEvent("drop", function(player)
-	SetWebVisibility(animationWheelUI, WEB_HIDDEN)
-	ShowMouseCursor(false)
-	SetInputMode(INPUT_GAME)
-	CallRemoteEvent("DropGun")
+	if not IsPlayerReloading(GetPlayerId()) then
+		SetWebVisibility(animationWheelUI, WEB_HIDDEN)
+		ShowMouseCursor(false)
+		SetInputMode(INPUT_GAME)
+		CallRemoteEvent("DropGun")
+	else
+		--can't do /prevent bug
+	end	
 end)
 
 AddEvent("OnObjectStreamIn", function(object)
