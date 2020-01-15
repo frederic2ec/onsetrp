@@ -38,7 +38,8 @@
         "vehicle_radio/server.lua",
         "hud/pinmap/server/main.lua",
         "vehicle/ragP/server.lua",
-        "vehicle/ragP/settings.lua"
+        "vehicle/ragP/settings.lua",
+        "animation/pickndrop_s.lua"
     ],
     "client_scripts": [
         "hunger/client.lua",
@@ -111,6 +112,7 @@
         "animation/web/images/handsup.png",
         "animation/web/images/lay.png",
         "animation/web/images/clap.png",
+        "animation/web/images/drop.png",
         "animation/web/scripts/wheelnav/raphael.min.js",
         "animation/web/scripts/wheelnav/wheelnav.min.js",
         "animation/web/scripts/index.js",
