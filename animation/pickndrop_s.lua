@@ -67,10 +67,10 @@ AddRemoteEvent("PickupGun", function(player)
 		local ammo = GetObjectPropertyValue(closest.id, "ammo")
 		local item = "weapon_" .. tostring(model)
 		local space = AddInventory(player, item, 1)
-                    if not space then
-                        return CallRemoteEvent(player, "MakeNotification",_("inventory_not_enough_space"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-                    end
-
+		if not space then
+			return CallRemoteEvent(player, "MakeNotification",_("inventory_not_enough_space"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+		end
+		SetPlayerAnimation(player, "STOP")
                     if GetPlayerWeapon(player, slot) ~= 1 then
                         for i = 1, 3 do
                             if GetPlayerWeapon(player, i) == 1 then
