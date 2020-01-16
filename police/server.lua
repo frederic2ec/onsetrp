@@ -156,7 +156,8 @@ function GetPatrolCar(player)
 	if isSpawnable then
 	    local vehicle = CreateVehicle(3, policeNpc[nearestPolice].spawn[1], policeNpc[nearestPolice].spawn[2], policeNpc[nearestPolice].spawn[3], policeNpc[nearestPolice].spawn[4])
 	    PlayerData[player].job_vehicle = vehicle
-	    CreateVehicleData(player, vehicle, 3)
+		CreateVehicleData(player, vehicle, 3)
+		SetVehicleRespawnParams(vehicle, false)
 	    SetVehiclePropertyValue(vehicle, "locked", true, true)
 	    CallRemoteEvent(player, "MakeNotification", _("spawn_vehicle_success", " patrol car"), "linear-gradient(to right, #00b09b, #96c93d)")
 	end

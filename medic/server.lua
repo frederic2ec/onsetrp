@@ -80,12 +80,13 @@ AddRemoteEvent("StartMedicJob", function(player)
             if isSpawnable  and medicNpc[nearestMedic] ~= nil then
                 local vehicle = CreateVehicle(8, medicNpc[nearestMedic].spawn[1], medicNpc[nearestMedic].spawn[2], medicNpc[nearestMedic].spawn[3], medicNpc[nearestMedic].spawn[4])
                 PlayerData[player].job_vehicle = vehicle
-                CreateVehicleData(player, vehicle, 8)
+				CreateVehicleData(player, vehicle, 8)
+				SetVehicleRespawnParams(vehicle, false)
                 SetVehiclePropertyValue(vehicle, "locked", true, true)
                 PlayerData[player].job = "medic"
-		CallRemoteEvent(player, "MakeNotification", _("join_medic"), "linear-gradient(to right, #00b09b, #96c93d)")
-		CallRemoteEvent(player, "UpdateMedicUniform", player)
-		UpdateClothes(player)
+				CallRemoteEvent(player, "MakeNotification", _("join_medic"), "linear-gradient(to right, #00b09b, #96c93d)")
+				CallRemoteEvent(player, "UpdateMedicUniform", player)
+				UpdateClothes(player)
                 return
             end
         end
