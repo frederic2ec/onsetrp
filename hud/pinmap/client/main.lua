@@ -230,7 +230,7 @@ function UpdatePositionOnMap()
         ExecuteWebJS(miniMapGui, jsString)
 	end
 end
-CreateTimer(UpdatePositionOnMap, 50)
+CreateTimer(UpdatePositionOnMap, 10)
 
 function CloseMap()
     SetWebVisibility(mapGui, WEB_HIDDEN)
