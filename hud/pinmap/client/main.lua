@@ -22,7 +22,7 @@ local function OnPackageStart()
     local maxX = 0 + 30/screenX + minimapWidth/screenX
     local minY = 1 - minimapHeight/screenY - 30/screenY
     local maxY = 1 - 30/screenY
-	miniMapGui = CreateWebUI(0, 0, 0, 0, 0, 30)
+	miniMapGui = CreateWebUI(0, 0, 0, 0, 0, 144)
 	LoadWebFile(miniMapGui, "http://asset/" .. GetPackageName() .. "/hud/pinmap/client/web/minimap.html")
 
 	SetWebAlignment(miniMapGui, 0, 0)
