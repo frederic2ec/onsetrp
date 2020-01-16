@@ -135,6 +135,7 @@
     "weapon_18": "Rifle 07",
     "weapon_19": "Rifle 08",
     "weapon_20": "Sniper 01",
+    "weapon_21": "Tazer",
     "already_full_health": "You don't need healing !",
     "dont_need_repair": "This car don't need to be repaired !",
     "processed_weed": "Processed Weed",
@@ -380,10 +381,14 @@
     "police_station": "Police Station",
     "hospital": "Hospital",
     "fishing_zone": "Fishing Zone",
-    "clothes_changed": "You clothes have been changed !",
+    "clothes_changed": "Your clothes have been changed !",
     "cant_do_that": "You can't do that !",
     "gather_cancelled": "Gathering cancelled, please wait...",
     "weapon_menu": "Weapons Menu",
     "log_menu": "Logs Menu",
-    "log": "Logs"
+    "log": "Logs",
+    "nothing_todrop": "You have no weapons to drop",
+    "store_item": "You stored this item into your inventory"
 }
+
+

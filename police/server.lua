@@ -72,7 +72,8 @@ AddRemoteEvent("StartStopPolice", function(player)
         end
 	CallRemoteEvent(player, "MakeNotification", _("quit_police"), "linear-gradient(to right, #00b09b, #96c93d)")
         PlayerData[player].job = ""
-		UpdateClothes(player)
+	UpdateClothes(player)
+	SetPlayerArmor(player, 0)
     end
 end)
 
