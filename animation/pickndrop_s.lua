@@ -72,28 +72,17 @@ AddRemoteEvent("PickupGun", function(player)
                     end
 
                     if GetPlayerWeapon(player, slot) ~= 1 then
-                        DestroyObject(closest.id)
-                        SetPlayerAnimation(player, "PICKUP_LOWER")
                         for i = 1, 3 do
-                            if i == 1 and (GetPlayerWeapon(player, 1) == 1) then
-                                SetPlayerWeapon(player, model, ammo, false, 1, false)
-                                break
-
-                            elseif i == 2 and (GetPlayerWeapon(player, 2) == 1) then
-                                SetPlayerWeapon(player, model, ammo, false, 2, false)
-                                break
-
-                            elseif i == 3 and (GetPlayerWeapon(player, 3) == 1) then
-                                SetPlayerWeapon(player, model, ammo, false, 3, false)
+                            if GetPlayerWeapon(player, i) == 1 then
+                                SetPlayerWeapon(player, model, ammo, false, i, false)
                                 break
                             end
                         end
                     else
 			SetPlayerWeapon(player, model, ammo, true, slot, false)
-			DestroyObject(closest.id) 
-			SetPlayerAnimation(player, "PICKUP_LOWER")
-                    
                     end
+		DestroyObject(closest.id) 
+		SetPlayerAnimation(player, "PICKUP_LOWER")
 		CallRemoteEvent(player, "MakeNotification", _("store_item"), "linear-gradient(to right, #00b09b, #96c93d)")
             else
                 -- too far
