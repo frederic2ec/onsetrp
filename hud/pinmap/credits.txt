@@ -1,0 +1,5 @@
+Author: Pindrought
+
+Special thanks to...
+Degree for helping rehaul the UI and make the mod more polished.
+BiKouZ for testing and helping with finding bugs.

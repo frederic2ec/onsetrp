@@ -80,35 +80,17 @@ AddRemoteEvent("StartMedicJob", function(player)
             if isSpawnable  and medicNpc[nearestMedic] ~= nil then
                 local vehicle = CreateVehicle(8, medicNpc[nearestMedic].spawn[1], medicNpc[nearestMedic].spawn[2], medicNpc[nearestMedic].spawn[3], medicNpc[nearestMedic].spawn[4])
                 PlayerData[player].job_vehicle = vehicle
-                CreateVehicleData(player, vehicle, 8)
+				CreateVehicleData(player, vehicle, 8)
+				SetVehicleRespawnParams(vehicle, false)
                 SetVehiclePropertyValue(vehicle, "locked", true, true)
                 PlayerData[player].job = "medic"
-		CallRemoteEvent(player, "MakeNotification", _("join_medic"), "linear-gradient(to right, #00b09b, #96c93d)")
-		CallRemoteEvent(player, "UpdateMedicUniform", player)
-		SetupUpdateMedicUniform(player)
+				CallRemoteEvent(player, "MakeNotification", _("join_medic"), "linear-gradient(to right, #00b09b, #96c93d)")
+				CallRemoteEvent(player, "UpdateMedicUniform", player)
+				UpdateClothes(player)
                 return
             end
         end
     end
-end)
-
-function SetupUpdateMedicUniform(player)
-    for k,v in pairs(GetStreamedPlayersForPlayer(player)) do
-	if(PlayerData[v] ~= nil and PlayerData[player].job == "medic" and player ~= v) then
-	    CallRemoteEvent(v, "UpdateMedicUniform", player)
-	end
-    end
-end
-AddRemoteEvent("SetupUpdateMedicUniform", SetupUpdateMedicUniform)
-
-AddRemoteEvent("SetupMedicUniformOnStreamIn", function(player, otherplayer)
-    if PlayerData[otherplayer] == nil then
-	return
-    end
-    if(PlayerData[otherplayer].job ~= "medic") then
-	return
-    end
-    CallRemoteEvent(player, "UpdateMedicUniform", otherplayer)
 end)
 
 AddRemoteEvent("StopMedicJob", function(player,spawncar)
@@ -123,7 +105,7 @@ AddRemoteEvent("StopMedicJob", function(player,spawncar)
 	end
 	PlayerData[player].job = ""
 	CallRemoteEvent(player, "MakeNotification", _("quit_medic"), "linear-gradient(to right, #00b09b, #96c93d)")
-	RemoveUniformServer(player)
+	UpdateClothes(player)
 	playerMedic[player] = nil
     end
 end)

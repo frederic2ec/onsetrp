@@ -1,0 +1,68 @@
+ <!-- Draggable DIV -->
+ <!DOCTYPE html>
+ <html>
+     <head>
+         <link rel="stylesheet" type="text/css" href="minimap.css">
+         <style>
+             .inner-border::-webkit-scrollbar { 
+                display: none; 
+            } 
+        </style>
+        <script>
+            if (typeof ue !== 'undefined') //If we're running game
+            {
+                (function(obj)
+                {
+                    ue.game = {};
+                    ue.game.callevent = function(name, ...args)
+                    {
+                        if (typeof name != "string") {
+                            return;
+                        }
+            
+                        if (args.length == 0) {
+                            obj.callevent(name, "")
+                        }
+                        else {
+                            let params = []
+                            for (let i = 0; i < args.length; i++) {
+                                params[i] = args[i];
+                            }
+                            obj.callevent(name, JSON.stringify(params));
+                        }
+                    };
+                })(ue.game);
+                CallEvent = ue.game.callevent;
+            }
+            else //If we're running in Browser
+            {
+                CallEvent = function() {}; //Define CallEvent to prevent errors.
+            }
+        </script>
+     </head>
+     <body style="margin:0px; padding:0px;">
+
+
+        <span class="dot"></span> <!--Player Dot-->
+
+        <div id="minimapcontainer">
+            <div id="maskdiv" style="background-color: rgb(21, 85, 186); position:absolute; left:0px; top:0px; clip-path: ellipse(128px 128px at 130px 130px);">
+                <canvas id="backgroundMaskCanvas" style="position:absolute; left:0px; top:0px; width:300px; height:300px;"></canvas> <!--This canvas only exists so that the background of the ocean will be filled in when the map goes off edge!-->
+                <div id="minimapdiv" style="position: absolute; left:-1000px; top:-1000px;">
+                    <img src="map.jpg" style="z-index:1;" id="mapimg" draggable="false" />
+                </div>
+                <img src="destination.png" id="destinationmarker" draggable="false" style="display:none" />
+            </div>
+        </div>
+
+
+        <script type="text/javascript" src="minimap.js"></script>
+
+     </body>
+     <!-- <body id = "minimapcontainer" style="background-color: #FFF;">
+        <span draggable="false" class="dot" style="position:absolute; left: 42px; top: 42px; z-index:10; display: inline-block;">
+
+        
+
+    </body> -->
+ </html>

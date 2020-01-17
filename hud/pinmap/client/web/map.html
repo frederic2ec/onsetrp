@@ -1,0 +1,70 @@
+<!-- Draggable DIV -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="map.css">
+    <style>
+        .inner-border::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+    <script>
+        if (typeof ue !== 'undefined') //If we're running game
+        {
+            (function(obj) {
+                ue.game = {};
+                ue.game.callevent = function(name, ...args) {
+                    if (typeof name != "string") {
+                        return;
+                    }
+
+                    if (args.length == 0) {
+                        obj.callevent(name, "")
+                    } else {
+                        let params = []
+                        for (let i = 0; i < args.length; i++) {
+                            params[i] = args[i];
+                        }
+                        obj.callevent(name, JSON.stringify(params));
+                    }
+                };
+            })(ue.game);
+            CallEvent = ue.game.callevent;
+        } else //If we're running in Browser
+        {
+            CallEvent = function() {}; //Define CallEvent to prevent errors.
+        }
+    </script>
+</head>
+
+<body>
+    <div id="legend-background" style="visibility: hidden;">
+
+    </div>
+    <div id="legend" style="visibility: hidden;">
+        <label id="legend-header">Legend</label>
+
+        <div id="legend-key">
+        </div>
+    </div>
+
+    <div id="mapdiv" style="position: absolute; left:-40px; top:-431px;">
+        <img src="map.jpg" id="mapimg" draggable="false" />
+        <img src="playermarker.png" id="playermarker" draggable="false" />
+        <img src="destination.png" id="destinationmarker" draggable="false" style="display:none" />
+    </div>
+
+    <div id="menu" class="menu" style="display:none;">
+        <ul id="menu-options" class="menu-options">
+            <li id="SetDestinationLabel" class="menu-option" onclick="MenuOptionClicked('SetDestination');">Add Point
+            </li>
+            <li id="ClearDestinationLabel" class="menu-option" onclick="MenuOptionClicked('ClearDestination');">
+                Clear Point</li>
+        </ul>
+    </div>
+
+    <script type="text/javascript" src="map.js"></script>
+</body>
+
+</html>

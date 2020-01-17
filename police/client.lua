@@ -128,17 +128,6 @@ function GetNearestPolice()
     return 0, ""
 end
 
-AddRemoteEvent("ChangeUniformClient", function(playerToChange, pieceName, part)
-    if(pieceName ~= nil and pieceName ~= '') then
-    	local SkeletalMeshComponent = GetPlayerSkeletalMeshComponent(playerToChange, "Clothing"..part)
-    	SkeletalMeshComponent:SetSkeletalMesh(USkeletalMesh.LoadFromAsset(pieceName))
-end
-end)
-
-AddEvent("OnPlayerStreamIn", function(player, otherplayer)
-    CallRemoteEvent("ChangeUniformOtherPlayerServer", player, otherplayer)
-end)
-
 AddEvent("OnKeyPress", function(key)
     if(key == "R" and IsShiftPressed()) then
 	    CallRemoteEvent("HandcuffPlayerSetup")

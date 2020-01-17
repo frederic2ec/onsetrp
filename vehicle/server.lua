@@ -22,7 +22,6 @@ function OnPackageStart()
             SaveVehicleData(k)
             
         end
-        print("All vehicle have been saved !")
     end, 30000)
     
 

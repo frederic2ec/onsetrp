@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>vehiclefuel</title>
+
+    <script>
+			(function(obj)
+			{
+				ue.game = {};
+				ue.game.callevent = function(name, ...args)
+				{
+					if (typeof name != "string") {
+						return;
+					}
+		
+					if (args.length == 0) {
+						obj.callevent(name, "")
+					}
+					else {
+						let params = []
+						for (let i = 0; i < args.length; i++) {
+							params[i] = args[i];
+						}
+						obj.callevent(name, JSON.stringify(params));
+					}
+				};
+			})(ue.game);
+			CallEvent = ue.game.callevent;
+    </script>
+  <style>
+ 
+ #vehiclefuel{
+
+    position: fixed;
+    bottom: 2%;
+    right : 90px;
+    height : 50px;
+    width: 50px;   
+    }
+
+       
+
+
+   
+
+    </style>
+</head>
+<body>
+    
+    <img src="vehiclefuel.png" id="vehiclefuel">
+    <script>
+    
+
+        function SetVehicleFuel(vehiclefuel)
+        {
+          
+            
+
+           let toModifyOpacity = document.getElementById('vehiclefuel');
+
+           if (vehiclefuel > 80 && vehiclefuel <= 100) {
+                toModifyOpacity.style.opacity = "0.0"; 
+
+                }
+
+            if (vehiclefuel > 60 && vehiclefuel <= 80 ) {
+                toModifyOpacity.style.opacity = "0.2"; 
+
+                }
+           
+            if (vehiclefuel > 40 && vehiclefuel <= 60 ) {
+                toModifyOpacity.style.opacity = "0.4"; 
+
+                }
+
+            if (vehiclefuel > 20 && vehiclefuel <= 40 ) {
+                toModifyOpacity.style.opacity = "0.6"; 
+
+                }
+
+           if (vehiclefuel > 10 && vehiclefuel <= 20 ) {
+                 toModifyOpacity.style.opacity = "0.8"; 
+
+                } 
+
+           if (vehiclefuel >= 0 && vehiclefuel <= 10 ) {
+              toModifyOpacity.style.opacity = "1"; 
+
+                }    
+
+        }
+
+  
+    </script>
+</body>
+</html>
