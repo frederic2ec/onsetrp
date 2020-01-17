@@ -69,7 +69,7 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                 if nearestCar ~= 0 then
                     if GetVehicleHealth(nearestCar) > 4000 then
                         AddPlayerChat(player, _("dont_need_repair"))
-                    else if GetVehicleHoodRatio(nearestCar) ~= 60.0
+                    else if GetVehicleHoodRatio(nearestCar) ~= 60.0 then
                         AddPlayerChat(player, _("need_to_open_hood"))
                     else
                         CallRemoteEvent(player, "LockControlMove", true)
