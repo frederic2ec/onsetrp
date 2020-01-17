@@ -385,5 +385,6 @@
     "gather_cancelled": "abbauen abgebrochen",
     "weapon_menu": "Waffen Menü",
     "log_menu": "log Menü",
-    "log": "log"
+    "log": "log",
+    "need_to_open_hood": "Du musst die Motorhaube öffnen um das Reparatur Kit anwenden zu können"
 }

@@ -388,7 +388,8 @@
     "log_menu": "Logs Menu",
     "log": "Logs",
     "nothing_todrop": "You have no weapons to drop",
-    "store_item": "You stored this item into your inventory"
+    "store_item": "You stored this item into your inventory",
+    "need_to_open_hood": "You need to open the hood before you can use the repair kit"
 }
 
 

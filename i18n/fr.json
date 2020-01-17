@@ -388,5 +388,6 @@
     "log_menu": "Menu des logs",
     "log": "Logs",
     "nothing_todrop": "Vous n'avez pas d'armes à déposer",
-    "store_item": "Vous avez rangé cet item dans votre inventaire"
+    "store_item": "Vous avez rangé cet item dans votre inventaire",
+    "need_to_open_hood": "Vous devez ouvrir le capot avant d'utiliser le kit de réparation"
 }

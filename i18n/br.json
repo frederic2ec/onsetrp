@@ -368,5 +368,6 @@
     "drugdealer_dealmsg": "Ouça garoto, eu posso te dar",
     "drugdealer_for": "{1}$ para {2} de {3}",
     "drugdealer_yousolddrugs": "Você vendeu {1}$ de medicamentos com sucesso",
-    "inventory_notenoughspace": "Você não tem espaço suficiente para isso"
+    "inventory_notenoughspace": "Você não tem espaço suficiente para isso",
+    "need_to_open_hood": "You need to open the hood before you can use the repair kit"
 }
