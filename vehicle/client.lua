@@ -63,7 +63,7 @@ function OnKeyPress(key)
         end
     end
 
-    if key == "E" and not onSpawn and not onCharacterCreation and IsPlayerInVehicle() then
+    if key == "R" and not onSpawn and not onCharacterCreation and IsPlayerInVehicle() then
         local player = GetPlayerId()
         local veh = GetPlayerVehicle(player)
         if veh ~= 0 then
@@ -78,7 +78,7 @@ function OnKeyPress(key)
         end
     end
 
-    if key == "H" and not onSpawn and not onCharacterCreation and IsPlayerInVehicle() then
+    if key == "I" and not onSpawn and not onCharacterCreation and IsPlayerInVehicle() then
         local player = GetPlayerId()
         if GetPlayerVehicle(player) ~= 0 then
             CallRemoteEvent("ToggleHood")
