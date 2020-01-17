@@ -63,7 +63,7 @@ function OnKeyPress(key)
         end
     end
 
-    if key == "R" and not onSpawn and not onCharacterCreation and IsPlayerInVehicle() then
+    if key == "X" and not onSpawn and not onCharacterCreation and IsPlayerInVehicle() then
         local player = GetPlayerId()
         local veh = GetPlayerVehicle(player)
         if veh ~= 0 then
