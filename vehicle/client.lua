@@ -71,7 +71,7 @@ function OnKeyPress(key)
         end
     end
 
-    if key == "Z" and not onSpawn and not onCharacterCreation and IsPlayerInVehicle() then
+    if key == "O" and not onSpawn and not onCharacterCreation and IsPlayerInVehicle() then
         local player = GetPlayerId()
         if GetPlayerVehicle(player) ~= 0 then
             CallRemoteEvent("ToggleTrunk")
