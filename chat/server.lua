@@ -124,6 +124,13 @@ AddCommand("spec", function(player)
     SetPlayerSpectate( player, true)
 end)
 
+AddCommand("end_spec", function(player)
+    if PlayerData[player].admin ~= 1 then
+        return
+    end
+    SetPlayerSpectate( player, false)
+end)
+
 AddCommand("tppos", function(player, x, y, z)
     if PlayerData[player].admin ~= 1 then
         return
