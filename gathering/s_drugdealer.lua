@@ -24,7 +24,7 @@ end)
 AddRemoteEvent("drugdealer:prepareconversation", function(player)
     local wts = 0
     if PlayerData[player].inventory['cocaine'] ~= nil and PlayerData[player].inventory['cocaine'] > 0 then wts = 1 end
-    CallRemoteEvent(player, "drugdealer:startconversation", PlayerData[player].drug_knowledge, PlayerData[player].job, wts)    
+    CallRemoteEvent(player, "drugdealer:startconversation", PlayerData[player].drug_knowledge, PlayerData[player].police, PlayerData[player].medic, wts)    
 end)
 
 AddRemoteEvent("drugdealer:proceedpayment", function(player, amount, knowledge)
@@ -48,7 +48,6 @@ AddRemoteEvent("drugdealer:doneworking", function(player, npc)
     local drugs = {}
     for k,v in pairs(PlayerData[player].inventory) do
         if k == "cocaine" then
-            print('prix: '..v*drugsUnitPrice[k])
             table.insert( drugs, { label= "cocaine", nb= v, price= v*drugsUnitPrice[k] } )            
         end
     end

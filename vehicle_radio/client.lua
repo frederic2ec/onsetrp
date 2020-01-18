@@ -92,7 +92,7 @@ function StartRadio(vehicle)
 end
 
 function StopRadio(vehicle)
-    DestroySound(Track)
+    if Track ~= nil then DestroySound(Track) end
     
     if vehicle ~= nil then
         AddPlayerChat(_("radio_turning_off").." ..")

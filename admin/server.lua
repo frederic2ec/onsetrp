@@ -10,13 +10,15 @@ local teleportPlace = {
     old_town = { 39350, 138061, 1570 },
     gun_dealer = { 206071, 193057, 1357 },
     license_shop = { 183339, 182525, 1291 },
+    police_station = { 169277, 193489, 1307 },
     mine = { -96159, 88621, 180 },
     circuit = { -81369, 31643, 4704 },
     airport = { 151187, -145085, 1250 },
     harbour = { 66726, 185960, 536 },
     western = { -80339, -157846, 3223 },
     mountain = { -190210, -1831, 7462 },
-    training = { -13789, 136500, 1544 } -- Last updates by Bibou
+    training = { -13789, 136500, 1544 },
+    police_station = { 169277, 193489, 1307 }
 }
 
 local weaponList = {

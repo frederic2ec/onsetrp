@@ -44,6 +44,7 @@ gatherTable = {
             gather_item = "coca_leaf",
             process_zone = {-215517, -51147, 200},
             process_item = "cocaine",
+            nb_items_per_processing = 3,
             gather_props = {
                 -- Coca plants
                 {model = 118, x = -45773, y = -106903, z = 2470},
@@ -184,7 +185,8 @@ AddRemoteEvent("StartProcessing", function(player, processzone)
     gather = GetGatherByProcesszone(processzone)
     unprocessed_item = gatherTable[gather].gather_item
     requireKnowledge = gatherTable[gather].require_knowledge
-    processItem = gatherTable[gather].process_item
+    processItem = gatherTable[gather].process_item or 1
+    nbItemsPerProcessing = gatherTable[gather].nb_items_per_processing
     
     if PlayerData[player].onAction then
         PlayerData[player].onAction = false
@@ -215,12 +217,12 @@ AddRemoteEvent("StartProcessing", function(player, processzone)
                 PlayerData[player].onAction = false
                 return CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             end
-            if tonumber(PlayerData[player].inventory[unprocessed_item]) < 1 then
+            if tonumber(PlayerData[player].inventory[unprocessed_item]) < nbItemsPerProcessing then
                 PlayerData[player].onAction = false
                 return CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             else
                 CallRemoteEvent(player, "LockControlMove", true)
-                RemoveInventory(player, unprocessed_item, 1)
+                RemoveInventory(player, unprocessed_item, nbItemsPerProcessing)
                 SetPlayerAnimation(player, "COMBINE")
                 PlayerData[player].isActioned = true
                 Delay(4000, function()

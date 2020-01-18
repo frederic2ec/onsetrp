@@ -1,77 +1,39 @@
-local Dialog = ImportPackage("dialogui")
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 local personalMenu
 
-AddEvent("OnTranslationReady", function()
-    personalMenu = Dialog.create(_("personal_menu"),
-        _("bank_balance").." : {bank} ".._("currency").." | ".._("cash").." : {cash} ".._("currency").." | ".._("item_backpack").." : {backpack}",
-        _("transfer") ,_("use"), _("cancel"))
-    Dialog.addSelect(personalMenu, 1, _("inventory").."  {inventory_slots}", 5)
-    Dialog.addTextInput(personalMenu, 1, _("quantity"))
-    Dialog.addSelect(personalMenu, 1, _("player"), 3)
+AddRemoteEvent("OpenPersonalMenu", function(key, items, inventory, playerName, playerId, playerList, maxSlots)
+    OpenUIInventory(key, items, inventory, playerName, playerId, playerList, maxSlots)
 end)
 
+function itemUsedInInventory(event)
+    local data = json_decode(event)
+    CallRemoteEvent("UseInventory", data.idItem, 1)
+end
+AddEvent('BURDIGALAX_inventory_onUse', itemUsedInInventory)
 
-AddRemoteEvent("OpenPersonalMenu", function(cash, bank, inventory, playerList, backpack, inventorySlots)
-    Dialog.setVariable(personalMenu, "cash", cash)
-    Dialog.setVariable(personalMenu, "bank", bank)
-    Dialog.setVariable(personalMenu, "backpack", backpack)
-    Dialog.setVariable(personalMenu, "inventory_slots", inventorySlots)
-    local items = {}
-    for k,v in pairs(inventory) do
-        if k == "cash" then
-            items[k] = v.._("currency")
-        elseif k == "item_backpack" then
-            items[k] = _(k)
-        else
-		    items[k] = v.." x ".._(k)
-        end
-    end
-    Dialog.setSelectLabeledOptions(personalMenu, 1, 1, items)
-    Dialog.setSelectLabeledOptions(personalMenu, 1, 3, playerList)
-    Dialog.show(personalMenu)
-    personalMenuIsOpen = 1 -- Affiche le HUD santé faim soif
-end)
+function itemDeletedInInventory(event)
+    local data = json_decode(event)
+    CallRemoteEvent("RemoveFromInventory", data.idItem, data.quantity, data.destinationInventoryId)
+end
+AddEvent('BURDIGALAX_inventory_onDelete', itemDeletedInInventory)
 
-AddEvent("OnDialogSubmit", function(dialog, button, ...)
-	local args = { ... }
-    if dialog == personalMenu then
-        if button == 1 then
-            if args[1] == "" then
-				MakeNotification(_("select_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-			else
-				if args[2] == ""  or math.floor(args[2]) < 1 then
-					MakeNotification(_("select_amount"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-                else
-                    if args[3] == "" then
-                        MakeNotification(_("select_player"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-                    else
-                        CallRemoteEvent("TransferInventory", args[1], math.floor(args[2]), args[3])
-                    end   
-				end
-			end
-        end
-		if button == 2 then
-			if args[1] == "" then
-				MakeNotification(_("select_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-			else
-				if args[2] == ""  or math.floor(args[2]) < 1 then
-					MakeNotification(_("select_amount"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-				else
-                    CallRemoteEvent("UseInventory", args[1], math.floor(args[2]))
-				end
-			end
-        end
-        
-        personalMenuIsOpen = 0 -- Cache le HUD santé faim soif
-    end
-end)
+function itemTransferedInInventory(event)
+    local data = json_decode(event)
+    CallRemoteEvent("TransferInventory", data.idItem, data.quantity, data.destinationInventoryId)
+end
+AddEvent('BURDIGALAX_inventory_onTransfer', itemTransferedInInventory)
 
 
 AddEvent("OnKeyPress", function( key )
-    if key == "F4" and not onSpawn and not onCharacterCreation then
-        CallRemoteEvent("ServerPersonalMenu")
+    if key == "F4" and not alreadyInteracting then
+        local vehicle = GetPlayerVehicle()
+
+        if vehicle ~= 0 then
+            CallRemoteEvent("ServerPersonalMenu", GetVehicleForwardSpeed(vehicle))
+        else
+            CallRemoteEvent("ServerPersonalMenu", 0)
+        end
     end
 end)
 

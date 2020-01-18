@@ -1,4 +1,4 @@
 AddEvent("OnPackageStart", function()
-    SetLandscapeSnowAlpha(1.0)
-    EnableSnowParticles(true)
+    SetLandscapeSnowAlpha(0.0)
+    EnableSnowParticles(false)
 end)

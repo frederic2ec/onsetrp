@@ -4,9 +4,15 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 local policeNPC
 local policeNpcMenu
 local policeMenu
+local isOnDuty = false
 
 AddRemoteEvent("SetupPolice", function(policenpc) 
-    policeNPC = policenpc
+	policeNPC = policenpc
+
+	for key, npc in pairs(policeNPC) do
+		-- Not working, will investigate why
+		SetNPCClothingPreset(npc[1], 13)
+	end
 end)
 
 AddEvent("OnTranslationReady", function()
@@ -25,11 +31,26 @@ AddEvent("OnTranslationReady", function()
 end)
 
 AddEvent("OnKeyPress", function( key )
-    if key == "E" and not onSpawn and not onCharacterCreation then
+    if key == "E" and not alreadyInteracting then
 	local NearestPolice, purpose = GetNearestPolice()
 	if NearestPolice ~= 0 then
 	    if(purpose == "police_job") then
-		Dialog.show(policeNpcMenu)
+		--Dialog.show(policeNpcMenu)
+		local message = (isOnDuty and _("police_npc_message_stop") or _("police_npc_message_start"))
+		startCinematic({
+            title = _("police_npc_name"),
+            message = message,
+            actions = {
+                {
+                    text = _("yes"),
+                    callback = "StartStopService"
+                },
+                {
+                    text = _("no"),
+                    callback = "CUIGoodbye",
+                }
+            }
+        }, NearestPolice, "SALUTE")
 	    elseif(purpose == "police_garage") then
 		Dialog.show(policeNpcGarageMenu)
 	    elseif(purpose == "police_armory") then
@@ -37,11 +58,35 @@ AddEvent("OnKeyPress", function( key )
 	    end
 	end
     end
-    if key == "F3" and not onSpawn and not onCharacterCreation then
+    if key == "F3" and not alreadyInteracting then
         CallRemoteEvent("OpenPoliceMenu")
     end
 end)
 
+AddEvent("StartStopService", function()
+	local message = (isOnDuty and _("npc_end_stop") or _("police_npc_end_start"))
+	updateCinematic({
+		message = message
+	})
+	Delay(1500, function()
+		stopCinematic()
+    end)
+	CallRemoteEvent("StartStopPolice")
+end)
+
+AddRemoteEvent("ServiceStart", function()
+    isOnDuty = true
+end)
+
+AddRemoteEvent("ServiceStop", function()
+    isOnDuty = false
+end)
+
+AddRemoteEvent("PoliceAlert", function(alert)
+	if isOnDuty then
+		MakeNotification(alert)
+	end
+end)
 
 AddEvent("OnDialogSubmit", function(dialog, button, ...)
     local args = { ... }
@@ -129,7 +174,7 @@ function GetNearestPolice()
 end
 
 AddEvent("OnKeyPress", function(key)
-    if(key == "R" and IsShiftPressed()) then
+    if(key == "R" and IsCtrlPressed()) then
 	    CallRemoteEvent("HandcuffPlayerSetup")
     end
 end)

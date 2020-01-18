@@ -19,3 +19,15 @@ function MakeNotification(text, color)
 end
 AddRemoteEvent("MakeNotification", MakeNotification)
 
+function MakeSuccessNotification(text)
+    ExecuteWebJS(NotificationHud, 'makeNotification("' ..text.. '", "linear-gradient(to right, #00b09b, #96c93d)")')
+    PlayAudioFile("notification.mp3")
+end
+AddRemoteEvent("MakeSuccessNotification", MakeSuccessNotification)
+
+function MakeErrorNotification(text)
+    ExecuteWebJS(NotificationHud, 'makeNotification("' ..text.. '", "linear-gradient(to right, #ff5f6d, #ffc371)")')
+    PlayAudioFile("notification.mp3")
+end
+AddRemoteEvent("MakeErrorNotification", MakeErrorNotification)
+

@@ -10,7 +10,7 @@ AddRemoteEvent("busStopSetup", function(busStopObject)
 end)
 
 function OnKeyPress(key)
-    if key == "E" and not onSpawn and not onCharacterCreation then
+    if key == "E" and not alreadyInteracting then
         
         local NearestBusStop = GetNearestBusStop()
         if NearestBusStop ~= 0 then

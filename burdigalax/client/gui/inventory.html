@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Burdigalax Inventory</title>
+    <meta name="description" content="">
+</head>
+<body style="overflow: hidden">
+    <div id="BURDGIALAX_Inventory"></div>
+    <script type="text/javascript" src="http://asset/onsetrp/burdigalax/client/gui/commons.burdigalax.js"></script>
+    <script type="text/javascript" src="http://asset/onsetrp/burdigalax/client/gui/vendors.burdigalax.js"></script>
+    <script type="text/javascript" src="http://asset/onsetrp/burdigalax/client/gui/inventory.burdigalax.js"></script>
+</body>
+<script>
+    (function(obj)
+    {
+        ue.game = {};
+        ue.game.callevent = function(name, ...args)
+        {
+            if (typeof name != "string") {
+                return;
+            }
+
+            if (args.length == 0) {
+                obj.callevent(name, "")
+            }
+            else {
+                let params = []
+                for (let i = 0; i < args.length; i++) {
+                    params[i] = args[i];
+                }
+                obj.callevent(name, JSON.stringify(params));
+            }
+        };
+    })(ue.game);
+    CallEvent = ue.game.callevent;
+</script>
+</html>

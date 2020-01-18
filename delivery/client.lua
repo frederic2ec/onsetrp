@@ -15,13 +15,13 @@ AddEvent("OnTranslationReady", function()
 end)
 
 AddEvent("OnKeyPress", function( key )
-    if key == "E" and not onSpawn and not onCharacterCreation then
+    if key == "E" and not alreadyInteracting then
         local NearestDelivery = GetNearestDelivery()
         if NearestDelivery ~= 0 then
             Dialog.show(deliveryNpcMenu)
 		end
     end
-    if key == "F3" and not onSpawn and not onCharacterCreation then
+    if key == "F3" and not alreadyInteracting then
         CallRemoteEvent("OpenDeliveryMenu")
     end
 end)

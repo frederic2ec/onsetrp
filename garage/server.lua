@@ -153,6 +153,7 @@ function spawnCarServerLoaded(player)
 
         local id = math.tointeger(result["id"])
         local modelid = math.tointeger(result["modelid"])
+        local fuel = math.tointeger(result["fuel"])
         local color = tostring(result["color"])
         local name = _("vehicle_"..modelid)
 
@@ -180,7 +181,8 @@ function spawnCarServerLoaded(player)
                     SetVehicleRespawnParams(vehicle, false)
                     SetVehicleColor(vehicle, "0x"..color)
                     SetVehiclePropertyValue(vehicle, "locked", true, true)
-                    CreateVehicleData(player, vehicle, modelid)
+                    SetVehiclePropertyValue(vehicle, "fuel", true, fuel)
+                    CreateVehicleData(player, vehicle, modelid, fuel)
                     VehicleData[vehicle].garageid = id
                     mariadb_async_query(sql, query)
                     CallRemoteEvent(player, "closeGarageDealer")

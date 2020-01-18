@@ -44,7 +44,7 @@ CREATE TABLE `accounts` (
   `driver_license` tinyint(1) NOT NULL DEFAULT 0,
   `gun_license` tinyint(1) NOT NULL DEFAULT 0,
   `helicopter_license` tinyint(1) NOT NULL DEFAULT 0,
-  `drug_knowledge` text NOT NULL DEFAULT '{}'
+  `drug_knowledge` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -82,53 +82,57 @@ CREATE TABLE `items` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `category` varchar(255) NOT NULL,
+  `subcategory` varchar(255) NOT NULL,
   `price` int(11) NOT NULL,
   `weight` int(11) NOT NULL COMMENT 'in grams',
   `hunger` int(11) NOT NULL,
-  `thirst` int(11) NOT NULL
+  `thirst` int(11) NOT NULL,
+  `equipable` TINYINT NOT NULL DEFAULT 0,
+  `usable` TINYINT NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `items`
 --
 
-INSERT INTO `items` (`id`, `name`, `category`, `price`, `weight`, `hunger`, `thirst`) VALUES
-(1, 'water_bottle', 'miscellaneous', 5, 1, 0, 30),
-(2, 'apple', 'miscellaneous', 5, 500, 30, 0),
-(3, 'donut', 'miscellaneous', 5, 500, 30, 0),
-(4, 'repair_kit', 'miscellaneous', 50, 3000, 0, 0),
-(5, 'health_kit', 'miscellaneous', 50, 3000, 0, 0),
-(6, 'lockpick', 'miscellaneous', 500, 5000, 0, 0),
-(7, 'pickaxe', 'miscellaneous', 20, 5000, 0, 0),
-(8, 'jerican', 'miscellaneous', 50, 10000, 0, 0),
-(9, 'phone', 'miscellaneous', 150, 500, 0, 0),
-(10, 'fishing_rod', 'miscellaneous', 20, 2000, 0, 0),
-(11, 'fish', 'miscellaneous', 100, 2000, 10, 0),
-(12, 'weapon_2', 'weapons', 5000, 2000, 0, 0),
-(13, 'weapon_3', 'weapons', 5000, 2000, 0, 0),
-(14, 'weapon_4', 'weapons', 5000, 2000, 0, 0),
-(15, 'weapon_5', 'weapons', 5000, 2000, 0, 0),
-(16, 'weapon_6', 'weapons', 15000, 4000, 0, 0),
-(17, 'weapon_7', 'weapons', 15000, 4000, 0, 0),
-(18, 'weapon_8', 'weapons', 10000, 4000, 0, 0),
-(19, 'weapon_9', 'weapons', 10000, 4000, 0, 0),
-(20, 'weapon_10', 'weapons', 20000, 5000, 0, 0),
-(21, 'weapon_11', 'weapons', 20000, 5000, 0, 0),
-(22, 'weapon_12', 'weapons', 30000, 5000, 0, 0),
-(23, 'weapon_13', 'weapons', 20000, 5000, 0, 0),
-(24, 'weapon_14', 'weapons', 20000, 5000, 0, 0),
-(25, 'weapon_15', 'weapons', 20000, 5000, 0, 0),
-(26, 'weapon_16', 'weapons', 20000, 5000, 0, 0),
-(27, 'weapon_17', 'weapons', 20000, 5000, 0, 0),
-(28, 'weapon_18', 'weapons', 20000, 5000, 0, 0),
-(29, 'weapon_19', 'weapons', 20000, 5000, 0, 0),
-(30, 'weapon_20', 'weapons', 30000, 6000, 0, 0),
-(31, 'weapon_21', 'weapons', 5000, 2000, 0, 0),
-(32, 'processed_rock', 'mine', 160, 1000, 0, 0),
-(33, 'peach', 'miscellaneous', 5, 1, 30, 5),
-(34, 'item_backpack', 'miscellaneous', 150, 1, 0, 0);
+INSERT INTO `items` (`id`, `name`, `category`, `subcategory`, `price`, `weight`, `hunger`, `thirst`, `equipable`, `usable`) VALUES
+	(1, 'water_bottle', 'miscellaneous', 'food', 5, 500, 0, 30, 0, 1),
+	(2, 'apple', 'miscellaneous', 'food', 5, 100, 30, 0, 0, 1),
+	(3, 'donut', 'miscellaneous', 'food', 5, 100, 30, 0, 0, 1),
+	(4, 'repair_kit', 'miscellaneous', 'object', 50, 3000, 0, 0, 0, 1),
+	(5, 'health_kit', 'miscellaneous', 'object', 50, 300, 0, 0, 0, 1),
+	(6, 'lockpick', 'miscellaneous', 'object', 500, 500, 0, 0, 0, 1),
+	(7, 'pickaxe', 'miscellaneous', 'tool', 20, 3000, 0, 0, 0, 1),
+	(8, 'jerican', 'miscellaneous', 'object', 50, 5000, 0, 0, 0, 1),
+	(9, 'phone', 'miscellaneous', 'object', 150, 200, 0, 0, 0, 1),
+	(10, 'fishing_rod', 'miscellaneous', 'tool', 20, 1000, 0, 0, 0, 1),
+	(11, 'fish', 'miscellaneous', 'food', 100, 500, 10, 0, 0, 1),
+	(12, 'weapon_2', 'weapons', 'weapon', 5000, 2000, 0, 0, 0, 1),
+	(13, 'weapon_3', 'weapons', 'weapon', 5000, 2000, 0, 0, 0, 1),
+	(14, 'weapon_4', 'weapons', 'weapon', 5000, 2000, 0, 0, 0, 1),
+	(15, 'weapon_5', 'weapons', 'weapon', 5000, 2000, 0, 0, 0, 1),
+	(16, 'weapon_6', 'weapons', 'weapon', 15000, 4000, 0, 0, 0, 1),
+	(17, 'weapon_7', 'weapons', 'weapon', 15000, 4000, 0, 0, 0, 1),
+	(18, 'weapon_8', 'weapons', 'weapon', 10000, 4000, 0, 0, 0, 1),
+	(19, 'weapon_9', 'weapons', 'weapon', 10000, 4000, 0, 0, 0, 1),
+	(20, 'weapon_10', 'weapons', 'weapon', 20000, 5000, 0, 0, 0, 1),
+	(21, 'weapon_11', 'weapons', 'weapon', 20000, 5000, 0, 0, 0, 1),
+	(22, 'weapon_12', 'weapons', 'weapon', 30000, 5000, 0, 0, 0, 1),
+	(23, 'weapon_13', 'weapons', 'weapon', 20000, 5000, 0, 0, 0, 1),
+	(24, 'weapon_14', 'weapons', 'weapon', 20000, 5000, 0, 0, 0, 1),
+	(25, 'weapon_15', 'weapons', 'weapon', 20000, 5000, 0, 0, 0, 1),
+	(26, 'weapon_16', 'weapons', 'weapon', 20000, 5000, 0, 0, 0, 1),
+	(27, 'weapon_17', 'weapons', 'weapon', 20000, 5000, 0, 0, 0, 1),
+	(28, 'weapon_18', 'weapons', 'weapon', 20000, 5000, 0, 0, 0, 1),
+	(29, 'weapon_19', 'weapons', 'weapon', 20000, 5000, 0, 0, 0, 1),
+	(30, 'weapon_20', 'weapons', 'weapon', 30000, 6000, 0, 0, 0, 1),
+	(31, 'weapon_21', 'weapons', 'weapon', 5000, 2000, 0, 0, 0, 1),
+	(32, 'processed_rock', 'mine', 'object', 160, 1000, 0, 0, 0, 0),
+	(33, 'peach', 'miscellaneous', 'food', 5, 1, 30, 5, 0, 1),
+	(34, 'item_backpack', 'miscellaneous', 'object', 150, 1, 0, 0, 1, 0),
+	(35, 'coca_leaf', 'drugs', 'drugs', 0, 200, 0, 0, 0, 0),
+	(36, 'cocaine', 'drugs', 'drugs', 0, 200, 0, 0, 0, 1);
 
--- --------------------------------------------------------
 
 --
 -- Table structure for table `logs`
@@ -180,6 +184,7 @@ CREATE TABLE `player_garage` (
   `color` varchar(255) NOT NULL,
   `garage` tinyint(1) NOT NULL,
   `price` int(11) NOT NULL,
+  `fuel` int(11) NOT NULL DEFAULT 100,
   `inventory` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

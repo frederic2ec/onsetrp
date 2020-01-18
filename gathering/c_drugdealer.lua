@@ -18,13 +18,13 @@ AddEvent("OnKeyPress", function(key)
     end
 end)
 
-AddRemoteEvent("drugdealer:startconversation", function(knowledges, job, wts)
+AddRemoteEvent("drugdealer:startconversation", function(knowledges, police, medic, wts)
     local params = {
         title = _("drugdealer_name"),
         actions = {}
     }
     
-    if job == "police" or job == "medic" then -- On envoie chier la police et les médecins
+    if police == 0 and medic == 0 then -- On envoie chier la police et les médecins
         local cocaine = 0 -- On récupère les connaissances du joueur
         for k, v in pairs(knowledges) do
             if k == "cocaine" then cocaine = v end
