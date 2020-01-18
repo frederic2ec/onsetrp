@@ -1,30 +1,6 @@
 local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, ...) end
 
 gatherTable = {
-        --[[ {
-        gather_zone = { 186601, -39031, 1451 },
-        gather_item = "unprocessed_weed",
-        process_zone = { 70695, 9566, 1366 },
-        process_item = "processed_weed"
-        },
-        {
-        gather_zone = { 186474, -43277, 1451 },
-        gather_item = "unprocessed_heroin",
-        process_zone = { 73218, 3822, 1367 },
-        process_item = "processed_heroin"
-        },
-        {
-        gather_zone = { 193607, -46512, 1451 },
-        gather_item = "unprocessed_meth",
-        process_zone = { 72095, 1418, 1367 },
-        process_item = "processed_meth"
-        },
-        {
-        gather_zone = { 192080, -45155, 1529 },
-        gather_item = "unprocessed_coke",
-        process_zone = { 71981, 106, 1367 },
-        process_item = "processed_coke"
-        }, ]]
         {
             gather_zone = {-96766, 88886, 180},
             gather_item = "unprocessed_rock",
@@ -38,6 +14,22 @@ gatherTable = {
             gather_item = "fish",
             gather_tool = "fishing_rod",
             pickup_animation= "FISHING",
+        },
+        {
+            gather_zone = {-174432, 10837, 1831}, -- Champs du village
+            gather_item = "peach",
+            pickup_animation= "PICKUP_UPPER",
+            gather_props = {
+                -- Peach trees
+                {model = 145, x = -174006, y = 10457, z = 1773, rx = 0, ry = 10, rz = 0},
+                {model = 145, x = -173829, y = 10894, z = 1743, rx = 0, ry = 30, rz = 0},
+                {model = 145, x = -173980, y = 11396, z = 1698, rx = 0, ry = 45, rz = 0},
+                {model = 145, x = -174691, y = 11532, z = 1709, rx = 0, ry = 0, rz = 0},
+                {model = 145, x = -175204, y = 11094, z = 1755, rx = 0, ry = 145, rz = 0},
+                {model = 145, x = -175449, y = 11528, z = 1757, rx = 0, ry = 80, rz = 0},
+                {model = 145, x = -175171, y = 12038, z = 1719, rx = 0, ry = 50, rz = 0},
+                {model = 145, x = -174581, y = 12021, z = 1686, rx = 0, ry = 40, rz = 0},
+            }
         },
         {
             gather_zone = {-45600, -106988, 2574},
