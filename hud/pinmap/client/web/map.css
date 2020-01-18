@@ -1,0 +1,226 @@
+/* Font imports: */
+@font-face 
+{
+    font-family: "Roboto";
+    font-weight: 300;
+    src: url("fonts/Roboto-Light.ttf") format("ttf");
+}
+
+@font-face 
+{
+    font-family: "Roboto";
+    font-weight: 400;
+    src: url("fonts/Roboto-Regular.ttf") format("ttf");
+}
+
+
+* 
+{
+    box-sizing: border-box;
+}
+
+img,
+label,
+div
+{
+    -khtml-user-select: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+body 
+{
+    background-color: rgb(21, 85, 186);
+    /*Ocean color*/
+    overflow: hidden;
+    /*No scrollbar*/
+}
+
+label
+{
+    color: #FFF;
+    font-weight: bold;
+}
+
+#legend-background 
+{
+    position: absolute;
+    z-index: 5;
+    width: 300px;
+    right: 20px;
+    top: 20px;
+    backdrop-filter: blur(40px);
+    height: 200px;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+#legend 
+{
+    width: 300px;
+    padding-bottom: 20px;
+    border-radius: 3px;
+    text-align: center;
+    align-content: center;
+    z-index: 6;
+    position: absolute;
+    display: block;
+    right: 20px;
+    top: 20px;
+}
+
+#legend-header 
+{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    height: 32px;
+    top: 10px;
+    line-height: 32px;
+    font-size: 20px;
+    display: block;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    background-color: #0984e3;
+}
+
+#legend-key 
+{
+    font-weight: 300;
+    margin-top: 7px;
+    align-content: center;
+    padding: 5px;
+    text-align: left;
+    display: block;
+    width: 100%;
+}
+
+.legend-key-child:hover
+{
+    background-color: rgba(255,255,255,0.25);
+}
+
+#legend-key>div.legend-key-child 
+{
+    display: block;
+    white-space: nowrap;
+}
+
+#legend-key>div.legend-key-child>img.legend-check 
+{
+    float: right;
+    line-height: 28px;
+    height: 28px;
+    margin-top:4px;
+}
+
+#legend-key>div.legend-key-child>.name 
+{
+    float: left;
+}
+
+#legend-key>div.legend-key-child>.name>img 
+{
+    line-height: 28px;
+    height: 28px;
+}
+
+#legend-key>div.legend-key-child>.name>label 
+{
+    line-height: 28px;
+    height: 28px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+
+.legend-img 
+{
+    width: 24px;
+    height: 24px;
+    position: relative;
+    top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#mapimg 
+{
+    z-index: 1;
+    position: relative;
+    vertical-align: top;
+}
+
+#playermarker 
+{
+    z-index: 5;
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    top: 0px;
+    left: 0px;
+}
+
+#destinationmarker 
+{
+    z-index: 3;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.blip
+
+/*blip on map*/
+    {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    filter: drop-shadow(-1px -1px 0 black) 
+            drop-shadow( 1px -1px 0 black)
+            drop-shadow(-1px  1px 0 black) 
+            drop-shadow( 1px  1px 0 black);
+}
+
+ul,
+li
+{
+    list-style-type: none;
+    list-style-position: inside;
+    margin: 0;
+    padding: 0;
+}
+
+.menu 
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    border: 5px rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.6);
+    ;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 10;
+}
+
+.menu-options 
+{
+    list-style: none;
+}
+
+.menu-option 
+{
+    padding-left: 5px;
+    padding-right: 5px;
+    font-weight: bold;
+    font-size: 24px;
+    color: #EEE;
+    cursor: pointer;
+}
+
+.menu-option:hover 
+{
+    background: rgba(200, 200, 200, 0.4);
+}

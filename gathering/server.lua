@@ -1,47 +1,42 @@
 local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, ...) end
 
 gatherTable = {
-        --[[ {
-        gather_zone = { 186601, -39031, 1451 },
-        gather_item = "unprocessed_weed",
-        process_zone = { 70695, 9566, 1366 },
-        process_item = "processed_weed"
-        },
-        {
-        gather_zone = { 186474, -43277, 1451 },
-        gather_item = "unprocessed_heroin",
-        process_zone = { 73218, 3822, 1367 },
-        process_item = "processed_heroin"
-        },
-        {
-        gather_zone = { 193607, -46512, 1451 },
-        gather_item = "unprocessed_meth",
-        process_zone = { 72095, 1418, 1367 },
-        process_item = "processed_meth"
-        },
-        {
-        gather_zone = { 192080, -45155, 1529 },
-        gather_item = "unprocessed_coke",
-        process_zone = { 71981, 106, 1367 },
-        process_item = "processed_coke"
-        }, ]]
         {
             gather_zone = {-96766, 88886, 180},
             gather_item = "unprocessed_rock",
             gather_tool = "pickaxe",
             process_zone = {-82629, 90991, 481},
-            process_item = "processed_rock"
+            process_item = "processed_rock",
+            pickup_animation = "PICKAXE_SWING",
         },
         {
             gather_zone = {232464, 193521, 112},
             gather_item = "fish",
             gather_tool = "fishing_rod",
+            pickup_animation= "FISHING",
+        },
+        {
+            gather_zone = {-174432, 10837, 1831}, -- Champs du village
+            gather_item = "peach",
+            pickup_animation= "PICKUP_UPPER",
+            gather_props = {
+                -- Peach trees
+                {model = 145, x = -174006, y = 10457, z = 1773, rx = 0, ry = 10, rz = 0},
+                {model = 145, x = -173829, y = 10894, z = 1743, rx = 0, ry = 30, rz = 0},
+                {model = 145, x = -173980, y = 11396, z = 1698, rx = 0, ry = 45, rz = 0},
+                {model = 145, x = -174691, y = 11532, z = 1709, rx = 0, ry = 0, rz = 0},
+                {model = 145, x = -175204, y = 11094, z = 1755, rx = 0, ry = 145, rz = 0},
+                {model = 145, x = -175449, y = 11528, z = 1757, rx = 0, ry = 80, rz = 0},
+                {model = 145, x = -175171, y = 12038, z = 1719, rx = 0, ry = 50, rz = 0},
+                {model = 145, x = -174581, y = 12021, z = 1686, rx = 0, ry = 40, rz = 0},
+            }
         },
         {
             gather_zone = {-45600, -106988, 2574},
             gather_item = "coca_leaf",
             process_zone = {-215517, -51147, 200},
             process_item = "cocaine",
+            nb_items_per_processing = 3,
             gather_props = {
                 -- Coca plants
                 {model = 118, x = -45773, y = -106903, z = 2470},
@@ -131,16 +126,14 @@ AddRemoteEvent("StartGathering", function(player, gatherzone)
     end
     if PlayerData[player].onAction then
         PlayerData[player].onAction = false
-        return
+        return CallRemoteEvent(player, "MakeNotification", _("gather_cancelled"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     end
     if GetPlayerVehicle(player) ~= 0 then
         return
     end
     if gatherTable[gather].gather_tool == "pickaxe" then
-        animation = "PICKAXE_SWING"
         attached_item = 1063
     elseif gatherTable[gather].gather_tool == "fishing_rod" then
-        animation = "FISHING"
         attached_item = 1111
     end
 
@@ -171,6 +164,7 @@ AddRemoteEvent("StartGathering", function(player, gatherzone)
                     return DoGathering(player, animation, gather, attached_item)
                 else
                     CallRemoteEvent(player, "MakeNotification", _("inventory_notenoughspace"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+                    PlayerData[player].onAction = false
                     return false
                 end
             end)
@@ -183,7 +177,8 @@ AddRemoteEvent("StartProcessing", function(player, processzone)
     gather = GetGatherByProcesszone(processzone)
     unprocessed_item = gatherTable[gather].gather_item
     requireKnowledge = gatherTable[gather].require_knowledge
-    processItem = gatherTable[gather].process_item
+    processItem = gatherTable[gather].process_item or 1
+    nbItemsPerProcessing = gatherTable[gather].nb_items_per_processing
     
     if PlayerData[player].onAction then
         PlayerData[player].onAction = false
@@ -214,12 +209,12 @@ AddRemoteEvent("StartProcessing", function(player, processzone)
                 PlayerData[player].onAction = false
                 return CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             end
-            if tonumber(PlayerData[player].inventory[unprocessed_item]) < 1 then
+            if tonumber(PlayerData[player].inventory[unprocessed_item]) < nbItemsPerProcessing then
                 PlayerData[player].onAction = false
                 return CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             else
                 CallRemoteEvent(player, "LockControlMove", true)
-                RemoveInventory(player, unprocessed_item, 1)
+                RemoveInventory(player, unprocessed_item, nbItemsPerProcessing)
                 SetPlayerAnimation(player, "COMBINE")
                 PlayerData[player].isActioned = true
                 Delay(4000, function()

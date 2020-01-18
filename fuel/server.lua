@@ -2,38 +2,43 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 
 local gas_station = {
     location = {
-        { 127810, 78431, 1568 },
-        { 127446, 78415, 1568 },
-        { 127048, 78430, 1568 },
-        { 126678, 78404, 1568 },
-        { 126246, 78420, 1568 },
-        { 125904, 78406, 1568 },
-        { -17171, -2172, 2062 },
-        { -16814, -3187, 2062 },
-        { -17155, -3305, 2062 },
-        { -17526, -2315, 2062 },
-        { -17804, -2415, 2062 },
-        { -17447, -3387, 2062 },
-        { -17753, -3526, 2062 },
-        { -18106, -2502, 2062 },
-        { -167866, -37112, 1146 },
-        { -168188, -37103, 1146 },
-        { -168693, -37095, 1146 },
-        { -169015, -37088, 1146 },
-        { 170659, 207324, 1411 },
-        { 170105, 207314, 1410 },
-        { 170630, 206760, 1411 },
-        { 170107, 206783, 1410 },
-        { 170099, 206107, 1410 },
-        { 170647, 206097, 1411},
-        { 170623, 205561, 1411 },
-        { 170100, 205587, 1411 },
-        { 42526, 137156, 1569 },
-        { 42966, 137150, 1569 },
-        { 42524, 136717, 1569 },
-        { 42949, 136744, 1569 }
+        { 127810,   78431,  1568 },
+        { 127446,   78415,  1568 },
+        { 127048,   78430,  1568 },
+        { 126678,   78404,  1568 },
+        { 126246,   78420,  1568 },
+        { 125904,   78406,  1568 },
+        { -17171,   -2172,  2062 },
+        { -16814,   -3187,  2062 },
+        { -17155,   -3305,  2062 },
+        { -17526,   -2315,  2062 },
+        { -17804,   -2415,  2062 },
+        { -17447,   -3387,  2062 },
+        { -17753,   -3526,  2062 },
+        { -18106,   -2502,  2062 },
+        { -167866,  -37112, 1146 },
+        { -168188,  -37103, 1146 },
+        { -168693,  -37095, 1146 },
+        { -169015,  -37088, 1146 },
+        { 170659,   207324, 1411 },
+        { 170105,   207314, 1410 },
+        { 170630,   206760, 1411 },
+        { 170107,   206783, 1410 },
+        { 170099,   206107, 1410 },
+        { 170647,   206097, 1411 },
+        { 170623,   205561, 1411 },
+        { 170100,   205587, 1411 },
+        { 42526,    137156, 1569 },
+        { 42966,    137150, 1569 },
+        { 42524,    136717, 1569 },
+        { 42949,    136744, 1569 }
     },
     pickup = {}
+}
+
+local gasPrices = {
+    gasoil = "1",
+    gasoilplus = "2"
 }
 
 GasStationCached = {}
@@ -52,7 +57,9 @@ AddEvent("OnPackageStart", function()
                 if VehicleData[k] == nil then
                     return
                 end
-                VehicleData[k].fuel = VehicleData[k].fuel - 1
+                if VehicleData[k].fuel ~= 0 then
+                    VehicleData[k].fuel = VehicleData[k].fuel - 1
+                end
                 if VehicleData[k].fuel == 0 then
                     StopVehicleEngine(k)
                     VehicleData[k].fuel = 0
@@ -85,25 +92,32 @@ AddEvent("OnPlayerLeaveVehicle", function( player, vehicle, seat)
     end
 end)
 
-
 AddRemoteEvent("StartRefuel", function(player, vehicle)
-    price = math.ceil((100 - VehicleData[vehicle].fuel) * 0.5)
-
-    if GetPlayerVehicle(player) ~= 0 then
-        CallRemoteEvent(player, "MakeNotification", _("cant_refuel"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+    if GetPlayerState(player) >= 2 then
+        CallRemoteEvent(player, "MakeSuccessNotification", _("cant_while_driving"))
     else
-        if VehicleData[vehicle].fuel >= 100 then
-            CallRemoteEvent(player,  "MakeNotification", _("car_full"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-        else
-            if GetPlayerCash(player) < price then
-                CallRemoteEvent(player, "MakeNotification", _("not_enought_cash"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-            else
-                SetPlayerAnimation(player,"COMBINE")
-                CallRemoteEvent(player, "MakeNotification", _("car_refuelled_for", price, _("currency")), "linear-gradient(to right, #00b09b, #96c93d)")
-                VehicleData[vehicle].fuel = 100
-                SetVehiclePropertyValue(vehicle, "fuel", VehicleData[vehicle].fuel, true)
-                RemovePlayerCash(player, price)
-            end
-        end
+        local cash = PlayerData[player].inventory['cash'] or 0
+        local fuel = VehicleData[vehicle].fuel or 100
+    
+        CallRemoteEvent(player, "OpenUIGasStation", cash, 100, fuel, gasPrices.gasoil, gasPrices.gasoilplus)
+    end
+end)
+
+AddRemoteEvent("PayGasStation", function(player, count, fuel, vehicle)
+    price = count * tonumber(gasPrices[fuel])
+
+    print(count)
+    print(price)
+
+    local resultPay = RemovePlayerCash(player, price)
+    if resultPay then
+        VehicleData[vehicle].fuel = VehicleData[vehicle].fuel + count
+        if VehicleData[vehicle].fuel > 100 then VehicleData[vehicle].fuel = 100 end
+        
+        CallRemoteEvent(player, "UpdateGasStation", PlayerData[player].inventory['cash'], 100, VehicleData[vehicle].fuel)
+
+        SetVehiclePropertyValue(vehicle, "fuel", VehicleData[vehicle].fuel, true)
+    else
+        CallRemoteEvent(player, "MakeNotification", _("not_enought_cash"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     end
 end)

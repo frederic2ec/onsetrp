@@ -10,9 +10,10 @@ local weaponMenu
 local vehicleMenu
 local moneyMenu
 local banMenu
+local logMenu
 
 AddEvent("OnTranslationReady", function()
-    adminMenu = Dialog.create(_("admin_menu"), nil, _("teleportation"), _("weapon"), _("vehicle"), _("money"), _("ban_kick"), _("cancel"))
+    adminMenu = Dialog.create(_("admin_menu"), nil, _("teleportation"), _("weapon"), _("vehicle"), _("money"), _("ban_kick"), _("log"),_("cancel"))
     teleportMenu = Dialog.create(_("teleport_menu"), nil, _("teleport_to_place"), _("teleport_to_player"), _("teleport_player"), _("cancel"))
     teleportPlaceMenu = Dialog.create(_("teleport_to_player"), nil, _("teleport"), _("cancel"))
     Dialog.addSelect(teleportPlaceMenu, 1, _("place"), 8)
@@ -30,11 +31,13 @@ AddEvent("OnTranslationReady", function()
     banMenu = Dialog.create(_("ban_menu"), nil, _("ban"), _("kick"), _("cancel"))
     Dialog.addSelect(banMenu, 1, _("player"), 8)
     Dialog.addTextInput(banMenu, 1, _("reason"))
+    logMenu = Dialog.create(_("log_menu"), nil, _("cancel"))
+    Dialog.addSelect(logMenu, 1, _("log"), 12)
 end)
 
 
 AddEvent("OnKeyPress", function(key)
-    if key == "M" and not onSpawn and not onCharacterCreation then
+    if key == "N" and not alreadyInteracting then
         CallRemoteEvent("ServerAdminMenu") 
     end
 end)
@@ -57,6 +60,9 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
         end
         if button == 5 then
             Dialog.show(banMenu)
+        end
+        if button == 6 then
+            Dialog.show(logMenu)
         end
     end
     if dialog == teleportMenu then 
@@ -165,7 +171,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     end
 end)
 
-AddRemoteEvent("OpenAdminMenu", function(teleportPlace, playersNames, weaponsIds, vehicleIds) 
+AddRemoteEvent("OpenAdminMenu", function(teleportPlace, playersNames, weaponsIds, vehicleIds, logs) 
     local tpPlace = {}
     for k,v in pairs(teleportPlace) do
         tpPlace[k] = _(k)
@@ -175,6 +181,7 @@ AddRemoteEvent("OpenAdminMenu", function(teleportPlace, playersNames, weaponsIds
     Dialog.setSelectLabeledOptions(teleportPlayerMenu, 1, 1, playersNames)
     Dialog.setSelectLabeledOptions(moneyMenu, 1, 1, playersNames)
     Dialog.setSelectLabeledOptions(banMenu, 1, 1, playersNames)
+    Dialog.setSelectLabeledOptions(logMenu, 1, 1, logs)
     local weaponList = {}
     for k,v in pairs(weaponsIds) do
         weaponList[k] = _(k)

@@ -48,7 +48,6 @@ AddRemoteEvent("drugdealer:doneworking", function(player, npc)
     local drugs = {}
     for k,v in pairs(PlayerData[player].inventory) do
         if k == "cocaine" then
-            print('prix: '..v*drugsUnitPrice[k])
             table.insert( drugs, { label= "cocaine", nb= v, price= v*drugsUnitPrice[k] } )            
         end
     end

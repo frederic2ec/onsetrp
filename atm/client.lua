@@ -14,9 +14,10 @@ AddEvent("OnTranslationReady", function()
 end)
 
 AddEvent("OnKeyPress", function(key)
-    if key == "E" and not onSpawn and not onCharacterCreation then
+    if key == "E" and not alreadyInteracting then
         local NearestATM = GetNearestATM()
 		if NearestATM ~= 0 then
+            alreadyInteracting = true
             CallRemoteEvent("atmInteract", NearestATM)
 		end
 	end
@@ -24,6 +25,7 @@ end)
 
 AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == atm then
+        alreadyInteracting = false
         local args = { ... }
         if button == 1 then
             if args[1] ~= "" then

@@ -24,7 +24,7 @@ AddEvent("OnTranslationReady", function()
 end)
 
 AddEvent("OnKeyPress", function(key)
-    if key == "E" and not onSpawn and not onCharacterCreation then
+    if key == "E" and not alreadyInteracting then
         local NeareststylistNPC = GetNeareststylistNPC()
 		if NeareststylistNPC ~= 0 then
 			CallRemoteEvent("stylistInteract", NeareststylistNPC)
@@ -123,32 +123,6 @@ AddRemoteEvent("openModify", function(lhairs, lshirts, lpants, lshoes,lhairscolo
     Dialog.setSelectLabeledOptions(pantsMenu, 1, 1, pants)
     Dialog.setSelectLabeledOptions(shoesMenu, 1, 1, shoes)
 	Dialog.show(hairsMenu)
-end)
-
-AddRemoteEvent("modifyIG", function(player, part, piece, r, g, b, a)
-    local SkeletalMeshComponent
-    local pieceName
-    if part == 0 then
-        SkeletalMeshComponent = GetPlayerSkeletalMeshComponent(player, "Clothing0")
-        pieceName = piece
-    end
-    if part == 1 then
-        SkeletalMeshComponent = GetPlayerSkeletalMeshComponent(player, "Clothing1")
-        pieceName = piece
-    end
-    if part == 4 then
-        SkeletalMeshComponent = GetPlayerSkeletalMeshComponent(player, "Clothing4")
-        pieceName = piece
-    end
-    if part == 5 then
-        SkeletalMeshComponent = GetPlayerSkeletalMeshComponent(player, "Clothing5")
-        pieceName = piece
-    end
-    SkeletalMeshComponent:SetSkeletalMesh(USkeletalMesh.LoadFromAsset(pieceName))
-    local DynamicMaterialInstance = SkeletalMeshComponent:CreateDynamicMaterialInstance(0)
-    if part == 0 then
-        DynamicMaterialInstance:SetColorParameter("Hair Color", FLinearColor(r, g, b, a))
-    end
 end)
 
 function GetNeareststylistNPC()

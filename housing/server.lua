@@ -2306,7 +2306,6 @@ function OnPackageStart()
             SaveHouseData(k)
 
         end
-        print("All houses have been saved !")
     end, 30000)
 
     -- for k,v in pairs(houses) do -- Pour voir les maisons déjà faites de loin, ne pas tenir compte

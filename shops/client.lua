@@ -2,13 +2,11 @@ local Dialog = ImportPackage("dialogui")
 Dialog.setGlobalTheme("flat")
  
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
- 
 local shopUI
 local lastShop
 local ShopIds = { }
 local lastItems = { }
 local lastInventoryItems = { }
- 
 AddEvent("OnTranslationReady", function()
     shopUI = Dialog.create(_("shop"), nil, _("cancel"))
     Dialog.addSelect(shopUI, 1, _("inventory"), 5)
@@ -25,9 +23,9 @@ end)
  
 function OnKeyPress(key)
     if key == "E" and not alreadyInteracting then
-        local NearestShop = GetNearestShop()
-        if NearestShop ~= 0 then
-            alreadyInteracting = false
+		local NearestShop = GetNearestShop()
+		if NearestShop ~= 0 then
+			alreadyInteracting = false
             CallRemoteEvent("shopInteract", NearestShop)
         end
     end
@@ -35,31 +33,31 @@ end
 AddEvent("OnKeyPress", OnKeyPress)
  
 AddEvent("OnDialogSubmit", function(dialog, button, ...)
-    local args = { ... }
-    if dialog == shopUI then
-        alreadyInteracting = false
-        if button == 1 then
-            if args[1] == "" then
-                MakeNotification(_("select_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-            else
-                if args[2] == "" or math.floor(args[2]) < 1 then
-                    MakeNotification(_("select_amount"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-                else
-                    CallRemoteEvent("ShopSell", lastShop, lastInventoryItems[tonumber(args[1])], math.floor(args[2]))
-                end
-            end
-        end
-        if button == 2 then
-            if args[3] == "" then
-                MakeNotification(_("select_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-            else
-                if args[4] == ""  or math.floor(args[4]) < 1 then
-                    MakeNotification(_("select_amount"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-                else
-                    CallRemoteEvent("ShopBuy", lastShop, lastItems[tonumber(args[3])], math.floor(args[4]))
-                end
-            end
-        end
+	local args = { ... }
+	if dialog == shopUI then
+		alreadyInteracting = false
+		if button == 1 then
+			if args[1] == "" then
+				MakeNotification(_("select_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+			else
+				if args[2] == "" or math.floor(args[2]) < 1 then
+					MakeNotification(_("select_amount"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+				else
+					CallRemoteEvent("ShopSell", lastShop, lastInventoryItems[tonumber(args[1])], math.floor(args[2]))
+				end
+			end
+		end
+		if button == 2 then
+			if args[3] == "" then
+				MakeNotification(_("select_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+			else
+				if args[4] == ""  or math.floor(args[4]) < 1 then
+					MakeNotification(_("select_amount"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+				else
+					CallRemoteEvent("ShopBuy", lastShop, lastItems[tonumber(args[3])], math.floor(args[4]))
+				end
+			end
+		end
     end
 end)
  
@@ -96,13 +94,13 @@ AddRemoteEvent("openShop", function(inventory, items, shopid)
             if inventoryItem == item.name then
                 inventoryKey = inventoryKey + 1
                 lastInventoryItems[inventoryKey] = item
-                inventoryItems[inventoryKey] = inventoryCount.." x ".._(inventoryItem)
+                inventoryItems[inventoryKey] = inventoryCount.." x ".._(inventoryItem).." ("..inventoryCount.." x "..(item.weightInText)..")"
             end
         end
     end
  
     for key, item in pairs(items) do
-        shopItems[key] = _(item.name).." (".._("price_in_currency", item.price)..")"
+        shopItems[key] = "[".._("price_in_currency", item.price).."]  ".._(item.name).."  ("..item.weightInText..")"
     end
  
     lastItems = items

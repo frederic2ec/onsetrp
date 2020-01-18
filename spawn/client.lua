@@ -43,6 +43,7 @@ AddRemoteEvent("OpenSpawnMenu", function(spawnList, house)
     end
     Dialog.setSelectLabeledOptions(spawnMenu, 1, 1, spawns) 
     onSpawn = true
+    alreadyInteracting = true
     Dialog.show(spawnMenu)
 end)
 
@@ -55,6 +56,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
                 CallRemoteEvent("ServerSpawnMenu")
             else
                 onSpawn = false
+                alreadyInteracting = false
                 CallRemoteEvent("PlayerSpawn", args[1])
 			end
 		end

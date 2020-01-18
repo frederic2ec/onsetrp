@@ -1,0 +1,99 @@
+body 
+{
+    /*background-color: rgb(21, 85, 186);*/
+    
+
+    /*Ocean color*/
+    overflow: hidden;
+    /*No scrollbar*/
+}
+
+#minimapcontainer
+{
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    background-color: rgb(21, 85, 186);
+    filter: drop-shadow(-1px -1px 0 black) 
+            drop-shadow( 1px -1px 0 black)
+            drop-shadow(-1px  1px 0 black) 
+            drop-shadow( 1px  1px 0 black);
+}
+
+#destinationmarker 
+{
+    z-index: 3;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    filter: drop-shadow(-1px -1px 0 black) 
+            drop-shadow( 1px -1px 0 black)
+            drop-shadow(-1px  1px 0 black) 
+            drop-shadow( 1px  1px 0 black);
+}
+
+#mapimg 
+{
+    z-index: 1;
+    position: relative;
+    vertical-align: top;
+    filter: none;
+}
+
+.oceanBackgroundColor div
+{
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
+    display: block;
+    background-color: rgba(0,0,0,0.1);
+}
+
+.dot 
+{
+    position:absolute; 
+    left: 128px; 
+    top: 128px; 
+    width: 10px; 
+    height: 10px; 
+    border-radius:10px; 
+    z-index:10;
+    background-color: RGBA(24, 85, 179, 0.7);
+    pointer-events: none;
+    padding: 0px;
+    margin: 0px;
+    filter: drop-shadow(-1px -1px 0 black) 
+            drop-shadow( 1px -1px 0 black)
+            drop-shadow(-1px  1px 0 black) 
+            drop-shadow( 1px  1px 0 black);
+}
+
+.blip
+{
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    filter: drop-shadow(-1px -1px 0 black) 
+            drop-shadow( 1px -1px 0 black)
+            drop-shadow(-1px  1px 0 black) 
+            drop-shadow( 1px  1px 0 black);
+}
+
+#minimapdiv
+{
+    position:absolute; 
+    left:0px; 
+    top:0px; 
+    margin: 0px; 
+    padding:0px;
+}
+
+#destinationmarker 
+{
+    z-index: 3;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
