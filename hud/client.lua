@@ -4,9 +4,7 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 local HungerFoodHud
 local ThirstHud
 local HealthHud
-local VehicleSpeedHud
-local VehicleFuelHud
-local VehicleHealthHud
+local VehicleHud
 local SpeakingHud
 
 personalMenuIsOpen = 0
@@ -29,24 +27,12 @@ function OnPackageStart()
 	SetWebAnchors(HealthHud, 0.0, 0.0, 1.0, 1.0) 
 	LoadWebFile(HealthHud, "http://asset/onsetrp/hud/health/health.html")
     SetWebVisibility(HealthHud, WEB_HITINVISIBLE)
-    
-    VehicleHealthHud = CreateWebUI(0, 0, 0, 0, 0, 28)
-	SetWebAlignment(VehicleHealthHud, 1.0, 0.0)
-	SetWebAnchors(VehicleHealthHud, 0.0, 0.0, 1.0, 1.0) 
-	LoadWebFile(VehicleHealthHud, "http://asset/onsetrp/hud/vehiclehealth/vehiclehealth.html")
-    SetWebVisibility(VehicleHealthHud, WEB_HIDDEN)
 
-    VehicleFuelHud = CreateWebUI(0, 0, 0, 0, 0, 28)
-	SetWebAlignment(VehicleFuelHud, 1.0, 0.0)
-	SetWebAnchors(VehicleFuelHud, 0.0, 0.0, 1.0, 1.0) 
-	LoadWebFile(VehicleFuelHud, "http://asset/onsetrp/hud/vehiclefuel/vehiclefuel.html")
-    SetWebVisibility(VehicleFuelHud, WEB_HIDDEN)
-
-    VehicleSpeedHud = CreateWebUI(0, 0, 0, 0, 0, 28)
-	SetWebAlignment(VehicleSpeedHud, 1.0, 0.0)
-	SetWebAnchors(VehicleSpeedHud, 0.0, 0.0, 1.0, 1.0) 
-	LoadWebFile(VehicleSpeedHud, "http://asset/onsetrp/hud/vehiclespeed/vehiclespeed.html")
-    SetWebVisibility(VehicleSpeedHud, WEB_HIDDEN)
+    VehicleHud = CreateWebUI(0, 0, 0, 0, 0, 60)
+	SetWebAlignment(VehicleHud, 1.0, 0.0)
+	SetWebAnchors(VehicleHud, 0.0, 0.0, 1.0, 1.0) 
+	LoadWebFile(VehicleHud, "http://asset/onsetrp/hud/vehicle/index.html")
+    SetWebVisibility(VehicleHud, WEB_HIDDEN)
 
     SpeakingHud = CreateWebUI( 0, 0, 0, 0, 0, 48 )
     LoadWebFile( SpeakingHud, "http://asset/onsetrp/hud/speaking/hud.html" )
@@ -71,16 +57,15 @@ function updateHud()
         local vehiclespeed = math.floor(GetVehicleForwardSpeed(GetPlayerVehicle()))
         local vehiclehealth = math.floor(GetVehicleHealth(GetPlayerVehicle()))
         local vehiclefuel = GetVehiclePropertyValue(GetPlayerVehicle(), "fuel")
-        ExecuteWebJS(VehicleHealthHud, "SetVehicleHealth("..vehiclehealth..");")
-        SetWebVisibility(VehicleHealthHud, WEB_VISIBLE)
-        if vehiclefuel ~= nil then ExecuteWebJS(VehicleFuelHud, "SetVehicleFuel("..vehiclefuel..");") end
-        SetWebVisibility(VehicleFuelHud, WEB_VISIBLE)
-        ExecuteWebJS(VehicleSpeedHud, "SetVehicleSpeed("..vehiclespeed..");")
-        SetWebVisibility(VehicleSpeedHud, WEB_VISIBLE)
+        vehiclefuel = vehiclefuel or 100
+        SetWebVisibility(VehicleHud, WEB_VISIBLE)
+        ExecuteWebJS(VehicleHud, "SetVehicleFuel("..vehiclefuel..");")
+        ExecuteWebJS(VehicleHud, "SetVehicleSpeed("..vehiclespeed..");")
+        ExecuteWebJS(VehicleHud, "SetVehicleHealth("..vehiclehealth..");")
     else
-        SetWebVisibility(VehicleHealthHud, WEB_HIDDEN)
-        SetWebVisibility(VehicleFuelHud, WEB_HIDDEN)
-        SetWebVisibility(VehicleSpeedHud, WEB_HIDDEN)
+        SetWebVisibility(VehicleHud, WEB_HIDDEN)
+        -- SetWebVisibility(VehicleFuelHud, WEB_HIDDEN)
+        -- SetWebVisibility(VehicleSpeedHud, WEB_HIDDEN)
     end
 end
 CreateTimer(function()
