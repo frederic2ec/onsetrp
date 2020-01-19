@@ -436,5 +436,6 @@
     "process_cancel": "Traitement annulé, {1} {2} a été détruit",
     "process_not_enough_item": "Il vous faut {1} {2} pour ça",
     "peach_farm": "Champs de pêche",
-    "lumberjack_farm": "Bois des bûcherons"
+    "lumberjack_farm": "Bois des bûcherons",
+    "need_to_open_hood": "Veuillez ouvrir le capot"
 }

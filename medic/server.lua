@@ -168,7 +168,8 @@ AddRemoteEvent("MedicDoRevive", function(player,deadplayer)
 	    SetPlayerSpawnLocation(deadplayer, PlayerData[deadplayer].death_pos[1], PlayerData[deadplayer].death_pos[2], PlayerData[deadplayer].death_pos[3], 90)
 	    CallRemoteEvent(player, "MakeNotification", _("revive_player_success"), "linear-gradient(to right, #00b09b, #96c93d)")
 	    CallRemoteEvent(player, "MakeNotification", _("revive_reward"), "linear-gradient(to right, #00b09b, #96c93d)")
-	    PlayerData[player].bank_balance = PlayerData[player].bank_balance + 200
+		PlayerData[player].bank_balance = PlayerData[player].bank_balance + 200
+		CallRemoteEvent(player, "MakeNotification", _("revive_reward"), "linear-gradient(to right, #00b09b, #96c93d)")
 	    DestroyText3D(GetPlayerPropertyValue(deadplayer, "reviveHint"))
 	    if(GetPlayerPropertyValue(deadplayer, "medic_on_the_way") ~= nil) then
 		local reviver = GetPlayerPropertyValue(deadplayer, "medic_on_the_way")
