@@ -17,7 +17,9 @@ local teleportPlace = {
     harbour = { 66726, 185960, 536 },
     western = { -80339, -157846, 3223 },
     mountain = { -190210, -1831, 7462 },
-    training = { -13789, 136500, 1544 }
+    training = { -13789, 136500, 1544 },
+    peach_farm = {-174432, 10837, 1931},
+    lumberjack_farm = {-107330, -95820, 5330},
 }
 
 local weaponList = {

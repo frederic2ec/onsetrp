@@ -131,7 +131,12 @@ INSERT INTO `items` (`id`, `name`, `category`, `subcategory`, `price`, `weight`,
 	(33, 'peach', 'miscellaneous', 'food', 5, 1, 30, 5, 0, 1),
 	(34, 'item_backpack', 'miscellaneous', 'object', 150, 1, 0, 0, 1, 0),
 	(35, 'coca_leaf', 'drugs', 'drugs', 0, 200, 0, 0, 0, 0),
-	(36, 'cocaine', 'drugs', 'drugs', 0, 200, 0, 0, 0, 1);
+	(36, 'cocaine', 'drugs', 'drugs', 0, 200, 0, 0, 0, 1),
+  (37, 'lumberjack_axe', 'miscellaneous', 'tool', 100, 3200, 0, 0, 0, 0),
+	(38, 'tree_log', 'job_item', 'resource', 0, 2000, 0, 0, 0, 0),
+	(39, 'wood_plank', 'job_item', 'resource', 0, 1000, 0, 0, 0, 0),
+	(40, 'treated_wood_plank', 'job_item', 'resource', 0, 1000, 0, 0, 0, 0),
+	(41, 'lumberjack_saw', 'miscellaneous', 'tool', 70, 1000, 0, 0, 0, 0);
 
 
 --

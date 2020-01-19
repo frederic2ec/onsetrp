@@ -2,6 +2,7 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 
 local minutes = 1 -- TODO : DEV MODE
 local minimumWage = 50
+local inJobWage = 100
 local medicAndCopsSalary = 150
 local addMedicAndCopsSalaryToMinimumWage = true
 
@@ -15,6 +16,8 @@ CreateTimer(function()
                 else
                     salary = medicAndCopsSalary
                 end
+            elseif PlayerData[player].job ~= nil then
+                salary = inJobWage
             end
     
             PlayerData[player].bank_balance = PlayerData[player].bank_balance + salary

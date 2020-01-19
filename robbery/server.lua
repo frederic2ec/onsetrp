@@ -15,10 +15,10 @@ local workingCops = {}
 -- Configs
 
 local robberyLocation = { 213940.421875, 192764.109375, 1309.3317871094 }
-local minumumCopsToStartARobbery = 0 -- TODO : DEV MODE
-local timeBeforeGettingMoneyInMinutes = 1
-local timeBeforeMoneyDespawn = 1
-local timeBeforeNewRobbery = 1
+local minumumCopsToStartARobbery = 1
+local timeBeforeGettingMoneyInMinutes = 5
+local timeBeforeMoneyDespawn = 5
+local timeBeforeNewRobbery = 15
 local cashForARobbery = 10000
 
 AddEvent("OnPackageStart", function()

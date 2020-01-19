@@ -111,6 +111,14 @@
             }, timerInterval);
         }
 
+        function HideLoading() {
+            if (interval != null) clearInterval(interval);
+            labelContainer.style.opacity = 0.0;
+            bar.style.opacity = 0.0;
+            interval = null;
+            return;
+        }
+
         // CreateLoading('Récolte de pêche', 10);
     </script>
 </body>

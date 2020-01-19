@@ -34,7 +34,7 @@ AddEvent("OnPlayerSteamAuth", OnPlayerSteamAuth)
 
 function OnPlayerQuit(player)
     SavePlayerAccount(player)
-
+	GatheringCleanPlayerActions(player) -- → Gathering
     DestroyPlayerData(player)
 end
 AddEvent("OnPlayerQuit", OnPlayerQuit)
