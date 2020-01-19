@@ -26,7 +26,7 @@ AddEvent('BURDIGALAX_inventory_onTransfer', itemTransferedInInventory)
 
 
 AddEvent("OnKeyPress", function( key )
-    if key == "F4" and not alreadyInteracting then
+    if key == "F4" and not alreadyInteracting and not GetPlayerPropertyValue(player, "cuffed") then
         local vehicle = GetPlayerVehicle()
 
         if vehicle ~= 0 then
