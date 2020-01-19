@@ -168,15 +168,26 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
     end
 end)
 
-AddRemoteEvent("TransferInventory", function(player, item, amount, toplayer)
-    if PlayerData[player].inventory[item] < tonumber(amount) then
-        CallRemoteEvent(player, "MakeSuccessNotification", _("not_enough_item"))
-    else
-        AddInventory(tonumber(toplayer), item, tonumber(amount))
-        RemoveInventory(tonumber(player), item, tonumber(amount))
-        
-        CallRemoteEvent(player, "MakeNotification", _("successful_transfer", amount, item, GetPlayerName(tonumber(toplayer))), "linear-gradient(to right, #00b09b, #96c93d)")
-        CallRemoteEvent(tonumber(toplayer), "MakeNotification", _("received_transfer", amount, item, GetPlayerName(player)), "linear-gradient(to right, #00b09b, #96c93d)")
+AddRemoteEvent("TransferInventory", function(player, item, amount, toPlayer)
+    local x, y, z = GetPlayerLocation(player)
+    local nearestPlayers = GetPlayersInRange3D(x, y, z, 1000)
+    local toPlayerIsHere = false
+    for k, v in pairs(nearestPlayers) do
+        if k == toPlayer then
+            toPlayerIsHere = true
+        end
+    end
+    
+    if toPlayerIsHere then
+        if PlayerData[player].inventory[item] < tonumber(amount) then
+            CallRemoteEvent(player, "MakeSuccessNotification", _("not_enough_item"))
+        else
+            AddInventory(tonumber(toPlayer), item, tonumber(amount))
+            RemoveInventory(tonumber(player), item, tonumber(amount))
+            
+            CallRemoteEvent(player, "MakeNotification", _("successful_transfer", amount, item, GetPlayerName(tonumber(toPlayer))), "linear-gradient(to right, #00b09b, #96c93d)")
+            CallRemoteEvent(tonumber(toPlayer), "MakeNotification", _("received_transfer", amount, item, GetPlayerName(player)), "linear-gradient(to right, #00b09b, #96c93d)")
+        end
     end
 end)
 
