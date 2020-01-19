@@ -17,8 +17,7 @@ local teleportPlace = {
     harbour = { 66726, 185960, 536 },
     western = { -80339, -157846, 3223 },
     mountain = { -190210, -1831, 7462 },
-    training = { -13789, 136500, 1544 },
-    police_station = { 169277, 193489, 1307 }
+    training = { -13789, 136500, 1544 }
 }
 
 local weaponList = {
