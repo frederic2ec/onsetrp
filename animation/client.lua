@@ -3,12 +3,12 @@
 animationWheelUI = nil
 
 function OnPackageStart()
-	animationWheelUI = CreateWebUI(0, 0, 0, 0, 10)
-	LoadWebFile(animationWheelUI, "http://asset/" .. GetPackageName() .. "/animation/web/index.html")
-	SetWebSize(animationWheelUI, 500, 500)
-	SetWebAlignment(animationWheelUI, 0.5, 0.5)
-	SetWebAnchors(animationWheelUI, 0.5, 0.5, 0.5, 0.5)
-	SetWebVisibility(animationWheelUI, WEB_HIDDEN)
+	web = CreateWebUI(0, 0, 0, 0, 60)
+	LoadWebFile(web, "http://asset/" .. GetPackageName() .. "/animation/web/index.html")
+	SetWebSize(web, 700, 700)
+	SetWebAlignment(web, 0.5, 0.5)
+	SetWebAnchors(web, 0.5, 0.5, 0.5, 0.5)
+	SetWebVisibility(web, WEB_HIDDEN)
 end
 AddEvent("OnPackageStart", OnPackageStart)
 

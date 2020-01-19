@@ -85,7 +85,8 @@
         "robbery/client.lua",
         "hud/pinmap/client/main.lua",
         "vehicle/ragP/client.lua",
-        "loading-bar/c_loadingbar.lua"
+        "loading-bar/c_loadingbar.lua",
+        "shortcuts/client.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",
@@ -176,6 +177,8 @@
         "hud/pinmap/client/web/icons/police.png",
         "hud/pinmap/client/web/fonts/Roboto-Regular.ttf",
         "hud/pinmap/client/web/fonts/Roboto-Light.ttf",
-        "loading-bar/files/loading-bar.html"
+        "loading-bar/files/loading-bar.html",
+        "shortcuts/index.html",
+        "shortcuts/main.css"
     ]
 }
