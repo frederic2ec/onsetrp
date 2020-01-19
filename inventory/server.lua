@@ -2,6 +2,8 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 
 local inventory_base_max_slots = 32
 
+local droppedObjectsPickups = {}
+
 AddRemoteEvent("ServerPersonalMenu", function(player, vehicleSpeed)
     if vehicleSpeed > 0 then
         CallRemoteEvent(player, "MakeSuccessNotification", _("cant_while_driving"))
@@ -178,14 +180,6 @@ AddRemoteEvent("TransferInventory", function(player, item, amount, toplayer)
     end
 end)
 
-AddRemoteEvent("RemoveFromInventory", function(player, item, amount)
-    if PlayerData[player].inventory[item] < tonumber(amount) then
-        CallRemoteEvent(player, "MakeSuccessNotification", _("not_enough_item"))
-    else
-        RemoveInventory(tonumber(player), item, tonumber(amount))
-    end
-end)
-
 AddEvent("OnPlayerSpawn", function(player)
     if PlayerData[player] ~= nil then
         DestroyObject(PlayerData[player].backpack)        
@@ -198,7 +192,7 @@ AddRemoteEvent("RemoveFromInventory", function(player, item, amount)
     if PlayerData[player].inventory[item] < tonumber(amount) then
         CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     else
-        RemoveInventory(tonumber(player), item, tonumber(amount))
+        RemoveInventory(tonumber(player), item, tonumber(amount), 1)
     end
 end)
 
@@ -223,7 +217,7 @@ function AddInventory(player, item, amount)
     end
 end
 
-function RemoveInventory(player, item, amount)
+function RemoveInventory(player, item, amount, drop)
     if PlayerData[player].inventory[item] == nil then
         return false
     else
@@ -236,6 +230,16 @@ function RemoveInventory(player, item, amount)
         end
         if item == "item_backpack" then
             DisplayPlayerBackpack(player, 1)
+        end
+        if drop == 1 then
+            local x,y,z = GetPlayerLocation(player)
+            local pickup = CreatePickup(620, x, y, z - 90)
+            local text = CreateText3D(_(item).." x"..amount, 15, x, y, z, 0,0,0)
+            
+            Delay(300000, function(pickup,text)
+                DestroyPickup(pickup)      
+                DestroyText3D(text)                          
+            end, pickup,text)            
         end
         return true
     end
