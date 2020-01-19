@@ -38,7 +38,6 @@ end)
 -- LOADING
 
 AddRemoteEvent("OnCardDataLoaded", function(id, name, driverLicense, gunLicense, helicopterLicense)
-    print("OnCardDataLoaded")
     SetIgnoreLookInput(true)
     SetIgnoreMoveInput(true)
     ShowMouseCursor(true)

@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+.speedometer {
+    font-family: 'Open Sans', sans-serif;
+    padding-right: 20px;
+    width: 200px;
+    height: 120px;
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 110px);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+    padding-top: 0!important;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+canvas#speedgauge {
+    height: 100px;
+    transform: rotate(-30deg);
+}
+
+.speed {
+    position: absolute;
+    color: #111;
+}
+
+#speed-display {
+    font-size: 30px;
+    line-height: 20px;
+}
+
+.speed span {
+    font-size: 14px;
+}
+
+#fuelgauge {
+    position: absolute;
+    height: 44px;
+    bottom: 16px;
+    right: 20px;
+}
+
+#fuel {
+    height: 28px;
+    position: absolute;
+    bottom: 24px;
+    right: 48px;
+}
+
+#engine {
+    display: none;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    fill: #cf000f;
+}
+
+.alarm {
+    animation: Alarm 1s infinite;
+}
+
+@keyframes Alarm{
+    100%{opacity: 1;}
+    50%{opacity: .5;}
+    100%{opacity: 1;}
+}

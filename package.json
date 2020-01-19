@@ -19,7 +19,7 @@
         "housing/server.lua",
         "inventory/server.lua",
         "shops/server.lua",
-        "gathering/server.lua",
+        "gathering/s_gathering.lua",
         "gathering/s_drugdealer.lua",
         "admin/server.lua",
         "fuel/server.lua",
@@ -63,7 +63,7 @@
         "inventory/client.lua",
         "shops/client.lua",
         "misc/c_weapons.lua",
-        "gathering/client.lua",
+        "gathering/c_gathering.lua",
         "gathering/c_drugdealer.lua",
         "admin/client.lua",
         "fuel/client.lua",
@@ -85,7 +85,8 @@
         "robbery/client.lua",
         "hud/pinmap/client/main.lua",
         "vehicle/ragP/client.lua",
-        "loading-bar/c_loadingbar.lua"
+        "loading-bar/c_loadingbar.lua",
+        "shortcuts/client.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",
@@ -96,14 +97,10 @@
         "hud/thirst/thirst.html",
         "hud/hunger/hunger.png",
         "hud/hunger/hunger.html",
-        "hud/vehiclehealth/vehiclehealth.png",
-        "hud/vehiclehealth/vehiclehealth.html",
-        "hud/vehiclefuel/vehiclefuel.png",
-        "hud/vehiclefuel/vehiclefuel.html",
-        "hud/vehiclespeed/vehiclespeed.html",
-        "hud/vehiclespeed/fonts/source-sans-pro/SourceSansPro-Regular.ttf",
-        "hud/vehiclespeed/fonts/source-sans-pro/SourceSansPro-Bold.ttf",
-        "hud/vehiclespeed/fonts/JosefinSans/JosefinSans-Bold.ttf",
+        "hud/vehicle/index.html",
+        "hud/vehicle/index.css",
+        "hud/vehicle/index.js",
+        "hud/vehicle/gauge.min.js",
         "scoreboard/scoreboard/ping.png",
         "scoreboard/scoreboard/scoreboard.css",
         "scoreboard/scoreboard/scoreboard.html",
@@ -172,6 +169,8 @@
         "hud/pinmap/client/web/icons/police.png",
         "hud/pinmap/client/web/fonts/Roboto-Regular.ttf",
         "hud/pinmap/client/web/fonts/Roboto-Light.ttf",
-        "loading-bar/files/loading-bar.html"
+        "loading-bar/files/loading-bar.html",
+        "shortcuts/index.html",
+        "shortcuts/main.css"
     ]
 }
