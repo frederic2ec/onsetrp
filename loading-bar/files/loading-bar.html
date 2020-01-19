@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>LoadingBar</title>
+
+    <script>
+        (function (obj) {
+            ue.game = {};
+            ue.game.callevent = function (name, ...args) {
+                if (typeof name != "string") {
+                    return;
+                }
+
+                if (args.length == 0) {
+                    obj.callevent(name, "")
+                }
+                else {
+                    let params = []
+                    for (let i = 0; i < args.length; i++) {
+                        params[i] = args[i];
+                    }
+                    obj.callevent(name, JSON.stringify(params));
+                }
+            };
+        })(ue.game);
+        CallEvent = ue.game.callevent;
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Raleway:100,200,300');
+
+        @font-face {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Open Sans Regular'), local('OpenSans-Regular'), url(http://asset/mapeditor/client/gui/OpenSansRegular.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        body,
+        html {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            font-family: 'Raleway', 'Open Sans', sans-serif !important;
+            overflow: hidden;
+        }
+
+        .label-container {
+            opacity: 0.0;
+            transition: opacity 1s ease-in-out;
+            position: absolute;
+            bottom: 5pt;
+            width: 100%;
+            text-align: center;
+        }
+
+        .label-container .label {
+            color: white;
+            font-size: 20px;
+            text-shadow: -1px 0 #262626, 0 1px #262626, 1px 0 #262626, 0 -1px #262626;
+        }
+
+        .progress-bar {
+            transition: opacity 1s ease-in-out;
+            opacity: 0.0;
+            position: absolute;
+            bottom: 0;
+            height: 3pt;
+            background-image: linear-gradient(to right, #820000, #a22c0d, #c14c19, #e06b27, #ff8b35);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="label-container">
+        <span class="label">activity_name</span>
+    </div>
+    <div class="progress-bar"></div>
+
+    <script>
+        var timerInterval = 50;
+        var interval;
+
+        var body = document.querySelector('body'),
+            bar = document.querySelector('.progress-bar'),
+            labelContainer = document.querySelector('.label-container')
+        label = document.querySelector('.label-container .label')
+
+        function CreateLoading(activity, seconds) {
+            if (interval != null) clearInterval(interval);
+
+            labelContainer.style.opacity = 0.9;
+            bar.style.opacity = 0.9;
+            label.innerHTML = activity;
+            bar.style.width = '0%';
+            var valueIteration = timerInterval / (seconds * 1000);
+            var count = 0;
+            interval = setInterval(() => {
+                count = count + valueIteration * 100;
+                bar.style.width = count + '%';
+                if (count >= 100) {
+                    labelContainer.style.opacity = 0.0;
+                    bar.style.opacity = 0.0;
+                    clearInterval(interval);
+                    interval = null;
+                    return
+                }
+            }, timerInterval);
+        }
+
+        // CreateLoading('Récolte de pêche', 10);
+    </script>
+</body>
+
+</html>

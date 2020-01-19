@@ -147,10 +147,12 @@ AddRemoteEvent("StartGathering", function(player, gatherzone)
     
     function DoGathering(player, animation, gather, attached_item)
         if PlayerData[player].onAction and not PlayerData[player].isActioned then
+            CallRemoteEvent(player, "loadingbar:show", _("gather").." ".._(gatherTable[gather].gather_item), 8) -- LOADING BAR
             CallRemoteEvent(player, "LockControlMove", true)
             PlayerData[player].isActioned = true
             SetPlayerAnimation(player, animation)
             SetAttachedItem(player, "hand_r", attached_item)
+
             Delay(4000, function()
                 SetPlayerAnimation(player, animation)
             end)
