@@ -13,7 +13,8 @@ end
 AddEvent("OnPackageStart", OnPackageStart)
 
 AddEvent("OnKeyPress", function(key)
-	if key == "G" and not IsPlayerInVehicle(GetPlayerId()) and not alreadyInteracting and not GetPlayerPropertyValue(GetPlayerId(), "cuffed") then
+	local cuffed = GetPlayerPropertyValue(GetPlayerId(), "cuffed") or false
+	if key == "G" and not IsPlayerInVehicle(GetPlayerId()) and not alreadyInteracting and not cuffed then
 		if (GetWebVisibility(animationWheelUI) == 0) then
 			local ScreenX, ScreenY = GetScreenSize()
 			SetMouseLocation(math.floor(ScreenX / 2), math.floor(ScreenY / 2))
@@ -59,4 +60,9 @@ end)
 AddRemoteEvent("GetClientObjects", function()
 	CallRemoteEvent("ReturnedObjects", GetStreamedObjects(false))
 	CallRemoteEvent("ReturnedObjects", GetStreamedObjects(false))
+end)
+
+-- PLAYER LIPS
+AddEvent("OnPlayerTalking", function(player)
+	SetPlayerLipMovement(player)
 end)
