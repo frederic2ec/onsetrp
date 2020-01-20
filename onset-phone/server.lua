@@ -9,7 +9,7 @@ local canUsePhoneWhileGathering = false
 -- LOADING
 
 function LoadPhone(player)
-    if (canUsePhoneWhileGathering or not PlayerData[player].onAction) and canUsePhoneWithoutPhoneItem or PlayerData[player].inventory[phoneItemName] then
+    if (canUsePhoneWhileGathering or not GetPlayerBusy(player)) and canUsePhoneWithoutPhoneItem or PlayerData[player].inventory[phoneItemName] then
         SetPlayerAnimation(player, 'PHONE_HOLD')
         local query = mariadb_prepare(sql, "SELECT * FROM messages WHERE messages.from = '?' OR messages.to = '?';", tostring(PlayerData[player].phone_number), tostring(PlayerData[player].phone_number))
 

@@ -148,7 +148,7 @@ function ProcessZoom()
 end
 
 function OnKeyPress(key)
-	if (key == "M") and not alreadyInteracting then
+	if (key == "M") and not GetPlayerBusy() then
 		dt = GetTimeSeconds() - timeMapClosed
 		if (dt < 0.5) then --If the map was opened or closed in the last 0.5 seconds, ignore this. This is to try to prevent map from being automatically opened/closed again. This threshold could be reduced, but I felt like 0.5 was safe.
 			return false

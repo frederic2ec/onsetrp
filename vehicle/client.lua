@@ -52,13 +52,13 @@ function getNearestVehicle()
 end
 
 function OnKeyPress(key)
-    if key == "U" and not alreadyInteracting then
+    if key == "U" and not GetPlayerBusy() then
         CallRemoteEvent("unlockVehicle")
     end
     
     local nearestVehicle = getNearestVehicle()
 
-    if key == "F1" and not alreadyInteracting then
+    if key == "F1" and not GetPlayerBusy() then
         if nearestVehicle ~= 0 then
             CallRemoteEvent("ServerVehicleMenu", nearestVehicle)
         end

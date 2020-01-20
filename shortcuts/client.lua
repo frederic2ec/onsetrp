@@ -11,7 +11,7 @@ end
 AddEvent("OnPackageStart", OnPackageStart)
 
 function OnKeyPress(key)
-	if key == "F8" and not alreadyInteracting then
+	if key == "F8" and not GetPlayerBusy() then
 		if(GetWebVisibility(shortcutsUI) == 0) then
             SetIgnoreLookInput(true)
             SetIgnoreMoveInput(true)

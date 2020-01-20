@@ -43,7 +43,7 @@ AddRemoteEvent("OpenSpawnMenu", function(spawnList, house)
     end
     Dialog.setSelectLabeledOptions(spawnMenu, 1, 1, spawns) 
     onSpawn = true
-    alreadyInteracting = true
+    CallRemoteEvent("account:setplayerbusy", GetPlayerId())
     Dialog.show(spawnMenu)
 end)
 
@@ -56,7 +56,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
                 CallRemoteEvent("ServerSpawnMenu")
             else
                 onSpawn = false
-                alreadyInteracting = false
+                CallRemoteEvent("account:setplayernotbusy", GetPlayerId())
                 CallRemoteEvent("PlayerSpawn", args[1])
 			end
 		end

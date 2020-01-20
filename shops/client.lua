@@ -22,10 +22,10 @@ AddRemoteEvent("shopSetup", function(ShopObject)
 end)
  
 function OnKeyPress(key)
-    if key == "E" and not alreadyInteracting then
+    if key == "E" and not GetPlayerBusy() then
 		local NearestShop = GetNearestShop()
 		if NearestShop ~= 0 then
-			alreadyInteracting = false
+			CallRemoteEvent("account:setplayernotbusy", GetPlayerId())
             CallRemoteEvent("shopInteract", NearestShop)
         end
     end
@@ -35,7 +35,7 @@ AddEvent("OnKeyPress", OnKeyPress)
 AddEvent("OnDialogSubmit", function(dialog, button, ...)
 	local args = { ... }
 	if dialog == shopUI then
-		alreadyInteracting = false
+		CallRemoteEvent("account:setplayernotbusy", GetPlayerId())
 		if button == 1 then
 			if args[1] == "" then
 				MakeNotification(_("select_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")

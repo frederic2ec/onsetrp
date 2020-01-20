@@ -5,7 +5,7 @@ AddRemoteEvent("gasStationSetup", function(gasStationObject)
 end)
 
 function OnKeyPress(key)
-    if key == "E" and not alreadyInteracting then
+    if key == "E" and not GetPlayerBusy() then
         local NearestGasStation = GetNearestGasStation()
         local NearestVehicle = getNearestVehicle()
 		if NearestGasStation ~= 0 and NearestVehicle ~= 0 then

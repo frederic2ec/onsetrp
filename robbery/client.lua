@@ -8,7 +8,7 @@ end
 AddRemoteEvent("robberySetup", robberySetup)
 
 function OnKeyPress(key)
-    if key == "E" and not alreadyInteracting then
+    if key == "E" and not GetPlayerBusy() then
         local x, y, z = GetPlayerLocation()
         local dist = GetDistance3D(x, y, z, robberyPosition[1], robberyPosition[2], robberyPosition[3])
 

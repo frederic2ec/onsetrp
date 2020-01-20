@@ -13,7 +13,7 @@ local phoneHome
 local phoneContacts
 
 AddEvent("OnKeyPress", function(key)
-    if key == "K" and not phoneOpened then
+    if key == "K" and not phoneOpened and not GetPlayerBusy() then
         OpenPhone()
     elseif key == "Escape" and phoneOpened then
         ClosePhone()
@@ -72,6 +72,7 @@ AddEvent("ClosePhone", function()
 end)
 
 function ClosePhone()
+    CallRemoteEvent("account:setplayernotbusy", GetPlayerId())
     phoneOpened = false
     SetIgnoreLookInput(false)
     SetIgnoreMoveInput(false)
@@ -82,5 +83,6 @@ function ClosePhone()
 end
 
 function OpenPhone()
+    CallRemoteEvent("account:setplayerbusy", GetPlayerId())    
     CallRemoteEvent("LoadPhone")
 end

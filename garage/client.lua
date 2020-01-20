@@ -10,7 +10,7 @@ AddEvent("OnTranslationReady", function()
 end)
 
 function OnKeyPress(key)
-    if key == "E" and not alreadyInteracting then
+    if key == "E" and not GetPlayerBusy() then
         local NearestGarageDealer = GetNearestGarageDealer()
         if NearestGarageDealer ~= 0 then 
             CallRemoteEvent("garageDealerInteract", NearestGarageDealer)       

@@ -96,7 +96,7 @@ AddRemoteEvent("openCharacterCreation", function(lhairs, lshirts, lpants, lshoes
     Dialog.setSelectLabeledOptions(shoesCreation, 1, 1, shoes)
     
     onCharacterCreation = true
-    alreadyInteracting = true
+    CallRemoteEvent("account:setplayerbusy", GetPlayerId())
 
     Dialog.show(characterCreation)
 end)
@@ -161,7 +161,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
                 CallRemoteEvent("ServerChangeClothes", playerName, playerHairs, playerHairsColor, playerShirt, playerPants, playerShoes)
                 isCreated = true
                 onCharacterCreation = false
-                alreadyInteracting = false
+                CallRemoteEvent("account:setplayernotbusy", GetPlayerId())
             end
         end
     end

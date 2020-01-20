@@ -20,7 +20,7 @@ AddEvent("OnPackageStop", OnPackageStopInventory)
 -- CLOSE
 
 function CloseUIInventory(context)
-    alreadyInteracting = false
+    CallRemoteEvent("account:setplayernotbusy", GetPlayerId())
     personalMenuIsOpen = 0
     if context == '"transfer"' then
         ExecuteWebJS(inventoryUI, "ResetSelectedNearbyInventory()")
@@ -37,7 +37,7 @@ AddEvent("BURDIGALAX_inventory_onClose", CloseUIInventory)
 -- INIT
 
 function OpenUIInventory(key, items, playerInventory, playerName, playerId, playersList, maxSlots)
-    alreadyInteracting = true
+    CallRemoteEvent("account:setplayerbusy", GetPlayerId())
     personalMenuIsOpen = 1
     ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.setConfig("..json_encode(BuildInventoryJson(items, playerInventory, playerName, playerId, playersList, maxSlots))..");")
     ShowMouseCursor(true)

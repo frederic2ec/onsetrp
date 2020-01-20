@@ -14,7 +14,7 @@ AddEvent("OnPackageStart", OnPackageStart)
 
 AddEvent("OnKeyPress", function(key)
 	local cuffed = GetPlayerPropertyValue(GetPlayerId(), "cuffed") or false
-	if key == "G" and not IsPlayerInVehicle(GetPlayerId()) and not alreadyInteracting and not cuffed then
+	if key == "G" and not IsPlayerInVehicle(GetPlayerId()) and not GetPlayerBusy() and not cuffed then
 		if (GetWebVisibility(animationWheelUI) == 0) then
 			local ScreenX, ScreenY = GetScreenSize()
 			SetMouseLocation(math.floor(ScreenX / 2), math.floor(ScreenY / 2))
@@ -27,7 +27,7 @@ AddEvent("OnKeyPress", function(key)
 			SetInputMode(INPUT_GAME)
 		end
 
-	elseif key == "E" and not IsPlayerInVehicle(GetPlayerId()) and not alreadyInteracting then
+	elseif key == "E" and not IsPlayerInVehicle(GetPlayerId()) and not GetPlayerBusy() then
 		CallRemoteEvent("PickupGun")		
 	end
 end)

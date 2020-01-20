@@ -27,9 +27,9 @@ local offsets = {
 local objects = {}
 
 function Server_OnPlayerAnimation(player, id)
-    if not GetPlayerPropertyValue(player, "cuffed") and not PlayerData[player].onAction and not PlayerData[player].isActioned then
-	SetPlayerAnimation(player, "STOP")
-	SetPlayerAnimation(player, id)
+    if not GetPlayerPropertyValue(player, "cuffed") and not GetPlayerBusy(player) then
+        SetPlayerAnimation(player, "STOP")
+        SetPlayerAnimation(player, id)
     end
 end
 

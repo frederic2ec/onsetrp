@@ -250,8 +250,6 @@ function CreatePlayerData(player)
 	PlayerData[player].bank_balance = 900
 	PlayerData[player].job_vehicle = nil
 	PlayerData[player].job = ""
-	PlayerData[player].onAction = false
-	PlayerData[player].isActioned = false
 	PlayerData[player].phone_contacts = {}
 	PlayerData[player].phone_number = {}
 	PlayerData[player].health_state = "alive"
@@ -259,7 +257,6 @@ function CreatePlayerData(player)
 	PlayerData[player].position = {}
 	PlayerData[player].backpack = nil
 	PlayerData[player].drug_knowledge = {}
-
 
     print("Data created for : "..player)
 end
@@ -330,4 +327,25 @@ function IsAdmin(player)
 	return PlayerData[player].admin
 end
 
+function SetPlayerBusy(player) -- Shortcut to set a player in a busy state	
+	local result = SetPlayerPropertyValue(player, "PlayerIsBusy", true, true)
+	return result
+end
+AddRemoteEvent("account:setplayerbusy", SetPlayerBusy) -- To do it clientside
+
+function SetPlayerNotBusy(player) -- Shortcut to set a player in a not busy state
+	local result = SetPlayerPropertyValue(player, "PlayerIsBusy", false, true)
+	return result
+end
+AddRemoteEvent("account:setplayernotbusy", SetPlayerNotBusy) -- To do it clientside
+
+function GetPlayerBusy(player) -- Shortcut to get the busy state of the player	
+	local result = GetPlayerPropertyValue(player, "PlayerIsBusy") or false
+	return result
+end
+
+-- Exports
 AddFunctionExport("isAdmin", IsAdmin)
+AddFunctionExport("SetPlayerBusy", SetPlayerBusy)
+AddFunctionExport("SetPlayerNotBusy", SetPlayerNotBusy)
+AddFunctionExport("GetPlayerBusy", GetPlayerBusy)

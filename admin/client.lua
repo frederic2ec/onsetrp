@@ -37,7 +37,7 @@ end)
 
 
 AddEvent("OnKeyPress", function(key)
-    if key == "N" and not alreadyInteracting then
+    if key == "N" and not GetPlayerBusy() then
         CallRemoteEvent("ServerAdminMenu") 
     end
 end)

@@ -10,7 +10,7 @@ AddRemoteEvent("PlayAudioFile", PlayAudioFile)
 
 -- Keybinding
 function OnKeyPress(key)
-    if key == "V" and not alreadyInteracting then
+    if key == "V" and not GetPlayerBusy() then
 		if IsFirstPersonCamera() then
 			EnableFirstPersonCamera(false)
 		else
