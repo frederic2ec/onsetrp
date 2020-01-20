@@ -13,7 +13,7 @@ end
 AddEvent("OnPackageStart", OnPackageStart)
 
 AddEvent("OnKeyPress", function(key)
-	if key == "G" and not IsPlayerInVehicle(GetPlayerId()) and not alreadyInteracting and not GetPlayerPropertyValue(player, "cuffed") then
+	if key == "G" and not IsPlayerInVehicle(GetPlayerId()) and not alreadyInteracting and not GetPlayerPropertyValue(GetPlayerId(), "cuffed") then
 		if (GetWebVisibility(animationWheelUI) == 0) then
 			local ScreenX, ScreenY = GetScreenSize()
 			SetMouseLocation(math.floor(ScreenX / 2), math.floor(ScreenY / 2))
