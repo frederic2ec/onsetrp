@@ -101,6 +101,30 @@ gatherTable = {
             {model = 1160, x = -215479, y = -50969, z = 107, rx = 0, ry = 0, rz = 0},
         }
     },
+    {
+        gather_zone = {x = 232464, y = 193521, z = 112},
+        gather_item = "fish",
+        gather_tool = "fishing_rod",
+        gather_animation = "FISHING",
+        gather_animation_attachement = {modelid = 1111, bone = "hand_r"},
+    },
+    {
+        gather_zone = {x = -96934, y = 7598, z = 2131},
+        gather_item = "unprocessed_rock",
+        gather_tool = "pickaxe",
+        gather_animation = "PICKAXE_SWING",
+        gather_animation_attachement = {modelid = 1063, bone = "hand_r"},
+        process_steps = {
+            {
+                step_zone = {x = -82629, y = 90991, z = 481},
+                step_require = "unprocessed_rock",
+                step_require_number = 1,
+                step_processed_item = "processed_rock",
+                step_processed_item_number = 1,
+                step_process_time = 15,
+            }
+        }
+    }
 }
 
 gatherPickupsCached = {}
