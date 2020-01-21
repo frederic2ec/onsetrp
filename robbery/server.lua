@@ -16,7 +16,7 @@ local workingCops = {}
 
 local robberyLocation = { 213940.421875, 192764.109375, 1309.3317871094 }
 local minumumCopsToStartARobbery = 1
-local timeBeforeGettingMoneyInMinutes = .2
+local timeBeforeGettingMoneyInMinutes = 5
 local timeBeforeMoneyDespawn = 5
 local timeBeforeNewRobbery = 15
 local cashForARobbery = 10000
