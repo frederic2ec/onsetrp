@@ -128,16 +128,17 @@ INSERT INTO `items` (`id`, `name`, `category`, `subcategory`, `price`, `weight`,
 	(30, 'weapon_20', 'weapons', 'weapon', 30000, 6000, 0, 0, 0, 1),
 	(31, 'weapon_21', 'weapons', 'weapon', 5000, 2000, 0, 0, 0, 1),
 	(32, 'processed_rock', 'mine', 'object', 160, 1000, 0, 0, 0, 0),
-	(33, 'peach', 'miscellaneous', 'food', 5, 1, 30, 5, 0, 1),
+	(33, 'peach', 'miscellaneous', 'food', 12, 100, 30, 5, 0, 1),
 	(34, 'item_backpack', 'miscellaneous', 'object', 150, 1, 0, 0, 1, 0),
 	(35, 'coca_leaf', 'drugs', 'drugs', 0, 200, 0, 0, 0, 0),
 	(36, 'cocaine', 'drugs', 'drugs', 0, 200, 0, 0, 0, 1),
-  (37, 'lumberjack_axe', 'miscellaneous', 'tool', 100, 3200, 0, 0, 0, 0),
+	(37, 'lumberjack_axe', 'miscellaneous', 'tool', 100, 3200, 0, 0, 0, 0),
 	(38, 'tree_log', 'job_item', 'resource', 0, 2000, 0, 0, 0, 0),
 	(39, 'wood_plank', 'job_item', 'resource', 0, 1000, 0, 0, 0, 0),
 	(40, 'treated_wood_plank', 'job_item', 'resource', 0, 1000, 0, 0, 0, 0),
 	(41, 'lumberjack_saw', 'miscellaneous', 'tool', 70, 1000, 0, 0, 0, 0),
-	(42, 'handcuffs', 'miscellaneous', 'tool', 1000, 1000, 0, 0, 0, 0);
+	(42, 'handcuffs', 'miscellaneous', 'tool', 1000, 1000, 0, 0, 0, 0),
+	(43, 'unprocessed_rock', 'mine', 'object', 0, 1000, 0, 0, 0, 0);
 
 
 --
