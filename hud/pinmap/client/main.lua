@@ -148,7 +148,7 @@ function ProcessZoom()
 end
 
 function OnKeyPress(key)
-	if (key == "M") and not GetPlayerBusy() then
+	if (key == MAP_OPEN_KEY) and not GetPlayerBusy() then
 		dt = GetTimeSeconds() - timeMapClosed
 		if (dt < 0.5) then --If the map was opened or closed in the last 0.5 seconds, ignore this. This is to try to prevent map from being automatically opened/closed again. This threshold could be reduced, but I felt like 0.5 was safe.
 			return false
@@ -164,14 +164,14 @@ function OnKeyPress(key)
 			ShowMouseCursor(true)
 		end
     end
-    if (key == "Num +") then
+    if (key == MAP_ZOOMIN_KEY) then
         if (zoomTimer ~= nil) then
             DestroyTimer(zoomTimer)
         end
         zoomFactor = 1/0.94
         zoomTimer = CreateTimer(ProcessZoom, 20);
     end
-    if (key == "Num -") then
+    if (key == MAP_ZOOMOUT_KEY) then
         if (zoomTimer ~= nil) then
             DestroyTimer(zoomTimer)
         end
@@ -182,7 +182,7 @@ end
 AddEvent("OnKeyPress", OnKeyPress)
 
 function OnKeyRelease(key)
-    if (key == "Num +" or key == "Num -") then
+    if (key == MAP_ZOOMIN_KEY or key == MAP_ZOOMOUT_KEY) then
         if (zoomTimer ~= nil) then
             DestroyTimer(zoomTimer)
         end

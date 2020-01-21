@@ -22,7 +22,7 @@ AddRemoteEvent("shopSetup", function(ShopObject)
 end)
  
 function OnKeyPress(key)
-    if key == "E" and not GetPlayerBusy() then
+    if key == INTERACT_KEY and not GetPlayerBusy() then
 		local NearestShop = GetNearestShop()
 		if NearestShop ~= 0 then
 			CallRemoteEvent("account:setplayernotbusy", GetPlayerId())

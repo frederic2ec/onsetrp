@@ -46,6 +46,7 @@
         "robbery/server.lua"
     ],
     "client_scripts": [
+        "keys/c_config.lua",
         "accounts/client.lua",
         "hunger/client.lua",
         "worldtime/client.lua",

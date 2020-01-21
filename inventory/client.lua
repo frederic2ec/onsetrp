@@ -34,7 +34,7 @@ AddEvent('BURDIGALAX_inventory_onTransfer', itemTransferedInInventory)
 AddEvent("OnKeyPress", function( key )
     local cuffed = GetPlayerPropertyValue(GetPlayerId(), "cuffed") or false
         
-    if key == "F4" and not GetPlayerBusy() and not cuffed then
+    if key == INVENTORY_KEY and not GetPlayerBusy() and not cuffed then
         local vehicle = GetPlayerVehicle()
 
         if vehicle ~= 0 then

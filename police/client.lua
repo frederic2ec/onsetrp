@@ -31,7 +31,7 @@ AddEvent("OnTranslationReady", function()
 end)
 
 AddEvent("OnKeyPress", function( key )
-    if key == "E" and not GetPlayerBusy() then
+    if key == INTERACT_KEY and not GetPlayerBusy() then
 	local NearestPolice, purpose = GetNearestPolice()
 	if NearestPolice ~= 0 then
 	    if(purpose == "police_job") then
@@ -58,7 +58,7 @@ AddEvent("OnKeyPress", function( key )
 	    end
 	end
     end
-    if key == "F3" and not GetPlayerBusy() then
+    if key == JOB_MENU_KEY and not GetPlayerBusy() then
         CallRemoteEvent("OpenPoliceMenu")
     end
 end)

@@ -10,7 +10,7 @@ AddRemoteEvent("busStopSetup", function(busStopObject)
 end)
 
 function OnKeyPress(key)
-    if key == "E" and not GetPlayerBusy() then
+    if key == INTERACT_KEY and not GetPlayerBusy() then
         
         local NearestBusStop = GetNearestBusStop()
         if NearestBusStop ~= 0 then

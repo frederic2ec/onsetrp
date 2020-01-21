@@ -14,7 +14,7 @@ AddEvent("OnTranslationReady", function()
 end)
 
 AddEvent("OnKeyPress", function(key)
-    if key == "E" and not GetPlayerBusy() then
+    if key == INTERACT_KEY and not GetPlayerBusy() then
         local NearestATM = GetNearestATM()
 		if NearestATM ~= 0 then
             CallRemoteEvent("account:setplayerbusy", GetPlayerId())

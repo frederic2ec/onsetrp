@@ -17,7 +17,7 @@ AddRemoteEvent("SetupMedic", function(medicnpc)
 end)
 
 AddEvent("OnKeyPress", function( key )
-    if key == "E" then
+    if key == INTERACT_KEY then
 	local NearestMedic = GetNearestMedic()
 	if NearestMedic ~= 0 then
 	    Dialog.show(medicNpcMenu)
@@ -38,7 +38,7 @@ AddEvent("OnKeyPress", function( key )
 	    end
 	end
     end
-    if key == "F3" and not onSpawn and not onCharacterCreation then
+    if key == JOB_MENU_KEY and not onSpawn and not onCharacterCreation then
 	CallRemoteEvent("OpenMedicMenu")
     end
 end)

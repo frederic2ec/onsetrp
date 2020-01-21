@@ -9,7 +9,7 @@ AddRemoteEvent("gathering:setup", function(gatherObject, processObject)
 end)
 
 function OnKeyPress(key)
-    if key == "E" then
+    if key == INTERACT_KEY then
         local NearestGatherZone = GetNearestGatherZone()
         local NearestProcessZone = GetNearestProcessZone()        
 

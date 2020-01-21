@@ -24,7 +24,7 @@ AddEvent("OnTranslationReady", function()
 end)
 
 AddEvent("OnKeyPress", function(key)
-    if key == "E" and not GetPlayerBusy() then
+    if key == INTERACT_KEY and not GetPlayerBusy() then
         local NeareststylistNPC = GetNeareststylistNPC()
 		if NeareststylistNPC ~= 0 then
 			CallRemoteEvent("stylistInteract", NeareststylistNPC)

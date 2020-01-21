@@ -10,7 +10,7 @@ AddRemoteEvent("drugdealer:setup", function(npcObjects)
 end)
 
 AddEvent("OnKeyPress", function(key)
-    if key == "E" and not onSpawn and not onCharacterCreation then
+    if key == INTERACT_KEY and not onSpawn and not onCharacterCreation then
         
         if GetNearestNpc() ~= 0 then
             CallRemoteEvent("drugdealer:prepareconversation")
