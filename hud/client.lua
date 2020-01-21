@@ -64,10 +64,9 @@ function updateHud()
         ExecuteWebJS(VehicleHud, "SetVehicleHealth("..vehiclehealth..");")
     else
         SetWebVisibility(VehicleHud, WEB_HIDDEN)
-        -- SetWebVisibility(VehicleFuelHud, WEB_HIDDEN)
-        -- SetWebVisibility(VehicleSpeedHud, WEB_HIDDEN)
     end
 end
+
 CreateTimer(function()
     --Speaking icon check
     local player = GetPlayerId()

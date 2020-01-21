@@ -75,9 +75,9 @@ function OnPackageStart()
 		::continue::
             end
             if not hasOwner then
-                if VehicleData[v].garageid ~= 0 then
+                if VehicleData[v] ~= nil and VehicleData[v].garageid ~= 0 then
                     local query = mariadb_prepare(sql, "UPDATE `player_garage` SET `garage`=1 WHERE `id` = ?;",
-                    VehicleData[v].garageid
+                        VehicleData[v].garageid
                     )
                     mariadb_async_query(sql, query)
                 end

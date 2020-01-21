@@ -28,48 +28,40 @@ function getWeaponID(modelid)
     return 0
 end
 
-AddRemoteEvent("UseInventory", function(player, item, amount)
-    if GetPlayerVehicle(player) ~= 0 then
-        return CallRemoteEvent(player, "MakeNotification", _("cant_do_that"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+AddRemoteEvent("UseInventory", function(player, itemName, amount, inVehicle, vehiclSpeed)
+    print("UseInventory")
+    if inVehicle and GetPlayerState(player) == PS_DRIVER and vehiclSpeed > 0 then
+        return CallRemoteEvent(player, "MakeNotification", _("cant_while_driving"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     end
-    weapon = getWeaponID(item)
-    if tonumber(PlayerData[player].inventory[item]) < tonumber(amount) then
+
+    local item
+
+    for k, itemPair in pairs(Items) do
+        if itemPair.name == itemName then
+            item = itemPair
+        end
+    end
+
+    weapon = getWeaponID(itemName)
+    if tonumber(PlayerData[player].inventory[itemName]) < tonumber(amount) then
         AddPlayerChat(player, _("not_enough_item"))
     else
         if weapon ~= 0 then
             SetPlayerWeapon(player, tonumber(weapon), 1000, true, 1)
         else
-            if item == "donut" then
-                SetPlayerAnimation(player, "DRINKING")
-                RemoveInventory(player, item, amount)
-                addPlayerHunger(player, 10*amount)
+            if itemName == "donut" or  itemName == "apple" or itemName == "peach" or itemName == "water_bottle" then
+                UseItem(player, item, amount)
             end
-            if item == "apple" then
-                SetPlayerAnimation(player, "DRINKING")
-                RemoveInventory(player, item, amount)
-                addPlayerHunger(player, 5*amount)
-            end
-            if item == "peach" then
-                SetPlayerAnimation(player, "DRINKING")
-                RemoveInventory(player, item, amount)
-                addPlayerHunger(player, 10*amount)
-                addPlayerThirst(player, 5*amount)
-            end
-            if item == "water_bottle" then
-                SetPlayerAnimation(player, "DRINKING")
-                RemoveInventory(player, item, amount)
-                addPlayerThirst(player, 25*amount)
-            end
-            if item == "health_kit" then
+            if itemName == "health_kit" then
                 if GetPlayerHealth(player) == 100 then
                     AddPlayerChat(player, _("already_full_health"))
                 else
                     SetPlayerAnimation(player, "COMBINE")
-                    RemoveInventory(player, item, amount)
+                    RemoveInventory(player, itemName, amount)
                     SetPlayerHealth(player, 100)
                 end
             end
-            if item == "repair_kit" then
+            if itemName == "repair_kit" then
                 local nearestCar = GetNearestCar(player)
                 if nearestCar ~= 0 then
                     if GetVehicleHealth(nearestCar) > 4000 then
@@ -80,7 +72,7 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                         CallRemoteEvent(player, "LockControlMove", true)
                         SetPlayerAnimation(player, "COMBINE")
                         Delay(4000, function()
-                            RemoveInventory(player, item, amount)
+                            RemoveInventory(player, itemName, amount)
                             SetVehicleHealth(nearestCar, 5000)
                             for i=1,8 do
                                 SetVehicleDamage(nearestCar, i, 0)
@@ -91,7 +83,7 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                     end
                 end
             end
-            if item == "jerican" then
+            if itemName == "jerican" then
                 if GetPlayerState(player) >= 2 then
                     CallRemoteEvent(player, "MakeSuccessNotification", _("cant_while_driving"))
                 else
@@ -103,7 +95,7 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                             CallRemoteEvent(player, "LockControlMove", true)
                             SetPlayerAnimation(player, "COMBINE")
                             Delay(4000, function()
-                                RemoveInventory(player, item, amount)
+                                RemoveInventory(player, itemName, amount)
                                 VehicleData[nearestCar].fuel = 100
                                 AddPlayerChat(player, _("car_refuelled"))
                                 CallRemoteEvent(player, "LockControlMove", false)
@@ -113,7 +105,7 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                     end
                 end
             end
-            if item == "lockpick" then
+            if itemName == "lockpick" then
                 local nearestCar = GetNearestCar(player)
                 local nearestHouseDoor = GetNearestHouseDoor(player)
                 if nearestCar ~= 0 then
@@ -130,7 +122,7 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                             Delay(10000, function()
                                 SetVehiclePropertyValue( nearestCar, "locked", false, true)
                                 AddPlayerChat(player, _("car_unlocked"))
-                                RemoveInventory(player, item, amount)
+                                RemoveInventory(player, itemName, amount)
                                 CallRemoteEvent(player, "LockControlMove", false)
                                 SetPlayerAnimation(player, "STOP")
                             end)
@@ -154,7 +146,7 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
                             Delay(10000, function()
                                 houses[nearestHouse].lock = false
                                 AddPlayerChat(player, _("unlock_house"))
-                                RemoveInventory(player, item, amount)
+                                RemoveInventory(player, itemName, amount)
                                 CallRemoteEvent(player, "LockControlMove", false)
                                 SetPlayerAnimation(player, "STOP")
                             end)
@@ -167,6 +159,14 @@ AddRemoteEvent("UseInventory", function(player, item, amount)
         end
     end
 end)
+
+function UseItem(player, item, amount, animation)
+    local animation = animation or "DRINKING"
+    RemoveInventory(player, item.name, amount)
+    addPlayerHunger(player, item.hunger * amount)
+    addPlayerThirst(player, item.thirst * amount)
+    SetPlayerAnimation(player, animation)
+end
 
 AddRemoteEvent("TransferInventory", function(player, item, amount, toPlayer)
     local x, y, z = GetPlayerLocation(player)
@@ -254,6 +254,11 @@ function RemoveInventory(player, item, amount, drop)
         end
         return true
     end
+end
+
+function SetInventory(player, item, amount)
+    PlayerData[player].inventory[item] = amount
+    return true
 end
 
 function GetPlayerCash(player)

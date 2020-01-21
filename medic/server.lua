@@ -12,6 +12,7 @@ local medicPoint = {
 
 local medicNpcCached = {}
 local playerMedic = {}
+local maxMedics = 10
 
 AddEvent("OnPackageStart", function()
     for k,v in pairs(medicNpc) do
@@ -59,7 +60,7 @@ AddRemoteEvent("StartMedicJob", function(player)
 		jobCount = jobCount + 1
 	    end
 	end
-	if jobCount == 10 then
+	if jobCount >= maxMedics then
 	    return CallRemoteEvent(player, "MakeNotification", _("job_full"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 	end
         if PlayerData[player].job_vehicle ~= nil then

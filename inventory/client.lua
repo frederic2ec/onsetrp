@@ -8,7 +8,13 @@ end)
 
 function itemUsedInInventory(event)
     local data = json_decode(event)
-    CallRemoteEvent("UseInventory", data.idItem, 1)
+    local vehicle = GetPlayerVehicle()
+
+    if vehicle ~= 0 then
+        CallRemoteEvent("UseInventory", data.idItem, 1, true, GetVehicleForwardSpeed(vehicle))
+    else
+        CallRemoteEvent("UseInventory", data.idItem, 1, false)
+    end
 end
 AddEvent('BURDIGALAX_inventory_onUse', itemUsedInInventory)
 

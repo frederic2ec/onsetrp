@@ -8,10 +8,11 @@
         bottom: 650px;
         left: 20px;
         cursor: pointer;
-      }</style><link href=app.css rel=preload as=style><link href=app.js rel=preload as=script><link href=chunk-vendors.js rel=preload as=script><link href=app.css rel=stylesheet></head><body><noscript><strong>We're sorry but onset-phone doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><svg id=close-phone xmlns=http://www.w3.org/2000/svg width=24 height=24 viewBox="0 0 24 24" fill=none stroke=currentColor stroke-width=2 stroke-linecap=round stroke-linejoin=round class="feather feather-x"><line x1=18 y1=6 x2=6 y2=18></line><line x1=6 y1=6 x2=18 y2=18></line></svg><div id=app>1</div><script>function initPhone (data) { 
+      }</style><link href=app.css rel=preload as=style><link href=app.js rel=preload as=script><link href=chunk-vendors.js rel=preload as=script><link href=app.css rel=stylesheet></head><body><noscript><strong>We're sorry but onset-phone doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><svg id=close-phone xmlns=http://www.w3.org/2000/svg width=24 height=24 viewBox="0 0 24 24" fill=none stroke=currentColor stroke-width=2 stroke-linecap=round stroke-linejoin=round class="feather feather-x"><line x1=18 y1=6 x2=6 y2=18></line><line x1=6 y1=6 x2=18 y2=18></line></svg><div id=app>1</div><script>function initPhone (data) {
         window.phoneApp.currentUserPhone = data.currentUserPhone
         window.phoneApp.contacts = data.contacts
         window.phoneApp.messages = data.messages
+        window.phoneApp.money = data.money
         window.phoneApp.loaded = true
       }
 

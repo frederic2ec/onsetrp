@@ -16,7 +16,7 @@ local workingCops = {}
 
 local robberyLocation = { 213940.421875, 192764.109375, 1309.3317871094 }
 local minumumCopsToStartARobbery = 1
-local timeBeforeGettingMoneyInMinutes = 5
+local timeBeforeGettingMoneyInMinutes = .2
 local timeBeforeMoneyDespawn = 5
 local timeBeforeNewRobbery = 15
 local cashForARobbery = 10000
@@ -66,21 +66,28 @@ function RobberyStarted(player)
     DestroyPickup(bankRobberyPickup)
     DestroyText3D(bankRobberyText)
 
-    CallRemoteEvent(player, "MakeSuccessNotification", _("robbery_started", timeBeforeGettingMoneyInMinutes))
+    CallRemoteEvent(player, "MakeSuccessNotification", _("starting_robbery"))
 
-    for k, v in pairs(workingCops) do
-        CallRemoteEvent(k, "PoliceAlert", _("robbery_started_police"))
-    end
-    --CallRemoteEvent(player, "PlayAudioFile", "alarm.mp3")
+    SetPlayerAnimation(player, "COMBINE")
+    
+    Delay(10000, function (player)
+        CallRemoteEvent(player, "MakeSuccessNotification", _("robbery_started", timeBeforeGettingMoneyInMinutes))
+
+        SetPlayerAnimation(player, "STOP")
+        
+        for k, v in pairs(workingCops) do
+            CallRemoteEvent(k, "PoliceAlert", _("robbery_started_police"))
+        end
+
+        Delay(timeBeforeGettingMoneyInMinutes * 60000, function (player)
+            RobberyReadyToPickup(player)
+        end, player)
+    end, player)
+
     for k,v in pairs(GetAllPlayers()) do
         CallRemoteEvent(v, "RobberySoundAlarm")
     end
-
-    Delay(timeBeforeGettingMoneyInMinutes * 60000, function (player)
-        RobberyReadyToPickup(player)
-    end)
 end
-
 
 function RobberyReadyToPickup(player)
     -- If noone take the money within 5 minutes
@@ -107,7 +114,7 @@ function PickupMoney(player)
     Delay(1700, function (player)
         DestroyObject(bankRobberyMoneyObject)
         DestroyText3D(bankRobberyMoneyText)
-    end)
+    end, player)
 
     CallRemoteEvent(player, "MakeSuccessNotification", _("you_get_robbery_money", _("price_in_currency", cashForARobbery)))
 end
@@ -139,5 +146,6 @@ function EnoughCops()
             copsCount = copsCount + 1
         end
     end
+
     return copsCount >= minumumCopsToStartARobbery
 end

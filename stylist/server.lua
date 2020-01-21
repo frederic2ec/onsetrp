@@ -70,7 +70,6 @@ local clothesRequest = "[\""..hairsModel[hairsChoice].."\",\""..colorChoice.."\"
     table.insert(PlayerData[player].clothing, pantsModel[pantsChoice])
     table.insert(PlayerData[player].clothing, shoesModel[shoesChoice])
 
-	
 	UpdateClothes(player)
 	SavePlayerAccount(player)
 end)

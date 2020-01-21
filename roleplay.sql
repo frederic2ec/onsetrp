@@ -136,7 +136,8 @@ INSERT INTO `items` (`id`, `name`, `category`, `subcategory`, `price`, `weight`,
 	(38, 'tree_log', 'job_item', 'resource', 0, 2000, 0, 0, 0, 0),
 	(39, 'wood_plank', 'job_item', 'resource', 0, 1000, 0, 0, 0, 0),
 	(40, 'treated_wood_plank', 'job_item', 'resource', 0, 1000, 0, 0, 0, 0),
-	(41, 'lumberjack_saw', 'miscellaneous', 'tool', 70, 1000, 0, 0, 0, 0);
+	(41, 'lumberjack_saw', 'miscellaneous', 'tool', 70, 1000, 0, 0, 0, 0),
+	(42, 'handcuffs', 'miscellaneous', 'tool', 1000, 1000, 0, 0, 0, 0);
 
 
 --

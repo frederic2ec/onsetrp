@@ -41,7 +41,7 @@ end)
 
 AddRemoteEvent("StartStopPolice", function(player)
     if PlayerData[player].police == 0 then
-	return CallRemoteEvent(player, "MakeNotification", _("not_whitelisted"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+	return CallRemoteEvent(player, "MakeErrorNotification", _("not_whitelisted"))
     end
     if PlayerData[player].job == "" then
         if PlayerData[player].job_vehicle ~= nil then
@@ -57,10 +57,11 @@ AddRemoteEvent("StartStopPolice", function(player)
 				end
 			end
 			if jobCount == 10 then
-				return CallRemoteEvent(player, "MakeNotification", _("job_full"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+				return CallRemoteEvent(player, "MakeErrorNotification", _("job_full"))
 	    	end
 			PlayerData[player].job = "police"
-			GetUniformServer(player)
+			-- GetUniformServer(player)
+			UpdateClothes(player)
 			CallRemoteEvent(player, "ServiceStart")
 			CallRemoteEvent(player, "MakeNotification", _("join_police"), "linear-gradient(to right, #00b09b, #96c93d)")
 			return
@@ -131,16 +132,14 @@ function GetNearestPolice(player)
 end
 
 function GetUniformServer(player)
-    CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing_police[1], 0)
-    CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing_police[3], 1)
-    CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing_police[4], 4)
-    CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing_police[5], 5)
+    -- CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing_police[1], 0)
+    -- CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing_police[3], 1)
+    -- CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing_police[4], 4)
+    -- CallRemoteEvent(player, "ChangeUniformClient", player, PlayerData[player].clothing_police[5], 5)
 
-    SetPlayerWeapon(player, 4, 200, false, 1, true)
-
-    for k,v in pairs(GetStreamedPlayersForPlayer(player)) do
-		ChangeUniformOtherPlayerServer(k, player)
-    end
+    -- for k,v in pairs(GetStreamedPlayersForPlayer(player)) do
+	-- 	ChangeUniformOtherPlayerServer(k, player)
+    -- end
 end
 AddRemoteEvent("GetUniformServer", GetUniformServer)
 
@@ -148,7 +147,8 @@ function ChangeUniformOtherPlayerServer(player, otherplayer)
 
     if PlayerData[otherplayer] == nil then
 		return
-    end
+	end
+	
     if(PlayerData[otherplayer].job ~= "police") then
 		return
     end
@@ -189,10 +189,10 @@ end
 
 function GetPatrolCar(player)
     if PlayerData[player].police == 0 then
-		return CallRemoteEvent(player, "MakeNotification", _("not_whitelisted"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+		return CallRemoteEvent(player, "MakeErrorNotification", _("not_whitelisted"))
     end
     if PlayerData[player].job ~= "police" then
-		return CallRemoteEvent(player, "MakeNotification", _("not_police"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+		return CallRemoteEvent(player, "MakeErrorNotification", _("not_police"))
 	end
 	
     local nearestPolice, purpose = GetNearestPolice(player)
@@ -208,7 +208,7 @@ function GetPatrolCar(player)
 			local x, y, z = GetVehicleLocation(v)
 			local dist2 = GetDistance3D(policeNpc[nearestPolice].spawn[1], policeNpc[nearestPolice].spawn[2], policeNpc[nearestPolice].spawn[3], x, y, z)
 			if dist2 < 500.0 then
-				CallRemoteEvent(player, "MakeNotification", _("cannot_spawn_vehicle"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+				CallRemoteEvent(player, "MakeErrorNotification", _("cannot_spawn_vehicle"))
 				isSpawnable = false
 				break
 	    	end
@@ -221,21 +221,24 @@ function GetPatrolCar(player)
 			CallRemoteEvent(player, "MakeNotification", _("spawn_vehicle_success", " patrol car"), "linear-gradient(to right, #00b09b, #96c93d)")
 		end
     else
-		CallRemoteEvent(player, "MakeNotification", _("cannot_spawn_vehicle"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+		CallRemoteEvent(player, "MakeErrorNotification", _("cannot_spawn_vehicle"))
     end
 end
 AddRemoteEvent("GetPatrolCar", GetPatrolCar)
 
 function GetEquipped(player)
     if PlayerData[player].police == 0 then
-		return CallRemoteEvent(player, "MakeNotification", _("not_whitelisted"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+		return CallRemoteEvent(player, "MakeErrorNotification", _("not_whitelisted"))
     end
     if PlayerData[player].job ~= "police" then
-		return CallRemoteEvent(player, "MakeNotification", _("not_police"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+		return CallRemoteEvent(player, "MakeErrorNotification", _("not_police"))
 	end
 	
-    SetPlayerWeapon(player, 4, 200, false, 1, true)
-	SetPlayerWeapon(player, 21, 50, false, 2, true)
+    SetPlayerWeapon(player, 4, 1000, false, 1, true)
+	SetPlayerWeapon(player, 21, 1000, false, 2, true)
+	SetInventory(player, 'weapon_4', 1)
+	SetInventory(player, 'weapon_21', 1)
+	SetInventory(player, 'handcuffs', 5)
 	SetPlayerArmor(player, 100)
 end
 AddRemoteEvent("GetEquipped", GetEquipped)
@@ -251,27 +254,32 @@ AddRemoteEvent("HandcuffPlayerSetup", function(player)
 				if(GetPlayerPropertyValue(info[1], "cuffed") ~= true) then
 					HandcuffPlayer(player, info[1], _x, _y, _z)
 				elseif(GetPlayerPropertyValue(info[1], "cuffed") == true) then
+					AddInventory(player, 'handcuffs', 1)
 					FreeHandcuffPlayer(info[1])
 				else
 					HandcuffPlayer(player, info[1], _x, _y, _z)
 				end
 			end
 		else
-			CallRemoteEvent(player, "MakeNotification", _("no_players_around"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+			CallRemoteEvent(player, "MakeErrorNotification", _("no_players_around"))
 		end
     end
 end)
 
 function HandcuffPlayer(player, otherPlayer, x, y, z)
-    SetPlayerWeapon(otherPlayer, 1, 0, true, 1)
-    SetPlayerWeapon(otherPlayer, 1, 0, false, 2)
-    SetPlayerWeapon(otherPlayer, 1, 0, false, 3)
-    SetPlayerHeading(otherPlayer, GetPlayerHeading(player))
-    SetPlayerPropertyValue(otherPlayer, "cuffed", true, true)
-    SetPlayerPropertyValue(otherPlayer, "cuffed_pos", {x, y, z}, true)
-    Delay(1000, function(x)
-	SetPlayerAnimation(otherPlayer, "CUFF")
-    end)
+	if RemoveInventory(player, 'handcuffs', 1) then
+		SetPlayerWeapon(otherPlayer, 1, 0, true, 1)
+		SetPlayerWeapon(otherPlayer, 1, 0, false, 2)
+		SetPlayerWeapon(otherPlayer, 1, 0, false, 3)
+		SetPlayerHeading(otherPlayer, GetPlayerHeading(player))
+		SetPlayerPropertyValue(otherPlayer, "cuffed", true, true)
+		SetPlayerPropertyValue(otherPlayer, "cuffed_pos", {x, y, z}, true)
+		Delay(1000, function(x)
+			SetPlayerAnimation(otherPlayer, "CUFF")
+		end)
+	else
+		CallRemoteEvent(player, "MakeErrorNotification", _("no_handcuffs"))
+	end
 end
 
 function FreeHandcuffPlayer(player)
@@ -283,7 +291,7 @@ AddRemoteEvent("FreeHandcuffPlayer", FreeHandcuffPlayer)
 AddRemoteEvent("DisableMovementForCuffedPlayer", function(player)
     local pos = GetPlayerPropertyValue(player, "cuffed_pos")
     SetPlayerLocation(player, pos[1], pos[2], pos[3])
-    CallRemoteEvent(player, "MakeNotification", _("only_walk"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+    CallRemoteEvent(player, "MakeErrorNotification", _("only_walk"))
 end)
 
 AddRemoteEvent("UpdateCuffPosition", function(player, x, y, z)
@@ -307,15 +315,15 @@ AddRemoteEvent("PutPlayerInVehicle", function(player)
 						elseif(GetVehiclePassenger(playerVehicle, 4) == 0) then
 							SetPlayerInVehicle(info[1], playerVehicle, 4)
 						else
-							CallRemoteEvent(player, "MakeNotification", _("vehicle_full"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+							CallRemoteEvent(player, "MakeErrorNotification", _("vehicle_full"))
 						end
 					else
-						CallRemoteEvent(player, "MakeNotification", _("no_vehicle_around"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+						CallRemoteEvent(player, "MakeErrorNotification", _("no_vehicle_around"))
 					end
 				end
 			end
 		else
-			CallRemoteEvent(player, "MakeNotification", _("no_players_around"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+			CallRemoteEvent(player, "MakeErrorNotification", _("no_players_around"))
 		end
     end
 end)
@@ -337,10 +345,10 @@ AddRemoteEvent("RemovePlayerOfVehicle", function(player)
 					RemovePlayerFromVehicle(otherPlayer)
 				end
 			else
-				CallRemoteEvent(player, "MakeNotification", _("no_players_around"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+				CallRemoteEvent(player, "MakeErrorNotification", _("no_players_around"))
 			end
 		else
-			CallRemoteEvent(player, "MakeNotification", _("no_vehicle_around"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+			CallRemoteEvent(player, "MakeErrorNotification", _("no_vehicle_around"))
 
 		end
     end
@@ -360,7 +368,7 @@ AddRemoteEvent("RemoveAllWeaponsOfPlayer", function(player)
 				SetPlayerAnimation(info[1], "CUFF")
 			end
 		else
-			CallRemoteEvent(player, "MakeNotification", _("no_players_around"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+			CallRemoteEvent(player, "MakeErrorNotification", _("no_players_around"))
 		end
     end
 end)

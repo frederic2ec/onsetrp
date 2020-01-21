@@ -48,6 +48,7 @@ function removePlayerHunger(player, hunger)
         health = GetPlayerHealth(player) - 5
         SetPlayerHealth(player, health)
     end
+
     SetPlayerPropertyValue(player, "hunger", PlayerData[player].hunger, true)
 end
 AddRemoteEvent("removePlayerHunger", removePlayerHunger)
