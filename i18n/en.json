@@ -311,6 +311,10 @@
     "paid_fine_giver": "The player paid his fine",
     "stylist": "Stylist",
     "yes": "Yes",
+<<<<<<< Updated upstream
+=======
+	"no": "No not now",
+>>>>>>> Stashed changes
     "choose": "Choose",
     "price_in_currency": "${1}",
     "medic_menu": "Medic Menu",
