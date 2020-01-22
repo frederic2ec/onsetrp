@@ -344,8 +344,13 @@ function GetPlayerBusy(player) -- Shortcut to get the busy state of the player
 	return result
 end
 
+function GetPlayerData(player)
+	return PlayerData[player]
+end
+
 -- Exports
 AddFunctionExport("isAdmin", IsAdmin)
 AddFunctionExport("SetPlayerBusy", SetPlayerBusy)
 AddFunctionExport("SetPlayerNotBusy", SetPlayerNotBusy)
 AddFunctionExport("GetPlayerBusy", GetPlayerBusy)
+AddFunctionExport("GetPlayerData", GetPlayerData)

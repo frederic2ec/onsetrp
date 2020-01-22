@@ -2,16 +2,16 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 
 local policeNpc = {
 	{
-		location = { 169277, 193489, 1307, 180 },
+		location = { 190680, 206662, 2423, 0 },
 		npc = {}
 	},
 	{
-		location = { 170068, 191498, 1308, 180 },
-		spawn = { 168382, 190227, 1307, 35}, 
+		location = { 190987, 205510, 1320, 90 },
+		spawn = { 190500, 205749, 1311, 180}, 
 		npc = {}
 	},
 	{
-		location = { 170057, 191880, 1308, 180 },
+		location = { 192373, 208144, 2420, 180 },
 		npc = {}
 	}
 }
