@@ -184,8 +184,8 @@ AddRemoteEvent("TransferInventory", function(player, originPlayer, item, amount,
         else
             SetPlayerAnimation(player, "PICKUP_MIDDLE")
 
-            RemoveInventory(tonumber(originPlayer), item, tonumber(amount))
-            AddInventory(tonumber(toPlayer), item, tonumber(amount))
+            RemoveInventory(tonumber(originPlayer), item, tonumber(amount), false, player)
+            AddInventory(tonumber(toPlayer), item, tonumber(amount), player)
             
             CallRemoteEvent(originPlayer, "MakeNotification", _("successful_transfer", amount, item, GetPlayerName(tonumber(toPlayer))), "linear-gradient(to right, #00b09b, #96c93d)")
             CallRemoteEvent(tonumber(toPlayer), "MakeNotification", _("received_transfer", amount, item, GetPlayerName(originPlayer)), "linear-gradient(to right, #00b09b, #96c93d)")
@@ -210,37 +210,41 @@ AddRemoteEvent("RemoveFromInventory", function(player, originPlayer, item, amoun
     end
 end)
 
-function AddInventory(player, item, amount)
-    local slotsAvailables = tonumber(GetPlayerMaxSlots(player)) - tonumber(GetPlayerUsedSlots(player))
+function AddInventory(inventoryId, item, amount, player)
+    local player = player or inventoryId
+
+    local slotsAvailables = tonumber(GetPlayerMaxSlots(inventoryId)) - tonumber(GetPlayerUsedSlots(inventoryId))
      if item == "cash" or slotsAvailables >= (amount * ItemsWeight[item]) then
-        if item == "item_backpack" and GetPlayerBag(player) == 1 then -- On ne peux pas acheter plusieurs sacs
+        if item == "item_backpack" and GetPlayerBag(inventoryId) == 1 then -- On ne peux pas acheter plusieurs sacs
             return false
         end
-        if PlayerData[player].inventory[item] == nil then
-            PlayerData[player].inventory[item] = amount            
+        if PlayerData[inventoryId].inventory[item] == nil then
+            PlayerData[inventoryId].inventory[item] = amount            
         else
-            PlayerData[player].inventory[item] = PlayerData[player].inventory[item] + amount
+            PlayerData[inventoryId].inventory[item] = PlayerData[inventoryId].inventory[item] + amount
         end
         if item == "item_backpack" then -- Affichage du sac sur le perso
             DisplayPlayerBackpack(player, 1)
         end
-        UpdateUIInventory(player, item, PlayerData[player].inventory[item])
+        UpdateUIInventory(player, item, PlayerData[inventoryId].inventory[item])
         return true
     else
         return false
     end
 end
 
-function RemoveInventory(player, item, amount, drop)
-    if PlayerData[player].inventory[item] == nil then
+function RemoveInventory(inventoryId, item, amount, drop, player)
+    local player = player or inventoryId
+
+    if PlayerData[inventoryId].inventory[item] == nil then
         return false
     else
-        if PlayerData[player].inventory[item] - amount < 1 then
-            PlayerData[player].inventory[item] = nil
+        if PlayerData[inventoryId].inventory[item] - amount < 1 then
+            PlayerData[inventoryId].inventory[item] = nil
             UpdateUIInventory(player, item, 0)
         else
-            PlayerData[player].inventory[item] = PlayerData[player].inventory[item] - amount
-            UpdateUIInventory(player, item, PlayerData[player].inventory[item])
+            PlayerData[inventoryId].inventory[item] = PlayerData[inventoryId].inventory[item] - amount
+            UpdateUIInventory(player, item, PlayerData[inventoryId].inventory[item])
         end
         if item == "item_backpack" then
             DisplayPlayerBackpack(player, 1)
