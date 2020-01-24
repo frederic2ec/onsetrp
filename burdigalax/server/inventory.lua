@@ -1,3 +1,3 @@
-function UpdateUIInventory(player, item, quantity)
-    CallRemoteEvent(player, "UpdateUIInventory", player, item, quantity)
+function UpdateUIInventory(player, inventoryId, item, quantity)
+    CallRemoteEvent(player, "UpdateUIInventory", inventoryId, item, quantity)
 end

@@ -179,6 +179,8 @@ AddRemoteEvent("TransferInventory", function(player, originPlayer, item, amount,
     end
     
     if toPlayerIsHere then
+        print("From: "..originPlayer)
+        print("To: "..toPlayer)
         if PlayerData[originPlayer].inventory[item] < tonumber(amount) then
             CallRemoteEvent(originPlayer, "MakeErrorNotification", _("not_enough_item"))
         else
@@ -226,7 +228,7 @@ function AddInventory(inventoryId, item, amount, player)
         if item == "item_backpack" then -- Affichage du sac sur le perso
             DisplayPlayerBackpack(player, 1)
         end
-        UpdateUIInventory(player, item, PlayerData[inventoryId].inventory[item])
+        UpdateUIInventory(player, inventoryId, item, PlayerData[inventoryId].inventory[item])
         return true
     else
         return false
@@ -241,10 +243,10 @@ function RemoveInventory(inventoryId, item, amount, drop, player)
     else
         if PlayerData[inventoryId].inventory[item] - amount < 1 then
             PlayerData[inventoryId].inventory[item] = nil
-            UpdateUIInventory(player, item, 0)
+            UpdateUIInventory(player, inventoryId, item, 0)
         else
             PlayerData[inventoryId].inventory[item] = PlayerData[inventoryId].inventory[item] - amount
-            UpdateUIInventory(player, item, PlayerData[inventoryId].inventory[item])
+            UpdateUIInventory(player, inventoryId, item, PlayerData[inventoryId].inventory[item])
         end
         if item == "item_backpack" then
             DisplayPlayerBackpack(player, 1)
