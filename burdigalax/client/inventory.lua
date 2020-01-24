@@ -107,6 +107,13 @@ function BuildInventoryJson(items, playerInventory, playerName, playerId, player
         if searchedPlayer ~= nil and searchedPlayer.id == player.id then
             inventory.hasReadAccess = true
             inventory.items = InventoryAvailableItems(searchedPlayer.inventory)
+            inventory.categoriesIds = {
+                'food',
+                'object',
+                'clothing',
+                'tool',
+                'weapon'
+            }
         end
 
         table.insert(json.inventories[1].nearbyInventoriesIds, player.id)
