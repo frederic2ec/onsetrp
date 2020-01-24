@@ -389,3 +389,8 @@ AddCommand("lumberjack", function(player)
     PlayerData[player].job = "lumberjack"
     AddPlayerChat(player, "Vous êtes maintenant un bûcheron")
 end)
+
+AddCommand("leavejob", function(player)
+    PlayerData[player].job = ""
+    AddPlayerChat(player, "Vous n'avez plus de travail")
+end)
