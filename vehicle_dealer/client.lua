@@ -48,7 +48,7 @@ function GetNearestCarDealer()
         local x2, y2, z2 = GetNPCLocation(v)
 		local dist = GetDistance3D(x, y, z, x2, y2, z2)
 
-		if dist < 150.0 then
+		if dist < 300.0 then
 			for k,i in pairs(CarDealerIds) do
 				if v == i then
 					return v
