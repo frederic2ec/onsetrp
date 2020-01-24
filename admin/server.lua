@@ -11,6 +11,7 @@ local teleportPlace = {
     gun_dealer = { 206071, 193057, 1357 },
     license_shop = { 183339, 182525, 1291 },
     police_station = { 169277, 193489, 1307 },
+    police_station_2 = { -174742, -64655, 1248 },
     mine = { -96159, 88621, 180 },
     circuit = { -81369, 31643, 4704 },
     airport = { 151187, -145085, 1250 },

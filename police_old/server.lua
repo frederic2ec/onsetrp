@@ -18,7 +18,7 @@ local policeNpc = {
 
 local policeNpcCached = {}
 local playerPolice = {}
-local policeText3D = {"police_job", "police_garage", "police_armory"}
+local policeText3D = { "police_job", "police_garage", "police_armory" }
 
 AddEvent("OnPackageStart", function()
     for k,v in pairs(policeNpc) do
@@ -87,29 +87,65 @@ end)
 
 AddRemoteEvent("OpenPoliceFineMenu", function(player)
     if PlayerData[player].job == "police" then
-		local x, y, z = GetPlayerLocation(player)
-		local playersIds = GetStreamedPlayersForPlayer(player)
+		local playersIds = GetClosePlayers(player, 300)
 		local playersNames = {}
 
 		for k,v in pairs(playersIds) do
-			if PlayerData[k] == nil then
-				goto continue
+			if PlayerHaveName(k) then
+				local _x, _y, _z = GetPlayerLocation(k)
+				if(GetDistance3D(x, y, z, _x, _y, _z) < 150 and player ~= k and PlayerData[k].job ~= "police") then
+					playersNames[tostring(k)] = PlayerData[k].name 
+				end
 			end
-			if PlayerData[k].name == nil then
-				goto continue
-			end
-			if PlayerData[k].steamname == nil then
-				goto continue
-			end
-			
-			local _x, _y, _z = GetPlayerLocation(k)
-			if(GetDistance3D(x, y, z, _x, _y, _z) < 500 and player ~= k and PlayerData[k].job ~= "police") then
-				playersNames[tostring(k)] = PlayerData[k].name 
-			end
-			::continue::
 		end
+
 		CallRemoteEvent(player, "OpenPoliceFineMenu", playersNames)
     end
+end)
+
+AddRemoteEvent("OpenPoliceSearchMenu", function(player)
+	if PlayerData[player].job == "police" then
+		local searchablePlayer
+		local closePlayers = GetClosePlayers(player, 300, "police")
+
+		for k, v in pairs(closePlayers) do
+			if GetPlayerPropertyValue(k, "cuffed") then
+				searchablePlayer = k
+			end
+		end
+
+		if searchablePlayer ~= nil then
+			local x, y, z = GetPlayerLocation(player)
+			local nearestPlayers = GetPlayersInRange3D(x, y, z, 1000)
+			local playerList = {}
+			for k,v in pairs(nearestPlayers) do
+				if k ~= player then
+					table.insert(playerList, { id = k, name = GetPlayerName(k) })
+				end
+			end
+			
+			searchedPlayer = { id = searchablePlayer, name = PlayerData[searchablePlayer].name, inventory = PlayerData[searchablePlayer].inventory }
+	
+			CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].name, player, playerList, GetPlayerMaxSlots(player), searchedPlayer)
+		end
+
+		-- CallRemoteEvent(player, "OpenPoliceSearchMenu", searchablePlayers)
+    end
+end)
+
+AddRemoteEvent("SearchPlayerInventory", function(player, searchedPlayer)
+	local x, y, z = GetPlayerLocation(player)
+    local nearestPlayers = GetPlayersInRange3D(x, y, z, 1000)
+    local playerList = {}
+    for k,v in pairs(nearestPlayers) do
+        if k ~= player then
+            table.insert(playerList, { id = k, name = GetPlayerName(k) })
+        end
+	end
+	
+	searchedPlayer = { id = searchedPlayer, name = PlayerData[searchedPlayer].name, inventory = PlayerData[searchedPlayer].inventory }
+
+    CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].name, player, playerList, GetPlayerMaxSlots(player), searchedPlayer)
 end)
 
 function GetNearestPolice(player)

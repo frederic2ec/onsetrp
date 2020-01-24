@@ -74,10 +74,8 @@ function RobberyStarted(player)
         CallRemoteEvent(player, "MakeSuccessNotification", _("robbery_started", timeBeforeGettingMoneyInMinutes))
 
         SetPlayerAnimation(player, "STOP")
-        
-        for k, v in pairs(workingCops) do
-            CallRemoteEvent(k, "PoliceAlert", _("robbery_started_police"))
-        end
+           
+        CallEvent("police:triggerbankalert")          
 
         Delay(timeBeforeGettingMoneyInMinutes * 60000, function (player)
             RobberyReadyToPickup(player)
@@ -130,6 +128,8 @@ function RobberyEnded()
 
     DestroyObject(bankRobberyMoneyObject)
     DestroyText3D(bankRobberyMoneyText)
+    CallEvent("police:endalarm")
+    
     
     Delay(timeBeforeNewRobbery * 60000, RobberyReady)
 end

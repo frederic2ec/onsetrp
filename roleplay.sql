@@ -44,7 +44,9 @@ CREATE TABLE `accounts` (
   `driver_license` tinyint(1) NOT NULL DEFAULT 0,
   `gun_license` tinyint(1) NOT NULL DEFAULT 0,
   `helicopter_license` tinyint(1) NOT NULL DEFAULT 0,
-  `drug_knowledge` text NOT NULL
+  `drug_knowledge` text NOT NULL,
+  `job` varchar(20) DEFAULT NULL,
+  `is_cuffed` tinyint(1) NOT NULL DEFAULT 0,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -486,3 +488,15 @@ ALTER TABLE `whitelist`
 ALTER TABLE `player_garage`
   ADD CONSTRAINT `player_garage_ibfk_1` FOREIGN KEY (`ownerid`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
+
+
+CREATE TABLE IF NOT EXISTS `fines` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `fine_date` datetime NOT NULL,
+  `agent_id` smallint(6) NOT NULL DEFAULT 0,
+  `player_id` smallint(6) NOT NULL DEFAULT 0,
+  `amount` int(11) NOT NULL DEFAULT 0,
+  `reason` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `paid` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;

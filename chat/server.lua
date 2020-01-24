@@ -93,7 +93,7 @@ AddCommand("cinema", function(player)
     end
     SetPlayerLocation(player, 173747.000000, 198165.000000, 2532.000000)
 end)
-AddCommand("police", function(player)
+AddCommand("policeplace", function(player)
     if PlayerData[player].admin ~= 1 then
         return
     end

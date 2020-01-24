@@ -198,3 +198,24 @@ function getShirtsModel(shirts)
         end
     end
 end
+
+function GetClosePlayers(player, distance, blacklistedJob)
+    local playerIds = { }
+	local x, y, z = GetPlayerLocation(player)
+    
+    for playerId, v in pairs(GetStreamedPlayersForPlayer(player)) do
+        local _x, _y, _z = GetPlayerLocation(playerId)
+
+        if PlayerHaveName(playerId) and playerId ~= player and GetDistance3D(x, y, z, _x, _y, _z) < distance then
+            if blacklistedJob == nil or PlayerData[playerId].job ~= blacklistedJob then
+                playerIds[playerId] = PlayerData[playerId].name
+            end
+        end
+    end
+
+    return playerIds
+end
+
+function PlayerHaveName(player)
+	return PlayerData[player] ~= nil and PlayerData[player].name ~= nil and PlayerData[player].steamname ~= nil
+end

@@ -36,10 +36,10 @@ AddEvent("BURDIGALAX_inventory_onClose", CloseUIInventory)
 
 -- INIT
 
-function OpenUIInventory(key, items, playerInventory, playerName, playerId, playersList, maxSlots)
+function OpenUIInventory(items, playerInventory, playerName, playerId, playersList, maxSlots, searchedPlayer)
     CallRemoteEvent("account:setplayerbusy", GetPlayerId())
     personalMenuIsOpen = 1
-    ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.setConfig("..json_encode(BuildInventoryJson(items, playerInventory, playerName, playerId, playersList, maxSlots))..");")
+    ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.setConfig("..json_encode(BuildInventoryJson(items, playerInventory, playerName, playerId, playersList, maxSlots, searchedPlayer))..");")
     ShowMouseCursor(true)
     SetInputMode(INPUT_GAMEANDUI)
     SetWebVisibility(inventoryUI, WEB_VISIBLE)
@@ -61,12 +61,12 @@ AddEvent('BURDIGALAX_inventory_onEquip', onEquipItemInventory)
 
 function onTransferItems(event)
     local data = json_decode(event)
-    ExecuteWebJS(inventoryUI, "setUpdateItemsInventories("..data.destinationInventoryId..","..data.idItem..","..data.newQuantityDestination..");")
-    ExecuteWebJS(inventoryUI, "setUpdateItemsInventories("..data.originInventoryId..","..data.idItem..","..data.newQuantityOrigin..");")
+    ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.updateItemsInventories("..data.destinationInventoryId..", [{ id: "..data.idItem..", quantity: "..data.newQuantityDestination.." }]);")
+    ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.updateItemsInventories("..data.originInventoryId..", [{ id: "..data.idItem..", quantity: "..data.newQuantityOrigin.." }]);")
 end
 AddEvent('BURDIGALAX_inventory_onTransfer', onTransferItems)
 
-function BuildInventoryJson(items, playerInventory, playerName, playerId, playersList, maxSlots)
+function BuildInventoryJson(items, playerInventory, playerName, playerId, playersList, maxSlots, searchedPlayer)
     local json = {
         config = {
             hasEquipableCategory = false,
@@ -95,15 +95,26 @@ function BuildInventoryJson(items, playerInventory, playerName, playerId, player
     end
 
     for k, player in pairs(playersList) do
-        table.insert(json.inventories[1].nearbyInventoriesIds, player.id)
-        table.insert(json.inventories, {
+        local inventory = {
             id = player.id,
             storageSize = maxSlots,
             name = player.name,
             description = player.name,
             selectName = player.name,
             hasReadAccess = false
-        })
+        }
+
+        if searchedPlayer ~= nil and searchedPlayer.id == player.id then
+            inventory.hasReadAccess = true
+            inventory.items = InventoryAvailableItems(searchedPlayer.inventory)
+        end
+
+        table.insert(json.inventories[1].nearbyInventoriesIds, player.id)
+        table.insert(json.inventories, inventory)
+    end
+
+    if searchedPlayer ~= nil then
+        json.inventories[1].selectedNearbyInventoryId = searchedPlayer.id
     end
 
     return json

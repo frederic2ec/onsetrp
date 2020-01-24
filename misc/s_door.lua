@@ -514,6 +514,33 @@ AddEvent("OnPackageStart", function()
 	CreateDoor(13, -173697.000000, 82609.000000, 1880.000000, 0.0, true) --
 	CreateDoor(13, -173697.000000, 81909.000000, 1880.000000, 0.0, true) --
 	-- END PRISON D-BLOCK CELL DOORS
+
+	CreateDoor(6, 188263.000000, 205539.000000, 1203.000000, -90.0, false) 	-- Barrier ext 410
+    CreateDoor(6, 196420.000000, 209899.000000, 1210.000000, 0.0, false) 	-- Barrier ext
+    CreateDoor(6, 188231.000000, 206266.000000, 1203.000000, 90.0, false) 	-- Barrier ext
+    CreateDoor(6, 195718.000000, 209899.000000, 1209.000000, 180.0, false)	-- Barrier ext
+    CreateDoor(19, 194822.000000, 205925.000000, 1225.000000, -90.0, false)	-- GarageDoor
+    CreateDoor(17, 190841.000000, 207407.000000, 1224.000000, 180.0, true)	-- HalLDoor
+    CreateDoor(39, 191738.000000, 207293.000000, 2322.000000, 90.0, true) 	-- ChefOffice
+    CreateDoor(39, 192700.000000, 207710.000000, 2322.000000, -90.0, true)	-- Armurie
+    CreateDoor(39, 191391.000000, 208041.000000, 2322.000000, -90.0, true)	-- Tapissage
+    CreateDoor(39, 190920.000000, 208041.000000, 2322.000000, -90.0, true) 	-- Tapissage
+    CreateDoor(39, 190571.000000, 207012.000000, 2322.000000, 0.0, true) 	-- Archive
+    CreateDoor(39, 190020.000000, 208225.000000, 2322.000000, 90.0, true)	-- Interogatoire
+    CreateDoor(39, 189424.000000, 208225.000000, 2322.000000, 90.0, true)	-- Interogatoire
+    CreateDoor(39, 188876.000000, 208221.000000, 2322.000000, 90.0, true)	-- Openspace
+    CreateDoor(39, 187944.000000, 208225.000000, 2322.000000, 90.0, true)	-- Réunion 
+    CreateDoor(39, 186747.000000, 208225.000000, 2322.000000, 90.0, true)	-- Sergent Office
+    CreateDoor(39, 186151.000000, 208219.000000, 2322.000000, 90.0, true)	-- Sergent Office
+    CreateDoor(15, 185731.000000, 208616.000000, 2320.000000, 0.0, true)	-- GAV Porte1
+    CreateDoor(16, 185534.000000, 207751.000000, 2322.000000, 90.0, true)	-- Cellule 1
+    CreateDoor(16, 185138.000000, 207751.000000, 2322.000000, 90.0, true)	-- Cellule 2
+    CreateDoor(16, 184742.000000, 207751.000000, 2322.000000, 90.0, true)	-- Cellule 3
+    CreateDoor(16, 184340.000000, 207751.000000, 2322.000000, 90.0, true)	-- Cellule 4
+    CreateDoor(16, 183859.000000, 208067.000000, 2322.000000, 0.0, true)	-- Cellule 5
+    CreateDoor(16, 183859.000000, 208479.000000, 2322.000000, 0.0, true)	-- Cellule 6
+    CreateDoor(23, 184885.000000, 208775.000000, 2322.000000, 90.0, true)	-- WC GAV
+    -- POLICE STATION VILLE
 	
 	print("Door Count: "..#GetAllDoors())
 end)
