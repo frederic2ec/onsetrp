@@ -96,20 +96,33 @@ CREATE TABLE IF NOT EXISTS `items` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+-- Hôte :                        127.0.0.1
+-- Version du serveur:           10.4.11-MariaDB - mariadb.org binary distribution
+-- SE du serveur:                Win64
+-- HeidiSQL Version:             10.2.0.5599
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
 -- Listage des données de la table roleplay.items : 43 rows
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
 INSERT INTO `items` (`id`, `name`, `category`, `subcategory`, `price`, `weight`, `hunger`, `thirst`, `equipable`, `usable`) VALUES
-	(1, 'water_bottle', 'miscellaneous', 'food', 5, 500, 0, 30, 0, 1),
-	(2, 'apple', 'miscellaneous', 'food', 5, 100, 30, 0, 0, 1),
-	(3, 'donut', 'miscellaneous', 'food', 5, 100, 30, 0, 0, 1),
-	(4, 'repair_kit', 'miscellaneous', 'object', 50, 3000, 0, 0, 0, 1),
-	(5, 'health_kit', 'miscellaneous', 'object', 50, 300, 0, 0, 0, 1),
-	(6, 'lockpick', 'miscellaneous', 'object', 500, 500, 0, 0, 0, 1),
-	(7, 'pickaxe', 'miscellaneous', 'tool', 20, 3000, 0, 0, 0, 1),
-	(8, 'jerican', 'miscellaneous', 'object', 50, 5000, 0, 0, 0, 1),
-	(9, 'phone', 'miscellaneous', 'object', 150, 200, 0, 0, 0, 1),
-	(10, 'fishing_rod', 'miscellaneous', 'tool', 20, 1000, 0, 0, 0, 1),
-	(11, 'fish', 'miscellaneous', 'food', 100, 500, 10, 0, 0, 1),
+	(1, 'water_bottle', 'miscellaneous', 'food', 10, 2000, 0, 30, 0, 1),
+	(2, 'apple', 'miscellaneous', 'food', 25, 2000, 30, 0, 0, 1),
+	(3, 'donut', 'miscellaneous', 'food', 30, 2000, 30, 0, 0, 1),
+	(4, 'repair_kit', 'miscellaneous', 'object', 300, 6000, 0, 0, 0, 1),
+	(5, 'health_kit', 'miscellaneous', 'object', 150, 5000, 0, 0, 0, 1),
+	(6, 'lockpick', 'miscellaneous', 'object', 500, 4000, 0, 0, 0, 1),
+	(7, 'pickaxe', 'miscellaneous', 'tool', 60, 3000, 0, 0, 0, 1),
+	(8, 'jerican', 'miscellaneous', 'object', 200, 8000, 0, 0, 0, 1),
+	(9, 'phone', 'miscellaneous', 'object', 150, 2000, 0, 0, 0, 1),
+	(10, 'fishing_rod', 'miscellaneous', 'tool', 60, 3000, 0, 0, 0, 1),
+	(11, 'fish', 'miscellaneous', 'food', 0, 5000, 35, 0, 0, 1),
 	(12, 'weapon_2', 'weapons', 'weapon', 39000, 7000, 0, 0, 0, 1),
 	(13, 'weapon_3', 'weapons', 'weapon', 45000, 6000, 0, 0, 0, 1),
 	(14, 'weapon_4', 'weapons', 'weapon', 48000, 5000, 0, 0, 0, 1),
@@ -130,19 +143,24 @@ INSERT INTO `items` (`id`, `name`, `category`, `subcategory`, `price`, `weight`,
 	(29, 'weapon_19', 'weapons', 'weapon', 200000, 20000, 0, 0, 0, 1),
 	(30, 'weapon_20', 'weapons', 'weapon', 0, 30000, 0, 0, 0, 1),
 	(31, 'weapon_21', 'weapons', 'weapon', 0, 5000, 0, 0, 0, 1),
-	(46, 'iron_pipe', 'job_item', 'object', 0, 2000, 0, 0, 0, 0),
-	(33, 'peach', 'miscellaneous', 'food', 12, 100, 30, 5, 0, 1),
-	(34, 'item_backpack', 'miscellaneous', 'object', 150, 1, 0, 0, 1, 0),
-	(35, 'coca_leaf', 'drugs', 'object', 0, 200, 0, 0, 0, 0),
-	(36, 'cocaine', 'drugs', 'object', 0, 200, 0, 0, 0, 1),
-	(37, 'lumberjack_axe', 'miscellaneous', 'tool', 100, 3200, 0, 0, 0, 0),
-	(38, 'tree_log', 'job_item', 'object', 0, 2000, 0, 0, 0, 0),
-	(39, 'wood_plank', 'job_item', 'object', 0, 1000, 0, 0, 0, 0),
-	(45, 'iron_ingot', 'job_item', 'object', 0, 1000, 0, 0, 0, 0),
-	(41, 'lumberjack_saw', 'miscellaneous', 'tool', 70, 1000, 0, 0, 0, 0),
+	(46, 'iron_pipe', 'job_item', 'object', 0, 16000, 0, 0, 0, 0),
+	(33, 'peach', 'miscellaneous', 'food', 35, 4000, 30, 5, 0, 1),
+	(34, 'item_backpack', 'miscellaneous', 'object', 150, 1000, 0, 0, 1, 0),
+	(35, 'coca_leaf', 'drugs', 'object', 0, 1000, 0, 0, 0, 0),
+	(36, 'cocaine', 'drugs', 'object', 0, 4000, 0, 0, 0, 1),
+	(37, 'lumberjack_axe', 'miscellaneous', 'tool', 60, 3000, 0, 0, 0, 0),
+	(38, 'tree_log', 'job_item', 'object', 0, 12000, 0, 0, 0, 0),
+	(39, 'wood_plank', 'job_item', 'object', 0, 6000, 0, 0, 0, 0),
+	(45, 'iron_ingot', 'job_item', 'object', 0, 8000, 0, 0, 0, 0),
+	(41, 'lumberjack_saw', 'miscellaneous', 'tool', 60, 3000, 0, 0, 0, 0),
 	(42, 'handcuffs', 'miscellaneous', 'tool', 1000, 1000, 0, 0, 0, 0),
-	(44, 'iron_ore', 'job_item', 'object', 0, 2000, 0, 0, 0, 0);
+	(44, 'iron_ore', 'job_item', 'object', 0, 16000, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+
 
 -- Listage de la structure de la table roleplay. logs
 CREATE TABLE IF NOT EXISTS `logs` (
