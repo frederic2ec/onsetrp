@@ -46,7 +46,7 @@ CREATE TABLE `accounts` (
   `helicopter_license` tinyint(1) NOT NULL DEFAULT 0,
   `drug_knowledge` text NOT NULL,
   `job` varchar(20) DEFAULT NULL,
-  `is_cuffed` tinyint(1) NOT NULL DEFAULT 0,
+  `is_cuffed` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
