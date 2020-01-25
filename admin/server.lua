@@ -25,7 +25,7 @@ local teleportPlace = {
     cocaine_process = {-215517, -51147, 200},
     fishing_gather_1 = {232464, 193521, 112},
     fishing_gather_2 = {-220130, 23036, 107},
-    mining_gather = {-96934, 7598, 2131},
+    mining_gather = {-101174, 98223, 180},
     mining_process_1 = {-82629, 90991, 481},
     mining_process_2 = {-191437, -31107, 1148}
 }
