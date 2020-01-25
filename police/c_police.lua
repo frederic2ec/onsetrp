@@ -48,7 +48,8 @@ AddEvent("OnKeyPress", function(key)
 end)
 
 function AskForService(npc)
-    local message = (isOnDuty and _("police_npc_message_stop") or _("police_npc_message_start"))
+    local IsOnDuty = GetPlayerPropertyValue(GetPlayerId(), "Police:IsOnDuty") or false
+    local message = (IsOnDuty and _("police_npc_message_stop") or _("police_npc_message_start"))
     startCinematic({
         title = _("police_npc_name"),
         message = message,
@@ -66,7 +67,8 @@ function AskForService(npc)
 end
 
 AddEvent("police:startstopcinematic", function()
-    local message = (isOnDuty and _("npc_end_stop") or _("police_npc_end_start"))
+    local IsOnDuty = GetPlayerPropertyValue(GetPlayerId(), "Police:IsOnDuty") or false
+    local message = (IsOnDuty and _("npc_end_stop") or _("police_npc_end_start"))
     updateCinematic({
         message = message
     })
