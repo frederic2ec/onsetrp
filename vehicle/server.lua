@@ -2,6 +2,34 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 
 VehicleData = {}
 
+VehicleTrunkSlots = {
+    vehicle_1= 100,
+    vehicle_2= 100,
+    vehicle_3= 100,
+    vehicle_4= 100,
+    vehicle_5= 100,
+    vehicle_6= 100,
+    vehicle_7= 100,
+    vehicle_8= 100,
+    vehicle_9= 100,
+    vehicle_10= 100,
+    vehicle_11= 100,
+    vehicle_12= 100,
+    vehicle_13= 100,
+    vehicle_14= 100,
+    vehicle_15= 100,
+    vehicle_16= 100,
+    vehicle_17= 100,
+    vehicle_18= 100,
+    vehicle_19= 100,
+    vehicle_20= 100,
+    vehicle_21= 100,
+    vehicle_22= 100,
+    vehicle_23= 100,
+    vehicle_24= 100,
+    vehicle_25= 100
+}
+
 function CreateVehicleData(player, vehicle, modelid, fuel)
     VehicleData[vehicle] = {}
 
