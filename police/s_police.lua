@@ -165,8 +165,14 @@ end)
 
 AddEvent("OnPlayerSpawn", function(player)-- On player death
     if PlayerData and PlayerData[player] then
-        if PlayerData[player].is_cuffed == 1 then
-            SetPlayerCuffed(player, true)
+        if PlayerData[player].health_state == "no_medic" then
+            if PlayerData[player].is_cuffed == 1 then
+                SetPlayerCuffed(player, false)
+            end
+        else
+            if PlayerData[player].is_cuffed == 1 then
+                SetPlayerCuffed(player, true)
+            end
         end
     end
 end)
