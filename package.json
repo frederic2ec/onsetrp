@@ -41,9 +41,7 @@
         "hud/pinmap/server/main.lua",
         "vehicle/ragP/server.lua",
         "vehicle/ragP/settings.lua",
-        "animation/pickndrop_s.lua",
-        "burdigalax/server/inventory.lua",
-        "robbery/server.lua"
+        "animation/pickndrop_s.lua"
     ],
     "client_scripts": [
         "keys/c_config.lua",
