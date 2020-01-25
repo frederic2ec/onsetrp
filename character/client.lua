@@ -162,6 +162,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
                 isCreated = true
                 onCharacterCreation = false
                 CallRemoteEvent("account:setplayernotbusy", GetPlayerId())
+                CallRemoteEvent("character:playerrdytospawn", GetPlayerId())
             end
         end
     end
