@@ -110,7 +110,7 @@ gatherTable = {
     },
     {-- MINING
         gather_zone = {
-            {x = -96934, y = 7598, z = 2131}
+            {x = -101174, y = 98223, z = 180}
         },
         gather_item = "iron_ore",
         require_tool = "pickaxe",
