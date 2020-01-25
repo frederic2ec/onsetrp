@@ -1,6 +1,7 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
-local inventory_base_max_slots = 32
+local inventory_base_max_slots = 50
+local backpack_slot_to_add = 35
 
 local droppedObjectsPickups = {}
 
@@ -305,7 +306,7 @@ end
 
 function GetPlayerMaxSlots(player)
     if PlayerData[player].inventory['item_backpack'] and math.tointeger(PlayerData[player].inventory['item_backpack']) > 0 then
-        return math.floor(inventory_base_max_slots * 1.25)
+        return math.floor(inventory_base_max_slots + backpack_slot_to_add)
     else
         return inventory_base_max_slots
     end

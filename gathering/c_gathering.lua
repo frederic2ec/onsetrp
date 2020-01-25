@@ -11,8 +11,8 @@ end)
 function OnKeyPress(key)
     if key == INTERACT_KEY then
         local NearestGatherZone = GetNearestGatherZone()
-        local NearestProcessZone = GetNearestProcessZone()        
-
+		local NearestProcessZone = GetNearestProcessZone()
+		
         if NearestGatherZone ~= 0 and NearestProcessZone == 0 then                      
             CallRemoteEvent( "gathering:gather:start", NearestGatherZone)   
         end
@@ -33,9 +33,9 @@ function GetNearestGatherZone()
 		local dist = GetDistance3D(x, y, z, x2, y2, z2)
 
 		if dist < 2000.0 then
-			for k,i in pairs(gatherIds) do
-				if v == i then
-					return v
+			for k,i in pairs(gatherIds) do				
+				for k2,v2 in pairs(i) do
+					if v == v2 then return v end
 				end
 			end
 		end
