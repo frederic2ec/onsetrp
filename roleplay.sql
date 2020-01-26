@@ -96,32 +96,19 @@ CREATE TABLE IF NOT EXISTS `items` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
--- Hôte :                        127.0.0.1
--- Version du serveur:           10.4.11-MariaDB - mariadb.org binary distribution
--- SE du serveur:                Win64
--- HeidiSQL Version:             10.2.0.5599
--- --------------------------------------------------------
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-
 -- Listage des données de la table roleplay.items : 43 rows
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
 INSERT INTO `items` (`id`, `name`, `category`, `subcategory`, `price`, `weight`, `hunger`, `thirst`, `equipable`, `usable`) VALUES
 	(1, 'water_bottle', 'miscellaneous', 'food', 10, 2000, 0, 30, 0, 1),
 	(2, 'apple', 'miscellaneous', 'food', 25, 2000, 30, 0, 0, 1),
 	(3, 'donut', 'miscellaneous', 'food', 30, 2000, 30, 0, 0, 1),
-	(4, 'repair_kit', 'miscellaneous', 'object', 300, 6000, 0, 0, 0, 1),
+	(4, 'repair_kit', 'ironsmith', 'object', 300, 6000, 0, 0, 0, 1),
 	(5, 'health_kit', 'miscellaneous', 'object', 150, 5000, 0, 0, 0, 1),
-	(6, 'lockpick', 'miscellaneous', 'object', 500, 4000, 0, 0, 0, 1),
-	(7, 'pickaxe', 'miscellaneous', 'tool', 60, 3000, 0, 0, 0, 1),
+	(6, 'lockpick', 'ironsmith', 'object', 500, 4000, 0, 0, 0, 1),
+	(7, 'pickaxe', 'ironsmith', 'tool', 60, 3000, 0, 0, 0, 1),
 	(8, 'jerican', 'miscellaneous', 'object', 200, 8000, 0, 0, 0, 1),
 	(9, 'phone', 'miscellaneous', 'object', 150, 2000, 0, 0, 0, 1),
-	(10, 'fishing_rod', 'miscellaneous', 'tool', 60, 3000, 0, 0, 0, 1),
+	(10, 'fishing_rod', 'ironsmith', 'tool', 60, 3000, 0, 0, 0, 1),
 	(11, 'fish', 'miscellaneous', 'food', 0, 5000, 35, 0, 0, 1),
 	(12, 'weapon_2', 'weapons', 'weapon', 39000, 7000, 0, 0, 0, 1),
 	(13, 'weapon_3', 'weapons', 'weapon', 45000, 6000, 0, 0, 0, 1),
@@ -148,19 +135,14 @@ INSERT INTO `items` (`id`, `name`, `category`, `subcategory`, `price`, `weight`,
 	(34, 'item_backpack', 'miscellaneous', 'object', 150, 1000, 0, 0, 1, 0),
 	(35, 'coca_leaf', 'drugs', 'object', 0, 1000, 0, 0, 0, 0),
 	(36, 'cocaine', 'drugs', 'object', 0, 4000, 0, 0, 0, 1),
-	(37, 'lumberjack_axe', 'miscellaneous', 'tool', 60, 3000, 0, 0, 0, 0),
+	(37, 'lumberjack_axe', 'ironsmith', 'tool', 60, 3000, 0, 0, 0, 0),
 	(38, 'tree_log', 'job_item', 'object', 0, 12000, 0, 0, 0, 0),
 	(39, 'wood_plank', 'job_item', 'object', 0, 6000, 0, 0, 0, 0),
 	(45, 'iron_ingot', 'job_item', 'object', 0, 8000, 0, 0, 0, 0),
-	(41, 'lumberjack_saw', 'miscellaneous', 'tool', 60, 3000, 0, 0, 0, 0),
-	(42, 'handcuffs', 'miscellaneous', 'tool', 0, 1000, 0, 0, 0, 0),
+	(41, 'lumberjack_saw', 'ironsmith', 'tool', 60, 3000, 0, 0, 0, 0),
+	(42, 'handcuffs', 'job_item', 'tool', 0, 1000, 0, 0, 0, 0),
 	(44, 'iron_ore', 'job_item', 'object', 0, 16000, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
-
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-
 
 -- Listage de la structure de la table roleplay. logs
 CREATE TABLE IF NOT EXISTS `logs` (
@@ -168,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `action` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 -- Listage de la structure de la table roleplay. messages
 CREATE TABLE IF NOT EXISTS `messages` (
@@ -210,11 +192,7 @@ CREATE TABLE IF NOT EXISTS `player_garage` (
   PRIMARY KEY (`id`),
   KEY `player_vehicle_ibfk_1` (`ownerid`),
   CONSTRAINT `player_garage_ibfk_1` FOREIGN KEY (`ownerid`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Listage des données de la table roleplay.player_garage : ~0 rows (environ)
-/*!40000 ALTER TABLE `player_garage` DISABLE KEYS */;
-/*!40000 ALTER TABLE `player_garage` ENABLE KEYS */;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- Listage de la structure de la table roleplay. player_house
 CREATE TABLE IF NOT EXISTS `player_house` (
@@ -326,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `shops` (
   `z` int(11) NOT NULL,
   `h` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 -- Listage des données de la table roleplay.shops : 8 rows
 /*!40000 ALTER TABLE `shops` DISABLE KEYS */;
@@ -338,7 +316,8 @@ INSERT INTO `shops` (`id`, `name`, `category`, `x`, `y`, `z`, `h`) VALUES
 	(5, 'twentyfour', 'miscellaneous', 171131, 203562, 1413, -180),
 	(6, 'gunshop', 'weapons', -181943, -40882, 1163, 90),
 	(7, 'gunshop', 'weapons', 206071, 193057, 1357, 180),
-	(8, 'rockshop', 'mine', 67862, 184741, 535, 90);
+	(9, 'ironsmith', 'ironsmith', -189805, -34122, 1148, 90),
+	(10, 'ironsmith', 'ironsmith', 145532, 211093, 1307, -90);
 /*!40000 ALTER TABLE `shops` ENABLE KEYS */;
 
 -- Listage de la structure de la table roleplay. whitelist
