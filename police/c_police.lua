@@ -4,15 +4,18 @@ local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, .
 local policeMenu
 local policeFineMenu
 local policeNpcGarageMenu
+local policeEquipmentMenu
 
 local policeNpcIds = {}
 local policeVehicleNpcIds = {}
 local policeGarageIds = {}
+local policeEquipmentNpcIds = {}
 
-AddRemoteEvent("police:setup", function(_policeNpcIds, _policeGarageIds, _policeVehicleNpcIds)
+AddRemoteEvent("police:setup", function(_policeNpcIds, _policeGarageIds, _policeVehicleNpcIds, _policeEquipmentNpcIds)
     policeNpcIds = _policeNpcIds
     policeGarageIds = _policeGarageIds
     policeVehicleNpcIds = _policeVehicleNpcIds
+    policeEquipmentNpcIds = _policeEquipmentNpcIds
 end)
 
 AddEvent("OnTranslationReady", function()
@@ -26,6 +29,9 @@ AddEvent("OnTranslationReady", function()
         
         -- SPAWN VEHICLE MENU
         policeNpcGarageMenu = Dialog.create(_("police_garage_menu"), nil, _("spawn_despawn_patrol_car"), _("cancel"))
+
+        -- POLICE EQUIPMENT MENU
+        policeEquipmentMenu = Dialog.create(_("police_armory"), nil, _("police_check_my_equipment"), _("cancel"))
 end)
 
 AddEvent("OnKeyPress", function(key)
@@ -44,6 +50,10 @@ AddEvent("OnKeyPress", function(key)
     
     if key == INTERACT_KEY and not GetPlayerBusy() and IsNearbyNpc(GetPlayerId(), policeNpcIds) ~= false then
         AskForService(IsNearbyNpc(GetPlayerId(), policeNpcIds))
+    end
+
+    if key == INTERACT_KEY and not GetPlayerBusy() and IsOnDuty and IsNearbyNpc(GetPlayerId(), policeEquipmentNpcIds) ~= false then
+        Dialog.show(policeEquipmentMenu)        
     end
 end)
 
@@ -71,7 +81,7 @@ AddEvent("police:startstopcinematic", function()
     local message = (IsOnDuty and _("npc_end_stop") or _("police_npc_end_start"))
     updateCinematic({
         message = message
-    })
+    }, NearestPolice, "WALLLEAN04")
     Delay(1500, function()
         stopCinematic()
     end)
@@ -118,6 +128,13 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == policeNpcGarageMenu then
         if button == 1 then
             CallRemoteEvent("police:spawnvehicle")
+        end
+    end
+
+    if dialog == policeEquipmentMenu then
+        if button == 1 then
+            CallRemoteEvent("police:checkmyequipment")
+            MakeNotification(_("police_equipment_checked"), "linear-gradient(to right, #00b09b, #96c93d)")
         end
     end
 end)

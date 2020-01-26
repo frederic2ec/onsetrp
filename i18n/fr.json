@@ -477,6 +477,8 @@
     "please_leave_previous_job": "Merci de quitter votre précédent travaille",
     "police_alert_bank" : "CODE 3 : L'alarme de la banque vient d'être déclenchée !",
     "police_robbery_in_progress": "BRAQUAGE EN COURS",
+    "police_check_my_equipment": "Vérifier mon équipement",
+    "police_equipment_checked": "Votre équipement est en ordre",
     "iron_ore": "Minerai de fer",
     "iron_ingot": "Lingot de fer",
     "iron_pipe": "Tube en acier",

@@ -153,7 +153,7 @@ INSERT INTO `items` (`id`, `name`, `category`, `subcategory`, `price`, `weight`,
 	(39, 'wood_plank', 'job_item', 'object', 0, 6000, 0, 0, 0, 0),
 	(45, 'iron_ingot', 'job_item', 'object', 0, 8000, 0, 0, 0, 0),
 	(41, 'lumberjack_saw', 'miscellaneous', 'tool', 60, 3000, 0, 0, 0, 0),
-	(42, 'handcuffs', 'miscellaneous', 'tool', 1000, 1000, 0, 0, 0, 0),
+	(42, 'handcuffs', 'miscellaneous', 'tool', 0, 1000, 0, 0, 0, 0),
 	(44, 'iron_ore', 'job_item', 'object', 0, 16000, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 

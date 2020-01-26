@@ -9,7 +9,7 @@ local VEHICLE_SPAWN_LOCATION = {
 }
 
 local POLICE_SERVICE_NPC = {
-    {x = 192373, y = 208149, z = 2420, h = 180},
+    {x = 191680, y = 208448, z = 2424, h = 0},
     {x = -173980, y = -63613, z = 1209, h = -90},
 }
 
@@ -23,14 +23,19 @@ local POLICE_GARAGE = {
     {x = -172667, y = -65824, z = 1130},
 }
 
+local POLICE_EQUIPMENT_NPC = {
+    {x = 192373, y = 208150, z = 2420, h = 180}
+}
+
 local policeNpcIds = {}
 local policeVehicleNpcIds = {}
 local policeGarageIds = {}
+local policeEquipmentNpcIds = {}
 
--- TODO : function pour display des alertes (ex: braquage de banque). → Pos GPS
 AddEvent("OnPackageStart", function()
     for k, v in pairs(POLICE_SERVICE_NPC) do
         v.npcObject = CreateNPC(v.x, v.y, v.z, v.h)
+        SetNPCAnimation(v.npcObject, "WALLLEAN04", true)        
         table.insert(policeNpcIds, v.npcObject)
     end
     
@@ -46,10 +51,15 @@ AddEvent("OnPackageStart", function()
         SetNPCAnimation(v.npcObject, "WALLLEAN04", true)
         table.insert(policeVehicleNpcIds, v.npcObject)
     end
+
+    for k, v in pairs(POLICE_EQUIPMENT_NPC) do
+        v.npcObject = CreateNPC(v.x, v.y, v.z, v.h)
+        table.insert(policeEquipmentNpcIds, v.npcObject)
+    end
 end)
 
 AddEvent("OnPlayerJoin", function(player)
-    CallRemoteEvent(player, "police:setup", policeNpcIds, policeGarageIds, policeVehicleNpcIds)
+    CallRemoteEvent(player, "police:setup", policeNpcIds, policeGarageIds, policeVehicleNpcIds, policeEquipmentNpcIds)
 end)
 
 --------- SERVICE AND EQUIPMENT
@@ -132,8 +142,12 @@ function GivePoliceEquipmentToPlayer(player)-- To give police equipment to polic
             AddInventory(player, "weapon_21", 1)
             SetPlayerWeapon(player, 21, 100, false, 3, true)
         end
+        if GetNumberOfItem(player, "handcuffs") < 1 then -- If the player doesnt have handcuffs we give it to him
+            AddInventory(player, "handcuffs", 1)
+        end
     end
 end
+AddRemoteEvent("police:checkmyequipment", GivePoliceEquipmentToPlayer)
 
 function RemovePoliceEquipmentFromPlayer(player)-- To remove police equipment from policemen
     if GetNumberOfItem(player, "weapon_4") > 0 then -- If the player have the gun we remove it
@@ -143,6 +157,9 @@ function RemovePoliceEquipmentFromPlayer(player)-- To remove police equipment fr
     if GetNumberOfItem(player, "weapon_21") > 0 then -- If the player have the gun we remove it
         RemoveInventory(player, "weapon_21", 1)
         SetPlayerWeapon(player, 1, 0, true, 3, false)
+    end
+    if GetNumberOfItem(player, "handcuffs") > 0 then -- If the player doesnt have handcuffs we give it to him
+        RemoveInventory(player, "handcuffs", 1)
     end
 end
 
@@ -174,6 +191,7 @@ AddEvent("OnPlayerSpawn", function(player)-- On player death
                 SetPlayerCuffed(player, true)
             end
         end
+        GivePoliceEquipmentToPlayer(player)
     end
 end)
 --------- SERVICE AND EQUIPMENT END
@@ -255,11 +273,17 @@ function CuffPlayer(player)
     
     local target = GetNearestPlayer(player, 200)
     if target ~= nil and PlayerData[target].is_cuffed == 0 then
-        SetPlayerCuffed(target, true)
-        CallRemoteEvent(player, "MakeNotification", _("player_is_handcuffed"), "linear-gradient(to right, #00b09b, #96c93d)")
-        CallRemoteEvent(target, "MakeNotification", _("you_are_handcuffed"), "linear-gradient(to right, #00b09b, #96c93d)")
+        if PlayerData[player].inventory[handcuffs] ~= nil and PlayerData[player].inventory[handcuffs] > 0 then
+            RemoveInventory(player, "handcuffs", 1)
+            SetPlayerCuffed(target, true)            
+            CallRemoteEvent(player, "MakeNotification", _("player_is_handcuffed"), "linear-gradient(to right, #00b09b, #96c93d)")
+            CallRemoteEvent(target, "MakeNotification", _("you_are_handcuffed"), "linear-gradient(to right, #00b09b, #96c93d)")
+        else
+            CallRemoteEvent(player, "MakeErrorNotification", _("no_handcuffs"))
+        end
     elseif target ~= nil and PlayerData[target].is_cuffed == 1 then
         SetPlayerCuffed(target, false)
+        AddInventory(player, "handcuffs", 1)
         CallRemoteEvent(player, "MakeNotification", _("player_is_uncuffed"), "linear-gradient(to right, #00b09b, #96c93d)")
         CallRemoteEvent(target, "MakeNotification", _("you_are_uncuffed"), "linear-gradient(to right, #00b09b, #96c93d)")
     end
