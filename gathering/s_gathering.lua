@@ -140,6 +140,9 @@ gatherTable = {
                 step_processed_item_number = 1,
                 step_process_time = 30,
             }
+        },
+        sell_zone = {
+            {x = 67862, y = 184741, z = 535, h = 90, item_to_sell = "iron_pipe", price_per_unit = 100, sell_time = 5}
         }
     }
 }
