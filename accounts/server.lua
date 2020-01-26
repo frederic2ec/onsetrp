@@ -168,7 +168,8 @@ function OnAccountLoaded(player)
 		if PlayerData[player].created == 0 then
 			CallRemoteEvent(player, "askClientCreation")
 		else
-			SetPlayerName(player, PlayerData[player].name)
+			--SetPlayerName(player, PlayerData[player].name)
+			SetPlayerName(player, " ") -- Test hide name
 		
 			-- playerhairscolor = getHairsColor(PlayerData[player].clothing[2])
 			-- CallRemoteEvent(player, "ClientChangeClothing", player, 0, PlayerData[player].clothing[1], playerhairscolor[1], playerhairscolor[2], playerhairscolor[3], playerhairscolor[4])
