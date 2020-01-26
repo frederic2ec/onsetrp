@@ -93,6 +93,7 @@ label
     text-align: left;
     display: block;
     width: 100%;
+    font-size:13px;
 }
 
 .legend-key-child:hover
@@ -109,8 +110,8 @@ label
 #legend-key>div.legend-key-child>img.legend-check 
 {
     float: right;
-    line-height: 28px;
-    height: 28px;
+    line-height: 20px;
+    height: 20px;
     margin-top:4px;
 }
 
@@ -121,14 +122,14 @@ label
 
 #legend-key>div.legend-key-child>.name>img 
 {
-    line-height: 28px;
-    height: 28px;
+    line-height: 20px;
+    height: 20px;
 }
 
 #legend-key>div.legend-key-child>.name>label 
 {
-    line-height: 28px;
-    height: 28px;
+    line-height: 20px;
+    height: 20px;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
 }

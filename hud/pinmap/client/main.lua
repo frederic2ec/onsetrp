@@ -8,7 +8,8 @@ local minimapUILoaded
 
 local function OnPackageStart()
 	local screenX, screenY = GetScreenSize()
-	mapGui = CreateWebUI(0, 0, 0, 0)
+	mapGui = CreateWebUI(0, 0, 0, 0, 0, 60)	
+	
 	LoadWebFile(mapGui, "http://asset/" .. GetPackageName() .. "/hud/pinmap/client/web/map.html")
 
 	SetWebAlignment(mapGui, 0, 0)
