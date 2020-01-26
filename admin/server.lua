@@ -31,6 +31,7 @@ local teleportPlace = {
     mining_process_1 = {-82629, 90991, 481},
     mining_process_2 = {-191437, -31107, 1148},
     mining_supplier = {67862, 184741, 535},
+    ironsmith = { -189805, -34122, 1148}
 }
 
 local weaponList = {

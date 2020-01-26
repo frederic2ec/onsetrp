@@ -27,7 +27,7 @@ gatherTable = {
         gather_animation_attachement = {modelid = 1047, bone = "hand_r"},
         gather_rp_props = nil,
         sell_zone = {
-            {x = 203566, y = 171875, z = 1306, h = -90, item_to_sell = "wood_plank", price_per_unit = 100, sell_time = 5}
+            {x = 203566, y = 171875, z = 1306, h = -90, item_to_sell = "wood_plank", price_per_unit = 36, sell_time = 5}
         }
     },
     {-- PEACH HARVESTION (FOR ALTIS LIFE FANS)
@@ -111,7 +111,7 @@ gatherTable = {
         gather_time = 6,
         gather_animation_attachement = {modelid = 1111, bone = "hand_r"},
         sell_zone = {
-            {x = -21295, y = -22954, z = 2080, h = -90, item_to_sell = "fish", price_per_unit = 100, sell_time = 5}
+            {x = -21295, y = -22954, z = 2080, h = -90, item_to_sell = "fish", price_per_unit = 8, sell_time = 5}
         }
     },
     {-- MINING
@@ -142,7 +142,7 @@ gatherTable = {
             }
         },
         sell_zone = {
-            {x = 67862, y = 184741, z = 535, h = 90, item_to_sell = "iron_pipe", price_per_unit = 100, sell_time = 5}
+            {x = 67862, y = 184741, z = 535, h = 90, item_to_sell = "iron_pipe", price_per_unit = 54, sell_time = 5}
         }
     }
 }
