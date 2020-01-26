@@ -153,8 +153,6 @@ AddEvent("OnPackageStart", function()-- Initialize pickups and objects
                 table.insert(v.gatherPickup, CreatePickup(2, v2.x, v2.y, v2.z))
                 CreateText3D(_("gather") .. "\n" .. _("press_e"), 18, v2.x, v2.y, v2.z + 120, 0, 0, 0)
             end
-            --v.gatherPickup = CreatePickup(2, v.gather_zone.x, v.gather_zone.y, v.gather_zone.z)
-            --CreateText3D(_("gather") .. "\n" .. _("press_e"), 18, v.gather_zone.x, v.gather_zone.y, v.gather_zone.z + 120, 0, 0, 0)
             table.insert(gatherPickupsCached, v.gatherPickup)
         end
         
