@@ -2,6 +2,7 @@ local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, .
 
 local MAX_POLICE = 10 -- Number of policemens at the same time
 local ALLOW_RESPAWN_VEHICLE = true -- Allow the respawn of the vehicle by destroying the previously spawned one. (Can break RP if the car is stolen or need repairs or fuel)
+local NB_HANDCUFFS = 3
 
 local VEHICLE_SPAWN_LOCATION = {
     {x = 189301, y = 206802, z = 1320, h = 220},
@@ -136,15 +137,15 @@ end
 function GivePoliceEquipmentToPlayer(player)-- To give police equipment to policemen
     if PlayerData[player].job == "police" and PlayerData[player].police == 1 then -- Fail check
         if GetNumberOfItem(player, "weapon_4") < 1 then -- If the player doesnt have the gun we give it to him
-            AddInventory(player, "weapon_4", 1)
+            SetInventory(player, "weapon_4", 1)
             SetPlayerWeapon(player, 4, 70, false, 2, true)
         end
         if GetNumberOfItem(player, "weapon_21") < 1 then -- If the player doesnt have the gun we give it to him
-            AddInventory(player, "weapon_21", 1)
+            SetInventory(player, "weapon_21", 1)
             SetPlayerWeapon(player, 21, 100, false, 3, true)
         end
-        if GetNumberOfItem(player, "handcuffs") < 1 then -- If the player doesnt have handcuffs we give it to him
-            AddInventory(player, "handcuffs", 1)
+        if GetNumberOfItem(player, "handcuffs") < NB_HANDCUFFS then -- If the player doesnt have handcuffs we give it to him
+            SetInventory(player, "handcuffs", NB_HANDCUFFS)
         end
         SetPlayerArmor(player, 100)
     end
@@ -360,7 +361,7 @@ function SetPlayerInCar(player, target)
     local x, y, z = GetVehicleLocation(PlayerData[player].job_vehicle)
     local x2, y2, z2 = GetPlayerLocation(target)
     
-    if GetDistance3D(x, y, z, x2, y2, z2) <= 200 then
+    if GetDistance3D(x, y, z, x2, y2, z2) <= 400 then
         if GetVehiclePassenger(PlayerData[player].job_vehicle, 3) == 0 then -- First back seat
             SetPlayerInVehicle(target, PlayerData[player].job_vehicle, 3)
             CallRemoteEvent(player, "MakeNotification", _("policecar_place_player_in_back"), "linear-gradient(to right, #00b09b, #96c93d)")
