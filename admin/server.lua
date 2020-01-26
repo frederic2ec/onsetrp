@@ -54,6 +54,7 @@ local weaponList = {
     weapon_18 = 18,
     weapon_19 = 19,
     weapon_20 = 20,
+    weapon_21 = 21
 }
 
 local vehicleList = {
