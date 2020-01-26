@@ -30,6 +30,51 @@ function getWeaponID(modelid)
     return 0
 end
 
+AddRemoteEvent("EquipInventory", function(player, originPlayer, itemName, amount, inVehicle, vehiclSpeed)
+    if inVehicle and GetPlayerState(player) == PS_DRIVER and vehiclSpeed > 0 then
+        CallRemoteEvent(player, "MakeErrorNotification", _("cant_while_driving"))
+        return false
+    end
+
+    local item
+
+    for k, itemPair in pairs(Items) do
+        if itemPair.name == itemName then
+            item = itemPair
+        end
+    end
+
+    weapon = getWeaponID(itemName)
+    if tonumber(PlayerData[originPlayer].inventory[itemName]) < tonumber(amount) then
+        CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_item"))
+    else
+        if weapon ~= 0 then
+            for slot, v in pairs({ 1, 2, 3 }) do
+                local slotWeapon, ammo = GetPlayerWeapon(player, slot)
+                if slotWeapon == tonumber(weapon) then
+                    SetPlayerWeapon(player, 1, 0, true, slot)
+                    CallRemoteEvent(player, "MakeSuccessNotification", _("item_unequiped", slot))
+                    UpdateUIInventory(player, originPlayer, itemName, PlayerData[originPlayer].inventory[itemName], false)
+                    return true
+                end
+            end
+
+            for slot, v in pairs({ 1, 2, 3 }) do
+                local slotWeapon, ammo = GetPlayerWeapon(player, slot)
+                if slotWeapon == 1 then
+                    SetPlayerWeapon(player, tonumber(weapon), 1000, true, slot)
+                    CallRemoteEvent(player, "MakeSuccessNotification", _("item_equiped", slot))
+                    UpdateUIInventory(player, originPlayer, itemName, PlayerData[originPlayer].inventory[itemName], true)
+                    return true
+                end
+            end
+            CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_slots"))
+        else
+            -- No weapons items
+        end
+    end
+end)
+
 AddRemoteEvent("UseInventory", function(player, originPlayer, itemName, amount, inVehicle, vehiclSpeed)
     if inVehicle and GetPlayerState(player) == PS_DRIVER and vehiclSpeed > 0 then
         return CallRemoteEvent(player, "MakeErrorNotification", _("cant_while_driving"))
@@ -45,17 +90,27 @@ AddRemoteEvent("UseInventory", function(player, originPlayer, itemName, amount, 
 
     weapon = getWeaponID(itemName)
     if tonumber(PlayerData[originPlayer].inventory[itemName]) < tonumber(amount) then
-        AddPlayerChat(player, _("not_enough_item"))
+        CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_item"))
     else
         if weapon ~= 0 then
-            SetPlayerWeapon(player, tonumber(weapon), 1000, true, 1)
+            local weaponAdded = false
+            for slot, v in pairs({ 1, 2, 3 }) do
+                if GetPlayerWeapon(player, slot) == nil then
+                    SetPlayerWeapon(player, tonumber(weapon), 1000, true, slot)
+                    CallRemoteEvent(player, "MakeSuccessNotification", _("item_equiped", slot))
+                    weaponAdded = true
+                end
+            end
+            if not weaponAdded then
+                CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_slots"))
+            end
         else
             if itemName == "donut" or  itemName == "apple" or itemName == "peach" or itemName == "water_bottle" then
                 UseItem(player, originPlayer, item, amount)
             end
             if itemName == "health_kit" then
                 if GetPlayerHealth(player) == 100 then
-                    AddPlayerChat(player, _("already_full_health"))
+                    CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_slots"))
                 else
                     SetPlayerAnimation(player, "COMBINE")
                     RemoveInventory(originPlayer, itemName, amount)
@@ -66,9 +121,9 @@ AddRemoteEvent("UseInventory", function(player, originPlayer, itemName, amount, 
                 local nearestCar = GetNearestCar(player)
                 if nearestCar ~= 0 then
                     if GetVehicleHealth(nearestCar) > 4000 then
-                        AddPlayerChat(player, _("dont_need_repair"))
+                        CallRemoteEvent(player, "MakeErrorNotification", _("dont_need_repair"))
                     elseif GetVehicleHoodRatio(nearestCar) ~= 60.0 and GetVehicleModel(nearestCar) ~= 10  then
-                        AddPlayerChat(player, _("need_to_open_hood"))
+                        CallRemoteEvent(player, "MakeErrorNotification", _("need_to_open_hood"))
                     else
                         CallRemoteEvent(player, "LockControlMove", true)
                         SetPlayerAnimation(player, "COMBINE")
@@ -91,14 +146,14 @@ AddRemoteEvent("UseInventory", function(player, originPlayer, itemName, amount, 
                     local nearestCar = GetNearestCar(player)
                     if nearestCar ~= 0 then
                         if VehicleData[nearestCar].fuel >= 100 then
-                            AddPlayerChat(player, _("car_full"))
+                            CallRemoteEvent(player, "MakeErrorNotification", _("car_full"))
                         else
                             CallRemoteEvent(player, "LockControlMove", true)
                             SetPlayerAnimation(player, "COMBINE")
                             Delay(4000, function()
                                 RemoveInventory(originPlayer, itemName, amount)
                                 VehicleData[nearestCar].fuel = 100
-                                AddPlayerChat(player, _("car_refuelled"))
+                                CallRemoteEvent(player, "MakeSuccessNotification", _("car_refuelled"))
                                 CallRemoteEvent(player, "LockControlMove", false)
                                 SetPlayerAnimation(player, "STOP")
                             end)
@@ -122,13 +177,13 @@ AddRemoteEvent("UseInventory", function(player, originPlayer, itemName, amount, 
                             end)
                             Delay(10000, function()
                                 SetVehiclePropertyValue( nearestCar, "locked", false, true)
-                                AddPlayerChat(player, _("car_unlocked"))
+                                CallRemoteEvent(player, "MakeSuccessNotification", _("car_unlocked"))
                                 RemoveInventory(originPlayer, itemName, amount)
                                 CallRemoteEvent(player, "LockControlMove", false)
                                 SetPlayerAnimation(player, "STOP")
                             end)
                         else
-                            AddPlayerChat(player, _("vehicle_already_unlocked"))
+                            CallRemoteEvent(player, "MakeErrorNotification", _("vehicle_already_unlocked"))
                         end
                     end
                 end
@@ -146,13 +201,13 @@ AddRemoteEvent("UseInventory", function(player, originPlayer, itemName, amount, 
                             end)
                             Delay(10000, function()
                                 houses[nearestHouse].lock = false
-                                AddPlayerChat(player, _("unlock_house"))
+                                CallRemoteEvent(player, "MakeSuccessNotification", _("unlock_house"))
                                 RemoveInventory(originPlayer, itemName, amount)
                                 CallRemoteEvent(player, "LockControlMove", false)
                                 SetPlayerAnimation(player, "STOP")
                             end)
                         else
-                            AddPlayerChat(player, _("house_already_unlock"))
+                            CallRemoteEvent(player, "MakeErrorNotification", _("house_already_unlock"))
                         end
                     end
                 end
@@ -180,8 +235,6 @@ AddRemoteEvent("TransferInventory", function(player, originPlayer, item, amount,
     end
     
     if toPlayerIsHere then
-        print("From: "..originPlayer)
-        print("To: "..toPlayer)
         if PlayerData[originPlayer].inventory[item] < tonumber(amount) then
             CallRemoteEvent(originPlayer, "MakeErrorNotification", _("not_enough_item"))
         else

@@ -47,8 +47,9 @@ end
 
 -- UPDATE
 
-AddRemoteEvent("UpdateUIInventory", function(player, item, quantity)
-    ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.updateItemsInventories("..player..", [{ id: '"..item.."', quantity: "..quantity.." }]);")
+AddRemoteEvent("UpdateUIInventory", function(player, item, quantity, equiped)
+    local equiped = equiped or false
+    ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.updateItemsInventories("..player..", [{ id: '"..item.."', quantity: "..quantity..", isEquipped: "..tostring(equiped).." }]);")
 end)
 
 function onEquipItemInventory(event)
@@ -69,7 +70,7 @@ AddEvent('BURDIGALAX_inventory_onTransfer', onTransferItems)
 function BuildInventoryJson(items, playerInventory, playerName, playerId, playersList, maxSlots, searchedPlayer)
     local json = {
         config = {
-            hasEquipableCategory = false,
+            hasEquipableCategory = true,
             wording = {
                 emptyInventory = _("empty_inventory"),
                 nameAllCategory = _("name_all_category"),
@@ -190,7 +191,17 @@ function InventoryAvailableItems(playerInventory)
     local inventoryItems = {}
 
     for inventoryItem, inventoryCount in pairs(playerInventory) do
-        table.insert(inventoryItems, { id = inventoryItem, quantity = inventoryCount, isEquipped = false })
+        local isEquipped = false
+
+        for slot, v in pairs({ 1, 2, 3 }) do
+            local slotWeapon, ammo = GetPlayerWeapon(slot)
+
+            if "weapon_"..slotWeapon == inventoryItem then
+                isEquipped = true
+            end
+        end
+
+        table.insert(inventoryItems, { id = inventoryItem, quantity = inventoryCount, isEquipped = isEquipped })
     end
 
     return inventoryItems
@@ -254,4 +265,11 @@ function InventoryEffects()
             unit = "%"
         }
     }
+end
+
+function getWeaponID(modelid)
+    if modelid:find("weapon_") then
+        return modelid:gsub("weapon_", "")
+    end
+    return 0
 end
