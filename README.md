@@ -31,9 +31,7 @@ Roleplay framework for the game [Onset](https://store.steampowered.com/app/11058
 
 - Create a MariaDB Server if you don't have one. (You can find a tutorial on the Internet)
 - Import the .sql file in your database.
-- add i18n in your server_config.json file. (Keep it in order)
-- add dialogui in your server_config.json file. (Keep it in order)
-- add onsetrp in your server_config.json file. (Keep it in order)
+- add dependencies in your server_config.json file (keep the right order).
 - remove default in your server_config.json file.
 - configure misc/s_database.json with your MariaDB credentials
 - update your world.json at the root of your project with the sources in the [onsetrp folder](https://github.com/frederic2ec/onsetrp/blob/master/world.json)
