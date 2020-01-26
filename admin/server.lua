@@ -20,14 +20,17 @@ local teleportPlace = {
     training = { -13789, 136500, 1544 },
     lumberjack_gather = {-215796,-74619,  291},
     lumberjack_process_1 = {-70149, -59260, 1466},
+    lumberjack_supplier = {203566, 171875, 1306},
     peach_gather = {-174432, 10837, 1831},
     cocaine_gather = {-45600, -106988, 2574},
     cocaine_process = {-215517, -51147, 200},
     fishing_gather_1 = {232464, 193521, 112},
     fishing_gather_2 = {-220130, 23036, 107},
+    fishing_supplier = {-21295, -22954, 2080},
     mining_gather = {-101174, 98223, 180},
     mining_process_1 = {-82629, 90991, 481},
-    mining_process_2 = {-191437, -31107, 1148}
+    mining_process_2 = {-191437, -31107, 1148},
+    mining_supplier = {67862, 184741, 535},
 }
 
 local weaponList = {
