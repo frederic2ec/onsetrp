@@ -192,7 +192,7 @@ AddRemoteEvent("ClientChangeClothing", function(player, part, piece, r, g, b, a)
     end
     if part == 0 then
         local DynamicMaterialInstance = SkeletalMeshComponent:CreateDynamicMaterialInstance(0)
-        DynamicMaterialInstance:SetColorParameter("Hair Color", FLinearColor(r, g, b, a))
+        DynamicMaterialInstance:SetColorParameter("Hair Color", FLinearColor(r or 0, g or 0, b or 0, a or 0))
     end
 end)
 
