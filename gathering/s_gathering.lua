@@ -25,7 +25,10 @@ gatherTable = {
         require_knowledge = false, -- Require knowledge (for processing illegal stuff → drugdealer, cocaine)
         gather_animation = "PICKAXE_SWING", -- Animation that the player will act when doing stuff
         gather_animation_attachement = {modelid = 1047, bone = "hand_r"},
-        gather_rp_props = nil
+        gather_rp_props = nil,
+        sell_zone = {
+            {x = 203566, y = 171875, z = 1306, h = -90, item_to_sell = "wood_plank", price_per_unit = 100, sell_time = 5}
+        }
     },
     {-- PEACH HARVESTION (FOR ALTIS LIFE FANS)
         gather_zone = {
@@ -107,6 +110,9 @@ gatherTable = {
         gather_animation = "FISHING",
         gather_time = 6,
         gather_animation_attachement = {modelid = 1111, bone = "hand_r"},
+        sell_zone = {
+            {x = -21295, y = -22954, z = 2080, h = -90, item_to_sell = "fish", price_per_unit = 100, sell_time = 5}
+        }
     },
     {-- MINING
         gather_zone = {
@@ -140,6 +146,7 @@ gatherTable = {
 
 gatherPickupsCached = {}
 processPickupsCached = {}
+sellZoneNpcsCached = {}
 
 local defaultAnimationGather = "PICKUP_LOWER"
 local defaultAnimationProcess = "COMBINE"
@@ -175,11 +182,19 @@ AddEvent("OnPackageStart", function()-- Initialize pickups and objects
                 end
             end
         end
+        
+        if v.sell_zone ~= nil then -- Create NPC for selling stuff
+            for k2, v2 in pairs(v.sell_zone) do
+                v2.sellNpc = CreateNPC(v2.x, v2.y, v2.z, v2.h)
+                CreateText3D(_("gathering_supplier_of", _(v2.item_to_sell)) .. "\n" .. _("press_e"), 18, v2.x, v2.y, v2.z + 120, 0, 0, 0)
+                table.insert(sellZoneNpcsCached, v2.sellNpc)
+            end
+        end
     end
 end)
 
 AddEvent("OnPlayerJoin", function(player)-- Cache props and pickups client side
-    CallRemoteEvent(player, "gathering:setup", gatherPickupsCached, processPickupsCached)
+    CallRemoteEvent(player, "gathering:setup", gatherPickupsCached, processPickupsCached, sellZoneNpcsCached)
 end)
 
 AddEvent("OnPlayerDeath", function(player)
@@ -377,6 +392,35 @@ function StopProcessing(player, gather, process)
 end
 
 
+--- SELLING
+function StartSelling(player, npc)
+    local gather = GetGatherBySellNpc(npc)
+    local item = gatherTable[gather[1]].sell_zone[gather[2]].item_to_sell
+    local time = gatherTable[gather[1]].sell_zone[gather[2]].sell_time
+    local price = gatherTable[gather[1]].sell_zone[gather[2]].price_per_unit
+    if PlayerData[player].inventory[item] ~= nil and PlayerData[player].inventory[item] > 0 then
+        CallRemoteEvent(player, "loadingbar:show", _("selling_of_item", tonumber(PlayerData[player].inventory[item]), _(item)), time)-- LOADING BAR
+        
+        Delay(time * 1000, function()
+            local x, y, z = GetPlayerLocation(player)
+            local x2, y2, z2 = GetNPCLocation(npc)
+            if GetDistance3D(x, y, z, x2, y2, z2) <= 200 then
+                local totalPrice = tonumber(PlayerData[player].inventory[item]) * price
+                CallRemoteEvent(player, "MakeNotification", _("sold_item_for_money", tonumber(PlayerData[player].inventory[item]), _(item), totalPrice), "linear-gradient(to right, #00b09b, #96c93d)")
+                AddPlayerCash(player, totalPrice)
+                RemoveInventory(player, item, tonumber(PlayerData[player].inventory[item]))
+            else
+                CallRemoteEvent(player, "MakeErrorNotification", _("too_far_from_seller"))
+            end
+        end)
+    else
+        CallRemoteEvent(player, "MakeErrorNotification", _("nothing_to_sell"))
+    end
+end
+AddRemoteEvent("gathering:sell:start", StartSelling)
+
+
+
 -- tools
 function GetGatherByGatherPickup(gatherPickup)
     for k, v in pairs(gatherTable) do
@@ -393,6 +437,18 @@ function GetGatherByProcessPickup(processPickup)
         if v.process_steps ~= nil then
             for k2, v2 in pairs(v.process_steps) do
                 if v2.processPickup == processPickup then
+                    return {k, k2}
+                end
+            end
+        end
+    end
+end
+
+function GetGatherBySellNpc(npc)
+    for k, v in pairs(gatherTable) do
+        if v.sell_zone ~= nil then
+            for k2, v2 in pairs(v.sell_zone) do
+                if v2.sellNpc == npc then
                     return {k, k2}
                 end
             end

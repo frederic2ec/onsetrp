@@ -492,5 +492,12 @@
     "mining_gather": "Récolte de minerais",
     "mining_process_1": "Transformation de minerais 1",
     "mining_process_2": "Transformation de minerais 2",
-    "ironsmith": "Quincaillerie"
+    "ironsmith": "Quincaillerie",
+    "gathering_supplier": "Fournisseur",
+    "gathering_supplier_of": "Fournisseur de {1}",
+    "gathering_sell_my_goods": "Vendre mes ressources",
+    "selling_of_item": "Vente de {1} {2}",
+    "too_far_from_seller": "Restez avec le fournisseur pour conclure la vente",
+    "sold_item_for_money": "Vous avez vendu {1} {2} pour {3} $",
+    "nothing_to_sell": "Vous n'avez rien à vendre à ce fournisseur"
 }
