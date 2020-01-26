@@ -10,7 +10,7 @@ local VEHICLE_SPAWN_LOCATION = {
 
 local POLICE_SERVICE_NPC = {
     {x = 191680, y = 208448, z = 2424, h = 0},
-    {x = -173980, y = -63613, z = 1209, h = -90},
+    {x = -173771, y = -64070, z = 1209, h = 90},
 }
 
 local POLICE_VEHICLE_NPC = {
@@ -24,7 +24,8 @@ local POLICE_GARAGE = {
 }
 
 local POLICE_EQUIPMENT_NPC = {
-    {x = 192373, y = 208150, z = 2420, h = 180}
+    {x = 192373, y = 208150, z = 2420, h = 180},
+    {x = -173980, y = -63613, z = 1209, h = -90},
 }
 
 local policeNpcIds = {}
