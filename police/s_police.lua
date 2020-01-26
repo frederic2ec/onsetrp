@@ -146,6 +146,7 @@ function GivePoliceEquipmentToPlayer(player)-- To give police equipment to polic
         if GetNumberOfItem(player, "handcuffs") < 1 then -- If the player doesnt have handcuffs we give it to him
             AddInventory(player, "handcuffs", 1)
         end
+        SetPlayerArmor(player, 100)
     end
 end
 AddRemoteEvent("police:checkmyequipment", GivePoliceEquipmentToPlayer)
@@ -274,7 +275,7 @@ function CuffPlayer(player)
     
     local target = GetNearestPlayer(player, 200)
     if target ~= nil and PlayerData[target].is_cuffed == 0 then
-        if PlayerData[player].inventory[handcuffs] ~= nil and PlayerData[player].inventory[handcuffs] > 0 then
+        if GetNumberOfItem(player, "handcuffs") > 0 then
             RemoveInventory(player, "handcuffs", 1)
             SetPlayerCuffed(target, true)            
             CallRemoteEvent(player, "MakeNotification", _("player_is_handcuffed"), "linear-gradient(to right, #00b09b, #96c93d)")
