@@ -36,7 +36,7 @@ Roleplay framework for the game [Onset](https://store.steampowered.com/app/11058
 - add onsetrp in your server_config.json file. (Keep it in order)
 - remove default in your server_config.json file.
 - configure misc/s_database.json with your MariaDB credentials
-- update your world.json
+- update your world.json at the root of your project with the sources in the [onsetrp folder](https://github.com/frederic2ec/onsetrp/blob/master/world.json)
 - restart your onset server.
 
 ## More information / Support
