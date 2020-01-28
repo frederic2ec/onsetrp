@@ -105,7 +105,7 @@ AddRemoteEvent("UseInventory", function(player, originPlayer, itemName, amount, 
                 CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_slots"))
             end
         else
-            if itemName == "donut" or  itemName == "apple" or itemName == "peach" or itemName == "water_bottle" then
+            if itemName == "donut" or  itemName == "apple" or itemName == "peach" or itemName == "water_bottle" or itemName == "fish" then
                 UseItem(player, originPlayer, item, amount)
             end
             if itemName == "health_kit" then
