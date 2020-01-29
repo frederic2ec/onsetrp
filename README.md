@@ -7,21 +7,34 @@ Roleplay framework for the game [Onset](https://store.steampowered.com/app/11058
 - Windows / Linux Host
 - MariaDB 10.4+ (database on lower version need to be tweaked)
 
-## Packages requirements (They need to be put in orders and before the framework in the config file)
+## Packages requirements
 
 - [i18n](https://github.com/OnfireNetwork/i18n)
 - [dialogui](https://github.com/OnfireNetwork/dialogui)
 - [cinematicui](https://github.com/rdlh/cinematicui)
+- [salsi](https://github.com/Onset-RP/salsi)
+- [onsetworld](https://github.com/Onset-RP/onsetworld)
+
+## Example packages setup
+```
+"packages": [
+    "i18n",
+    "dialogui",
+    "cinematicui",
+    "onsetrp",
+    "salsi",
+    "onsetworld"
+]
+```
 
 ## How To Install OnsetRP
 
 - Create a MariaDB Server if you don't have one. (You can find a tutorial on the Internet)
 - Import the .sql file in your database.
-- add i18n in your server_config.json file. (Keep it in order)
-- add dialogui in your server_config.json file. (Keep it in order)
-- add onsetrp in your server_config.json file. (Keep it in order)
+- add dependencies in your server_config.json file (keep the right order).
 - remove default in your server_config.json file.
 - configure misc/s_database.json with your MariaDB credentials
+- update your world.json at the root of your project with the sources in the [onsetrp folder](https://github.com/frederic2ec/onsetrp/blob/master/world.json)
 - restart your onset server.
 
 ## More information / Support

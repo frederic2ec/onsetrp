@@ -10,10 +10,10 @@
 
 <body>
     <script>
-        function makeNotification(text, color) {
+        function makeNotification(text, color, duration = 3000) {
             Toastify({
                 text: text,
-                duration: 3000,
+                duration: duration,
                 gravity: "top",
                 position: 'right',
                 backgroundColor: color,

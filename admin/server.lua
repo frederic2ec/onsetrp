@@ -9,17 +9,29 @@ local teleportPlace = {
     desert_town = { -16223, -8033, 2062 },
     old_town = { 39350, 138061, 1570 },
     gun_dealer = { 206071, 193057, 1357 },
-    license_shop = { 183339, 182525, 1291 },
-    police_station = { 169277, 193489, 1307 },
-    mine = { -96159, 88621, 180 },
+    license_shop = { 169336, 193430, 1307 },
+    police_station = { 193285, 206608, 1400 },
+    police_station_2 = { -174742, -64655, 1248 },
     circuit = { -81369, 31643, 4704 },
     airport = { 151187, -145085, 1250 },
     harbour = { 66726, 185960, 536 },
     western = { -80339, -157846, 3223 },
     mountain = { -190210, -1831, 7462 },
     training = { -13789, 136500, 1544 },
-    peach_farm = {-174432, 10837, 1931},
-    lumberjack_farm = {-107330, -95820, 5330},
+    lumberjack_gather = {-215796,-74619,  291},
+    lumberjack_process_1 = {-70149, -59260, 1466},
+    lumberjack_supplier = {203566, 171875, 1306},
+    peach_gather = {-174432, 10837, 1831},
+    cocaine_gather = {-45600, -106988, 2574},
+    cocaine_process = {-215517, -51147, 200},
+    fishing_gather_1 = {232464, 193521, 112},
+    fishing_gather_2 = {-220130, 23036, 107},
+    fishing_supplier = {-21295, -22954, 2080},
+    mining_gather = {-101174, 98223, 180},
+    mining_process_1 = {-82629, 90991, 481},
+    mining_process_2 = {-191437, -31107, 1148},
+    mining_supplier = {67862, 184741, 535},
+    ironsmith = { -189805, -34122, 1148}
 }
 
 local weaponList = {
@@ -42,6 +54,7 @@ local weaponList = {
     weapon_18 = 18,
     weapon_19 = 19,
     weapon_20 = 20,
+    weapon_21 = 21
 }
 
 local vehicleList = {

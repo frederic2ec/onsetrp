@@ -162,6 +162,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
                 isCreated = true
                 onCharacterCreation = false
                 CallRemoteEvent("account:setplayernotbusy", GetPlayerId())
+                CallRemoteEvent("character:playerrdytospawn", GetPlayerId())
             end
         end
     end
@@ -173,24 +174,33 @@ AddRemoteEvent("ClientChangeClothing", function(player, part, piece, r, g, b, a)
     if part == 0 then
         SkeletalMeshComponent = GetPlayerSkeletalMeshComponent(player, "Clothing0")
         pieceName = piece
-    end
-    if part == 1 then
+    elseif part == 1 then
         SkeletalMeshComponent = GetPlayerSkeletalMeshComponent(player, "Clothing1")
         pieceName = piece
-    end
-    if part == 4 then
+    elseif part == 4 then
         SkeletalMeshComponent = GetPlayerSkeletalMeshComponent(player, "Clothing4")
         pieceName = piece
-    end
-    if part == 5 then
+    elseif part == 5 then
         SkeletalMeshComponent = GetPlayerSkeletalMeshComponent(player, "Clothing5")
         pieceName = piece
+    elseif part == 6 then
+        SkeletalMeshComponent = GetPlayerSkeletalMeshComponent(player, "Body")
+        SkeletalMeshComponent:SetMaterial(3, UMaterialInterface.LoadFromAsset(BodyMaterial[piece]))
     end
-    SkeletalMeshComponent:SetSkeletalMesh(USkeletalMesh.LoadFromAsset(pieceName))
-    local DynamicMaterialInstance = SkeletalMeshComponent:CreateDynamicMaterialInstance(0)
+    if pieceName ~= nil then
+        SkeletalMeshComponent:SetSkeletalMesh(USkeletalMesh.LoadFromAsset(pieceName))
+    end
     if part == 0 then
-        DynamicMaterialInstance:SetColorParameter("Hair Color", FLinearColor(r, g, b, a))
+        local DynamicMaterialInstance = SkeletalMeshComponent:CreateDynamicMaterialInstance(0)
+        DynamicMaterialInstance:SetColorParameter("Hair Color", FLinearColor(r or 0, g or 0, b or 0, a or 0))
     end
 end)
 
-
+BodyMaterial = {
+    noClothes = "/Game/CharacterModels/Materials/HZN_Materials/M_HZN_Body_NoClothes",
+    noLegs = "/Game/CharacterModels/Materials/HZN_Materials/M_HZN_Body_NoLegs",
+    noShoes = "/Game/CharacterModels/Materials/HZN_Materials/M_HZN_Body_NoShoes",
+    noShoesLegs = "/Game/CharacterModels/Materials/HZN_Materials/M_HZN_Body_NoShoesLegs",
+    noShoesLegsTorso = "/Game/CharacterModels/Materials/HZN_Materials/M_HZN_Body_NoShoesLegsTorso",
+    noTorso = "/Game/CharacterModels/Materials/HZN_Materials/M_HZN_Body_NoTorso"
+}

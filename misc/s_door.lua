@@ -688,7 +688,6 @@ AddEvent("OnPackageStart", function()
 	CreateDoor(13, -173697.000000, 81909.000000, 1880.000000, 0.0, true)
 	-- END PRISON D-BLOCK CELL DOORS
     
-    
     CreateDoor(6, 188263.000000, 205539.000000, 1203.000000, -90.0, false) --barrier ext
     CreateDoor(6, 196420.000000, 209899.000000, 1210.000000, 0.0, false)
     CreateDoor(6, 188231.000000, 206266.000000, 1203.000000, 90.0, false) -- dernier version comico
@@ -739,6 +738,6 @@ AddEvent("OnPackageStart", function()
 	CreateDoor(43, -173363.000000, -64113.000000, 1111.000000, -90.0, true)
 	CreateDoor(43, -172988.000000, -63485.000000, 1111.000000, 0.0, true)
     -- sherif
-    
+	
 	print("Door Count: "..#GetAllDoors())
 end)

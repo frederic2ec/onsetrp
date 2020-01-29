@@ -2,44 +2,41 @@ local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, .
 
 gatherTable = {
     {-- LUMBERJACK STUFF
-        gather_zone = {x = -107330, y = -95820, z = 5231}, -- Zone of initial gathering
+        gather_zone = {
+            {x = -215796, y = -74619, z = 291}
+        }, -- Zone of initial gathering
         gather_item = "tree_log", -- item that is given by initial gathering
-        gather_time = 10, -- Time in seconds to gather one item,
+        gather_time = 15, -- Time in seconds to gather one item,
         process_steps = {-- Describe the steps of processing
             {
-                step_zone = {x = -104145, y = -95015, z = 5231}, -- zone of processing
+                step_zone = {x = -70149, y = -59260, z = 1466}, -- zone of processing
                 step_require = "tree_log", -- item that is required (take the one from previous step)
                 step_require_number = 1, -- number of item required
                 step_require_tool = "lumberjack_saw",
                 step_processed_item = "wood_plank", -- item that will be given
                 step_processed_item_number = 2, -- number of item that will be given
-                step_process_time = 20, -- Time in seconds to process one item
+                step_process_time = 30, -- Time in seconds to process one item
                 step_animation = "COMBINE", -- Animation for processing
-                step_animation_attachement = nil
-            },
-            {
-                step_zone = {x = -103811, y = -93520, z = 5231},
-                step_require = "wood_plank",
-                step_require_number = 1,
-                step_require_tool = "lumberjack_saw",
-                step_processed_item = "treated_wood_plank",
-                step_processed_item_number = 1,
-                step_process_time = 10,
-                step_animation = "COMBINE",
                 step_animation_attachement = nil
             }
         },
-        require_job = "lumberjack", -- Job required,
+        require_job = false, -- Job required,
         require_tool = "lumberjack_axe", -- Tool required in inventory,
         require_knowledge = false, -- Require knowledge (for processing illegal stuff → drugdealer, cocaine)
         gather_animation = "PICKAXE_SWING", -- Animation that the player will act when doing stuff
         gather_animation_attachement = {modelid = 1047, bone = "hand_r"},
-        gather_rp_props = nil
+        gather_rp_props = nil,
+        sell_zone = {
+            {x = 203566, y = 171875, z = 1306, h = -90, item_to_sell = "wood_plank", price_per_unit = 36, sell_time = 5}
+        }
     },
     {-- PEACH HARVESTION (FOR ALTIS LIFE FANS)
-        gather_zone = {x = -174432, y = 10837, z = 1831},
+        gather_zone = {
+            {x = -174432, y = 10837, z = 1831}
+        },
         gather_item = "peach",
         gather_animation = "PICKUP_UPPER",
+        gather_time = 4,
         gather_rp_props = {
             -- Peach trees
             {model = 145, x = -174006, y = 10457, z = 1773, rx = 0, ry = 10, rz = 0},
@@ -53,7 +50,9 @@ gatherTable = {
         }
     },
     {-- COCAINE
-        gather_zone = {x = -45600, y = -106988, z = 2574},
+        gather_zone = {
+            {x = -45600, y = -106988, z = 2574}
+        },
         gather_item = "coca_leaf",
         gather_time = 7,
         process_steps = {
@@ -101,34 +100,56 @@ gatherTable = {
             {model = 1160, x = -215479, y = -50969, z = 107, rx = 0, ry = 0, rz = 0},
         }
     },
-    {
-        gather_zone = {x = 232464, y = 193521, z = 112},
+    {-- FISHING
+        gather_zone = {
+            {x = 232464, y = 193521, z = 112},
+            {x = -220130, y = 23036, z = 107},
+        },
         gather_item = "fish",
-        gather_tool = "fishing_rod",
+        require_tool = "fishing_rod",
         gather_animation = "FISHING",
+        gather_time = 6,
         gather_animation_attachement = {modelid = 1111, bone = "hand_r"},
+        sell_zone = {
+            {x = -21295, y = -22954, z = 2080, h = -90, item_to_sell = "fish", price_per_unit = 8, sell_time = 5}
+        }
     },
-    {
-        gather_zone = {x = -96934, y = 7598, z = 2131},
-        gather_item = "unprocessed_rock",
-        gather_tool = "pickaxe",
+    {-- MINING
+        gather_zone = {
+            {x = -101174, y = 98223, z = 180}
+        },
+        gather_item = "iron_ore",
+        require_tool = "pickaxe",
         gather_animation = "PICKAXE_SWING",
+        gather_time = 18,
         gather_animation_attachement = {modelid = 1063, bone = "hand_r"},
         process_steps = {
             {
                 step_zone = {x = -82629, y = 90991, z = 481},
-                step_require = "unprocessed_rock",
+                step_require = "iron_ore",
                 step_require_number = 1,
-                step_processed_item = "processed_rock",
+                step_processed_item = "iron_ingot",
+                step_processed_item_number = 2,
+                step_process_time = 18,
+            },
+            {
+                step_zone = {x = -191437, y = -31107, z = 1148},
+                step_require = "iron_ingot",
+                step_require_number = 2,
+                step_processed_item = "iron_pipe",
                 step_processed_item_number = 1,
-                step_process_time = 15,
+                step_process_time = 30,
             }
+        },
+        sell_zone = {
+            {x = 67862, y = 184741, z = 535, h = 90, item_to_sell = "iron_pipe", price_per_unit = 54, sell_time = 5}
         }
     }
 }
 
 gatherPickupsCached = {}
 processPickupsCached = {}
+sellZoneNpcsCached = {}
 
 local defaultAnimationGather = "PICKUP_LOWER"
 local defaultAnimationProcess = "COMBINE"
@@ -137,8 +158,11 @@ local defaultGatherTime = 8
 AddEvent("OnPackageStart", function()-- Initialize pickups and objects
     for k, v in pairs(gatherTable) do
         if v.gather_zone ~= nil then -- Create pickups for gathering zones
-            v.gatherPickup = CreatePickup(2, v.gather_zone.x, v.gather_zone.y, v.gather_zone.z)
-            CreateText3D(_("gather") .. "\n" .. _("press_e"), 18, v.gather_zone.x, v.gather_zone.y, v.gather_zone.z + 120, 0, 0, 0)
+            v.gatherPickup = {}
+            for k2, v2 in pairs(v.gather_zone) do
+                table.insert(v.gatherPickup, CreatePickup(2, v2.x, v2.y, v2.z))
+                CreateText3D(_("gather") .. "\n" .. _("press_e"), 18, v2.x, v2.y, v2.z + 120, 0, 0, 0)
+            end
             table.insert(gatherPickupsCached, v.gatherPickup)
         end
         
@@ -161,11 +185,19 @@ AddEvent("OnPackageStart", function()-- Initialize pickups and objects
                 end
             end
         end
+        
+        if v.sell_zone ~= nil then -- Create NPC for selling stuff
+            for k2, v2 in pairs(v.sell_zone) do
+                v2.sellNpc = CreateNPC(v2.x, v2.y, v2.z, v2.h)
+                CreateText3D(_("gathering_supplier_of", _(v2.item_to_sell)) .. "\n" .. _("press_e"), 18, v2.x, v2.y, v2.z + 120, 0, 0, 0)
+                table.insert(sellZoneNpcsCached, v2.sellNpc)
+            end
+        end
     end
 end)
 
 AddEvent("OnPlayerJoin", function(player)-- Cache props and pickups client side
-    CallRemoteEvent(player, "gathering:setup", gatherPickupsCached, processPickupsCached)
+    CallRemoteEvent(player, "gathering:setup", gatherPickupsCached, processPickupsCached, sellZoneNpcsCached)
 end)
 
 AddEvent("OnPlayerDeath", function(player)
@@ -188,8 +220,8 @@ end
 --- GATHERING
 AddRemoteEvent("gathering:gather:start", function(player, gatherPickup)-- Start the gathering
     local gather = GetGatherByGatherPickup(gatherPickup)
-    if gatherTable[gather] == nil then return end -- fail check
     
+    if gatherTable[gather] == nil then return end -- fail check
     if GetPlayerBusy(player) then -- Stop gathering
         StopGathering(player, gather)
         CallRemoteEvent(player, "MakeNotification", _("gather_cancelled"), "linear-gradient(to right, #ff5f6d, #ffc371)")
@@ -197,7 +229,7 @@ AddRemoteEvent("gathering:gather:start", function(player, gatherPickup)-- Start 
     end
     
     -- #1 Check for jobs
-    if gatherTable[gather].require_job ~= nil and gatherTable[gather].require_job ~= PlayerData[player].job then
+    if gatherTable[gather].require_job ~= nil and gatherTable[gather].require_job ~= false and gatherTable[gather].require_job ~= PlayerData[player].job then
         CallRemoteEvent(player, "MakeNotification", _("wrong_job", _(gatherTable[gather].require_job)), "linear-gradient(to right, #ff5f6d, #ffc371)")
         return
     end
@@ -276,7 +308,7 @@ AddRemoteEvent("gathering:process:start", function(player, processPickup)
     end
     
     -- #1 Check for jobs
-    if gatherTable[gather[1]].require_job ~= nil and gatherTable[gather[1]].require_job ~= PlayerData[player].job then
+    if gatherTable[gather[1]].require_job ~= nil and gatherTable[gather[1]].require_job ~= false and gatherTable[gather[1]].require_job ~= PlayerData[player].job then
         CallRemoteEvent(player, "MakeNotification", _("wrong_job", _(gatherTable[gather[1]].require_job)), "linear-gradient(to right, #ff5f6d, #ffc371)")
         return
     end
@@ -363,11 +395,42 @@ function StopProcessing(player, gather, process)
 end
 
 
+--- SELLING
+function StartSelling(player, npc)
+    local gather = GetGatherBySellNpc(npc)
+    local item = gatherTable[gather[1]].sell_zone[gather[2]].item_to_sell
+    local time = gatherTable[gather[1]].sell_zone[gather[2]].sell_time
+    local price = gatherTable[gather[1]].sell_zone[gather[2]].price_per_unit
+    if PlayerData[player].inventory[item] ~= nil and PlayerData[player].inventory[item] > 0 then
+        CallRemoteEvent(player, "loadingbar:show", _("selling_of_item", tonumber(PlayerData[player].inventory[item]), _(item)), time)-- LOADING BAR
+        
+        Delay(time * 1000, function()
+            local x, y, z = GetPlayerLocation(player)
+            local x2, y2, z2 = GetNPCLocation(npc)
+            if GetDistance3D(x, y, z, x2, y2, z2) <= 200 then
+                local totalPrice = tonumber(PlayerData[player].inventory[item]) * price
+                CallRemoteEvent(player, "MakeNotification", _("sold_item_for_money", tonumber(PlayerData[player].inventory[item]), _(item), totalPrice), "linear-gradient(to right, #00b09b, #96c93d)")
+                AddPlayerCash(player, totalPrice)
+                RemoveInventory(player, item, tonumber(PlayerData[player].inventory[item]))
+            else
+                CallRemoteEvent(player, "MakeErrorNotification", _("too_far_from_seller"))
+            end
+        end)
+    else
+        CallRemoteEvent(player, "MakeErrorNotification", _("nothing_to_sell"))
+    end
+end
+AddRemoteEvent("gathering:sell:start", StartSelling)
+
+
+
 -- tools
 function GetGatherByGatherPickup(gatherPickup)
     for k, v in pairs(gatherTable) do
-        if v.gatherPickup == gatherPickup then
-            return k
+        for k2, v2 in pairs(v.gatherPickup) do
+            if v2 == gatherPickup then
+                return k
+            end
         end
     end
 end
@@ -384,8 +447,14 @@ function GetGatherByProcessPickup(processPickup)
     end
 end
 
--- DEV MODE
-AddCommand("job", function(player, job)
-    PlayerData[player].job = job
-    AddPlayerChat(player, "Vous êtes maintenant un " .. _(job))
-end)
+function GetGatherBySellNpc(npc)
+    for k, v in pairs(gatherTable) do
+        if v.sell_zone ~= nil then
+            for k2, v2 in pairs(v.sell_zone) do
+                if v2.sellNpc == npc then
+                    return {k, k2}
+                end
+            end
+        end
+    end
+end

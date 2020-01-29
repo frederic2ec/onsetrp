@@ -6,6 +6,8 @@ local Vehicle = nil
 local Volume = 0.3
 
 local Radios = {
+    { label= "NCS #1", url= "https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://51.15.152.81:8947/listen.pls?sid=1&t=.pls" },
+    { label= "NCS #2", url= "https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://91.121.113.129:9115/listen.pls?sid=1&t=.pls" },
     { label= "Metal", url= "https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://5.135.154.69:11590/listen.pls?sid=1&t=.pls" },
     { label= "Reggae", url= "https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://us5.internet-radio.com:8487/listen.pls&t=.pls" },
     { label= "Dance", url= "https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://pulseedm.cdnstream1.com:8124/1373_128.m3u&t=.pls" },
@@ -19,7 +21,7 @@ AddEvent("OnKeyPress", function(key)
     -- Radio ON/OFF    
     if IsCtrlPressed() and key == 'R' and IsPlayerInVehicle() then
         if RadioStatus == 0 then
-            AddPlayerChat(_("radio_radios_availables").." : (ctrl + numpad)")
+            AddPlayerChat(_("radio_radios_availables").." : (CTRL + NUMPAD)")
             for k,v in pairs(Radios) do
                 AddPlayerChat(k..' : '..v.label)            
             end
@@ -42,6 +44,8 @@ AddEvent("OnKeyPress", function(key)
         if key == "Num 3" then channel = 3 end
         if key == "Num 4" then channel = 4 end
         if key == "Num 5" then channel = 5 end
+        if key == "Num 6" then channel = 6 end
+        if key == "Num 7" then channel = 7 end
 
         if channel ~= nil then
             CallRemoteEvent("radio:getplayersinvehicle", RadioStatus, nil, channel)

@@ -23,6 +23,7 @@ function SoundAlarm()
     timerAlarm = CreateTimer(function()
         if alarm ~= nil then DestroySound(alarm) end
         alarm = CreateSound3D("client/files/bankAlarm.mp3", robberyPosition[1], robberyPosition[2], robberyPosition[3], 7000)
+        SetSoundVolume(alarm, 0.5)        
     end, 10000)    
 end
 AddRemoteEvent("RobberySoundAlarm", SoundAlarm)
