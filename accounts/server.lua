@@ -194,6 +194,7 @@ function setPositionAndSpawn(player, position)
         SetPlayerLocation(player, PlayerData[player].position.x, PlayerData[player].position.y, PlayerData[player].position.z + 250) -- Pour empêcher de se retrouver sous la map
     else
         SetPlayerLocation(player, 227603, -65590, 400)
+        SetPlayerHeading(player, 180)
     end
 end
 

@@ -1,0 +1,113 @@
+@font-face {
+    font-family: EncodeSans-Regular;
+    src: url('encode-sans/EncodeSans-Regular.ttf');
+}
+@font-face {
+    font-family: EncodeSans-Bold;
+    src: url('encode-sans/EncodeSans-Bold.ttf');
+}
+
+body {    
+    font-family: EncodeSans-Regular;
+    font-size: 18px;
+    user-select: none;
+}
+
+.stylist-container {
+    position: absolute;
+    right: 0;
+    bottom: 100px;
+    width: 420px;
+    background: #FFF;
+    border-radius: 12px;
+    padding: 0 20px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.part {
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.icon {
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+}
+
+.icon svg {
+    height: 36px;
+    width: 36px;
+}
+
+.chevron-left, .chevron-right {
+    width: 36px;
+    border: 1px solid #CDD9ED;
+    height: 36px;
+    display: inline-block;
+    text-align: center;
+    line-height: 36px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.chevron-left svg, .chevron-right svg {
+    height: 20px;
+    margin-top: 8px;
+}
+
+.chevron-left svg {
+    transform: rotate(180deg)
+}
+
+.chevron-left {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0;
+    margin-left: 20px;
+}
+
+.chevron-right {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+}
+
+.mech-name {
+    border: 1px solid #CDD9ED;
+    height: 36px;
+    display: inline-block;
+    text-align: center;
+    line-height: 36px;
+    flex: 1;
+}
+
+.btn {
+    background: #06d2f2;
+    color: #FFF;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    position: relative;
+    white-space: nowrap;
+    border: none;
+    padding: 9px 24px;
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all .3s ease;
+    width: 100%;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.btn.btn-cancel {
+    background: #CDD9ED;
+    color: #6C7486;
+}

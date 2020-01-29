@@ -175,6 +175,11 @@
         "hud/pinmap/client/web/fonts/Roboto-Light.ttf",
         "loading-bar/files/loading-bar.html",
         "shortcuts/index.html",
-        "shortcuts/main.css"
+        "shortcuts/main.css",
+        "stylist/ui/index.html",
+        "stylist/ui/main.js",
+        "stylist/ui/main.css",
+        "stylist/ui/encode-sans/EncodeSans-Bold.ttf",
+        "stylist/ui/encode-sans/EncodeSans-Regular.ttf"
     ]
 }
