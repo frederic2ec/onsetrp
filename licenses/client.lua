@@ -43,7 +43,7 @@ function GetNearestLicenseNpc()
         local x2, y2, z2 = GetNPCLocation(npcId)
 		local dist = GetDistance3D(x, y, z, x2, y2, z2)
 
-		if dist < 250.0 then
+		if dist < 350.0 then
             if npcId == licenseNpcId then
                 return npcId
             end
