@@ -8,6 +8,8 @@ StylistNPCTable = {
 	}
 }
 
+local PLAYER_SPAWN_POINT = {x = 204094, y = 180846, z = 1500}
+
 -- Event ----------------------------------------------------
 
 AddEvent("OnPackageStart", function()
@@ -59,31 +61,43 @@ AddRemoteEvent("startModify", function(player, isCreation)
 	CallRemoteEvent(player, "openModify", hairsModel, shirtsModel, pantsModel, shoesModel, hairsColor, currentClothes, isCreation)
 end)
 
-AddRemoteEvent("ModifyEvent", function(player, hairsChoice, shirtsChoice, pantsChoice, shoesChoice, colorChoice)
-local clothesRequest = "[\""..hairsModel[hairsChoice].."\",\""..colorChoice.."\",\""..shirtsModel[shirtsChoice].."\",\""..pantsModel[pantsChoice].."\",\""..shoesModel[shoesChoice].."\"]"
-	if GetPlayerCash(player) < 200 then
-		return CallRemoteEvent(player, "MakeNotification", _("not_enought_cash"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+AddRemoteEvent("ModifyEvent", function(player, hairsChoice, shirtsChoice, pantsChoice, shoesChoice, colorChoice, skinChoice)
+	local colorChoice = colorChoice or PlayerData[player].clothing[5]
+	local skinChoice = skinChoice or PlayerData[player].clothing[6]
+
+	local clothesRequest = "[\""..hairsChoice.."\",\""..colorChoice.."\",\""..shirtsChoice.."\",\""..pantsChoice.."\",\""..shoesChoice.."\",\""..skinChoice.."\"]"
+	
+	if PlayerData[player].created == 0 then
+		PlayerData[player].created = 1
 	else
-		RemovePlayerCash(player, 200)
-		CallRemoteEvent(player, "MakeNotification", _("clothes_changed"), "linear-gradient(to right, #00b09b, #96c93d)")
+		if GetPlayerCash(player) < 200 then
+			return CallRemoteEvent(player, "MakeNotification", _("not_enought_cash"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+		else
+			RemovePlayerCash(player, 200)
+			CallRemoteEvent(player, "MakeNotification", _("clothes_changed"), "linear-gradient(to right, #00b09b, #96c93d)")
+		end
 	end
 
-
-	local query = mariadb_prepare(sql, "UPDATE accounts SET clothing = '?' WHERE id = ? LIMIT 1;",
+	local query = mariadb_prepare(sql, "UPDATE accounts SET clothing = '?', created = 1 WHERE id = ? LIMIT 1;",
 		clothesRequest,
-		splayer
+		player
 	)
         
 	mariadb_query(sql, query)
 	
-	-- PlayerData[player].clothing = {}
-	-- table.insert(PlayerData[player].clothing, hairsModel[hairsChoice])
-    -- table.insert(PlayerData[player].clothing, colorChoice)
-    -- table.insert(PlayerData[player].clothing, shirtsModel[shirtsChoice])
-    -- table.insert(PlayerData[player].clothing, pantsModel[pantsChoice])
-    -- table.insert(PlayerData[player].clothing, shoesModel[shoesChoice])
+	PlayerData[player].clothing = {}
+	table.insert(PlayerData[player].clothing, hairsChoice)
+    table.insert(PlayerData[player].clothing, colorChoice)
+    table.insert(PlayerData[player].clothing, shirtsChoice)
+    table.insert(PlayerData[player].clothing, pantsChoice)
+    table.insert(PlayerData[player].clothing, shoesChoice)
+	table.insert(PlayerData[player].clothing, skinChoice)
+
+	SetPlayerDimension(player, 1)
+	SetPlayerNotBusy(player)
 
 	UpdateClothes(player)
+    SetPlayerLocation(player, PLAYER_SPAWN_POINT.x, PLAYER_SPAWN_POINT.y, PLAYER_SPAWN_POINT.z)
 	SavePlayerAccount(player)
 end)
 

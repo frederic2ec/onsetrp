@@ -37,7 +37,7 @@ function displayStylist() {
 
         for (let partIndex = 0; partIndex < parts[part].length; partIndex++) {
             let mech = parts[part][partIndex];
-            if (mech.name == current[part]) {
+            if (mech.part == current[part]) {
                 currentIndex[part] = partIndex
             }
         }
@@ -51,7 +51,7 @@ function displayStylist() {
 
             let currentPart = parts[part][currentIndex[part]]
 
-            current[part] = currentPart.name
+            current[part] = currentPart.part
 
             mech.innerText = currentPart.label
 
@@ -67,11 +67,11 @@ function displayStylist() {
 
             let currentPart = parts[part][currentIndex[part]]
 
-            current[part] = currentPart.name
+            current[part] = currentPart.part
 
             mech.innerText = currentPart.label
 
-            window.ue.game.callevent("MechPreview", JSON.stringify([current['hair'], current['haircolors'], current['tops'], current['trousers'], current['shoes'], current['skins']]))
+            window.ue.game.callevent("MechPreview", JSON.stringify([part,  currentPart.name]))
         })
 
         partDiv.append(iconDiv)
@@ -79,14 +79,9 @@ function displayStylist() {
         partDiv.append(mech)
         partDiv.append(chevronRight)
 
-        console.log(part)
-        console.log(parts[part])
-        console.log(currentIndex)
-        console.log(currentIndex[part])
-
         let currentPart = parts[part][currentIndex[part]]
 
-        current[part] = currentPart.name
+        current[part] = currentPart.part
 
         mech.innerText = currentPart.label
 
@@ -101,7 +96,7 @@ function displayStylist() {
     document.getElementById('stylist-container').append(saveBtn)
 
     saveBtn.addEventListener('click', function() {
-        window.ue.game.callevent("SaveCharacterStyle", JSON.stringify([part,  currentPart.name]))
+        window.ue.game.callevent("SaveCharacterStyle", JSON.stringify([current.hair, current.haircolors, current.tops, current.trousers, current.shoes, current.skins]))
     })
 
     if (canCancel) {

@@ -89,14 +89,11 @@ AddEvent("OnKeyRelease", function(key)
 end)
 
 AddEvent("OnKeyPress", function(key)
-    -- if key == INTERACT_KEY and not GetPlayerBusy() then
-    --     local NeareststylistNPC = GetNeareststylistNPC()
-	-- 	if NeareststylistNPC ~= 0 then
-			-- CallRemoteEvent("stylistInteract", NeareststylistNPC)
-	-- 	end
-	-- end
-	if key == "P" then
-		StartStylist(isCreation, true)
+    if key == INTERACT_KEY and not GetPlayerBusy() then
+        local NeareststylistNPC = GetNeareststylistNPC()
+		if NeareststylistNPC ~= 0 then
+			StartStylist(isCreation, true)
+		end
 	end
 
 	if key == "A" and isEditingClothes then
@@ -134,6 +131,18 @@ end)
 
 AddRemoteEvent("openStylist", function()
 	-- Dialog.show(stylistNPC)
+end)
+
+AddEvent("SaveCharacterStyle", function(hair, haircolors, tops, trousers, shoes, skins)
+	SetIgnoreLookInput(false)
+    SetIgnoreMoveInput(false)
+    ShowMouseCursor(false)
+    SetInputMode(INPUT_GAME)
+	SetWebVisibility(stylistUI, WEB_HIDDEN)
+
+	isEditingClothes = false
+	
+	CallRemoteEvent("ModifyEvent", hair, tops, trousers, shoes, haircolors, skins)
 end)
 
 AddEvent("MechPreview", function(part, piece)
@@ -177,27 +186,27 @@ AddRemoteEvent("openModify", function(currentClothes, isCreation)
 	local isCreation = isCreation or false
 	
 	for k,v in pairs(hairsModel) do
-		table.insert(labels.hair, { label = _("clothes_"..k), name = v })
+		table.insert(labels.hair, { label = _("clothes_"..k), name = v, part = k })
 	end
 	
     for k,v in pairs(hairsColor) do
-		table.insert(labels.haircolors, { label = _(k), name = k })
+		table.insert(labels.haircolors, { label = _(k), name = k, part = k })
 	end
 	
 	for k,v in pairs(shirtsModel) do
-		table.insert(labels.tops, { label = _("clothes_"..k), name = v })
+		table.insert(labels.tops, { label = _("clothes_"..k), name = v, part = k })
 	end
 	
     for k,v in pairs(pantsModel) do
-		table.insert(labels.trousers, { label = _("clothes_"..k), name = v })
+		table.insert(labels.trousers, { label = _("clothes_"..k), name = v, part = k })
 	end
 	
     for k,v in pairs(shoesModel) do
-		table.insert(labels.shoes, { label = _("clothes_"..k), name = v })
+		table.insert(labels.shoes, { label = _("clothes_"..k), name = v, part = k })
 	end
 	
     for k,v in pairs(skinColor) do
-		table.insert(labels.skins, { label = _(k), name = k })
+		table.insert(labels.skins, { label = _(k), name = k, part = k })
 	end
 
 	SetIgnoreLookInput(true)
