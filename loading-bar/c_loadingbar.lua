@@ -11,7 +11,7 @@ AddEvent("OnPackageStart", function()
 end)
 
 AddRemoteEvent("loadingbar:show", function(activity, timer)
-    ExecuteWebJS(LoadingBarHUD, "CreateLoading('"..activity.."', "..timer..");")
+    ExecuteWebJS(LoadingBarHUD, 'CreateLoading("'..activity..'", '..timer..');')
 end)
 
 AddRemoteEvent("loadingbar:hide", function()

@@ -139,8 +139,6 @@ function OnAccountLoaded(player)
         PlayerData[player].clothing = json_decode(result['clothing'])
         PlayerData[player].police = math.tointeger(result['police'])
         PlayerData[player].medic = math.tointeger(result['medic'])
-        PlayerData[player].health_state = "alive"
-        PlayerData[player].death_pos = json_decode(result['death_pos'])
         PlayerData[player].driver_license = math.tointeger(result['driver_license'])
         PlayerData[player].gun_license = math.tointeger(result['gun_license'])
         PlayerData[player].helicopter_license = math.tointeger(result['helicopter_license'])
@@ -150,6 +148,7 @@ function OnAccountLoaded(player)
         PlayerData[player].drug_knowledge = json_decode(result['drug_knowledge'])
         PlayerData[player].job = result['job']
         PlayerData[player].is_cuffed = math.tointeger(result['is_cuffed'])
+        PlayerData[player].health = math.tointeger(result['health'])
         
         if result['phone_number'] and result['phone_number'] ~= "" then
             PlayerData[player].phone_number = tostring(result['phone_number'])
@@ -157,14 +156,15 @@ function OnAccountLoaded(player)
             SetAvailablePhoneNumber(player)
         end
         
-        SetPlayerHealth(player, tonumber(result['health']))
         SetPlayerArmor(player, tonumber(result['armor']))
         setPlayerThirst(player, tonumber(result['thirst']))
         setPlayerHunger(player, tonumber(result['hunger']))
         setPositionAndSpawn(player, PlayerData[player].position)
         
         SetPlayerLoggedIn(player)
-        
+
+        CallEvent("job:onspawn", player)-- Trigger the loading of jobs when player is fully loaded (have to be set up for each jobs)
+
         if PlayerData[player].created == 0 then
             CallRemoteEvent(player, "askClientCreation")
         else
@@ -178,17 +178,12 @@ function OnAccountLoaded(player)
             DisplayPlayerBackpack(player)
         -- CallRemoteEvent(player, "AskSpawnMenu")
         end
-        
         LoadPlayerPhoneContacts(player)
-        
-        CallEvent("job:onspawn", player)-- Trigger the loading of jobs when player is fully loaded (have to be set up for each jobs)
-        
         print("Account ID " .. PlayerData[player].accountid .. " loaded for " .. GetPlayerIP(player))
     end
 end
 
 function setPositionAndSpawn(player, position)
-    SetPlayerSpawnLocation(player, 227603, -65590, 400, 0)
     if position ~= nil and position.x ~= nil and position.y ~= nil and position.z ~= nil then
         SetPlayerLocation(player, PlayerData[player].position.x, PlayerData[player].position.y, PlayerData[player].position.z + 250)-- Pour empêcher de se retrouver sous la map
     else
@@ -250,13 +245,12 @@ function CreatePlayerData(player)
     PlayerData[player].steamname = ""
     PlayerData[player].thirst = 100
     PlayerData[player].hunger = 100
+    PlayerData[player].health = 100
     PlayerData[player].bank_balance = 900
     PlayerData[player].job_vehicle = nil
     PlayerData[player].job = ""
     PlayerData[player].phone_contacts = {}
     PlayerData[player].phone_number = {}
-    PlayerData[player].health_state = "alive"
-    PlayerData[player].death_pos = {}
     PlayerData[player].position = {}
     PlayerData[player].backpack = nil
     PlayerData[player].drug_knowledge = {}
@@ -295,16 +289,16 @@ function SavePlayerAccount(player)
     end
     
     
+    PlayerData[player].health = GetPlayerHealth(player)
+    
     -- Sauvegarde de la position du joueur
     local x, y, z = GetPlayerLocation(player)
     PlayerData[player].position = {x = x, y = y, z = z}
     
-    local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, bank_balance = ?, health = ?, health_state = '?', death_pos = '?', armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', inventory = '?', created = '?', position = '?', driver_license = ?, gun_license = ?, helicopter_license = ?, drug_knowledge = '?', job = '?', is_cuffed = ? WHERE id = ? LIMIT 1;",
+    local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', inventory = '?', created = '?', position = '?', driver_license = ?, gun_license = ?, helicopter_license = ?, drug_knowledge = '?', job = '?', is_cuffed = ? WHERE id = ? LIMIT 1;",
         PlayerData[player].admin,
         PlayerData[player].bank_balance,
-        100,
-        PlayerData[player].health_state,
-        json_encode(PlayerData[player].death_pos),
+        PlayerData[player].health,
         GetPlayerArmor(player),
         PlayerData[player].hunger,
         PlayerData[player].thirst,

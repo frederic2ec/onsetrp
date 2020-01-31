@@ -15,7 +15,6 @@ AddRemoteEvent("ServerSpawnMenu", function(player)
     if(PlayerData[player].health_state == "revived") then
 	PlayerData[player].health_state = "alive"
 	SetPlayerHealth(player, 50)
-	SetPlayerSpawnLocation(player, 227603, -65590, 237, 0 )
     elseif(PlayerData[player].health_state == "no_medic") then
 	PlayerData[player].health_state = "alive"
 	SetPlayerHealth(player, 100)

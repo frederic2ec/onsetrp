@@ -162,13 +162,13 @@ function RemovePoliceEquipmentFromPlayer(player)-- To remove police equipment fr
         SetPlayerWeapon(player, 1, 0, true, 3, false)
     end
     if GetNumberOfItem(player, "handcuffs") > 0 then -- If the player doesnt have handcuffs we give it to him
-        RemoveInventory(player, "handcuffs", 1)
+        RemoveInventory(player, "handcuffs", 3)
     end
 end
 
 AddEvent("job:onspawn", function(player)
     if PlayerData[player].job == "police" and PlayerData[player].police == 1 then -- Anti glitch
-        GivePoliceEquipmentToPlayer(player)
+        --GivePoliceEquipmentToPlayer(player)
         SetPlayerPropertyValue(player, "Police:IsOnDuty", true, true)
     end
     

@@ -108,15 +108,6 @@ AddRemoteEvent("UseInventory", function(player, originPlayer, itemName, amount, 
             if itemName == "donut" or  itemName == "apple" or itemName == "peach" or itemName == "water_bottle" or itemName == "fish" then
                 UseItem(player, originPlayer, item, amount)
             end
-            if itemName == "health_kit" then
-                if GetPlayerHealth(player) == 100 then
-                    CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_slots"))
-                else
-                    SetPlayerAnimation(player, "COMBINE")
-                    RemoveInventory(originPlayer, itemName, amount)
-                    SetPlayerHealth(player, 100)
-                end
-            end
             if itemName == "repair_kit" then
                 local nearestCar = GetNearestCar(player)
                 if nearestCar ~= 0 then
@@ -212,6 +203,7 @@ AddRemoteEvent("UseInventory", function(player, originPlayer, itemName, amount, 
                     end
                 end
             end
+            CallEvent("job:usespecialitem", player, itemName) -- REDIRECT TO JOBS SCRIPT TO USE ITEM
         end
     end
 end)

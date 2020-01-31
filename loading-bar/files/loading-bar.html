@@ -86,8 +86,8 @@
 
         var body = document.querySelector('body'),
             bar = document.querySelector('.progress-bar'),
-            labelContainer = document.querySelector('.label-container')
-        label = document.querySelector('.label-container .label')
+            labelContainer = document.querySelector('.label-container'),
+            label = document.querySelector('.label-container .label')
 
         function CreateLoading(activity, seconds) {
             if (interval != null) clearInterval(interval);
@@ -118,8 +118,6 @@
             interval = null;
             return;
         }
-
-        // CreateLoading('Récolte de pêche', 10);
     </script>
 </body>
 
