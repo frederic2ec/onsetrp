@@ -65,18 +65,18 @@ AddEvent("OnPlayerJoin", function(player)
 end)
 
 --------- SERVICE AND EQUIPMENT
-function StartStopService(player)
+function PoliceStartStopService(player)
     if PlayerData[player].job == "" then
-        StartService(player)
+        PoliceStartService(player)
     elseif PlayerData[player].job == "police" then
-        EndService(player)
+        PoliceEndService(player)
     else
         CallRemoteEvent(player, "MakeErrorNotification", _("please_leave_previous_job"))
     end
 end
-AddRemoteEvent("police:startstopservice", StartStopService)
+AddRemoteEvent("police:startstopservice", PoliceStartStopService)
 
-function StartService(player)-- To start the police service
+function PoliceStartService(player)-- To start the police service
     -- #1 Check for the police whitelist of the player
     if PlayerData[player].police ~= 1 then
         CallRemoteEvent(player, "MakeErrorNotification", _("not_whitelisted"))
@@ -113,7 +113,7 @@ function StartService(player)-- To start the police service
     return true
 end
 
-function EndService(player)-- To end the police service
+function PoliceEndService(player)-- To end the police service
     -- #1 Remove police equipment
     RemovePoliceEquipmentFromPlayer(player)
     if PlayerData[player].job_vehicle ~= nil then
@@ -219,7 +219,7 @@ function SpawnPoliceCar(player)
     
     -- #3 Try to spawn the vehicle
     if PlayerData[player].job_vehicle == nil then
-        local spawnPoint = VEHICLE_SPAWN_LOCATION[GetClosestSpawnPoint(player)]
+        local spawnPoint = VEHICLE_SPAWN_LOCATION[PoliceGetClosestSpawnPoint(player)]
         if spawnPoint == nil then return end
         for k, v in pairs(GetStreamedVehiclesForPlayer(player)) do
             local x, y, z = GetVehicleLocation(v)
@@ -345,18 +345,18 @@ function AddFineInDb(player, target, amount, reason)
     CallRemoteEvent(target, "MakeNotification", _("fine_received", amount), "linear-gradient(to right, #00b09b, #96c93d)")
 end
 
-function PutPlayerInCar(player)
+function PolicePutPlayerInCar(player)
     if PlayerData[player].police ~= 1 then return end
     if PlayerData[player].job ~= "police" then return end
     
     local target = GetNearestPlayer(player, 200)
     if target ~= nil then
-        SetPlayerInCar(player, target)
+        PoliceSetPlayerInCar(player, target)
     end
 end
-AddRemoteEvent("police:playerincar", PutPlayerInCar)
+AddRemoteEvent("police:playerincar", PolicePutPlayerInCar)
 
-function SetPlayerInCar(player, target)
+function PoliceSetPlayerInCar(player, target)
     if PlayerData[player].job_vehicle == nil then return end
     local x, y, z = GetVehicleLocation(PlayerData[player].job_vehicle)
     local x2, y2, z2 = GetPlayerLocation(target)
@@ -376,7 +376,7 @@ function SetPlayerInCar(player, target)
     end
 end
 
-function RemovePlayerInCar(player)
+function PoliceRemovePlayerInCar(player)
     if PlayerData[player].police ~= 1 then return end
     if PlayerData[player].job ~= "police" then return end
     if PlayerData[player].job_vehicle == nil then return end
@@ -394,7 +394,7 @@ function RemovePlayerInCar(player)
         CallRemoteEvent(player, "MakeNotification", _("policecar_player_remove_from_car"), "linear-gradient(to right, #00b09b, #96c93d)")
     end
 end
-AddRemoteEvent("police:removeplayerincar", RemovePlayerInCar)
+AddRemoteEvent("police:removeplayerincar", PoliceRemovePlayerInCar)
 
 function FriskPlayer(player)
     print('frisk')
@@ -461,7 +461,7 @@ function GetNearestPlayer(player, maxDist)
     return closestPlayer
 end
 
-function GetClosestSpawnPoint(player)
+function PoliceGetClosestSpawnPoint(player)
     local x, y, z = GetPlayerLocation(player)
     local closestSpawnPoint
     local dist
