@@ -167,9 +167,11 @@ function RemoveMedicEquipmentToPlayer(player)-- remove equipment from a medic
 end
 
 AddEvent("job:onspawn", function(player)-- when player is fully loaded    
+    print('ONSPAWN', player,PlayerData[player].job, PlayerData[player].medic)
     if PlayerData[player].job == "medic" and PlayerData[player].medic == 1 then -- Anti glitch
         SetPlayerPropertyValue(player, "Medic:IsOnDuty", true, true)
     end
+    print('ONDUTY', GetPlayerPropertyValue(player, "Medic:IsOnDuty"))
     
     if PlayerData[player].health ~= nil then
         SetPlayerHealth(player, PlayerData[player].health)
