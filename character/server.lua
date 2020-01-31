@@ -59,10 +59,12 @@ defaultCharacter = {
 
 AddRemoteEvent("ServerCharacterCreation", function(player)
     local color = hairsColor[defaultCharacter.haircolors]
+    local skin = skinColor[defaultCharacter.skins]
     CallRemoteEvent(player, "ClientChangeClothing", player, 0, hairsModel[defaultCharacter.hair], color[1], color[2], color[3], color[4])
     CallRemoteEvent(player, "ClientChangeClothing", player, 1, shirtsModel[defaultCharacter.tops], 0, 0, 0, 0)
     CallRemoteEvent(player, "ClientChangeClothing", player, 4, pantsModel[defaultCharacter.trousers], 0, 0, 0, 0)
     CallRemoteEvent(player, "ClientChangeClothing", player, 5, shoesModel[defaultCharacter.shoes], 0, 0, 0, 0)
+    CallRemoteEvent(player, "ClientChangeClothing", player, 6, "noShoesLegsTorso", skin[1], skin[2], skin[3], skin[4])
 
     CallRemoteEvent(player, "openModify", defaultCharacter, true)
 end)

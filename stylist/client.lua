@@ -83,8 +83,10 @@ AddEvent("OnTranslationReady", function()
 end)
 
 AddEvent("OnKeyRelease", function(key)
-	if key == "A" or key == "D" then
-		DestroyTimer(rotatingInterval)
+	if isEditingClothes and (key == "A" or key == "D") then
+		if rotatingInterval then
+			DestroyTimer(rotatingInterval)
+		end
 	end
 end)
 
