@@ -227,5 +227,4 @@ end
 
 AddRemoteEvent("character:playerrdytospawn", function(player)
     SetPlayerLocation(player, PLAYER_SPAWN_POINT.x, PLAYER_SPAWN_POINT.y, PLAYER_SPAWN_POINT.z) -- MOTEL
-    SetPlayerSpawnLocation(player, 212124, 159055, 1305, 90) -- HOSPITAL
 end)

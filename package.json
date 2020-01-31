@@ -3,7 +3,6 @@
     "version": "1.0",
     "server_scripts": [
         "misc/s_database.lua",
-        "misc/tazer.lua",
         "accounts/server.lua",
         "chat/server.lua",
         "hud/server.lua",
@@ -30,10 +29,8 @@
         "police/s_police.lua",
         "stylist/server.lua",
         "idcard/server.lua",
-        "medic/server.lua",
         "licenses/server.lua",
         "onset-phone/server.lua",
-        "transport/s_busstop.lua",
         "burdigalax/server/inventory.lua",
         "robbery/server.lua",
         "salary/server.lua",
@@ -41,7 +38,9 @@
         "hud/pinmap/server/main.lua",
         "vehicle/ragP/server.lua",
         "vehicle/ragP/settings.lua",
-        "animation/pickndrop_s.lua"
+        "animation/pickndrop_s.lua",
+        "medic/s_medic.lua",
+        "medic/s_damage.lua"
     ],
     "client_scripts": [
         "keys/c_config.lua",
@@ -75,9 +74,7 @@
         "stylist/client.lua",
         "onset-phone/client.lua",
         "idcard/client.lua",
-        "medic/client.lua",
         "licenses/client.lua",
-        "transport/c_busstop.lua",
         "burdigalax/client/inventory.lua",
         "burdigalax/client/gasStation.lua",
         "vehicle_radio/client.lua",
@@ -85,7 +82,10 @@
         "hud/pinmap/client/main.lua",
         "vehicle/ragP/client.lua",
         "loading-bar/c_loadingbar.lua",
-        "shortcuts/client.lua"
+        "shortcuts/client.lua",
+        "medic/c_medic.lua",
+        "medic/c_damage.lua",
+        "chat/client.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",
@@ -180,6 +180,7 @@
         "stylist/ui/main.js",
         "stylist/ui/main.css",
         "stylist/ui/encode-sans/EncodeSans-Bold.ttf",
-        "stylist/ui/encode-sans/EncodeSans-Regular.ttf"
+        "stylist/ui/encode-sans/EncodeSans-Regular.ttf",
+        "medic/files/revivescreen.html"
     ]
 }

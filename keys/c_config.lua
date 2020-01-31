@@ -22,6 +22,7 @@ VEHICLE_ENGINE_KEY = "X" -- To toggle vehicle engine
 VEHICLE_TRUNK_KEY = "O" -- To open the vehicle trunk
 VEHICLE_HOOD_KEY = "I" -- To open the vehicle hood
 ADMIN_MENU_KEY = "N" -- To show the admin menu
+TOGGLE_CHAT_KEY = "Num /" -- To toggle the chat
 
 function GetAllKeybinds()
     return {
