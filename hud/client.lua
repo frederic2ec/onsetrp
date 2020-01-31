@@ -83,14 +83,14 @@ function hideRPHud()
     SetWebVisibility(HungerFoodHud, WEB_HIDDEN)
     SetWebVisibility(ThirstHud, WEB_HIDDEN)
     SetWebVisibility(HealthHud, WEB_HIDDEN)
-    SetWebVisibility(SpeakingHud, WEB_HIDDEN)
+    --SetWebVisibility(SpeakingHud, WEB_HIDDEN)
 end
 
 function showRPHud()
     SetWebVisibility(HungerFoodHud, WEB_HITINVISIBLE)
     SetWebVisibility(ThirstHud, WEB_HITINVISIBLE)
     SetWebVisibility(HealthHud, WEB_HITINVISIBLE)
-    SetWebVisibility(SpeakingHud, WEB_HITINVISIBLE)
+    --SetWebVisibility(SpeakingHud, WEB_HITINVISIBLE)
 end
 
 AddFunctionExport("hideRPHud", hideRPHud)
