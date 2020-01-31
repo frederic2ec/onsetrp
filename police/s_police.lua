@@ -167,6 +167,7 @@ function RemovePoliceEquipmentFromPlayer(player)-- To remove police equipment fr
 end
 
 AddEvent("job:onspawn", function(player)
+    print('JOB:ONSPAWN POLICE', player)
     if PlayerData[player].job == "police" and PlayerData[player].police == 1 then -- Anti glitch
         --GivePoliceEquipmentToPlayer(player)
         SetPlayerPropertyValue(player, "Police:IsOnDuty", true, true)
@@ -175,6 +176,7 @@ AddEvent("job:onspawn", function(player)
     if PlayerData[player].is_cuffed == 1 then
         SetPlayerCuffed(player, true)
     end
+    print('JOB:ONSPAWN POLICE', GetPlayerPropertyValue(player, "Police:IsOnDuty"))
 end)
 
 AddEvent("police:refreshcuff", function(player)

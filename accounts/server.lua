@@ -159,11 +159,12 @@ function OnAccountLoaded(player)
         SetPlayerArmor(player, tonumber(result['armor']))
         setPlayerThirst(player, tonumber(result['thirst']))
         setPlayerHunger(player, tonumber(result['hunger']))
+
+        CallEvent("job:onspawn", player)-- Trigger the loading of jobs when player is fully loaded (have to be set up for each jobs)
+
         setPositionAndSpawn(player, PlayerData[player].position)
         
         SetPlayerLoggedIn(player)
-
-        CallEvent("job:onspawn", player)-- Trigger the loading of jobs when player is fully loaded (have to be set up for each jobs)
 
         if PlayerData[player].created == 0 then
             CallRemoteEvent(player, "askClientCreation")
