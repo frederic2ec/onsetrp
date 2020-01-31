@@ -86,7 +86,8 @@
         "loading-bar/c_loadingbar.lua",
         "shortcuts/client.lua",
         "medic/c_medic.lua",
-        "medic/c_damage.lua"
+        "medic/c_damage.lua",
+        "chat/client.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",

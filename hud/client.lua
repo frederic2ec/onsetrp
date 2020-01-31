@@ -5,7 +5,7 @@ local HungerFoodHud
 local ThirstHud
 local HealthHud
 local VehicleHud
-local SpeakingHud
+-- local SpeakingHud
 
 personalMenuIsOpen = 0
 
@@ -34,11 +34,11 @@ function OnPackageStart()
 	LoadWebFile(VehicleHud, "http://asset/onsetrp/hud/vehicle/index.html")
     SetWebVisibility(VehicleHud, WEB_HIDDEN)
 
-    SpeakingHud = CreateWebUI( 0, 0, 0, 0, 0, 48 )
-    LoadWebFile( SpeakingHud, "http://asset/onsetrp/hud/speaking/hud.html" )
-    SetWebAlignment( SpeakingHud, 0, 0 )
-    SetWebAnchors( SpeakingHud, 0, 0, 1, 1 )
-    SetWebVisibility( SpeakingHud, WEB_HITINVISIBLE )
+    -- SpeakingHud = CreateWebUI( 0, 0, 0, 0, 0, 48 )
+    -- LoadWebFile( SpeakingHud, "http://asset/onsetrp/hud/speaking/hud.html" )
+    -- SetWebAlignment( SpeakingHud, 0, 0 )
+    -- SetWebAnchors( SpeakingHud, 0, 0, 1, 1 )
+    -- SetWebVisibility( SpeakingHud, WEB_HITINVISIBLE )
     
 	ShowHealthHUD(false)
     ShowWeaponHUD(false)
@@ -69,15 +69,15 @@ end
 
 CreateTimer(function()
     --Speaking icon check
-    local player = GetPlayerId()
-    if IsPlayerTalking(player) then
-        SetWebVisibility(SpeakingHud, WEB_HITINVISIBLE)
-    else
-        SetWebVisibility(SpeakingHud, WEB_HIDDEN)
-    end
+    -- local player = GetPlayerId()
+    -- if IsPlayerTalking(player) then
+    --     SetWebVisibility(SpeakingHud, WEB_HITINVISIBLE)
+    -- else
+    --     SetWebVisibility(SpeakingHud, WEB_HIDDEN)
+    -- end
     -- Hud refresh
     updateHud()
-end, 100)
+end, 500)
 
 function hideRPHud()
     SetWebVisibility(HungerFoodHud, WEB_HIDDEN)
