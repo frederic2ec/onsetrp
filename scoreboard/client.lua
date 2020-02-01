@@ -12,7 +12,8 @@ end
 AddEvent("OnPackageStart", Scoreboard_OnPackageStart)
 
 function Scoreboard_OnKeyPress(key)
-  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")  
+  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin") 
+  print('IsAdmin ?', IsAdmin) 
   if key == 'Tab' and IsAdmin == 1 then
     CallRemoteEvent('RequestScoreboardUpdate')
     SetInputMode(INPUT_GAMEANDUI)
