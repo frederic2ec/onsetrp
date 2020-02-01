@@ -116,7 +116,7 @@ AddRemoteEvent("ClientChangeClothing", function(player, part, piece, r, g, b, a)
         pieceName = piece
     elseif part == 6 then
         SkeletalMeshComponent = GetPlayerSkeletalMeshComponent(player, "Body")
-        SkeletalMeshComponent:SetMaterial(3, UMaterialInterface.LoadFromAsset(piece))
+        SkeletalMeshComponent:SetMaterial(3, UMaterialInterface.LoadFromAsset(BodyMaterial[piece]))
 		SkeletalMeshComponent:SetColorParameterOnMaterials("Skin Color", FLinearColor(r or 0, g or 0, b or 0, a or 0))
     end
     if pieceName ~= nil then
