@@ -60,10 +60,9 @@ end)
 
 AddRemoteEvent("askClientCreation", function() 
     isCreated = false
-    print("askClientCreation")
-    print("askClientCreation")
-    print("askClientCreation")
-    print("askClientCreation")
+    SetIgnoreLookInput(true)
+    SetIgnoreMoveInput(true)
+    ShowMouseCursor(true)
     Dialog.show(characterCreation)
 end)
 
