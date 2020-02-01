@@ -4,6 +4,28 @@ local MAX_POLICE = 10 -- Number of policemens at the same time
 local ALLOW_RESPAWN_VEHICLE = true -- Allow the respawn of the vehicle by destroying the previously spawned one. (Can break RP if the car is stolen or need repairs or fuel)
 local NB_HANDCUFFS = 3
 
+--- PLAN B EN CAS DE FPS EN DELIRE AVEC LE MOD DE SALSI
+-- local VEHICLE_SPAWN_LOCATION = {
+--     {x = 189301, y = 206802, z = 1320, h = 220},
+-- }
+
+-- local POLICE_SERVICE_NPC = {
+--     {x = 188941, y = 207122, z = 1307, h = 0},
+-- }
+
+-- local POLICE_VEHICLE_NPC = {
+--     {x = 189696, y = 206544, z = 1307, h = 180},
+-- }
+
+-- local POLICE_GARAGE = {
+--     {x = 197007, y = 205898, z = 1321},
+-- }
+
+-- local POLICE_EQUIPMENT_NPC = {
+--     {x = 188502, y = 207175, z = 1308, h = 180},
+-- }
+--- PLAN B EN CAS DE FPS EN DELIRE AVEC LE MOD DE SALSI
+
 local VEHICLE_SPAWN_LOCATION = {
     {x = 189301, y = 206802, z = 1320, h = 220},
     {x = -173007, y = -65864, z = 1130, h = -90},
