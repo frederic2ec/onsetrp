@@ -71,6 +71,10 @@ AddRemoteEvent("ServerCharacterCreation", function(player)
     CallRemoteEvent(player, "askClientCreation")
     -- CallRemoteEvent(player, "openModify", defaultCharacter, true)
 end)
+AddCommand("newchar", function(player)
+    CallRemoteEvent(player, "openCharacterCreation", hairsModel, shirtsModel, pantsModel, shoesModel, hairsColor)
+end)
+
 
 AddRemoteEvent("CharacterCreated", function(player, firstname, lastname, age)
     PlayerData[player].name = firstname.." "..lastname

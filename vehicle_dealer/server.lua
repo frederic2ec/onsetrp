@@ -4,63 +4,78 @@ CarDealerObjectsCached = { }
 CarDealerTable = {
     {
 		vehicles = {
-			vehicle_1 = 3000,
-			vehicle_4 = 3000,
-			vehicle_5 = 3000,
-			vehicle_6 = 10000,
-			vehicle_7 = 10000,
-			vehicle_11 = 20000,
-			vehicle_12 = 15000,
-			vehicle_25 = 500
+			vehicle_25 = 2000,
+			vehicle_1 = 6000,
+			vehicle_4 = 12000,
+			vehicle_5 = 9000,
+			vehicle_19 = 6000,
+			vehicle_11 = 40000,
+			vehicle_12 = 50000,
+			vehicle_6 = 70000,
+			vehicle_7 = 30000,
+			vehicle_22 = 45000,
+			vehicle_23 = 45000,
+			vehicle_17 = 60000,
+			vehicle_18 = 60000,
 		},
 		colors = {
 			black = "0000",
 			red = "FF0000",
 			blue = "0000FF",
-			green = "00FF00"
-
+			green = "00FF00",
+			orange = "FF6600"
 		},
 		location = { 162911, 191166, 1380, 180 },
 		spawn = { 162516, 190352, 1347, -90 }
     },
     {
 		vehicles = {
-			vehicle_1 = 3000,
-			vehicle_4 = 3000,
-			vehicle_5 = 3000,
-			vehicle_6 = 10000,
-			vehicle_7 = 10000,
-			vehicle_11 = 20000,
-			vehicle_12 = 15000,
-			vehicle_25 = 500
+			vehicle_25 = 2000,
+			vehicle_1 = 6000,
+			vehicle_4 = 12000,
+			vehicle_5 = 9000,
+			vehicle_19 = 6000,
+			vehicle_11 = 40000,
+			vehicle_12 = 50000,
+			vehicle_6 = 70000,
+			vehicle_7 = 30000,
+			vehicle_22 = 45000,
+			vehicle_23 = 45000,
+			vehicle_17 = 60000,
+			vehicle_18 = 60000,
 		},
 		colors = {
 			black = "0000",
 			red = "FF0000",
 			blue = "0000FF",
-			green = "00FF00"
-
+			green = "00FF00",
+			orange = "FF6600"
 		},
 		location = { -188591, -50391, 1150, 180 },
 		spawn = { -188315, -51413, 1150, 180 }
 	},
     {
 		vehicles = {
-			vehicle_1 = 3000,
-			vehicle_4 = 3000,
-			vehicle_5 = 3000,
-			vehicle_6 = 10000,
-			vehicle_7 = 10000,
-			vehicle_11 = 20000,
-			vehicle_12 = 15000,
-			vehicle_25 = 500
+			vehicle_25 = 2000,
+			vehicle_1 = 6000,
+			vehicle_4 = 12000,
+			vehicle_5 = 9000,
+			vehicle_19 = 6000,
+			vehicle_11 = 40000,
+			vehicle_12 = 50000,
+			vehicle_6 = 70000,
+			vehicle_7 = 30000,
+			vehicle_22 = 45000,
+			vehicle_23 = 45000,
+			vehicle_17 = 60000,
+			vehicle_18 = 60000,
 		},
 		colors = {
 			black = "0000",
 			red = "FF0000",
 			blue = "0000FF",
-			green = "00FF00"
-
+			green = "00FF00",
+			orange = "FF6600"
 		},
 		location = { -24737, -18052, 2087, -150 },
 		spawn = { -25060, -18800, 2062, -150 }

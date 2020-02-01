@@ -87,18 +87,18 @@ AddEvent("OnPlayerJoin", function(player)
 end)
 
 --------- SERVICE AND EQUIPMENT
-function StartStopService(player)-- toggle service
+function MedicStartStopService(player)-- toggle service
     if PlayerData[player].job == "" then
-        StartService(player)
+        MedicStartService(player)
     elseif PlayerData[player].job == "medic" then
-        EndService(player)
+        MedicEndService(player)
     else
         CallRemoteEvent(player, "MakeErrorNotification", _("please_leave_previous_job"))
     end
 end
-AddRemoteEvent("medic:startstopservice", StartStopService)
+AddRemoteEvent("medic:startstopservice", MedicStartStopService)
 
-function StartService(player)-- start service
+function MedicStartService(player)-- start service
     -- #1 Check for the medic whitelist of the player
     if PlayerData[player].medic ~= 1 then
         CallRemoteEvent(player, "MakeErrorNotification", _("not_whitelisted"))
@@ -132,7 +132,7 @@ function StartService(player)-- start service
     return true
 end
 
-function EndService(player)-- stop service
+function MedicEndService(player)-- stop service
     -- #1 Remove medic equipment
     RemoveMedicEquipmentToPlayer(player)
     if PlayerData[player].job_vehicle ~= nil then
@@ -142,7 +142,6 @@ function EndService(player)-- stop service
     end
     -- #2 Set player job
     PlayerData[player].job = ""
-    SetPlayerPropertyValue(player, "Medic:IsOnDuty", false, true)
     -- #3 Trigger update of cloths
     UpdateClothes(player)
     
@@ -167,17 +166,15 @@ function RemoveMedicEquipmentToPlayer(player)-- remove equipment from a medic
 end
 
 AddEvent("job:onspawn", function(player)-- when player is fully loaded    
-    print('ONSPAWN', player,PlayerData[player].job, PlayerData[player].medic)
+    print('JOB:ONSPAWN MEDIC', player)
     if PlayerData[player].job == "medic" and PlayerData[player].medic == 1 then -- Anti glitch
         SetPlayerPropertyValue(player, "Medic:IsOnDuty", true, true)
     end
-    print('ONDUTY', GetPlayerPropertyValue(player, "Medic:IsOnDuty"))
     
     if PlayerData[player].health ~= nil then
         SetPlayerHealth(player, PlayerData[player].health)
     end
-
-    print('CHECK', PlayerData[player].job, PlayerData[player].medic, GetPlayerPropertyValue(player, "Medic:IsOnDuty"))
+    print('JOB:ONSPAWN MEDIC', GetPlayerPropertyValue(player, "Medic:IsOnDuty"))
 end)
 
 AddEvent("OnPlayerSpawn", function(player)-- On player death
@@ -212,7 +209,7 @@ function SpawnMedicCar(player)-- to spawn an ambulance
     
     -- #3 Try to spawn the vehicle
     if PlayerData[player].job_vehicle == nil then
-        local spawnPoint = VEHICLE_SPAWN_LOCATION[GetClosestSpawnPoint(player)]
+        local spawnPoint = VEHICLE_SPAWN_LOCATION[MedicGetClosestSpawnPoint(player)]
         if spawnPoint == nil then return end
         for k, v in pairs(GetStreamedVehiclesForPlayer(player)) do
             local x, y, z = GetVehicleLocation(v)
@@ -265,18 +262,18 @@ AddEvent("OnPlayerPickupHit", function(player, pickup)-- Store the vehicle in ga
 end)
 --------- MEDIC VEHICLE END
 --------- INTERACTIONS
-function PutPlayerInCar(player)-- to put player in car
+function MedicPutPlayerInCar(player)-- to put player in car
     if PlayerData[player].medic ~= 1 then return end
     if PlayerData[player].job ~= "medic" then return end
     
     local target = GetNearestPlayer(player, 200)
     if target ~= nil then
-        SetPlayerInCar(player, target)
+        MedicSetPlayerInCar(player, target)
     end
 end
-AddRemoteEvent("medic:playerincar", PutPlayerInCar)
+AddRemoteEvent("medic:playerincar", MedicPutPlayerInCar)
 
-function SetPlayerInCar(player, target)-- put player in car
+function MedicSetPlayerInCar(player, target)-- put player in car
     if PlayerData[player].job_vehicle == nil then return end
     local x, y, z = GetVehicleLocation(PlayerData[player].job_vehicle)
     local x2, y2, z2 = GetPlayerLocation(target)
@@ -296,7 +293,7 @@ function SetPlayerInCar(player, target)-- put player in car
     end
 end
 
-function RemovePlayerInCar(player)-- remove player from car
+function MedicRemovePlayerInCar(player)-- remove player from car
     if PlayerData[player].medic ~= 1 then return end
     if PlayerData[player].job ~= "medic" then return end
     if PlayerData[player].job_vehicle == nil then return end
@@ -314,9 +311,9 @@ function RemovePlayerInCar(player)-- remove player from car
         CallRemoteEvent(player, "MakeNotification", _("mediccar_player_remove_from_car"), "linear-gradient(to right, #00b09b, #96c93d)")
     end
 end
-AddRemoteEvent("medic:removeplayerincar", RemovePlayerInCar)
+AddRemoteEvent("medic:removeplayerincar", MedicRemovePlayerInCar)
 
-function RevivePlayer(player)-- To revive a player. can fail. need defib.
+function MedicRevivePlayer(player)-- To revive a player. can fail. need defib.
     if PlayerData[player].medic ~= 1 then return end
     if PlayerData[player].job ~= "medic" then return end
     if GetPlayerBusy(player) then return end
@@ -377,9 +374,9 @@ function RevivePlayer(player)-- To revive a player. can fail. need defib.
         end
     end)
 end
-AddRemoteEvent("medic:interact:revive", RevivePlayer)
+AddRemoteEvent("medic:interact:revive", MedicRevivePlayer)
 
-function TruelyHealPlayer(player)-- To really heal a player. This need to be at the hospital.
+function MedicTruelyHealPlayer(player)-- To really heal a player. This need to be at the hospital.
     if PlayerData[player].medic ~= 1 then return end
     if PlayerData[player].job ~= "medic" then return end
     if GetPlayerBusy(player) then return end
@@ -426,7 +423,7 @@ function TruelyHealPlayer(player)-- To really heal a player. This need to be at 
         return
     end)
 end
-AddRemoteEvent("medic:interact:heal", TruelyHealPlayer)
+AddRemoteEvent("medic:interact:heal", MedicTruelyHealPlayer)
 
 --------- INTERACTIONS END
 --------- HEALTH BEHAVIOR
@@ -597,7 +594,7 @@ AddEvent("job:usespecialitem", MedicUseItem)
 
 --------- ITEMS USES END
 -- Tools
-function GetClosestSpawnPoint(player)-- get closeest spawn point for vehicle
+function MedicGetClosestSpawnPoint(player)-- get closeest spawn point for vehicle
     local x, y, z = GetPlayerLocation(player)
     local closestSpawnPoint
     local dist

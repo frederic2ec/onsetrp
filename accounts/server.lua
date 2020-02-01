@@ -20,6 +20,7 @@ end)
 
 
 function OnPlayerSteamAuth(player)
+    print('JOINING → ', GetPlayerSteamId(player))
     
     CreatePlayerData(player)
     PlayerData[player].steamname = GetPlayerName(player)
@@ -150,6 +151,9 @@ function OnAccountLoaded(player)
         PlayerData[player].is_cuffed = math.tointeger(result['is_cuffed'])
         PlayerData[player].age = math.tointeger(result['age'])
         PlayerData[player].health = math.tointeger(result['health'])
+
+        SetPlayerPropertyValue(player, "Account:IsAdmin", PlayerData[player].admin, true)      
+        print('Account:IsAdmin →', GetPlayerPropertyValue(player, "Account:IsAdmin"))  
         
         if result['phone_number'] and result['phone_number'] ~= "" then
             PlayerData[player].phone_number = tostring(result['phone_number'])
@@ -160,11 +164,12 @@ function OnAccountLoaded(player)
         SetPlayerArmor(player, tonumber(result['armor']))
         setPlayerThirst(player, tonumber(result['thirst']))
         setPlayerHunger(player, tonumber(result['hunger']))
+
+        CallEvent("job:onspawn", player)-- Trigger the loading of jobs when player is fully loaded (have to be set up for each jobs)
+
         setPositionAndSpawn(player, PlayerData[player].position)
         
         SetPlayerLoggedIn(player)
-
-        CallEvent("job:onspawn", player)-- Trigger the loading of jobs when player is fully loaded (have to be set up for each jobs)
 
         if PlayerData[player].created == 0 then
             CallRemoteEvent(player, "askClientCreation")

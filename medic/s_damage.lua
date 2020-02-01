@@ -16,6 +16,7 @@ local bleedingTimers = {}
 
 AddEvent("OnPlayerDeath", function(player, instigator)
     CallRemoteEvent(player, "damage:death:toggleeffect", 1)
+    CleanPlayerEffects(player)
 end)
 
 AddEvent("OnPlayerSpawn", function(player)

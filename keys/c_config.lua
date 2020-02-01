@@ -1,4 +1,4 @@
-local _ = _ or function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, ...) end
+local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, ...) end
 
 -------------------------------------------------------
 ----------- CONFIG FILE FOR KEYS SHORTCUTS ------------
@@ -45,5 +45,7 @@ function GetAllKeybinds()
         {label = _("VEHICLE_TRUNK_KEY"), key = VEHICLE_TRUNK_KEY},
         {label = _("VEHICLE_HOOD_KEY"), key = VEHICLE_HOOD_KEY},
         {label = _("ADMIN_MENU_KEY"), key = ADMIN_MENU_KEY},
+        {label = _("ADMIN_MENU_KEY"), key = ADMIN_MENU_KEY},
     }
 end
+

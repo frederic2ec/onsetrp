@@ -239,6 +239,7 @@
     "speed": "Vitesse :",
     "fuel": "Carburant :",
     "transfer_error": "Vous n'avez pas assez d'argent pour effectuer le transfert !",
+    "item_transfer_error": "Impossible de donner cet objet",
     "transfer_success": "Transfert effectué avec succès {1} {2} !",
     "transfer": "Transférer",
     "successful_transfer": "Vous avez transféré avec succès {1} {2} à {3}",
@@ -422,7 +423,7 @@
     "set_destination": "Ajouter un point",
     "clear_destination": "Supprimer le point",
     "market": "Superrete",
-    "bank": "Supérette",
+    "bank": "Distributeur automatique",
     "armory": "Armurie",
     "vehicle_dealer": "Concessionnaire",
     "police_station": "Commissariat",
@@ -469,6 +470,7 @@
     "VEHICLE_TRUNK_KEY": "Ouvrir / fermer le coffre",
     "VEHICLE_HOOD_KEY": "Ouvrir / fermer le capot",
     "ADMIN_MENU_KEY": "Menu admin",
+    "TOGGLE_CHAT_KEY": "Affiche / cache le chat",
     "fine_given": "Vous avez donner une amende de {1}$",
     "fine_received": "Vous avez payé votre amende de {1}$",
     "you_are_handcuffed": "Vous êtes menotté",
@@ -564,5 +566,6 @@
     "medic_item_health_kit_success": "Vous avez utilisé un kit de soin avec succès",
     "medic_item_adrenaline_syringue_success": "Vous avez sauvé cette personne à l'aide d'une seringue d'adrénaline",
     "medic_item_bandage_success": "Vous avez pansé le saignement de cette personne avec succès",
-    "medic_callout_created": "Les médecins ont bien reçu l'appel"
+    "medic_callout_created": "Les médecins ont bien reçu l'appel",
+    "herring": "Hareng"
 }

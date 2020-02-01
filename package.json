@@ -40,7 +40,8 @@
         "vehicle/ragP/settings.lua",
         "animation/pickndrop_s.lua",
         "medic/s_medic.lua",
-        "medic/s_damage.lua"
+        "medic/s_damage.lua",
+        "admin/s_spectate.lua"
     ],
     "client_scripts": [
         "keys/c_config.lua",
@@ -85,7 +86,8 @@
         "shortcuts/client.lua",
         "medic/c_medic.lua",
         "medic/c_damage.lua",
-        "chat/client.lua"
+        "chat/client.lua",
+        "admin/c_spectate.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",
@@ -171,6 +173,25 @@
         "hud/pinmap/client/web/icons/wood.png",
         "hud/pinmap/client/web/icons/license.png",
         "hud/pinmap/client/web/icons/tools.png",
+        "hud/pinmap/client/web/icons/shelby/ico-pos-acierie.png",
+        "hud/pinmap/client/web/icons/shelby/ico-pos-bus.png",
+        "hud/pinmap/client/web/icons/shelby/ico-pos-coiffeur.png",
+        "hud/pinmap/client/web/icons/shelby/ico-pos-fonderie.png",
+        "hud/pinmap/client/web/icons/shelby/ico-pos-foret.png",
+        "hud/pinmap/client/web/icons/shelby/ico-pos-fourriere.png",
+        "hud/pinmap/client/web/icons/shelby/ico-pos-garagiste.png",
+        "hud/pinmap/client/web/icons/shelby/ico-pos-hopital.png",
+        "hud/pinmap/client/web/icons/shelby/ico-pos-magasin.png",
+        "hud/pinmap/client/web/icons/shelby/ico-pos-mine.png",
+        "hud/pinmap/client/web/icons/shelby/ico-pos-motel.png",
+        "hud/pinmap/client/web/icons/shelby/ico-pos-peche.png",
+        "hud/pinmap/client/web/icons/shelby/ico-pos-poisson.png",
+        "hud/pinmap/client/web/icons/shelby/ico-pos-revente_acier.png",
+        "hud/pinmap/client/web/icons/shelby/ico-pos-revente_bois.png",
+        "hud/pinmap/client/web/icons/shelby/ico-pos-scierie.png",
+        "hud/pinmap/client/web/icons/shelby/ico-pos-station_essence.png",
+        "hud/pinmap/client/web/icons/shelby/ico-pos-styliste.png",
+        "hud/pinmap/client/web/icons/shelby/ico-pos-taxi.png",
         "hud/pinmap/client/web/fonts/Roboto-Regular.ttf",
         "hud/pinmap/client/web/fonts/Roboto-Light.ttf",
         "loading-bar/files/loading-bar.html",
@@ -181,6 +202,13 @@
         "stylist/ui/main.css",
         "stylist/ui/encode-sans/EncodeSans-Bold.ttf",
         "stylist/ui/encode-sans/EncodeSans-Regular.ttf",
-        "medic/files/revivescreen.html"
+        "medic/files/revivescreen.html",
+        "scoreboard/scoreboard/admin-icons/binoculars.png",
+        "scoreboard/scoreboard/admin-icons/doll.png",
+        "scoreboard/scoreboard/admin-icons/freeze.png",
+        "scoreboard/scoreboard/admin-icons/kick.png",
+        "scoreboard/scoreboard/admin-icons/law.png",
+        "scoreboard/scoreboard/admin-icons/teleport.png",
+        "scoreboard/scoreboard/admin-icons/pill.png"
     ]
 }
