@@ -99,7 +99,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
             if args[1] == "" then
                 MakeNotification(_("select_player"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             else
-                CallRemoteEvent("AdminTeleportPlayer", args[1])
+                CallRemoteEvent("AdminTeleportPlayer", GetPlayerId(), args[1])
             end
         end
     end

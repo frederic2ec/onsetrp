@@ -41,30 +41,44 @@ function Scoreboard_OnServerScoreboardUpdate(data, name, players, maxplayers)
 end
 AddRemoteEvent('OnServerScoreboardUpdate', Scoreboard_OnServerScoreboardUpdate)
 
+AddEvent("scoreboard:admin:freeze", function(player)
+  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
+  if IsAdmin == 1  then
+    CallRemoteEvent("AdminFreezePlayer", player)    
+  end
+end)
+
+AddEvent("scoreboard:admin:ragdoll", function(player)
+  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
+  if IsAdmin == 1  then
+    CallRemoteEvent("AdminRagdollPlayer", player)    
+  end
+end)
+
 AddEvent("scoreboard:admin:bring", function(player)
   local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
-  if IsAdmin == 1 then
+  if IsAdmin == 1 and GetPlayerId() ~= player then
     CallRemoteEvent("AdminTeleportPlayer",  GetPlayerId(), player)    
   end
 end)
 
 AddEvent("scoreboard:admin:goto", function(player)
   local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
-  if IsAdmin == 1 then
+  if IsAdmin == 1 and GetPlayerId() ~= player then
     CallRemoteEvent("AdminTeleportToPlayer", player)    
   end
 end)
 
 AddEvent("scoreboard:admin:kick", function(player)
   local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
-  if IsAdmin == 1 then
+  if IsAdmin == 1 and GetPlayerId() ~= player then
     CallRemoteEvent("AdminKickBan", tonumber(player), "Kick", "HOP HOP HOP, Halte là !")
   end
 end)
 
 AddEvent("scoreboard:admin:ban", function(player)
   local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
-  if IsAdmin == 1 then
+  if IsAdmin == 1 and GetPlayerId() ~= player then
     CallRemoteEvent("AdminKickBan", tonumber(player), "Ban", "Qui fait le malin, tombe dans le ravin !")
   end
 end)

@@ -18,11 +18,13 @@ function AddPlayer(id, name, steamid, ping) {
     <td>${steamid}</td>
     <td>${ping}ms</td>
     <td class="right">
+        <button onclick="freeze(${id})">FREEZE</button>&nbsp;
+        <button onclick="ragdoll(${id})">RAGDOLL</button>&nbsp;
         <button onclick="bring(${id})">BRING</button>&nbsp;
         <button onclick="goto(${id})">GOTO</button>&nbsp;
+        <button onclick="spec(${id})">SPEC</button>&nbsp;
         <button onclick="kick(${id})">KICK</button>&nbsp;
-        <button onclick="ban(${id})">BAN</button>&nbsp;
-        <button onclick="spec(${id})">SPEC</button>
+        <button onclick="ban(${id})">BAN</button>     
     </td>
   </tr>`;
 }
@@ -47,6 +49,14 @@ function SetInformation(name, players, maxplayers) {
     infoPlayers.getElementsByTagName(
         "small"
     )[0].innerHTML = `Players: ${players}/${maxplayers}`;
+}
+
+function freeze(player) {
+    window.ue.game.callevent("scoreboard:admin:freeze", player);
+}
+
+function ragdoll(player) {
+    window.ue.game.callevent("scoreboard:admin:ragdoll", player);
 }
 
 function bring(player) {
