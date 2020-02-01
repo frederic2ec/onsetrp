@@ -55,6 +55,8 @@ AddRemoteEvent("startModify", function(player, isCreation)
 	-- 	SetPlayerDimension(player, 1000 + player)
 	-- end
 
+	SetPlayerName(player, " ")
+
 	SetPlayerBusy(player)
 
 	local currentClothes = { skins = PlayerData[player].clothing[6], hair = PlayerData[player].clothing[1], haircolors = PlayerData[player].clothing[2], tops = PlayerData[player].clothing[3], trousers = PlayerData[player].clothing[4], shoes = PlayerData[player].clothing[5] }
