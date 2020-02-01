@@ -40,7 +40,8 @@
         "vehicle/ragP/settings.lua",
         "animation/pickndrop_s.lua",
         "medic/s_medic.lua",
-        "medic/s_damage.lua"
+        "medic/s_damage.lua",
+        "admin/s_spectate.lua"
     ],
     "client_scripts": [
         "keys/c_config.lua",
@@ -85,7 +86,8 @@
         "shortcuts/client.lua",
         "medic/c_medic.lua",
         "medic/c_damage.lua",
-        "chat/client.lua"
+        "chat/client.lua",
+        "admin/c_spectate.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",

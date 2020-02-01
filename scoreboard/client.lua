@@ -13,7 +13,6 @@ AddEvent("OnPackageStart", Scoreboard_OnPackageStart)
 
 function Scoreboard_OnKeyPress(key)
   local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
-  print('IsAdmin ?', IsAdmin) 
   if key == 'Tab' and IsAdmin == 1 then
     CallRemoteEvent('RequestScoreboardUpdate')
     SetInputMode(INPUT_GAMEANDUI)
@@ -82,3 +81,11 @@ AddEvent("scoreboard:admin:ban", function(player)
     CallRemoteEvent("AdminKickBan", tonumber(player), "Ban", "Qui fait le malin, tombe dans le ravin !")
   end
 end)
+
+AddEvent("scoreboard:admin:spectate", function(player)
+  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
+  if IsAdmin == 1 and GetPlayerId() ~= player then
+    CallRemoteEvent("admin:spectate", player)
+  end
+end)
+

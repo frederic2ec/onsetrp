@@ -76,5 +76,5 @@ function ban(player) {
 }
 
 function spec(player) {
-    // TODO
+    window.ue.game.callevent("scoreboard:admin:spectate", player);
 }
