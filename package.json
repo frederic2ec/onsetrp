@@ -197,6 +197,12 @@
         "loading-bar/files/loading-bar.html",
         "shortcuts/index.html",
         "shortcuts/main.css",
-        "medic/files/revivescreen.html"
+        "medic/files/revivescreen.html",
+        "scoreboard/scoreboard/admin-icons/binoculars.png",
+        "scoreboard/scoreboard/admin-icons/doll.png",
+        "scoreboard/scoreboard/admin-icons/freeze.png",
+        "scoreboard/scoreboard/admin-icons/kick.png",
+        "scoreboard/scoreboard/admin-icons/law.png",
+        "scoreboard/scoreboard/admin-icons/teleport.png"
     ]
 }

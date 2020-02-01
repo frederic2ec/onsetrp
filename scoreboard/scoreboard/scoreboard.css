@@ -109,16 +109,36 @@ table tr:nth-child(1) td > img {
 
 button {
   font-family: 'Raleway', 'Open Sans', sans-serif !important;
-  background-color: #ca5c01;
   border: none;
   color: white;
   padding: 5px 10px;            
   text-decoration: none;
-  font-size: 13px;
+  font-size: 15px;
   border-radius: 5px;
   font-weight:bold;
 }
 
 .right {
   text-align:right;
+}
+
+.btn-level-0 {
+  background-color: rgb(0, 108, 197);
+}
+.btn-level-1 {
+  background-color: rgb(122, 197, 0);
+}
+.btn-level-2 {
+  background-color: #ca5c01;
+}
+.btn-level-3 {
+  background-color: rgb(177, 0, 0);
+}
+.btn-margin-left {
+  margin-left: 40px;
+}
+
+button img {
+  height:12px;
+  width:12px;
 }

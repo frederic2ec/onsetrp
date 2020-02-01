@@ -18,13 +18,13 @@ function AddPlayer(id, name, steamid, ping) {
     <td>${steamid}</td>
     <td>${ping}ms</td>
     <td class="right">
-        <button onclick="freeze(${id})">FREEZE</button>&nbsp;
-        <button onclick="ragdoll(${id})">RAGDOLL</button>&nbsp;
-        <button onclick="bring(${id})">BRING</button>&nbsp;
-        <button onclick="goto(${id})">GOTO</button>&nbsp;
-        <button onclick="spec(${id})">SPEC</button>&nbsp;
-        <button onclick="kick(${id})">KICK</button>&nbsp;
-        <button onclick="ban(${id})">BAN</button>     
+        <button class="btn-level-0" onclick="spec(${id})"><img src="admin-icons/binoculars.png"/> SPEC</button>&nbsp;    
+        <button class="btn-level-1" onclick="goto(${id})"><img src="admin-icons/teleport.png"/> GOTO</button>&nbsp;
+        <button class="btn-level-1" onclick="bring(${id})"><img src="admin-icons/teleport.png"/> BRING</button>&nbsp;
+        <button class="btn-level-2" onclick="freeze(${id})"><img src="admin-icons/freeze.png"/> FREEZE</button>&nbsp;
+        <button class="btn-level-2" onclick="ragdoll(${id})"><img src="admin-icons/doll.png"/> RAGDOLL</button>&nbsp;
+        <button class="btn-level-3 btn-margin-left" onclick="kick(${id})"><img src="admin-icons/kick.png"/> KICK</button>&nbsp;
+        <button class="btn-level-3" onclick="ban(${id})"><img src="admin-icons/law.png"/> BAN</button>     
     </td>
   </tr>`;
 }
