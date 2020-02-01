@@ -553,5 +553,6 @@
     "medic_item_health_kit_success": "Vous avez utilisé un kit de soin avec succès",
     "medic_item_adrenaline_syringue_success": "Vous avez sauvé cette personne à l'aide d'une seringue d'adrénaline",
     "medic_item_bandage_success": "Vous avez pansé le saignement de cette personne avec succès",
-    "medic_callout_created": "Les médecins ont bien reçu l'appel"
+    "medic_callout_created": "Les médecins ont bien reçu l'appel",
+    "herring": "Hareng"
 }
