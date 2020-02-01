@@ -1,14 +1,14 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 StylistNPCObjectsCached = { }
-StylistNPCTable = {
-	{
-		location = { 207787, 180531, 1312, 90}
-		
-	}
-}
+StylistNPCTable = { }
+-- StylistNPCTable = {
+-- 	{
+-- 		location = { 207787, 180531, 1312, 90 }
+-- 	}
+-- }
 
-local PLAYER_SPAWN_POINT = {x = 204094, y = 180846, z = 1500}
+local PLAYER_SPAWN_POINT = { x = 204094, y = 180846, z = 1500 }
 
 -- Event ----------------------------------------------------
 
@@ -20,7 +20,6 @@ AddEvent("OnPackageStart", function()
 		table.insert(StylistNPCObjectsCached, v.npc)
 	end
 end)
-
 
 AddEvent("OnPlayerJoin", function(player)
 	CallRemoteEvent(player, "stylistSetup", StylistNPCObjectsCached)
@@ -39,7 +38,6 @@ AddRemoteEvent("stylistInteract", function(player, stylistobject)
 					CallRemoteEvent(player, "openStylist")
 				end
 			end  
-			
 		end
 	end
 end)
