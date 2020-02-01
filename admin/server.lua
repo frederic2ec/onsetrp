@@ -296,4 +296,3 @@ AddCommand("stuck", function(player)
     local x,y,z = GetPlayerLocation(player)
     SetPlayerLocation(player, x, y, 0)
 end)
-
