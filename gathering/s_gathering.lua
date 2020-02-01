@@ -32,7 +32,8 @@ gatherTable = {
     },
     {-- PEACH HARVESTION (FOR ALTIS LIFE FANS)
         gather_zone = {
-            {x = -174432, y = 10837, z = 1831}
+            {x = -174432, y = 10837, z = 1831},
+            {x = 189595, y = 147717, z = 5875},
         },
         gather_item = "peach",
         gather_animation = "PICKUP_UPPER",
