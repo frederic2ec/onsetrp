@@ -4,7 +4,7 @@ StylistNPCObjectsCached = { }
 StylistNPCTable = { }
 -- StylistNPCTable = {
 -- 	{
--- 		location = { 207787, 180531, 1312, 90 }
+-- 		location = { 180845, 182506, 1290, 180}
 -- 	}
 -- }
 
