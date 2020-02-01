@@ -20,6 +20,7 @@ end)
 
 
 function OnPlayerSteamAuth(player)
+    print('JOINING → ', GetPlayerSteamId(player))
     
     CreatePlayerData(player)
     PlayerData[player].steamname = GetPlayerName(player)

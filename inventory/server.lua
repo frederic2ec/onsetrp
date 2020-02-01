@@ -1,4 +1,4 @@
-local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
+local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, ...) end
 
 local inventory_base_max_slots = 50
 local backpack_slot_to_add = 35
@@ -9,16 +9,16 @@ AddRemoteEvent("ServerPersonalMenu", function(player, inVehicle, vehiclSpeed)
     if inVehicle and GetPlayerState(player) == PS_DRIVER and vehiclSpeed > 0 then
         return CallRemoteEvent(player, "MakeErrorNotification", _("cant_while_driving"))
     end
-
+    
     local x, y, z = GetPlayerLocation(player)
     local nearestPlayers = GetPlayersInRange3D(x, y, z, 1000)
     local playerList = {}
-    for k,v in pairs(nearestPlayers) do
+    for k, v in pairs(nearestPlayers) do
         if k ~= player then
-            table.insert(playerList, { id = k, name = GetPlayerName(k) })
+            table.insert(playerList, {id = k, name = GetPlayerName(k)})
         end
     end
-
+    
     CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].name, player, playerList, GetPlayerMaxSlots(player))
 end)
 
@@ -35,31 +35,29 @@ AddRemoteEvent("EquipInventory", function(player, originPlayer, itemName, amount
         CallRemoteEvent(player, "MakeErrorNotification", _("cant_while_driving"))
         return false
     end
-
+    
     local item
-
+    
     for k, itemPair in pairs(Items) do
         if itemPair.name == itemName then
             item = itemPair
         end
     end
-
+    
     weapon = getWeaponID(itemName)
     if tonumber(PlayerData[originPlayer].inventory[itemName]) < tonumber(amount) then
         CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_item"))
     else
         if weapon ~= 0 then
-            for slot, v in pairs({ 1, 2, 3 }) do
+            for slot, v in pairs({1, 2, 3}) do
                 local slotWeapon, ammo = GetPlayerWeapon(player, slot)
                 if slotWeapon == tonumber(weapon) then
-                    SetPlayerWeapon(player, 1, 0, true, slot)
-                    CallRemoteEvent(player, "MakeSuccessNotification", _("item_unequiped", slot))
-                    UpdateUIInventory(player, originPlayer, itemName, PlayerData[originPlayer].inventory[itemName], false)
+                    UnequipWeapon(player, originPlayer, itemName, slot)
                     return true
                 end
             end
-
-            for slot, v in pairs({ 1, 2, 3 }) do
+            
+            for slot, v in pairs({1, 2, 3}) do
                 local slotWeapon, ammo = GetPlayerWeapon(player, slot)
                 if slotWeapon == 1 then
                     SetPlayerWeapon(player, tonumber(weapon), 1000, true, slot)
@@ -71,30 +69,36 @@ AddRemoteEvent("EquipInventory", function(player, originPlayer, itemName, amount
             CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_slots"))
         else
             -- No weapons items
-        end
+            end
     end
 end)
+
+function UnequipWeapon(player, originPlayer, itemName, slot)
+    SetPlayerWeapon(player, 1, 0, true, slot)
+    CallRemoteEvent(player, "MakeSuccessNotification", _("item_unequiped", slot))
+    UpdateUIInventory(player, originPlayer, itemName, PlayerData[originPlayer].inventory[itemName], false)
+end
 
 AddRemoteEvent("UseInventory", function(player, originPlayer, itemName, amount, inVehicle, vehiclSpeed)
     if inVehicle and GetPlayerState(player) == PS_DRIVER and vehiclSpeed > 0 then
         return CallRemoteEvent(player, "MakeErrorNotification", _("cant_while_driving"))
     end
-
+    
     local item
-
+    
     for k, itemPair in pairs(Items) do
         if itemPair.name == itemName then
             item = itemPair
         end
     end
-
+    
     weapon = getWeaponID(itemName)
     if tonumber(PlayerData[originPlayer].inventory[itemName]) < tonumber(amount) then
         CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_item"))
     else
         if weapon ~= 0 then
             local weaponAdded = false
-            for slot, v in pairs({ 1, 2, 3 }) do
+            for slot, v in pairs({1, 2, 3}) do
                 if GetPlayerWeapon(player, slot) == nil then
                     SetPlayerWeapon(player, tonumber(weapon), 1000, true, slot)
                     CallRemoteEvent(player, "MakeSuccessNotification", _("item_equiped", slot))
@@ -105,7 +109,7 @@ AddRemoteEvent("UseInventory", function(player, originPlayer, itemName, amount, 
                 CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_slots"))
             end
         else
-            if itemName == "donut" or  itemName == "apple" or itemName == "peach" or itemName == "water_bottle" or itemName == "fish" then
+            if itemName == "donut" or itemName == "apple" or itemName == "peach" or itemName == "water_bottle" or itemName == "fish" then
                 UseItem(player, originPlayer, item, amount)
             end
             if itemName == "repair_kit" then
@@ -113,7 +117,7 @@ AddRemoteEvent("UseInventory", function(player, originPlayer, itemName, amount, 
                 if nearestCar ~= 0 then
                     if GetVehicleHealth(nearestCar) > 4000 then
                         CallRemoteEvent(player, "MakeErrorNotification", _("dont_need_repair"))
-                    elseif GetVehicleHoodRatio(nearestCar) ~= 60.0 and GetVehicleModel(nearestCar) ~= 10  then
+                    elseif GetVehicleHoodRatio(nearestCar) ~= 60.0 and GetVehicleModel(nearestCar) ~= 10 then
                         CallRemoteEvent(player, "MakeErrorNotification", _("need_to_open_hood"))
                     else
                         CallRemoteEvent(player, "LockControlMove", true)
@@ -121,7 +125,7 @@ AddRemoteEvent("UseInventory", function(player, originPlayer, itemName, amount, 
                         Delay(4000, function()
                             RemoveInventory(originPlayer, itemName, amount)
                             SetVehicleHealth(nearestCar, 5000)
-                            for i=1,8 do
+                            for i = 1, 8 do
                                 SetVehicleDamage(nearestCar, i, 0)
                             end
                             CallRemoteEvent(player, "LockControlMove", false)
@@ -167,7 +171,7 @@ AddRemoteEvent("UseInventory", function(player, originPlayer, itemName, amount, 
                                 SetPlayerAnimation(player, "LOCKDOOR")
                             end)
                             Delay(10000, function()
-                                SetVehiclePropertyValue( nearestCar, "locked", false, true)
+                                SetVehiclePropertyValue(nearestCar, "locked", false, true)
                                 CallRemoteEvent(player, "MakeSuccessNotification", _("car_unlocked"))
                                 RemoveInventory(originPlayer, itemName, amount)
                                 CallRemoteEvent(player, "LockControlMove", false)
@@ -203,7 +207,7 @@ AddRemoteEvent("UseInventory", function(player, originPlayer, itemName, amount, 
                     end
                 end
             end
-            CallEvent("job:usespecialitem", player, itemName) -- REDIRECT TO JOBS SCRIPT TO USE ITEM
+            CallEvent("job:usespecialitem", player, itemName)-- REDIRECT TO JOBS SCRIPT TO USE ITEM
         end
     end
 end)
@@ -217,34 +221,45 @@ function UseItem(player, originPlayer, item, amount, animation)
 end
 
 AddRemoteEvent("TransferInventory", function(player, originPlayer, item, amount, toPlayer)
-    local x, y, z = GetPlayerLocation(player)
-    local nearestPlayers = GetPlayersInRange3D(x, y, z, 300)
-    local toPlayerIsHere = false
-    for k, v in pairs(nearestPlayers) do
-        if k == toPlayer then
-            toPlayerIsHere = true
+        -- local x, y, z = GetPlayerLocation(player)
+        -- local nearestPlayers = GetPlayersInRange3D(x, y, z, 200)
+        -- local toPlayerIsHere = false
+        -- for k, v in pairs(nearestPlayers) do
+        --     if k == toPlayer then
+        --         toPlayerIsHere = true
+        --     end
+        -- end
+        local x, y, z = GetPlayerLocation(player)
+        local x2, y2, z2 = GetPlayerLocation(toPlayer)
+        local dist = GetDistance3D(x, y, z, x2, y2, z2)
+        
+        -- if toPlayerIsHere then
+        if dist <= 200 then
+            if PlayerData[originPlayer].inventory[item] < tonumber(amount) then
+                CallRemoteEvent(originPlayer, "MakeErrorNotification", _("not_enough_item"))
+            else
+                SetPlayerAnimation(player, "PICKUP_MIDDLE")
+                
+                for slot, v in pairs({1, 2, 3}) do -- anti dupe
+                    local slotWeapon, ammo = GetPlayerWeapon(player, slot)
+                    if slotWeapon == tonumber(weapon) then
+                        UnequipWeapon(player, originPlayer, itemName, slot)
+                    end
+                end
+                if AddInventory(tonumber(toPlayer), item, tonumber(amount), player) and RemoveInventory(tonumber(originPlayer), item, tonumber(amount), false, player)  then
+                    CallRemoteEvent(originPlayer, "MakeNotification", _("successful_transfer", amount, item, GetPlayerName(tonumber(toPlayer))), "linear-gradient(to right, #00b09b, #96c93d)")
+                    CallRemoteEvent(tonumber(toPlayer), "MakeNotification", _("received_transfer", amount, item, GetPlayerName(originPlayer)), "linear-gradient(to right, #00b09b, #96c93d)")
+                else
+                    CallRemoteEvent(originPlayer, "MakeErrorNotification", _("item_transfer_error"))
+                end
+            end
         end
-    end
-    
-    if toPlayerIsHere then
-        if PlayerData[originPlayer].inventory[item] < tonumber(amount) then
-            CallRemoteEvent(originPlayer, "MakeErrorNotification", _("not_enough_item"))
-        else
-            SetPlayerAnimation(player, "PICKUP_MIDDLE")
-
-            RemoveInventory(tonumber(originPlayer), item, tonumber(amount), false, player)
-            AddInventory(tonumber(toPlayer), item, tonumber(amount), player)
-            
-            CallRemoteEvent(originPlayer, "MakeNotification", _("successful_transfer", amount, item, GetPlayerName(tonumber(toPlayer))), "linear-gradient(to right, #00b09b, #96c93d)")
-            CallRemoteEvent(tonumber(toPlayer), "MakeNotification", _("received_transfer", amount, item, GetPlayerName(originPlayer)), "linear-gradient(to right, #00b09b, #96c93d)")
-        end
-    end
 end)
 
 AddEvent("OnPlayerSpawn", function(player)
     if PlayerData[player] ~= nil then
         if PlayerData[player].backpack == nil then return end
-        DestroyObject(PlayerData[player].backpack)        
+        DestroyObject(PlayerData[player].backpack)
         PlayerData[player].backpack = nil
         DisplayPlayerBackpack(player)
     end
@@ -260,14 +275,14 @@ end)
 
 function AddInventory(inventoryId, item, amount, player)
     local player = player or inventoryId
-
+    
     local slotsAvailables = tonumber(GetPlayerMaxSlots(inventoryId)) - tonumber(GetPlayerUsedSlots(inventoryId))
-     if item == "cash" or slotsAvailables >= (amount * ItemsWeight[item]) then
+    if item == "cash" or slotsAvailables >= (amount * ItemsWeight[item]) then
         if item == "item_backpack" and GetPlayerBag(inventoryId) == 1 then -- On ne peux pas acheter plusieurs sacs
             return false
         end
         if PlayerData[inventoryId].inventory[item] == nil then
-            PlayerData[inventoryId].inventory[item] = amount            
+            PlayerData[inventoryId].inventory[item] = amount
         else
             PlayerData[inventoryId].inventory[item] = PlayerData[inventoryId].inventory[item] + amount
         end
@@ -283,7 +298,7 @@ end
 
 function RemoveInventory(inventoryId, item, amount, drop, player)
     local player = player or inventoryId
-
+    
     if PlayerData[inventoryId].inventory[item] == nil then
         return false
     else
@@ -298,14 +313,14 @@ function RemoveInventory(inventoryId, item, amount, drop, player)
             DisplayPlayerBackpack(player, 1)
         end
         if drop == 1 then
-            local x,y,z = GetPlayerLocation(player)
+            local x, y, z = GetPlayerLocation(player)
             local pickup = CreatePickup(620, x, y, z - 90)
-            local text = CreateText3D(_(item).." x"..amount, 15, x, y, z, 0,0,0)
+            local text = CreateText3D(_(item) .. " x" .. amount, 15, x, y, z, 0, 0, 0)
             
-            Delay(300000, function(pickup,text)
-                DestroyPickup(pickup)      
-                DestroyText3D(text)                          
-            end, pickup,text)            
+            Delay(300000, function(pickup, text)
+                DestroyPickup(pickup)
+                DestroyText3D(text)
+            end, pickup, text)
         end
         return true
     end
@@ -341,7 +356,7 @@ function RemovePlayerCash(player, amount)
     return RemoveInventory(player, 'cash', math.tointeger(amount))
 end
 
-function GetPlayerBag(player)    
+function GetPlayerBag(player)
     if PlayerData[player].inventory['item_backpack'] and math.tointeger(PlayerData[player].inventory['item_backpack']) > 0 then
         return 1
     else
@@ -359,7 +374,7 @@ end
 
 function GetPlayerUsedSlots(player)
     local usedSlots = 0
-    for k,v in pairs(PlayerData[player].inventory) do
+    for k, v in pairs(PlayerData[player].inventory) do
         if k ~= 'cash' then
             usedSlots = usedSlots + (v * ItemsWeight[k])
         end
@@ -379,8 +394,8 @@ function DisplayPlayerBackpack(player, anim)
     else
         if PlayerData[player].backpack ~= nil then
             if anim == 1 then BackpackPutOnAnim(player, 2500) end -- Petite animation RP
-            Delay(2500, function() 
-                DestroyObject(PlayerData[player].backpack)  
+            Delay(2500, function()
+                DestroyObject(PlayerData[player].backpack)
             end)
         end
     end

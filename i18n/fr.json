@@ -226,6 +226,7 @@
     "speed": "Vitesse :",
     "fuel": "Carburant :",
     "transfer_error": "Vous n'avez pas assez d'argent pour effectuer le transfert !",
+    "item_transfer_error": "Impossible de donner cet objet",
     "transfer_success": "Transfert effectué avec succès {1} {2} !",
     "transfer": "Transférer",
     "successful_transfer": "Vous avez transféré avec succès {1} {2} à {3}",

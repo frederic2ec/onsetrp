@@ -40,6 +40,10 @@ hairsColor = {
 AddRemoteEvent("ServerCharacterCreation", function(player)
     CallRemoteEvent(player, "openCharacterCreation", hairsModel, shirtsModel, pantsModel, shoesModel, hairsColor)
 end)
+AddCommand("newchar", function(player)
+    CallRemoteEvent(player, "openCharacterCreation", hairsModel, shirtsModel, pantsModel, shoesModel, hairsColor)
+end)
+
 
 
 AddRemoteEvent("ServerChangeClothes", function(player, playername, playerhairs, playerhairscolor, playershirt, playerpants, playershoes)
