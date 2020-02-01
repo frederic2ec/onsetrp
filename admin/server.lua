@@ -122,6 +122,20 @@ function OnLogListLoadd(player, playersName)
 
 end
 
+AddRemoteEvent("AdminRezPlayer", function(player, toPlayer)
+    if tonumber(PlayerData[player].admin) ~= 1 then return end
+    if GetPlayerHealth(toPlayer) > 0 then return end
+    local x, y, z = GetPlayerLocation(toPlayer)
+    local h = GetPlayerHeading(toPlayer)
+    SetPlayerSpawnLocation(toPlayer, x, y, z, h)
+    PlayerData[toPlayer].has_been_revived = true
+    SetPlayerRespawnTime(toPlayer, 0)
+    Delay(100, function()
+        SetPlayerHealth(toPlayer, 100)
+        PlayerData[toPlayer].health = 100
+    end)
+end)  
+
 AddRemoteEvent("AdminHealPlayer", function(player, toPlayer)
     if tonumber(PlayerData[player].admin) ~= 1 then return end
     StopBleedingForPlayer(toPlayer)
@@ -291,8 +305,3 @@ function UnstuckPlayer(player, height)
     end
 end
 AddRemoteEvent("admin:unstuck:teleport", UnstuckPlayer)
-
-AddCommand("stuck", function(player)
-    local x,y,z = GetPlayerLocation(player)
-    SetPlayerLocation(player, x, y, 0)
-end)

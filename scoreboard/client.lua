@@ -42,6 +42,13 @@ function Scoreboard_OnServerScoreboardUpdate(data, name, players, maxplayers)
 end
 AddRemoteEvent('OnServerScoreboardUpdate', Scoreboard_OnServerScoreboardUpdate)
 
+AddEvent("scoreboard:admin:rez", function(player)
+  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
+  if IsAdmin == 1  then
+    CallRemoteEvent("AdminRezPlayer", player) 
+  end
+end)
+
 AddEvent("scoreboard:admin:heal", function(player)
   local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
   if IsAdmin == 1  then
