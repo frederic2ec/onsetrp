@@ -52,7 +52,7 @@ AddRemoteEvent("startModify", function(player, isCreation)
 	local isCreation = isCreation or false
 
 	if isCreation then
-		SetPlayerDimension(player, player)
+		SetPlayerDimension(player, 1000 + player)
 	end
 
 	SetPlayerBusy(player)
