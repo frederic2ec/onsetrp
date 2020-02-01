@@ -206,9 +206,23 @@ AddRemoteEvent("admin:unstuck:terrainheight", function()
     while terrain_height == false or terrain_height <= 100 do
         terrain_height = GetTerrainHeight(x, y, tryZ)
         tryZ = tryZ + 100
-        print(tryZ, terrain_height)
         if tryZ > maxTry * 100 then return end
     end
 
     CallRemoteEvent("admin:unstuck:teleport", terrain_height + 100)
 end)
+
+local under_water = false
+AddEvent("OnPlayerEnterWater", function()
+    under_water_help = true
+end)
+AddEvent("OnPlayerLeaveWater", function()
+    under_water_help = false    
+end)
+
+AddEvent("OnRenderHUD", function()
+    if under_water_help then
+        DrawText(700, 10, _("under_water_help"))
+    end
+end)
+

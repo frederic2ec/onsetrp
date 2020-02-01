@@ -567,5 +567,6 @@
     "medic_item_adrenaline_syringue_success": "Vous avez sauvé cette personne à l'aide d'une seringue d'adrénaline",
     "medic_item_bandage_success": "Vous avez pansé le saignement de cette personne avec succès",
     "medic_callout_created": "Les médecins ont bien reçu l'appel",
-    "herring": "Hareng"
+    "herring": "Hareng",
+    "under_water_help": "Vous êtes dans l'eau ? Tapez /unstuck dans le chat ! (\"Numpad /\" pour l'afficher)"
 }
