@@ -124,7 +124,7 @@ function PoliceStartService(player)-- To start the police service
     
     -- #4 Set the player job to police, update the cloths, give equipment
     PlayerData[player].job = "police"
-    SetPlayerPropertyValue(player, "Police:IsOnDuty", true, true)
+    CallRemoteEvent(player, "police:client:isonduty", true)    
     -- CLOTHINGS
     GivePoliceEquipmentToPlayer(player)
     SetPlayerArmor(player, 100)-- Set the armor of player
@@ -145,7 +145,7 @@ function PoliceEndService(player)-- To end the police service
     end
     -- #2 Set player job
     PlayerData[player].job = ""
-    SetPlayerPropertyValue(player, "Police:IsOnDuty", false, true)
+    CallRemoteEvent(player, "police:client:isonduty", false)  
     -- #3 Reset player armor
     SetPlayerArmor(player, 0)-- Reset the armor of player
     -- #4 Trigger update of cloths
@@ -189,16 +189,13 @@ function RemovePoliceEquipmentFromPlayer(player)-- To remove police equipment fr
 end
 
 AddEvent("job:onspawn", function(player)
-    print('JOB:ONSPAWN POLICE', player)
     if PlayerData[player].job == "police" and PlayerData[player].police == 1 then -- Anti glitch
-        --GivePoliceEquipmentToPlayer(player)
-        SetPlayerPropertyValue(player, "Police:IsOnDuty", true, true)
+        CallRemoteEvent(player, "police:client:isonduty", true)  
     end
     
     if PlayerData[player].is_cuffed == 1 then
         SetPlayerCuffed(player, true)
     end
-    print('JOB:ONSPAWN POLICE', GetPlayerPropertyValue(player, "Police:IsOnDuty"))
 end)
 
 AddEvent("police:refreshcuff", function(player)

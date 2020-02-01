@@ -124,7 +124,8 @@ function MedicStartService(player)-- start service
     
     -- #4 Set the player job to medic, update the cloths, give equipment
     PlayerData[player].job = "medic"
-    SetPlayerPropertyValue(player, "Medic:IsOnDuty", true, true)
+    CallRemoteEvent(player, "medic:client:isonduty", true)
+    
     -- CLOTHINGS
     GiveMedicEquipmentToPlayer(player)
     UpdateClothes(player)
@@ -142,6 +143,7 @@ function MedicEndService(player)-- stop service
     end
     -- #2 Set player job
     PlayerData[player].job = ""
+    CallRemoteEvent(player, "medic:client:isonduty", false)
     -- #3 Trigger update of cloths
     UpdateClothes(player)
     
@@ -166,15 +168,13 @@ function RemoveMedicEquipmentToPlayer(player)-- remove equipment from a medic
 end
 
 AddEvent("job:onspawn", function(player)-- when player is fully loaded    
-    print('JOB:ONSPAWN MEDIC', player)
     if PlayerData[player].job == "medic" and PlayerData[player].medic == 1 then -- Anti glitch
-        SetPlayerPropertyValue(player, "Medic:IsOnDuty", true, true)
+        CallRemoteEvent(player, "medic:client:isonduty", true)        
     end
     
     if PlayerData[player].health ~= nil then
         SetPlayerHealth(player, PlayerData[player].health)
     end
-    print('JOB:ONSPAWN MEDIC', GetPlayerPropertyValue(player, "Medic:IsOnDuty"))
 end)
 
 AddEvent("OnPlayerSpawn", function(player)-- On player death
