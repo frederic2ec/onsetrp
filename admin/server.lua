@@ -175,6 +175,7 @@ AddRemoteEvent("AdminGiveMoney", function(player, toPlayer, account, amount)
 end)
 
 AddRemoteEvent("AdminKickBan", function(player, toPlayer, type, reason)
+    --if player == toPlayer then return end -- Protection anti fatigue Kappa
     if tonumber(PlayerData[player].admin) ~= 1 then return end
     if type == "Ban" then
         mariadb_query(sql, "INSERT INTO `bans` (`steamid`, `ban_time`, `reason`) VALUES ('"..PlayerData[tonumber(toPlayer)].steamid.."', '"..os.time(os.date('*t')).."', '"..reason.."');")

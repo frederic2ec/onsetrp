@@ -48,11 +48,11 @@ function SetInformation(name, players, maxplayers) {
 }
 
 function kick(player) {
-    // TODO
+    window.ue.game.callevent("scoreboard:admin:kick", player);
 }
 
 function ban(player) {
-    // TODO
+    window.ue.game.callevent("scoreboard:admin:ban", player);
 }
 
 function spec(player) {

@@ -39,3 +39,17 @@ function Scoreboard_OnServerScoreboardUpdate(data, name, players, maxplayers)
   end
 end
 AddRemoteEvent('OnServerScoreboardUpdate', Scoreboard_OnServerScoreboardUpdate)
+
+AddEvent("scoreboard:admin:kick", function(player)
+  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
+  if IsAdmin == 1 then
+    CallRemoteEvent("AdminKickBan", tonumber(player), "Kick", "HOP HOP HOP, Halte là !")
+  end
+end)
+
+AddEvent("scoreboard:admin:ban", function(player)
+  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
+  if IsAdmin == 1 then
+    CallRemoteEvent("AdminKickBan", tonumber(player), "Ban", "Qui fait le malin, tombe dans le ravin !")
+  end
+end)
