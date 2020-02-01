@@ -191,7 +191,6 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
                 MakeNotification(_("select_amount"), "linear-gradient(to right, #ff5f6d, #ffc371)")
                 return
             end
-            print(args[1],args[2],args[3])
             CallRemoteEvent("AdminGiveItem", args[1],args[2],args[3])
         end
     end
