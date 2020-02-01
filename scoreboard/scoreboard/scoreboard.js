@@ -19,6 +19,7 @@ function AddPlayer(id, name, steamid, ping) {
     <td>${ping}ms</td>
     <td class="right">
         <button class="btn-level-0" onclick="spec(${id})"><img src="admin-icons/binoculars.png"/> SPEC</button>&nbsp;    
+        <button class="btn-level-0" onclick="heal(${id})"><img src="admin-icons/pill.png"/> HEAL</button>&nbsp;    
         <button class="btn-level-1" onclick="goto(${id})"><img src="admin-icons/teleport.png"/> GOTO</button>&nbsp;
         <button class="btn-level-1" onclick="bring(${id})"><img src="admin-icons/teleport.png"/> BRING</button>&nbsp;
         <button class="btn-level-2" onclick="freeze(${id})"><img src="admin-icons/freeze.png"/> FREEZE</button>&nbsp;
@@ -49,6 +50,10 @@ function SetInformation(name, players, maxplayers) {
     infoPlayers.getElementsByTagName(
         "small"
     )[0].innerHTML = `Players: ${players}/${maxplayers}`;
+}
+
+function heal(player) {
+    window.ue.game.callevent("scoreboard:admin:heal", player);
 }
 
 function freeze(player) {

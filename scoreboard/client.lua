@@ -14,6 +14,7 @@ AddEvent("OnPackageStart", Scoreboard_OnPackageStart)
 function Scoreboard_OnKeyPress(key)
   local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
   if key == 'Tab' and IsAdmin == 1 then
+    ShowMouseCursor(true)    
     CallRemoteEvent('RequestScoreboardUpdate')
     SetInputMode(INPUT_GAMEANDUI)
     SetWebVisibility(ScoreboardUI, WEB_VISIBLE)
@@ -23,6 +24,7 @@ AddEvent('OnKeyPress', Scoreboard_OnKeyPress)
 
 function Scoreboard_OnKeyRelease(key)
   if key == 'Tab' then
+    ShowMouseCursor(false)   
     SetInputMode(INPUT_GAME)
     SetWebVisibility(ScoreboardUI, WEB_HIDDEN)
   end
@@ -39,6 +41,13 @@ function Scoreboard_OnServerScoreboardUpdate(data, name, players, maxplayers)
   end
 end
 AddRemoteEvent('OnServerScoreboardUpdate', Scoreboard_OnServerScoreboardUpdate)
+
+AddEvent("scoreboard:admin:heal", function(player)
+  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
+  if IsAdmin == 1  then
+    CallRemoteEvent("AdminHealPlayer", player)    
+  end
+end)
 
 AddEvent("scoreboard:admin:freeze", function(player)
   local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")

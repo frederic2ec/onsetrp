@@ -203,6 +203,7 @@
         "scoreboard/scoreboard/admin-icons/freeze.png",
         "scoreboard/scoreboard/admin-icons/kick.png",
         "scoreboard/scoreboard/admin-icons/law.png",
-        "scoreboard/scoreboard/admin-icons/teleport.png"
+        "scoreboard/scoreboard/admin-icons/teleport.png",
+        "scoreboard/scoreboard/admin-icons/pill.png"
     ]
 }

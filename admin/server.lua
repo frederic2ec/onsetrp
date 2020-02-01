@@ -122,6 +122,13 @@ function OnLogListLoadd(player, playersName)
 
 end
 
+AddRemoteEvent("AdminHealPlayer", function(player, toPlayer)
+    if tonumber(PlayerData[player].admin) ~= 1 then return end
+    StopBleedingForPlayer(toPlayer)
+    CallRemoteEvent(toPlayer, "damage:bleed:toggleeffect", 0)
+    SetPlayerHealth(toPlayer, 100)    
+end)    
+
 AddRemoteEvent("AdminFreezePlayer", function(player, toPlayer)
     if tonumber(PlayerData[player].admin) ~= 1 then return end
     local IsFroze = GetPlayerPropertyValue(toPlayer, "Admin:IsFroze") or 0
