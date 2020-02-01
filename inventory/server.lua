@@ -218,7 +218,7 @@ end
 
 AddRemoteEvent("TransferInventory", function(player, originPlayer, item, amount, toPlayer)
     local x, y, z = GetPlayerLocation(player)
-    local nearestPlayers = GetPlayersInRange3D(x, y, z, 1000)
+    local nearestPlayers = GetPlayersInRange3D(x, y, z, 300)
     local toPlayerIsHere = false
     for k, v in pairs(nearestPlayers) do
         if k == toPlayer then

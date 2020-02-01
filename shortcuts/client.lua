@@ -1,3 +1,5 @@
+local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, ...) end
+
 shortcutsUI = nil
 
 function OnPackageStart()
@@ -6,7 +8,7 @@ function OnPackageStart()
 	SetWebSize(shortcutsUI, 600, 900)
 	SetWebAlignment(shortcutsUI, 0.5, 0.5)
 	SetWebAnchors(shortcutsUI, 0.5, 0.5, 0.5, 0.5)
-	SetWebVisibility(shortcutsUI, WEB_HIDDEN)
+    SetWebVisibility(shortcutsUI, WEB_HIDDEN)
 end
 AddEvent("OnPackageStart", OnPackageStart)
 

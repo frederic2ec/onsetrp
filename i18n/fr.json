@@ -456,6 +456,7 @@
     "VEHICLE_TRUNK_KEY": "Ouvrir / fermer le coffre",
     "VEHICLE_HOOD_KEY": "Ouvrir / fermer le capot",
     "ADMIN_MENU_KEY": "Menu admin",
+    "TOGGLE_CHAT_KEY": "Affiche / cache le chat",
     "fine_given": "Vous avez donner une amende de {1}$",
     "fine_received": "Vous avez payé votre amende de {1}$",
     "you_are_handcuffed": "Vous êtes menotté",
