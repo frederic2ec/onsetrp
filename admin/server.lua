@@ -139,11 +139,11 @@ AddRemoteEvent("AdminTeleportToPlayer", function(player, toPlayer)
     SetPlayerLocation(player, x, y, z + 200)
 end)
 
-AddRemoteEvent("AdminTeleportPlayer", function(toPlayer, player)
-    print(toPlayer, player)
-    if tonumber(PlayerData[toPlayer].admin) ~= 1 then return end
+AddRemoteEvent("AdminTeleportPlayer", function(player, toPlayer, tpPlayer)
+    print(player, toPlayer, tpPlayer)
+    if tonumber(PlayerData[player].admin) ~= 1 then return end
     local x, y, z  = GetPlayerLocation(tonumber(toPlayer))
-    SetPlayerLocation(player, x, y, z + 200)
+    SetPlayerLocation(tpPlayer, x, y, z + 200)
 end)
 
 AddRemoteEvent("AdminGiveWeapon", function(player, weaponName)
