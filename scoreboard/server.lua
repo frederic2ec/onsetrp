@@ -3,8 +3,8 @@ function Scoreboard_RequestUpdate(player)
   for _, v in ipairs(GetAllPlayers()) do
     _send[v] = {
       ['id'] = v,
-      ['name'] = GetPlayerName(v),
-      ['steamid'] = GetPlayerSteamId(v),
+      ['name'] = PlayerData[v].name,
+      ['steamid'] = tostring(GetPlayerSteamId(v)),
       ['ping'] = GetPlayerPing(v)
     }
   end

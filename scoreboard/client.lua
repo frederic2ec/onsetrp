@@ -12,7 +12,7 @@ end
 AddEvent("OnPackageStart", Scoreboard_OnPackageStart)
 
 function Scoreboard_OnKeyPress(key)
-  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin") 
+  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
   print('IsAdmin ?', IsAdmin) 
   if key == 'Tab' and IsAdmin == 1 then
     CallRemoteEvent('RequestScoreboardUpdate')
@@ -40,6 +40,20 @@ function Scoreboard_OnServerScoreboardUpdate(data, name, players, maxplayers)
   end
 end
 AddRemoteEvent('OnServerScoreboardUpdate', Scoreboard_OnServerScoreboardUpdate)
+
+AddEvent("scoreboard:admin:tp", function(player)
+  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
+  if IsAdmin == 1 then
+    CallRemoteEvent("AdminTeleportPlayer", GetPlayerId())    
+  end
+end)
+
+AddEvent("scoreboard:admin:goto", function(player)
+  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
+  if IsAdmin == 1 then
+    CallRemoteEvent("AdminTeleportToPlayer", player)    
+  end
+end)
 
 AddEvent("scoreboard:admin:kick", function(player)
   local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")

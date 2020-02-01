@@ -18,6 +18,8 @@ function AddPlayer(id, name, steamid, ping) {
     <td>${steamid}</td>
     <td>${ping}ms</td>
     <td class="right">
+        <button onclick="tp(${id})">TP</button>&nbsp;
+        <button onclick="goto(${id})">GOTO</button>&nbsp;
         <button onclick="kick(${id})">KICK</button>&nbsp;
         <button onclick="ban(${id})">BAN</button>&nbsp;
         <button onclick="spec(${id})">SPEC</button>
@@ -45,6 +47,14 @@ function SetInformation(name, players, maxplayers) {
     infoPlayers.getElementsByTagName(
         "small"
     )[0].innerHTML = `Players: ${players}/${maxplayers}`;
+}
+
+function tp(player) {
+    window.ue.game.callevent("scoreboard:admin:tp", player);
+}
+
+function goto(player) {
+    window.ue.game.callevent("scoreboard:admin:goto", player);
 }
 
 function kick(player) {
