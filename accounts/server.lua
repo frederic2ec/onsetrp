@@ -148,6 +148,7 @@ function OnAccountLoaded(player)
         PlayerData[player].drug_knowledge = json_decode(result['drug_knowledge'])
         PlayerData[player].job = result['job']
         PlayerData[player].is_cuffed = math.tointeger(result['is_cuffed'])
+        PlayerData[player].age = math.tointeger(result['age'])
         PlayerData[player].health = math.tointeger(result['health'])
         
         if result['phone_number'] and result['phone_number'] ~= "" then
@@ -256,6 +257,7 @@ function CreatePlayerData(player)
     PlayerData[player].backpack = nil
     PlayerData[player].drug_knowledge = {}
     PlayerData[player].is_cuffed = 0
+    PlayerData[player].age = 30
     
     print("Data created for : " .. player)
 end
@@ -296,7 +298,7 @@ function SavePlayerAccount(player)
     local x, y, z = GetPlayerLocation(player)
     PlayerData[player].position = {x = x, y = y, z = z}
     
-    local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', inventory = '?', created = '?', position = '?', driver_license = ?, gun_license = ?, helicopter_license = ?, drug_knowledge = '?', job = '?', is_cuffed = ? WHERE id = ? LIMIT 1;",
+    local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', inventory = '?', created = '?', position = '?', driver_license = ?, gun_license = ?, helicopter_license = ?, drug_knowledge = '?', job = '?', is_cuffed = ?, age = ? WHERE id = ? LIMIT 1;",
         PlayerData[player].admin,
         PlayerData[player].bank_balance,
         PlayerData[player].health,
@@ -312,8 +314,9 @@ function SavePlayerAccount(player)
         PlayerData[player].gun_license,
         PlayerData[player].helicopter_license,
         json_encode(PlayerData[player].drug_knowledge),
-        PlayerData[player].job,
+        PlayerData[player].job or "",
         PlayerData[player].is_cuffed or 0,
+        PlayerData[player].age or 30,
         PlayerData[player].accountid
     )
     mariadb_query(sql, query)
@@ -349,7 +352,6 @@ AddFunctionExport("isAdmin", IsAdmin)
 AddFunctionExport("SetPlayerBusy", SetPlayerBusy)
 AddFunctionExport("SetPlayerNotBusy", SetPlayerNotBusy)
 AddFunctionExport("GetPlayerBusy", GetPlayerBusy)
-
 
 -- TO REMOVE
 function GetPlayerData(player)

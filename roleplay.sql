@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `drug_knowledge` text NOT NULL,
   `job` varchar(20) DEFAULT NULL,
   `is_cuffed` tinyint(1) NOT NULL DEFAULT 0,
+  `age` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 

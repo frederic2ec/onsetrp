@@ -1,5 +1,7 @@
+local Dialog = ImportPackage("dialogui")
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
+local characterCreation
 local isCreated = true
 
 local playerName = ""
@@ -12,9 +14,10 @@ local playerShoes = ""
 onCharacterCreation = false
 
 AddEvent("OnTranslationReady", function()
-    -- characterCreation = Dialog.create(_("character_creation"), _("create_character_name"), _("next_step"))
-    -- Dialog.addTextInput(characterCreation, 1, _("first_name"))
-    -- Dialog.addTextInput(characterCreation, 1, _("last_name"))
+    characterCreation = Dialog.create(_("character_creation"), _("create_character_name"), _("next_step"))
+    Dialog.addTextInput(characterCreation, 1, _("first_name"))
+    Dialog.addTextInput(characterCreation, 1, _("last_name"))
+    Dialog.addTextInput(characterCreation, 1, _("age"))
     -- hairsCreation = Dialog.create(_("hairs_creation"), _("choose_hairs_color"), _("next_step"))
     -- Dialog.addSelect(hairsCreation, 1, _("hairs"), 5)
     -- Dialog.addSelect(hairsCreation, 2, _("color"), 5)
@@ -32,6 +35,22 @@ AddEvent("OnKeyPress", function(key)
     end
 end)
 
+AddEvent("OnDialogSubmit", function(dialog, button, ...)
+    local args = { ... }
+	if dialog == characterCreation then
+        if button == 1 then
+            if args[1] == "" or args[2] == "" then
+                MakeNotification(_("enter_valid_name"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+                Dialog.show(characterCreation)
+            elseif args[3] == "" then
+                MakeNotification(_("enter_valid_age"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+                Dialog.show(characterCreation)
+            else
+                CallRemoteEvent("CharacterCreated", args[1], args[2], args[3])
+            end
+        end
+    end
+end)
 
 AddEvent("OnDialogUIReady", function()
     if not isCreated then
@@ -41,13 +60,18 @@ end)
 
 AddRemoteEvent("askClientCreation", function() 
     isCreated = false
+    print("askClientCreation")
+    print("askClientCreation")
+    print("askClientCreation")
+    print("askClientCreation")
+    Dialog.show(characterCreation)
 end)
 
 AddEvent("OnPlayerStreamIn", function( player, otherplayer )
     CallRemoteEvent("ServerChangeOtherPlayerClothes", player, otherplayer)
 end)
 
-AddRemoteEvent("openCharacterCreation", function(lhairs, lshirts, lpants, lshoes,lhairscolor)
+AddRemoteEvent("openCharacterCreation", function(lhairs, lshirts, lpants, lshoes, lhairscolor)
     hairs = {}
     for k,v in pairs(lhairs) do
         hairs[k] = _("clothes_"..k)

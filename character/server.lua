@@ -66,6 +66,16 @@ AddRemoteEvent("ServerCharacterCreation", function(player)
     CallRemoteEvent(player, "ClientChangeClothing", player, 5, shoesModel[defaultCharacter.shoes], 0, 0, 0, 0)
     CallRemoteEvent(player, "ClientChangeClothing", player, 6, "noShoesLegsTorso", skin[1], skin[2], skin[3], skin[4])
 
+    SetPlayerBusy(player)
+
+    CallRemoteEvent(player, "askClientCreation")
+    -- CallRemoteEvent(player, "openModify", defaultCharacter, true)
+end)
+
+AddRemoteEvent("CharacterCreated", function(player, firstname, lastname, age)
+    PlayerData[player].name = firstname.." "..lastname
+    PlayerData[player].age = age
+    
     CallRemoteEvent(player, "openModify", defaultCharacter, true)
 end)
 
