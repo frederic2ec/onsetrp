@@ -6,15 +6,22 @@ function ResetScoreboard() {
     tableOuter.scrollTop = 0;
 }
 
-function AddPlayer(name, ping) {
+function AddPlayer(id, name, steamid, ping) {
     let table = document.getElementsByTagName("table")[0];
     let tableContent = table.getElementsByTagName("tbody")[0].innerHTML;
 
     table.getElementsByTagName("tbody")[0].innerHTML =
         tableContent +
         `<tr>
+    <td>#${id}</td>
     <td>${name}</td>
+    <td>${steamid}</td>
     <td>${ping}ms</td>
+    <td class="right">
+        <button onclick="kick(${id})">KICK</button>&nbsp;
+        <button onclick="ban(${id})">BAN</button>&nbsp;
+        <button onclick="spec(${id})">SPEC</button>
+    </td>
   </tr>`;
 }
 
@@ -38,4 +45,16 @@ function SetInformation(name, players, maxplayers) {
     infoPlayers.getElementsByTagName(
         "small"
     )[0].innerHTML = `Players: ${players}/${maxplayers}`;
+}
+
+function kick(player) {
+    // TODO
+}
+
+function ban(player) {
+    // TODO
+}
+
+function spec(player) {
+    // TODO
 }

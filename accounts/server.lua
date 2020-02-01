@@ -150,6 +150,8 @@ function OnAccountLoaded(player)
         PlayerData[player].job = result['job']
         PlayerData[player].is_cuffed = math.tointeger(result['is_cuffed'])
         PlayerData[player].health = math.tointeger(result['health'])
+
+        SetPlayerPropertyValue(player, "Account:IsAdmin", PlayerData[player].admin, true)        
         
         if result['phone_number'] and result['phone_number'] ~= "" then
             PlayerData[player].phone_number = tostring(result['phone_number'])

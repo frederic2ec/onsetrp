@@ -22,9 +22,9 @@ body.center {
 }
 
 .background {
-  width: 50%;
-  height: 50%;
-  background: #171717;
+  width: 70%;
+  height: 70%;
+  background: rgba(26,26,26,0.5);
   position: relative;
 }
 
@@ -105,4 +105,20 @@ table tr:nth-child(1) td > img {
 
 .server > .players {
   float: right;
+}
+
+button {
+  font-family: 'Raleway', 'Open Sans', sans-serif !important;
+  background-color: #ca5c01;
+  border: none;
+  color: white;
+  padding: 5px 10px;            
+  text-decoration: none;
+  font-size: 13px;
+  border-radius: 5px;
+  font-weight:bold;
+}
+
+.right {
+  text-align:right;
 }

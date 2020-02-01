@@ -12,7 +12,8 @@ end
 AddEvent("OnPackageStart", Scoreboard_OnPackageStart)
 
 function Scoreboard_OnKeyPress(key)
-  if key == 'Tab' then
+  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")  
+  if key == 'Tab' and IsAdmin == 1 then
     CallRemoteEvent('RequestScoreboardUpdate')
     SetInputMode(INPUT_GAMEANDUI)
     SetWebVisibility(ScoreboardUI, WEB_VISIBLE)
@@ -34,7 +35,7 @@ function Scoreboard_OnServerScoreboardUpdate(data, name, players, maxplayers)
   ExecuteWebJS(ScoreboardUI, 'ResetScoreboard()')
   ExecuteWebJS(ScoreboardUI, 'SetInformation("' .. name .. '", ' .. players .. ', ' .. maxplayers .. ')')
   for _, v in pairs(data) do
-    ExecuteWebJS(ScoreboardUI, 'AddPlayer ("' .. v['name'] .. '", ' .. v['ping'] .. ')')
+    ExecuteWebJS(ScoreboardUI, 'AddPlayer (' .. v['id'] .. ',"' .. v['name'] .. '","' .. v['steamid'] .. '", ' .. v['ping'] .. ')')
   end
 end
 AddRemoteEvent('OnServerScoreboardUpdate', Scoreboard_OnServerScoreboardUpdate)
