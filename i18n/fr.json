@@ -147,6 +147,7 @@
     "item_unequiped": "Déséquipé de l'emplacement {1}",
     "use": "Utiliser",
     "give": "Donner",
+    "items": "Objets",
     "personal_menu": "Menu personnel",
     "repair_kit": "Kit de réparation",
     "health_kit": "Kit de soin",
@@ -569,5 +570,8 @@
     "medic_item_bandage_success": "Vous avez pansé le saignement de cette personne avec succès",
     "medic_callout_created": "Les médecins ont bien reçu l'appel",
     "herring": "Hareng",
-    "under_water_help": "Vous êtes dans l'eau ? Tapez /unstuck dans le chat ! (\"Numpad /\" pour l'afficher)"
+    "under_water_help": "Vous êtes dans l'eau ? Tapez /unstuck dans le chat ! (\"Numpad /\" pour l'afficher)",
+    "item_menu": "Menu objets",
+    "admin_give_item_success": "Objet donné avec succès",
+    "admin_give_item_fail": "Impossible de donner cet objet"
 }

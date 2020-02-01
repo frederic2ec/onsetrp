@@ -11,9 +11,10 @@ local vehicleMenu
 local moneyMenu
 local banMenu
 local logMenu
+local itemMenu
 
 AddEvent("OnTranslationReady", function()
-    adminMenu = Dialog.create(_("admin_menu"), nil, _("teleportation"), _("weapon"), _("vehicle"), _("money"), _("ban_kick"), _("log"),_("cancel"))
+    adminMenu = Dialog.create(_("admin_menu"), nil, _("teleportation"), _("weapon"), _("vehicle"), _("money"),_("items"), _("ban_kick"), _("log"),_("cancel"))
     teleportMenu = Dialog.create(_("teleport_menu"), nil, _("teleport_to_place"), _("teleport_to_player"), _("teleport_player"), _("cancel"))
     teleportPlaceMenu = Dialog.create(_("teleport_to_player"), nil, _("teleport"), _("cancel"))
     Dialog.addSelect(teleportPlaceMenu, 1, _("place"), 8)
@@ -28,6 +29,10 @@ AddEvent("OnTranslationReady", function()
     moneyMenu = Dialog.create(_("money_menu"), nil, _("give_bank"), _("give_cash"), _("cancel"))
     Dialog.addSelect(moneyMenu, 1, _("player"), 8)
     Dialog.addTextInput(moneyMenu, 1, _("amount"))
+    itemMenu = Dialog.create(_("item_menu"), nil, _("give"), _("cancel"))
+    Dialog.addSelect(itemMenu, 1, _("player"), 8)
+    Dialog.addSelect(itemMenu, 2, _("items"), 12)
+    Dialog.addTextInput(itemMenu, 1, _("amount"))
     banMenu = Dialog.create(_("ban_menu"), nil, _("ban"), _("kick"), _("cancel"))
     Dialog.addSelect(banMenu, 1, _("player"), 8)
     Dialog.addTextInput(banMenu, 1, _("reason"))
@@ -59,9 +64,12 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
             Dialog.show(moneyMenu)
         end
         if button == 5 then
-            Dialog.show(banMenu)
+            Dialog.show(itemMenu)
         end
         if button == 6 then
+            Dialog.show(banMenu)
+        end
+        if button == 7 then
             Dialog.show(logMenu)
         end
     end
@@ -169,9 +177,27 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
             end
         end
     end
+    if dialog == itemMenu then
+        if button == 1 then
+            if args[1] == "" then
+                MakeNotification(_("select_player"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+                return
+            end
+            if args[2] == "" then
+                MakeNotification(_("select_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+                return
+            end
+            if args[3] == "" then
+                MakeNotification(_("select_amount"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+                return
+            end
+            print(args[1],args[2],args[3])
+            CallRemoteEvent("AdminGiveItem", args[1],args[2],args[3])
+        end
+    end
 end)
 
-AddRemoteEvent("OpenAdminMenu", function(teleportPlace, playersNames, weaponsIds, vehicleIds, logs) 
+AddRemoteEvent("OpenAdminMenu", function(teleportPlace, playersNames, weaponsIds, vehicleIds, logs, items) 
     local tpPlace = {}
     for k,v in pairs(teleportPlace) do
         tpPlace[k] = _(k)
@@ -180,6 +206,7 @@ AddRemoteEvent("OpenAdminMenu", function(teleportPlace, playersNames, weaponsIds
     Dialog.setSelectLabeledOptions(teleportToPlayereMenu, 1, 1, playersNames)
     Dialog.setSelectLabeledOptions(teleportPlayerMenu, 1, 1, playersNames)
     Dialog.setSelectLabeledOptions(moneyMenu, 1, 1, playersNames)
+    Dialog.setSelectLabeledOptions(itemMenu, 1, 1, playersNames)
     Dialog.setSelectLabeledOptions(banMenu, 1, 1, playersNames)
     Dialog.setSelectLabeledOptions(logMenu, 1, 1, logs)
     local weaponList = {}
@@ -192,6 +219,13 @@ AddRemoteEvent("OpenAdminMenu", function(teleportPlace, playersNames, weaponsIds
         vehicleList[k] = _(k)
     end
     Dialog.setSelectLabeledOptions(vehicleMenu, 1, 1, vehicleList)
+    local itemList = {}    
+    for k,v in pairs(items) do
+        if v.category ~= "weapons" then
+            itemList[k] = _(v.name)
+        end        
+    end
+    Dialog.setSelectLabeledOptions(itemMenu, 2, 1, itemList)
     Dialog.show(adminMenu)
 end)
 

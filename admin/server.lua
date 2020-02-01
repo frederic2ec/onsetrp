@@ -118,7 +118,7 @@ function OnLogListLoadd(player, playersName)
         local action = result["action"]
         logList[tostring(id)] = action
     end
-    CallRemoteEvent(player, "OpenAdminMenu", teleportPlace, playersNames, weaponList, vehicleList, logList)
+    CallRemoteEvent(player, "OpenAdminMenu", teleportPlace, playersNames, weaponList, vehicleList, logList, Items)
 
 end
 
@@ -221,6 +221,14 @@ AddRemoteEvent("AdminGiveMoney", function(player, toPlayer, account, amount)
     end
     if account == "Bank" then
         PlayerData[tonumber(toPlayer)].bank_balance = PlayerData[tonumber(toPlayer)].bank_balance + tonumber(amount)
+    end
+end)
+
+AddRemoteEvent("AdminGiveItem", function(player, toPlayer, qty, item)
+    if AddInventory(tonumber(toPlayer), Items[tonumber(item)].name, tonumber(qty)) then
+        CallRemoteEvent(player, "MakeNotification", _("admin_give_item_success"), "linear-gradient(to right, #00b09b, #96c93d)")
+    else
+        CallRemoteEvent(player, "MakeErrorNotification", _("admin_give_item_fail"))
     end
 end)
 
