@@ -44,7 +44,7 @@ AddRemoteEvent('OnServerScoreboardUpdate', Scoreboard_OnServerScoreboardUpdate)
 AddEvent("scoreboard:admin:tp", function(player)
   local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
   if IsAdmin == 1 then
-    CallRemoteEvent("AdminTeleportPlayer", GetPlayerId())    
+    CallRemoteEvent("AdminTeleportPlayer",  GetPlayerId(), player)    
   end
 end)
 

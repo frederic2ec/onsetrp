@@ -140,6 +140,7 @@ AddRemoteEvent("AdminTeleportToPlayer", function(player, toPlayer)
 end)
 
 AddRemoteEvent("AdminTeleportPlayer", function(toPlayer, player)
+    print(toPlayer, player)
     if tonumber(PlayerData[toPlayer].admin) ~= 1 then return end
     local x, y, z  = GetPlayerLocation(tonumber(toPlayer))
     SetPlayerLocation(player, x, y, z + 200)
