@@ -110,9 +110,9 @@ function ChangeOtherPlayerClothes(player, otherplayer)
     local skin = skinColor[PlayerData[otherplayer].clothing[6]]
     CallRemoteEvent(player, "ClientChangeClothing", otherplayer, 6, "noShoesLegsTorso", skin[1], skin[2], skin[3], skin[4])
     
-    local SkeletalMeshComponent = GetPlayerSkeletalMeshComponent(GetPlayerId(), "Body")
-    SkeletalMeshComponent:SetMaterial(3, UMaterialInterface.LoadFromAsset("/Game/CharacterModels/Materials/HZN_Materials/M_HZN_Body_NoShoesLegsTorso"))
-    SkeletalMeshComponent:SetColorParameterOnMaterials("Skin Color", FLinearColor())
+    -- local SkeletalMeshComponent = GetPlayerSkeletalMeshComponent(GetPlayerId(), "Body")
+    -- SkeletalMeshComponent:SetMaterial(3, UMaterialInterface.LoadFromAsset("/Game/CharacterModels/Materials/HZN_Materials/M_HZN_Body_NoShoesLegsTorso"))
+    -- SkeletalMeshComponent:SetColorParameterOnMaterials("Skin Color", FLinearColor())
     
     playerhairscolor = hairsColor[PlayerData[otherplayer].clothing[2]]
 

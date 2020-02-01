@@ -96,6 +96,10 @@ AddRemoteEvent("ModifyEvent", function(player, hairsChoice, shirtsChoice, pantsC
 	SetPlayerDimension(player, 1)
 	SetPlayerNotBusy(player)
 
+	for k, v in pairs(GetStreamedPlayersForPlayer(player)) do
+        ChangeOtherPlayerClothes(k, player)
+    end
+
 	UpdateClothes(player)
     SetPlayerLocation(player, PLAYER_SPAWN_POINT.x, PLAYER_SPAWN_POINT.y, PLAYER_SPAWN_POINT.z)
 	SavePlayerAccount(player)
