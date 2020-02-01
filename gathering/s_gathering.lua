@@ -106,13 +106,13 @@ gatherTable = {
             {x = 232464, y = 193521, z = 112},
             {x = -220130, y = 23036, z = 107},
         },
-        gather_item = "fish",
+        gather_item = "herring",
         require_tool = "fishing_rod",
         gather_animation = "FISHING",
         gather_time = 6,
         gather_animation_attachement = {modelid = 1111, bone = "hand_r"},
         sell_zone = {
-            {x = -21295, y = -22954, z = 2080, h = -90, item_to_sell = "fish", price_per_unit = 8, sell_time = 5}
+            {x = -21295, y = -22954, z = 2080, h = -90, item_to_sell = "herring", price_per_unit = 8, sell_time = 5}
         }
     },
     {-- MINING
