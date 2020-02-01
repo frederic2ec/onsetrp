@@ -274,3 +274,26 @@ AddEvent("OnPlayerWeaponShot", function(player, weapon, hittype, hitid, hitX, hi
 
     mariadb_async_query(sql, query) 
 end)
+
+-- TO TP THE PLAYER TO THE GROUND WHEN HE IS IN WATER
+AddCommand("unstuck", function(player)
+    local x,y,z = GetPlayerLocation(player)
+    if z <= 0 then -- If the player is under the level of the sea (0)
+        CallRemoteEvent(player, "admin:unstuck:terrainheight")        
+    end
+end)
+
+function UnstuckPlayer(player, height)
+    print('UNSTUCK → ', player)
+    if height ~= nil and height ~= false then
+        local x,y,z = GetPlayerLocation(player)        
+        SetPlayerLocation(player, x, y, height)        
+    end
+end
+AddRemoteEvent("admin:unstuck:teleport", UnstuckPlayer)
+
+AddCommand("stuck", function(player)
+    local x,y,z = GetPlayerLocation(player)
+    SetPlayerLocation(player, x, y, 0)
+end)
+

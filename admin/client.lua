@@ -194,3 +194,21 @@ AddRemoteEvent("OpenAdminMenu", function(teleportPlace, playersNames, weaponsIds
     Dialog.setSelectLabeledOptions(vehicleMenu, 1, 1, vehicleList)
     Dialog.show(adminMenu)
 end)
+
+
+-- TO TP THE PLAYER TO THE GROUND WHEN HE IS IN WATER
+AddRemoteEvent("admin:unstuck:terrainheight", function()
+    local x, y, z = GetPlayerLocation()
+    
+    local tryZ = 0
+    local maxTry = 60
+    local terrain_height = GetTerrainHeight(x, y, tryZ)
+    while terrain_height == false or terrain_height <= 100 do
+        terrain_height = GetTerrainHeight(x, y, tryZ)
+        tryZ = tryZ + 100
+        print(tryZ, terrain_height)
+        if tryZ > maxTry * 100 then return end
+    end
+
+    CallRemoteEvent("admin:unstuck:teleport", terrain_height + 100)
+end)
