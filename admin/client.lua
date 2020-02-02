@@ -64,7 +64,8 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
             Dialog.show(moneyMenu)
         end
         if button == 5 then
-            Dialog.show(itemMenu)
+            --Dialog.show(itemMenu)
+            CallRemoteEvent("admin:menu:getitemlist")            
         end
         if button == 6 then
             Dialog.show(banMenu)
@@ -196,7 +197,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     end
 end)
 
-AddRemoteEvent("OpenAdminMenu", function(teleportPlace, playersNames, weaponsIds, vehicleIds, logs, items) 
+AddRemoteEvent("OpenAdminMenu", function(teleportPlace, playersNames, weaponsIds, vehicleIds, logs) 
     local tpPlace = {}
     for k,v in pairs(teleportPlace) do
         tpPlace[k] = _(k)
@@ -218,16 +219,14 @@ AddRemoteEvent("OpenAdminMenu", function(teleportPlace, playersNames, weaponsIds
         vehicleList[k] = _(k)
     end
     Dialog.setSelectLabeledOptions(vehicleMenu, 1, 1, vehicleList)
-    local itemList = {}    
-    for k,v in pairs(items) do
-        if v.category ~= "weapons" then
-            itemList[k] = _(v.name)
-        end        
-    end
-    Dialog.setSelectLabeledOptions(itemMenu, 2, 1, itemList)
+    
     Dialog.show(adminMenu)
 end)
 
+AddRemoteEvent("admin:menu:showitemmenu", function(items)
+    Dialog.setSelectLabeledOptions(itemMenu, 2, 1, items)
+    Dialog.show(itemMenu)
+end)
 
 -- TO TP THE PLAYER TO THE GROUND WHEN HE IS IN WATER
 AddRemoteEvent("admin:unstuck:terrainheight", function()

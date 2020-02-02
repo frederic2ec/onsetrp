@@ -118,9 +118,20 @@ function OnLogListLoadd(player, playersName)
         local action = result["action"]
         logList[tostring(id)] = action
     end
-    CallRemoteEvent(player, "OpenAdminMenu", teleportPlace, playersNames, weaponList, vehicleList, logList, Items)
-
+    
+    CallRemoteEvent(player, "OpenAdminMenu", teleportPlace, playersNames, weaponList, vehicleList, logList)
 end
+
+AddRemoteEvent("admin:menu:getitemlist", function(player)
+    local itemList = {}
+    for k,v in pairs(Items) do
+        if v.category ~= "weapons" then
+            itemList[k] = _(v.name)
+        end 
+    end
+    CallRemoteEvent(player, "admin:menu:showitemmenu", itemList)    
+end)
+
 
 AddRemoteEvent("AdminRezPlayer", function(player, toPlayer)
     if tonumber(PlayerData[player].admin) ~= 1 then return end
