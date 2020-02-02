@@ -125,9 +125,7 @@ end
 AddRemoteEvent("admin:menu:getitemlist", function(player)
     local itemList = {}
     for k,v in pairs(Items) do
-        if v.category ~= "weapons" then
-            itemList[k] = _(v.name)
-        end 
+        itemList[k] = _(v.name)
     end
     CallRemoteEvent(player, "admin:menu:showitemmenu", itemList)    
 end)

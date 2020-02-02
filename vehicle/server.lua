@@ -216,7 +216,7 @@ AddRemoteEvent("OpenTrunk", function(player)
         id = vehicleId, 
         name = vehicleName,
         inventory = VehicleData[vehicle].inventory,
-        maxSlots = VehicleTrunkSlots[vehicleId]
+        maxSlots = VehicleTrunkSlots["vehicle_"..VehicleData[vehicle].modelid]
     }
     
     table.insert(playersList, { id = vehicleId, name = vehicleName })
@@ -331,23 +331,43 @@ function getVehicleId(modelid)
     return modelid:gsub("vehicle_", "")
 end
 
-function AddVehicleInventory(vehicle, item, amount)
-    if VehicleData[vehicle].inventory[item] == nil then
-        VehicleData[vehicle].inventory[item] = amount
+function AddVehicleInventory(vehicle, item, amount, player)
+    if item == "cash" or VehicleTrunkSlots["vehicle_"..VehicleData[vehicle].modelid] >= (amount * ItemsWeight[item]) then
+        if VehicleData[vehicle].inventory[item] == nil then
+            VehicleData[vehicle].inventory[item] = amount
+        else
+            VehicleData[vehicle].inventory[item] = VehicleData[vehicle].inventory[item] + amount
+        end
+        
+        if player then
+            UpdateUIInventory(player, "vehicle_"..vehicle, item, VehicleData[vehicle].inventory[item])
+        end
+
+        SaveVehicleData(vehicle)
+        
+        return true
     else
-        VehicleData[vehicle].inventory[item] = VehicleData[vehicle].inventory[item] + amount
+        return false
     end
 end
 
-function RemoveVehicleInventory(vehicle, item, amount)
+function RemoveVehicleInventory(vehicle, item, amount, player)
     if VehicleData[vehicle].inventory[item] == nil then
-        return
+        return false
     else
         if VehicleData[vehicle].inventory[item] - amount < 1 then
             VehicleData[vehicle].inventory[item] = nil
         else
             VehicleData[vehicle].inventory[item] = VehicleData[vehicle].inventory[item] - amount
         end
+
+        if player then
+            UpdateUIInventory(player, "vehicle_"..vehicle, item, VehicleData[vehicle].inventory[item])
+        end
+
+        SaveVehicleData(vehicle)
+
+        return true
     end
 end
 
