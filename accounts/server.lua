@@ -97,7 +97,7 @@ function OnAccountCheckIpBan(player)
 end
 
 function CreatePlayerAccount(player)
-    local query = mariadb_prepare(sql, "INSERT INTO accounts (id, steamid, clothing, death_pos, inventory, position, drug_knowledge) VALUES (NULL, '?', '[]' , '[]' , '[]' , '[]', '[]');",
+    local query = mariadb_prepare(sql, "INSERT INTO accounts (id, steamid, clothing, inventory, position, drug_knowledge) VALUES (NULL, '?', '[]' , '[]' , '[]', '[]');",
         tostring(GetPlayerSteamId(player)))
     
     mariadb_query(sql, query, OnAccountCreated, player)
@@ -151,9 +151,6 @@ function OnAccountLoaded(player)
         PlayerData[player].is_cuffed = math.tointeger(result['is_cuffed'])
         PlayerData[player].age = math.tointeger(result['age'])
         PlayerData[player].health = math.tointeger(result['health'])
-
-        SetPlayerPropertyValue(player, "Account:IsAdmin", PlayerData[player].admin, true)      
-        print('Account:IsAdmin →', GetPlayerPropertyValue(player, "Account:IsAdmin"))  
         
         if result['phone_number'] and result['phone_number'] ~= "" then
             PlayerData[player].phone_number = tostring(result['phone_number'])

@@ -118,9 +118,34 @@ function OnLogListLoadd(player, playersName)
         local action = result["action"]
         logList[tostring(id)] = action
     end
+    
     CallRemoteEvent(player, "OpenAdminMenu", teleportPlace, playersNames, weaponList, vehicleList, logList)
-
 end
+
+AddRemoteEvent("admin:menu:getitemlist", function(player)
+    local itemList = {}
+    for k,v in pairs(Items) do
+        if v.category ~= "weapons" then
+            itemList[k] = _(v.name)
+        end 
+    end
+    CallRemoteEvent(player, "admin:menu:showitemmenu", itemList)    
+end)
+
+
+AddRemoteEvent("AdminRezPlayer", function(player, toPlayer)
+    if tonumber(PlayerData[player].admin) ~= 1 then return end
+    if GetPlayerHealth(toPlayer) > 0 then return end
+    local x, y, z = GetPlayerLocation(toPlayer)
+    local h = GetPlayerHeading(toPlayer)
+    SetPlayerSpawnLocation(toPlayer, x, y, z, h)
+    PlayerData[toPlayer].has_been_revived = true
+    SetPlayerRespawnTime(toPlayer, 0)
+    Delay(100, function()
+        SetPlayerHealth(toPlayer, 100)
+        PlayerData[toPlayer].health = 100
+    end)
+end)  
 
 AddRemoteEvent("AdminHealPlayer", function(player, toPlayer)
     if tonumber(PlayerData[player].admin) ~= 1 then return end
@@ -210,6 +235,14 @@ AddRemoteEvent("AdminGiveMoney", function(player, toPlayer, account, amount)
     end
 end)
 
+AddRemoteEvent("AdminGiveItem", function(player, toPlayer, qty, item)
+    if AddInventory(tonumber(toPlayer), Items[tonumber(item)].name, tonumber(qty)) then
+        CallRemoteEvent(player, "MakeNotification", _("admin_give_item_success"), "linear-gradient(to right, #00b09b, #96c93d)")
+    else
+        CallRemoteEvent(player, "MakeErrorNotification", _("admin_give_item_fail"))
+    end
+end)
+
 AddRemoteEvent("AdminKickBan", function(player, toPlayer, type, reason)
     if player == toPlayer then return end -- Protection anti fatigue Kappa
     if tonumber(PlayerData[player].admin) ~= 1 then return end
@@ -291,8 +324,3 @@ function UnstuckPlayer(player, height)
     end
 end
 AddRemoteEvent("admin:unstuck:teleport", UnstuckPlayer)
-
-AddCommand("stuck", function(player)
-    local x,y,z = GetPlayerLocation(player)
-    SetPlayerLocation(player, x, y, 0)
-end)

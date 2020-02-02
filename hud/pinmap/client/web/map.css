@@ -32,7 +32,7 @@ div
 
 body 
 {
-    background-color: rgb(21, 85, 186);
+    background-color: rgb(21, 85, 186, 0.95);
     /*Ocean color*/
     overflow: hidden;
     /*No scrollbar*/

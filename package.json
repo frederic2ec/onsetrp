@@ -134,6 +134,7 @@
         "client/files/carUnlock.mp3",
         "client/files/alarm.mp3",
         "client/files/policeAlertBank.mp3",
+        "client/files/medicDeathAlarm.mp3",
         "client/files/bankAlarm.mp3",
         "idcard/id.html",
         "idcard/id.js",
@@ -209,6 +210,7 @@
         "scoreboard/scoreboard/admin-icons/kick.png",
         "scoreboard/scoreboard/admin-icons/law.png",
         "scoreboard/scoreboard/admin-icons/teleport.png",
-        "scoreboard/scoreboard/admin-icons/pill.png"
+        "scoreboard/scoreboard/admin-icons/pill.png",
+        "scoreboard/scoreboard/admin-icons/reanimation.png"
     ]
 }

@@ -1,6 +1,8 @@
 local Dialog = ImportPackage("dialogui")
 local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, ...) end
 
+local IsOnDuty = false
+
 local policeMenu
 local policeFineMenu
 local policeNpcGarageMenu
@@ -16,6 +18,10 @@ AddRemoteEvent("police:setup", function(_policeNpcIds, _policeGarageIds, _police
     policeGarageIds = _policeGarageIds
     policeVehicleNpcIds = _policeVehicleNpcIds
     policeEquipmentNpcIds = _policeEquipmentNpcIds
+end)
+
+AddRemoteEvent("police:client:isonduty", function(isOnDuty)
+    IsOnDuty = isOnDuty
 end)
 
 AddEvent("OnTranslationReady", function()
@@ -35,7 +41,7 @@ AddEvent("OnTranslationReady", function()
 end)
 
 AddEvent("OnKeyPress", function(key)
-    local IsOnDuty = GetPlayerPropertyValue(GetPlayerId(), "Police:IsOnDuty") or false
+    
     if key == JOB_MENU_KEY and not GetPlayerBusy() and IsOnDuty then
         Dialog.show(policeMenu)
     end
@@ -58,7 +64,7 @@ AddEvent("OnKeyPress", function(key)
 end)
 
 function AskForService(npc)
-    local IsOnDuty = GetPlayerPropertyValue(GetPlayerId(), "Police:IsOnDuty") or false
+    
     local message = (IsOnDuty and _("police_npc_message_stop") or _("police_npc_message_start"))
     startCinematic({
         title = _("police_npc_name"),
@@ -77,7 +83,7 @@ function AskForService(npc)
 end
 
 AddEvent("police:startstopcinematic", function()
-    local IsOnDuty = GetPlayerPropertyValue(GetPlayerId(), "Police:IsOnDuty") or false
+    
     local message = (IsOnDuty and _("npc_end_stop") or _("police_npc_end_start"))
     updateCinematic({
         message = message

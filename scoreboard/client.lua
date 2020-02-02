@@ -2,18 +2,24 @@
 
 local ScoreboardUI = 0
 local ScoreboardFirstOpen = false
+local IsAdmin = false
 
 function Scoreboard_OnPackageStart()
   ScoreboardUI = CreateWebUI(0.0, 0.0, 0.0, 0.0, 1, 60)
   SetWebAnchors(ScoreboardUI, 0.0, 0.0, 1.0, 1.0)
   LoadWebFile(ScoreboardUI, 'http://asset/' .. GetPackageName() .. '/scoreboard/scoreboard/scoreboard.html')
   SetWebVisibility(ScoreboardUI, WEB_HIDDEN)
+  CallRemoteEvent("scoreboard:server:isadmin")  
 end
 AddEvent("OnPackageStart", Scoreboard_OnPackageStart)
 
+AddRemoteEvent("scoreboard:client:isadmin", function(_IsAdmin)
+  IsAdmin = _IsAdmin
+end)
+
+
 function Scoreboard_OnKeyPress(key)
-  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
-  if key == 'Tab' and IsAdmin == 1 then
+  if key == 'Tab' and IsAdmin == true then
     ShowMouseCursor(true)    
     CallRemoteEvent('RequestScoreboardUpdate')
     SetInputMode(INPUT_GAMEANDUI)
@@ -42,58 +48,56 @@ function Scoreboard_OnServerScoreboardUpdate(data, name, players, maxplayers)
 end
 AddRemoteEvent('OnServerScoreboardUpdate', Scoreboard_OnServerScoreboardUpdate)
 
+AddEvent("scoreboard:admin:rez", function(player)
+  if IsAdmin == true  then
+    CallRemoteEvent("AdminRezPlayer", player) 
+  end
+end)
+
 AddEvent("scoreboard:admin:heal", function(player)
-  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
-  if IsAdmin == 1  then
+  if IsAdmin == true  then
     CallRemoteEvent("AdminHealPlayer", player)    
   end
 end)
 
 AddEvent("scoreboard:admin:freeze", function(player)
-  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
-  if IsAdmin == 1  then
+  if IsAdmin == true  then
     CallRemoteEvent("AdminFreezePlayer", player)    
   end
 end)
 
 AddEvent("scoreboard:admin:ragdoll", function(player)
-  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
-  if IsAdmin == 1  then
+  if IsAdmin == true  then
     CallRemoteEvent("AdminRagdollPlayer", player)    
   end
 end)
 
 AddEvent("scoreboard:admin:bring", function(player)
-  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
-  if IsAdmin == 1 and GetPlayerId() ~= player then
+  if IsAdmin == true and GetPlayerId() ~= player then
     CallRemoteEvent("AdminTeleportPlayer",  GetPlayerId(), player)    
   end
 end)
 
 AddEvent("scoreboard:admin:goto", function(player)
-  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
-  if IsAdmin == 1 and GetPlayerId() ~= player then
+  if IsAdmin == true and GetPlayerId() ~= player then
     CallRemoteEvent("AdminTeleportToPlayer", player)    
   end
 end)
 
 AddEvent("scoreboard:admin:kick", function(player)
-  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
-  if IsAdmin == 1 and GetPlayerId() ~= player then
+  if IsAdmin == true and GetPlayerId() ~= player then
     CallRemoteEvent("AdminKickBan", tonumber(player), "Kick", "HOP HOP HOP, Halte là !")
   end
 end)
 
 AddEvent("scoreboard:admin:ban", function(player)
-  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
-  if IsAdmin == 1 and GetPlayerId() ~= player then
+  if IsAdmin == true and GetPlayerId() ~= player then
     CallRemoteEvent("AdminKickBan", tonumber(player), "Ban", "Qui fait le malin, tombe dans le ravin !")
   end
 end)
 
 AddEvent("scoreboard:admin:spectate", function(player)
-  local IsAdmin = GetPlayerPropertyValue(GetPlayerId(), "Account:IsAdmin")
-  if IsAdmin == 1 and GetPlayerId() ~= player then
+  if IsAdmin == true and GetPlayerId() ~= player then
     CallRemoteEvent("admin:spectate", player)
   end
 end)

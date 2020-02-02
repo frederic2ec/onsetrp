@@ -321,8 +321,6 @@ CREATE TABLE IF NOT EXISTS `shops` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
--- Listage des données de la table roleplay.shops : 8 rows
-/*!40000 ALTER TABLE `shops` DISABLE KEYS */;
 INSERT INTO `shops` (`id`, `name`, `category`, `x`, `y`, `z`, `h`) VALUES
 	(1, 'twentyfour', 'miscellaneous', 128748, 77622, 1576, 90),
 	(2, 'twentyfour', 'miscellaneous', 42694, 137926, 1581, 90),
@@ -332,8 +330,7 @@ INSERT INTO `shops` (`id`, `name`, `category`, `x`, `y`, `z`, `h`) VALUES
 	(6, 'gunshop', 'weapons', -181943, -40882, 1163, 90),
 	(7, 'gunshop', 'weapons', 206071, 193057, 1357, 180),
 	(9, 'ironsmith', 'ironsmith', -189805, -34122, 1148, 90),
-	(10, 'ironsmith', 'ironsmith', 145532, 211093, 1307, -90);
-/*!40000 ALTER TABLE `shops` ENABLE KEYS */;
+	(10, 'ironsmith', 'ironsmith', 182971, 199704, 1315, -90);
 
 -- Listage de la structure de la table roleplay. whitelist
 CREATE TABLE IF NOT EXISTS `whitelist` (
