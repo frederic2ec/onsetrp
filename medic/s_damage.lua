@@ -5,6 +5,8 @@ local INITIAL_DAMAGE_TO_BLEED = 2 -- how much the damages have to be divided by
 local DAMAGE_PER_TICK = 1 -- the damages the player will take on each tick
 local BLEEDING_DAMAGE_INTERVAL = 3000 -- The interval to apply damages
 local BLEED_EFFECT_AMOUNT = 70 -- the amount of bleed effect (red flash)
+local TASER_LOCK_DURATION = 10000
+local TASER_EFFECT_DURATION = 20000
 
 local BODY_Z = 50
 local HEAD_Z = 150
@@ -40,10 +42,13 @@ AddEvent("OnPlayerWeaponShot", function(player, weapon, hittype, hitid, hitX, hi
             SetPlayerHealth(hitid, GetPlayerHealth(hitid) - HEADSHOT_BONUS)            
         end
     end    
+    if hittype == 2 and weapon == 21 then
+        ApplyTaserEffect(hitid)
+    end
 end)
 
 AddEvent("OnPlayerDamage", function(player, damagetype, amount)
-    if GetPlayerHealth(player) > 0 and damagetype == 1 then
+    if GetPlayerHealth(player) > 0 and damagetype == 1 and amount > 10 then
         math.randomseed(os.time())
         local lucky = math.random(100)
         if lucky <= BLEEDING_CHANCE then
@@ -54,9 +59,12 @@ end)
 
 function ApplyTaserEffect(player)
     SetPlayerRagdoll(player, true)-- Makes player ragdoll
-    Delay(6000, function()-- Waits 6 seconds before the player can stand up again
+    CallRemoteEvent(player, "LockControlMove", true)
+    CallRemoteEvent(player, "damage:taser:starteffect", TASER_EFFECT_DURATION)
+    Delay(TASER_LOCK_DURATION, function()-- Waits 6 seconds before the player can stand up again
         SetPlayerRagdoll(player, false)-- Disables the ragdoll so he can walk again.
         SetPlayerAnimation(player, "PUSHUP_END")
+        CallRemoteEvent(player, "LockControlMove", false)
         Delay(2000, function()
             CallEvent("police:refreshcuff", player)
         end)

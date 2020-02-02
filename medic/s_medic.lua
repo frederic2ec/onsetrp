@@ -436,13 +436,9 @@ AddEvent("OnPlayerDeath", function(player, instigator)-- do some stuff when play
     if GetMedicsOnDuty(player) > 0 then
         if AUTO_CALL_FOR_MEDIC == true then CreateMedicCallout(player) end
         
-        Delay(500, function()
-            CallRemoteEvent(player, "medic:revivescreen:btncallmedic:toggle", 1)  
-        end)              
+        CallRemoteEvent(player, "medic:revivescreen:btncallmedic:toggle", 1)             
     else
-        Delay(500, function()
-            CallRemoteEvent(player, "medic:revivescreen:btncallmedic:toggle", 0)  
-        end)
+        CallRemoteEvent(player, "medic:revivescreen:btncallmedic:toggle", 0)  
     end
 
     SetPlayerBusy(player)
@@ -615,6 +611,7 @@ function GetMedicsOnDuty(player)-- numbers of medics on duty
             nb = nb + 1
         end
     end
+    print(nb)
     return nb
 end
 

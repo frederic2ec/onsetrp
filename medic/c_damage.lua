@@ -38,3 +38,21 @@ AddRemoteEvent("damage:death:toggleeffect", function(active)
         SetPostEffect("Chromatic", "StartOffset", 0.0)
     end
 end)
+
+AddRemoteEvent("damage:taser:starteffect", function(duration)
+    SetPostEffect("ImageEffects", "GrainJitter", 8.0)
+    SetPostEffect("ImageEffects", "GrainIntensity", 0.5)
+    SetPostEffect("ImageEffects", "VignetteIntensity", 1.0)
+    SetPostEffect("Chromatic", "Intensity", 10.0)
+    SetPostEffect("Chromatic", "StartOffset", 0.5)
+
+    Delay(duration, function()
+        SetPostEffect("ImageEffects", "VignetteIntensity", 0.0)
+        SetPostEffect("ImageEffects", "GrainJitter", 0.0)
+        SetPostEffect("ImageEffects", "GrainIntensity", 0.0)
+        SetPostEffect("Chromatic", "Intensity", 0.0)
+        SetPostEffect("Chromatic", "StartOffset", 0.0)
+    end)
+    
+end)
+
