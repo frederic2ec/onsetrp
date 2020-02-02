@@ -134,6 +134,7 @@
         "client/files/carUnlock.mp3",
         "client/files/alarm.mp3",
         "client/files/policeAlertBank.mp3",
+        "client/files/medicDeathAlarm.mp3",
         "client/files/bankAlarm.mp3",
         "idcard/id.html",
         "idcard/id.js",

@@ -481,6 +481,7 @@ function MedicCalloutSend(player)-- send the new callout to medics
     for k, v in pairs(GetAllPlayers()) do
         if PlayerData[v].job == "medic" then
             CallRemoteEvent(v, "MakeNotification", _("medic_someone_is_in_trouble"), "linear-gradient(to right, #00b09b, #96c93d)", 10000)
+            CallRemoteEvent(v, "medic:deathalarm")            
         end
     end
 end
