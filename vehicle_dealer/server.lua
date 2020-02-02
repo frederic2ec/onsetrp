@@ -1,71 +1,52 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 CarDealerObjectsCached = { }
+
+CarDefaultColors = {
+	black = "0000",
+	red = "FF0000",
+	blue = "0000FF",
+	green = "00FF00",
+	orange = "FF6600"
+}
+
+CarDefaultVehicles = {
+	vehicle_25 = 2000,
+	vehicle_1 = 6000,
+	vehicle_4 = 12000,
+	vehicle_5 = 9000,
+	vehicle_19 = 6000,
+	vehicle_11 = 40000,
+	vehicle_12 = 50000,
+	vehicle_6 = 70000,
+	vehicle_7 = 30000,
+	vehicle_22 = 45000,
+	vehicle_23 = 45000,
+	vehicle_17 = 60000,
+	vehicle_18 = 60000,
+}
+
 CarDealerTable = {
     {
-		vehicles = {
-			vehicle_1 = 3000,
-			vehicle_4 = 3000,
-			vehicle_5 = 3000,
-			vehicle_6 = 10000,
-			vehicle_7 = 10000,
-			vehicle_11 = 20000,
-			vehicle_12 = 15000,
-			vehicle_25 = 500
-		},
-		colors = {
-			black = "0000",
-			red = "FF0000",
-			blue = "0000FF",
-			green = "00FF00"
-
-		},
+		vehicles = CarDefaultVehicles,
+		colors = CarDefaultColors,
 		location = { 162911, 191166, 1380, 180 },
 		spawn = { 162516, 190352, 1347, -90 }
     },
     {
-		vehicles = {
-			vehicle_1 = 3000,
-			vehicle_4 = 3000,
-			vehicle_5 = 3000,
-			vehicle_6 = 10000,
-			vehicle_7 = 10000,
-			vehicle_11 = 20000,
-			vehicle_12 = 15000,
-			vehicle_25 = 500
-		},
-		colors = {
-			black = "0000",
-			red = "FF0000",
-			blue = "0000FF",
-			green = "00FF00"
-
-		},
+		vehicles = CarDefaultVehicles,
+		colors = CarDefaultColors,
 		location = { -188591, -50391, 1150, 180 },
 		spawn = { -188315, -51413, 1150, 180 }
 	},
     {
-		vehicles = {
-			vehicle_1 = 3000,
-			vehicle_4 = 3000,
-			vehicle_5 = 3000,
-			vehicle_6 = 10000,
-			vehicle_7 = 10000,
-			vehicle_11 = 20000,
-			vehicle_12 = 15000,
-			vehicle_25 = 500
-		},
-		colors = {
-			black = "0000",
-			red = "FF0000",
-			blue = "0000FF",
-			green = "00FF00"
-
-		},
+		vehicles = CarDefaultVehicles,
+		colors = CarDefaultColors,
 		location = { -24737, -18052, 2087, -150 },
 		spawn = { -25060, -18800, 2062, -150 }
 	}
 }
+
 AddEvent("OnPackageStart", function()
 	for k,v in pairs(CarDealerTable) do
 		v.npc = CreateNPC(v.location[1], v.location[2], v.location[3], v.location[4])
@@ -80,20 +61,25 @@ AddEvent("OnPlayerJoin", function(player)
 end)
 
 AddRemoteEvent("carDealerInteract", function(player, cardealerobject)
-    local cardealer = GetCarDealearByObject(cardealerobject)
-	if cardealer then
-		local x, y, z = GetNPCLocation(cardealer.npc)
-		local x2, y2, z2 = GetPlayerLocation(player)
-        local dist = GetDistance3D(x, y, z, x2, y2, z2)
-
-		if dist < 150 then
-			for k,v in pairs(CarDealerTable) do
-				if cardealerobject == v.npc then
-					CallRemoteEvent(player, "openCarDealer", v.vehicles, v.colors)
+	if PlayerData[player].driver_license == 1 then
+		local cardealer = GetCarDealearByObject(cardealerobject)
+		
+		if cardealer then
+			local x, y, z = GetNPCLocation(cardealer.npc)
+			local x2, y2, z2 = GetPlayerLocation(player)
+			local dist = GetDistance3D(x, y, z, x2, y2, z2)
+	
+			if dist < 150 then
+				for k,v in pairs(CarDealerTable) do
+					if cardealerobject == v.npc then
+						CallRemoteEvent(player, "openCarDealer", v.vehicles, v.colors)
+					end
 				end
+	
 			end
-
 		end
+	else
+        CallRemoteEvent(player, "MakeErrorNotification",_("no_driver_license"))
 	end
 end)
 
@@ -128,7 +114,7 @@ function buyCarServer(player, modelid, color, cardealerobject)
 	local modelid = getVehicleId(modelid)
 
 	if tonumber(price) > GetPlayerCash(player) then
-        CallRemoteEvent(player, "MakeNotification",_("no_money_car"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+        CallRemoteEvent(player, "MakeErrorNotification",_("no_money_car"))
     else
         local x, y, z = GetPlayerLocation(player)
 
@@ -154,9 +140,9 @@ function buyCarServer(player, modelid, color, cardealerobject)
                     CreateVehicleDatabase(player, vehicle, modelid, color, price)
                     RemovePlayerCash(player, price)
                     CallRemoteEvent(player, "closeCarDealer")
-                    return CallRemoteEvent(player, "MakeNotification", _("car_buy_sucess", name, price, _("currency")), "linear-gradient(to right, #00b09b, #96c93d)")
+                    return CallRemoteEvent(player, "MakeSuccessNotification", _("car_buy_sucess", name, price, _("currency")))
                 else
-                    return CallRemoteEvent(player, "MakeNotification", _("cannot_spawn_vehicle"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+                    return CallRemoteEvent(player, "MakeErrorNotification", _("cannot_spawn_vehicle"))
                 end
             end
         end

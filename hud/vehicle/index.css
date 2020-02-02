@@ -32,7 +32,7 @@ canvas#speedgauge {
 .speed {
     position: absolute;
     color: #111;
-    text-shadow: -0.5pt 0 #ff8b35, 0 0.5pt #ff8b35, 0.5pt 0 #ff8b35, 0 -0.5pt #ff8b35;
+    text-shadow: -0.5pt 0 #fff, 0 0.5pt #fff, 0.5pt 0 #fff, 0 -0.5pt #fff;
 }
 
 #speed-display {

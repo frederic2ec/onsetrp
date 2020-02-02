@@ -122,6 +122,42 @@ function OnLogListLoadd(player, playersName)
 
 end
 
+AddRemoteEvent("AdminHealPlayer", function(player, toPlayer)
+    if tonumber(PlayerData[player].admin) ~= 1 then return end
+    StopBleedingForPlayer(toPlayer)
+    CallRemoteEvent(toPlayer, "damage:bleed:toggleeffect", 0)
+    SetPlayerHealth(toPlayer, 100)    
+end)    
+
+AddRemoteEvent("AdminFreezePlayer", function(player, toPlayer)
+    if tonumber(PlayerData[player].admin) ~= 1 then return end
+    local IsFroze = GetPlayerPropertyValue(toPlayer, "Admin:IsFroze") or 0
+    if IsFroze == 1 then
+        CallRemoteEvent(toPlayer, "LockControlMove", false)
+        SetPlayerNotBusy(toPlayer)
+        SetPlayerPropertyValue(toPlayer, "Admin:IsFroze", 0, true)
+    else
+        CallRemoteEvent(toPlayer, "LockControlMove", true)
+        SetPlayerBusy(toPlayer)
+        SetPlayerPropertyValue(toPlayer, "Admin:IsFroze", 1, true)
+    end        
+end)
+
+AddRemoteEvent("AdminRagdollPlayer", function(player, toPlayer)
+    if tonumber(PlayerData[player].admin) ~= 1 then return end
+    local IsRagdolled = GetPlayerPropertyValue(toPlayer, "Admin:IsRagdolled") or 0
+    if IsRagdolled == 1 then
+        CallRemoteEvent(toPlayer, "LockControlMove", false)
+        SetPlayerRagdoll(toPlayer, false)        
+        SetPlayerNotBusy(toPlayer)
+        SetPlayerPropertyValue(toPlayer, "Admin:IsRagdolled", 0, true)
+    else
+        CallRemoteEvent(toPlayer, "LockControlMove", true)
+        SetPlayerRagdoll(toPlayer, true)     
+        SetPlayerBusy(toPlayer)
+        SetPlayerPropertyValue(toPlayer, "Admin:IsRagdolled", 1, true)
+    end        
+end)
 
 AddRemoteEvent("AdminTeleportToPlace", function(player, place)
     if tonumber(PlayerData[player].admin) ~= 1 then return end
@@ -139,10 +175,10 @@ AddRemoteEvent("AdminTeleportToPlayer", function(player, toPlayer)
     SetPlayerLocation(player, x, y, z + 200)
 end)
 
-AddRemoteEvent("AdminTeleportPlayer", function(toPlayer, player)
-    if tonumber(PlayerData[toPlayer].admin) ~= 1 then return end
+AddRemoteEvent("AdminTeleportPlayer", function(player, toPlayer, tpPlayer)
+    if tonumber(PlayerData[player].admin) ~= 1 then return end
     local x, y, z  = GetPlayerLocation(tonumber(toPlayer))
-    SetPlayerLocation(player, x, y, z + 200)
+    SetPlayerLocation(tpPlayer, x, y, z + 200)
 end)
 
 AddRemoteEvent("AdminGiveWeapon", function(player, weaponName)
@@ -175,6 +211,7 @@ AddRemoteEvent("AdminGiveMoney", function(player, toPlayer, account, amount)
 end)
 
 AddRemoteEvent("AdminKickBan", function(player, toPlayer, type, reason)
+    if player == toPlayer then return end -- Protection anti fatigue Kappa
     if tonumber(PlayerData[player].admin) ~= 1 then return end
     if type == "Ban" then
         mariadb_query(sql, "INSERT INTO `bans` (`steamid`, `ban_time`, `reason`) VALUES ('"..PlayerData[tonumber(toPlayer)].steamid.."', '"..os.time(os.date('*t')).."', '"..reason.."');")
@@ -236,4 +273,26 @@ AddEvent("OnPlayerWeaponShot", function(player, weapon, hittype, hitid, hitX, hi
     message)
 
     mariadb_async_query(sql, query) 
+end)
+
+-- TO TP THE PLAYER TO THE GROUND WHEN HE IS IN WATER
+AddCommand("unstuck", function(player)
+    local x,y,z = GetPlayerLocation(player)
+    if z <= 0 then -- If the player is under the level of the sea (0)
+        CallRemoteEvent(player, "admin:unstuck:terrainheight")        
+    end
+end)
+
+function UnstuckPlayer(player, height)
+    print('UNSTUCK → ', player)
+    if height ~= nil and height ~= false then
+        local x,y,z = GetPlayerLocation(player)        
+        SetPlayerLocation(player, x, y, height)        
+    end
+end
+AddRemoteEvent("admin:unstuck:teleport", UnstuckPlayer)
+
+AddCommand("stuck", function(player)
+    local x,y,z = GetPlayerLocation(player)
+    SetPlayerLocation(player, x, y, 0)
 end)

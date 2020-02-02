@@ -13,8 +13,9 @@ AddEvent("OnPackageStart", function()
     
 end)
 
-function MakeNotification(text, color)
-    ExecuteWebJS(NotificationHud, 'makeNotification("' ..text.. '", "' ..color.. '")')
+function MakeNotification(text, color, duration)
+    if duration == nil then duration = 3000 end
+    ExecuteWebJS(NotificationHud, 'makeNotification("' ..text.. '", "' ..color.. '", '..duration..')')
     PlayAudioFile("notification.mp3")
 end
 AddRemoteEvent("MakeNotification", MakeNotification)

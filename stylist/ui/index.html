@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="main.css">
+    </head>
+    <body>
+        <div id="stylist-container" class="stylist-container">
+        </div>
+        <script src="main.js"></script>
+        <script>
+            if (window.ue == null) {
+                window.ue = {
+                    game: {
+                        callevent: (event, args) => {
+                            console.log(`Event:     ${event}\nArguments: ${args}`)
+                        }
+                    }
+                }
+            }
+            
+            window.ue.game.callevent("StylistReady", "[]");
+        </script>
+    </body>
+</html>

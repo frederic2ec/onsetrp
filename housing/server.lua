@@ -3,7 +3,7 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 houses = {
     {
         id = 1,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -38,7 +38,7 @@ houses = {
     },
     {
         id = 2,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -89,7 +89,7 @@ houses = {
     },
     {
         id = 3,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -124,7 +124,7 @@ houses = {
     },
     {
         id = 4,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -151,7 +151,7 @@ houses = {
     },
     {
         id = 5,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -178,7 +178,7 @@ houses = {
     },
     {
         id = 6,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -213,7 +213,7 @@ houses = {
     },
     {
         id = 7,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -240,7 +240,7 @@ houses = {
     },
     {
         id = 8,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -267,7 +267,7 @@ houses = {
     },
     {
         id = 9,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -302,7 +302,7 @@ houses = {
     },
     {
         id = 10,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -321,7 +321,7 @@ houses = {
     },
     {
         id = 11,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -340,7 +340,7 @@ houses = {
     },
     {
         id = 12,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -359,7 +359,7 @@ houses = {
     },
     {
         id = 13,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -378,7 +378,7 @@ houses = {
     },
     {
         id = 14,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -397,7 +397,7 @@ houses = {
     },
     {
         id = 15,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -416,7 +416,7 @@ houses = {
     },
     {
         id = 16,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -451,7 +451,7 @@ houses = {
     },
     {
         id = 17,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -478,7 +478,7 @@ houses = {
     },
     {
         id = 18,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -513,7 +513,7 @@ houses = {
     },
     {
         id = 19,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -532,7 +532,7 @@ houses = {
     },
     {
         id = 20,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -567,7 +567,7 @@ houses = {
     },
     {
         id = 21,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -594,7 +594,7 @@ houses = {
     },
     {
         id = 22,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -629,7 +629,7 @@ houses = {
     },
     {
         id = 23,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -664,7 +664,7 @@ houses = {
     },
     {
         id = 24,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -683,7 +683,7 @@ houses = {
     },
     {
         id = 25,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -710,7 +710,7 @@ houses = {
     },
     {
         id = 26,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -745,7 +745,7 @@ houses = {
     },
     {
         id = 27,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -780,7 +780,7 @@ houses = {
     },
     { -- TO CHECK
         id = 28,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -807,7 +807,7 @@ houses = {
     },
     {
         id = 29,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -834,7 +834,7 @@ houses = {
     },
     {
         id = 30,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -869,7 +869,7 @@ houses = {
     },
     {
         id = 31,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -888,7 +888,7 @@ houses = {
     },
     {
         id = 32,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -907,7 +907,7 @@ houses = {
     },
     {
         id = 33,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -926,7 +926,7 @@ houses = {
     },
     {
         id = 34,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -945,7 +945,7 @@ houses = {
     },
     {
         id = 35,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -964,7 +964,7 @@ houses = {
     },
     {
         id = 36,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -983,7 +983,7 @@ houses = {
     },
     {
         id = 37,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1002,7 +1002,7 @@ houses = {
     },
     {
         id = 38,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1021,7 +1021,7 @@ houses = {
     },
     {
         id = 39,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1040,7 +1040,7 @@ houses = {
     },
     {
         id = 40,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1059,7 +1059,7 @@ houses = {
     },
     {
         id = 41,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1078,7 +1078,7 @@ houses = {
     },
     {
         id = 42,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1097,7 +1097,7 @@ houses = {
     },
     {
         id = 43,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1116,7 +1116,7 @@ houses = {
     },
     {
         id = 44,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1135,7 +1135,7 @@ houses = {
     },
     {
         id = 45,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1154,7 +1154,7 @@ houses = {
     },
     {
         id = 46,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1173,7 +1173,7 @@ houses = {
     },
     {
         id = 47,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1192,7 +1192,7 @@ houses = {
     },
     {
         id = 48,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1211,7 +1211,7 @@ houses = {
     },
     {
         id = 49,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1230,7 +1230,7 @@ houses = {
     },
     {
         id = 50,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1249,7 +1249,7 @@ houses = {
     },
     {
         id = 51,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1268,7 +1268,7 @@ houses = {
     },
     {
         id = 52,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1287,7 +1287,7 @@ houses = {
     },
     {
         id = 53,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1306,7 +1306,7 @@ houses = {
     },
     {
         id = 54,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1325,7 +1325,7 @@ houses = {
     },
     {
         id = 55,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1344,7 +1344,7 @@ houses = {
     },
     {
         id = 56,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1363,7 +1363,7 @@ houses = {
     },
     {
         id = 57,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1382,7 +1382,7 @@ houses = {
     },
     {
         id = 58,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1401,7 +1401,7 @@ houses = {
     },
     {
         id = 59,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1420,7 +1420,7 @@ houses = {
     },
     {
         id = 60,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1439,7 +1439,7 @@ houses = {
     },
     {
         id = 61,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1458,7 +1458,7 @@ houses = {
     },
     {
         id = 62,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1477,7 +1477,7 @@ houses = {
     },
     {
         id = 63,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1496,7 +1496,7 @@ houses = {
     },
     {
         id = 64,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1515,7 +1515,7 @@ houses = {
     },
     {
         id = 65,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1534,7 +1534,7 @@ houses = {
     },
     {
         id = 66,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1553,7 +1553,7 @@ houses = {
     },
     {
         id = 67,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1572,7 +1572,7 @@ houses = {
     },
     {
         id = 68,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1591,7 +1591,7 @@ houses = {
     },
     {
         id = 69,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1634,7 +1634,7 @@ houses = {
     },
     {
         id = 70,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1677,7 +1677,7 @@ houses = {
     },
     {
         id = 71,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1712,7 +1712,7 @@ houses = {
     },
     {
         id = 72,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1755,7 +1755,7 @@ houses = {
     },
     {
         id = 73,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1784,7 +1784,7 @@ houses = {
     -- CITY
     {
         id = 74,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1819,7 +1819,7 @@ houses = {
     },
     {
         id = 75,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1854,7 +1854,7 @@ houses = {
     },
     {
         id = 76,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1881,7 +1881,7 @@ houses = {
     },
     {
         id = 77,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1932,7 +1932,7 @@ houses = {
     },
     {
         id = 78,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -1967,7 +1967,7 @@ houses = {
     },
     {
         id = 79,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -2002,7 +2002,7 @@ houses = {
     },
     {
         id = 80,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -2029,7 +2029,7 @@ houses = {
     },
     {
         id = 81,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -2056,7 +2056,7 @@ houses = {
     },
     {
         id = 82,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -2083,7 +2083,7 @@ houses = {
     },
     {
         id = 83,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -2135,7 +2135,7 @@ houses = {
     -- WAREHOUSES (Desert town)
     {
         id = 84,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -2178,7 +2178,7 @@ houses = {
     },
     {
         id = 85,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -2229,7 +2229,7 @@ houses = {
     },
     {
         id = 86,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,
@@ -2272,7 +2272,7 @@ houses = {
     },
     {
         id = 87,
-        price = 100,
+        price = 100000,
         lock = true,
         spawnable = 0,
         owner = 0,

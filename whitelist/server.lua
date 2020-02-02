@@ -1,6 +1,6 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
-local whitelist = false
+local whitelist = true
 
 AddEvent("OnPlayerSteamAuth", function(player)
     if whitelist then

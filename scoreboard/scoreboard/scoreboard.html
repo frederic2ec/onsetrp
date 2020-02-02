@@ -9,9 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
     <script>
-        (function(obj) {
+        (function (obj) {
             ue.game = {};
-            ue.game.callevent = function(name, ...args) {
+            ue.game.callevent = function (name, ...args) {
                 if (typeof name != "string") return;
 
                 if (args.length == 0) {
@@ -42,10 +42,11 @@
         <div class="table">
             <table>
                 <tr>
-                    <td>PLAYER</th>
-                        <td>
-                            <img src="ping.png" /> PING
-                            </th>
+                    <th>ID</th>
+                    <th>PLAYER</th>
+                    <th>STEAM ID</th>
+                    <th>PING</th>
+                    <th class="right">ACTIONS</th>
                 </tr>
             </table>
         </div>

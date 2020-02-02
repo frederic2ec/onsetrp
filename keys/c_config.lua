@@ -1,4 +1,4 @@
-local _ = _ or function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, ...) end
+local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, ...) end
 
 -------------------------------------------------------
 ----------- CONFIG FILE FOR KEYS SHORTCUTS ------------
@@ -22,6 +22,7 @@ VEHICLE_ENGINE_KEY = "X" -- To toggle vehicle engine
 VEHICLE_TRUNK_KEY = "O" -- To open the vehicle trunk
 VEHICLE_HOOD_KEY = "I" -- To open the vehicle hood
 ADMIN_MENU_KEY = "N" -- To show the admin menu
+TOGGLE_CHAT_KEY = "Num /" -- To toggle the chat
 
 function GetAllKeybinds()
     return {
@@ -44,5 +45,7 @@ function GetAllKeybinds()
         {label = _("VEHICLE_TRUNK_KEY"), key = VEHICLE_TRUNK_KEY},
         {label = _("VEHICLE_HOOD_KEY"), key = VEHICLE_HOOD_KEY},
         {label = _("ADMIN_MENU_KEY"), key = ADMIN_MENU_KEY},
+        {label = _("ADMIN_MENU_KEY"), key = ADMIN_MENU_KEY},
     }
 end
+

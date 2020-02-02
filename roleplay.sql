@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `drug_knowledge` text NOT NULL,
   `job` varchar(20) DEFAULT NULL,
   `is_cuffed` tinyint(1) NOT NULL DEFAULT 0,
+  `age` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -96,8 +97,20 @@ CREATE TABLE IF NOT EXISTS `items` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 
--- Listage des données de la table roleplay.items : 43 rows
-/*!40000 ALTER TABLE `items` DISABLE KEYS */;
+-- --------------------------------------------------------
+-- Hôte :                        127.0.0.1
+-- Version du serveur:           10.4.11-MariaDB - mariadb.org binary distribution
+-- SE du serveur:                Win64
+-- HeidiSQL Version:             10.2.0.5599
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- Listage des données de la table roleplay.items : 46 rows
 INSERT INTO `items` (`id`, `name`, `category`, `subcategory`, `price`, `weight`, `hunger`, `thirst`, `equipable`, `usable`) VALUES
 	(1, 'water_bottle', 'miscellaneous', 'food', 10, 2000, 0, 30, 0, 1),
 	(2, 'apple', 'miscellaneous', 'food', 25, 2000, 30, 0, 0, 1),
@@ -109,7 +122,6 @@ INSERT INTO `items` (`id`, `name`, `category`, `subcategory`, `price`, `weight`,
 	(8, 'jerican', 'miscellaneous', 'object', 200, 8000, 0, 0, 0, 1),
 	(9, 'phone', 'miscellaneous', 'object', 150, 2000, 0, 0, 0, 1),
 	(10, 'fishing_rod', 'ironsmith', 'tool', 60, 3000, 0, 0, 0, 1),
-	(11, 'fish', 'miscellaneous', 'food', 0, 5000, 35, 0, 0, 1),
 	(12, 'weapon_2', 'weapons', 'weapon', 39000, 7000, 0, 0, 1, 0),
 	(13, 'weapon_3', 'weapons', 'weapon', 45000, 6000, 0, 0, 1, 0),
 	(14, 'weapon_4', 'weapons', 'weapon', 48000, 5000, 0, 0, 1, 0),
@@ -141,8 +153,11 @@ INSERT INTO `items` (`id`, `name`, `category`, `subcategory`, `price`, `weight`,
 	(45, 'iron_ingot', 'job_item', 'object', 0, 8000, 0, 0, 0, 0),
 	(41, 'lumberjack_saw', 'ironsmith', 'tool', 60, 3000, 0, 0, 0, 0),
 	(42, 'handcuffs', 'job_item', 'tool', 0, 1000, 0, 0, 0, 0),
-	(44, 'iron_ore', 'job_item', 'object', 0, 16000, 0, 0, 0, 0);
-/*!40000 ALTER TABLE `items` ENABLE KEYS */;
+	(44, 'iron_ore', 'job_item', 'object', 0, 16000, 0, 0, 0, 0),
+	(47, 'defibrillator', 'job_item', 'tool', 0, 6000, 0, 0, 0, 0),
+	(48, 'adrenaline_syringe', 'job_item', 'tool', 0, 1000, 0, 0, 0, 1),
+	(49, 'bandage', 'job_item', 'tool', 0, 1000, 0, 0, 0, 1),
+	(50, 'herring', 'job_item', 'food', 0, 5000, 35, 0, 0, 1);
 
 -- Listage de la structure de la table roleplay. logs
 CREATE TABLE IF NOT EXISTS `logs` (

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ReviveScreen</title>
+
+    <script>
+        (function (obj) {
+            ue.game = {};
+            ue.game.callevent = function (name, ...args) {
+                if (typeof name != "string") {
+                    return;
+                }
+
+                if (args.length == 0) {
+                    obj.callevent(name, "")
+                }
+                else {
+                    let params = []
+                    for (let i = 0; i < args.length; i++) {
+                        params[i] = args[i];
+                    }
+                    obj.callevent(name, JSON.stringify(params));
+                }
+            };
+        })(ue.game);
+        CallEvent = ue.game.callevent;
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Raleway:100,200,300');
+
+        @font-face {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Open Sans Regular'), local('OpenSans-Regular'), url(http://asset/mapeditor/client/gui/OpenSansRegular.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        .page-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 90vh;
+            overflow: hidden;
+        }
+        .message {
+            font-family: 'Raleway', 'Open Sans', sans-serif !important;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            text-shadow: -1px 0 #262626, 0 1px #262626, 1px 0 #262626, 0 -1px #262626;
+            letter-spacing: 3px;
+            text-align: center;
+        }
+
+        .btn-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top:20px;                    
+        }
+        .btn-inner-container {
+            width:50%;
+            display:inline;
+            text-align:center;
+            padding:10px;
+        }
+
+        button {
+            font-family: 'Raleway', 'Open Sans', sans-serif !important;
+            background-image: linear-gradient(to right top, #820000, #a22c0d, #c14c19, #e06b27, #ff8b35);
+            border: none;
+            color: white;
+            padding: 15px 32px;            
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+            border-radius: 10px;
+            width:300px;
+        }
+
+        button:disabled {
+            background-image: linear-gradient(to right top, #784d4d, #9a6f68, #bb9386, #ddb8a6, #ffdfc8);
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+        <div class="container">
+            <p class="message">Vous êtes inconscient</p>
+            <div class="btn-container">
+                <div class="btn-inner-container">
+                    <button id="btnGiveUp" onclick="GiveUp()">Abandonner</button>
+                </div>
+                <div class="btn-inner-container">
+                    <button id="btnCallMedic" onclick="CallMedic()">Appeler un médecin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var btnGiveUp = document.getElementById('btnGiveUp');
+        var btnCallMedic = document.getElementById('btnCallMedic');
+
+        function GiveUp() {
+            window.ue.game.callevent("medic:revivescreen:giveup");
+        }
+
+        function CallMedic() {
+            window.ue.game.callevent("medic:revivescreen:callmedic");
+        }
+
+        function ToggleBtnCallMedic(value) {
+            if (value === 1) {
+                btnCallMedic.disabled = false
+            } else {
+                btnCallMedic.disabled = true    
+            }
+        }
+
+    </script>
+</body>
+</html>

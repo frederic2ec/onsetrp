@@ -2,7 +2,9 @@ function Scoreboard_RequestUpdate(player)
   local _send = {}
   for _, v in ipairs(GetAllPlayers()) do
     _send[v] = {
-      ['name'] = GetPlayerName(v),
+      ['id'] = v,
+      ['name'] = PlayerData[v].name,
+      ['steamid'] = tostring(GetPlayerSteamId(v)),
       ['ping'] = GetPlayerPing(v)
     }
   end
