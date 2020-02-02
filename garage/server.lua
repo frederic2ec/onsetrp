@@ -150,6 +150,7 @@ function spawnCarServerLoaded(player)
         local modelid = math.tointeger(result["modelid"])
         local fuel = math.tointeger(result["fuel"])
         local color = tostring(result["color"])
+        local inventory = json_decode(result["inventory"])
         local name = _("vehicle_"..modelid)
 
         local query = mariadb_prepare(sql, "UPDATE `player_garage` SET `garage`=0 WHERE `id` = ?;",
@@ -179,6 +180,7 @@ function spawnCarServerLoaded(player)
                     SetVehiclePropertyValue(vehicle, "fuel", true, fuel)
                     CreateVehicleData(player, vehicle, modelid, fuel)
                     VehicleData[vehicle].garageid = id
+                    VehicleData[vehicle].inventory = inventory
                     mariadb_async_query(sql, query)
                     CallRemoteEvent(player, "closeGarageDealer")
                     return CallRemoteEvent(player, "MakeNotification", _("spawn_vehicle_success", tostring(name)), "linear-gradient(to right, #00b09b, #96c93d)")

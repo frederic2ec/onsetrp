@@ -230,44 +230,97 @@ function UseItem(player, originInventory, item, amount, animation)
     SetPlayerAnimation(player, animation)
 end
 
-AddRemoteEvent("TransferInventory", function(player, originInventory, item, amount, toInventory)
+AddRemoteEvent("TransferInventory", function(player, originInventory, item, amount, destinationInventory)
+    if originInventory == nil or destinationInventory == nil then
+        return false
+    end
+
+    local originType, originX, originY, originZ, destX, destY, destZ
+
     -- ORIGIN INVENTORY
 
-    local originType
-    
     if string.find(originInventory, 'vehicle_') then
         originType = 'vehicle'
-        local originX, originY, originZ = GetVehicleLocation(toInventory)
+        originInventory = string.gsub(originInventory, 'vehicle_', '')
+        originX, originY, originZ = GetVehicleLocation(originInventory)
     else
         originType = 'player'
-        local originX, originY, originZ = GetPlayerLocation(toInventory)
+        originX, originY, originZ = GetPlayerLocation(originInventory)
     end
 
     -- DESTINATION INVENTORY
-
-    local destinationType
     
-    if string.find(toInventory, 'vehicle_') then
+    local destinationType
+
+    if string.find(destinationInventory, 'vehicle_') then
         destinationType = 'vehicle'
-        local destX, destY, destZ = GetVehicleLocation(toInventory)
+        destinationInventory = string.gsub(destinationInventory, 'vehicle_', '')
+        destX, destY, destZ = GetVehicleLocation(destinationInventory)
     else
         destinationType = 'player'
-        local destX, destY, destZ = GetPlayerLocation(toInventory)
+        destX, destY, destZ = GetPlayerLocation(destinationInventory)
     end
 
     local dist = GetDistance3D(originX, originY, originZ, destX, destY, destZ)
     
     if dist <= 200 then
-        if PlayerData[originInventory].inventory[item] < tonumber(amount) then
-            CallRemoteEvent(originInventory, "MakeErrorNotification", _("not_enough_item"))
+        local enoughItems = false
+
+        if originType == 'player' then
+            enoughItems = PlayerData[originInventory].inventory[item] >= tonumber(amount)
+        else
+            enoughItems = VehicleData[originInventory].inventory[item] >= tonumber(amount)
+        end
+
+        if not enoughItems then
+            CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_item"))
         else
             SetPlayerAnimation(player, "PICKUP_MIDDLE")
-            
-            if AddInventory(tonumber(toInventory), item, tonumber(amount), player) and RemoveInventory(tonumber(originInventory), item, tonumber(amount), false, player) then
-                CallRemoteEvent(originInventory, "MakeSuccessNotification", _("successful_transfer", amount, item, GetPlayerName(tonumber(toInventory))))
-                CallRemoteEvent(tonumber(toInventory), "MakeSuccessNotification", _("received_transfer", amount, item, GetPlayerName(originInventory)))
+
+            local itemAdded = false
+            local itemRemoved = false
+
+            if destinationType == 'player' then
+                itemAdded = AddInventory(tonumber(destinationInventory), item, tonumber(amount), player)
             else
-                CallRemoteEvent(originInventory, "MakeErrorNotification", _("item_transfer_error"))
+                itemAdded = AddVehicleInventory(tonumber(destinationInventory), item, tonumber(amount), player)
+            end
+
+            if originType == 'player' then
+                itemRemoved = RemoveInventory(tonumber(originInventory), item, tonumber(amount), false, player)
+            else
+                itemRemoved = RemoveVehicleInventory(tonumber(originInventory), item, tonumber(amount), false, player)
+            end
+            
+            if itemAdded and itemRemoved then
+                if originType == 'player' then
+                    CallRemoteEvent(tonumber(originInventory), "MakeSuccessNotification", _("successful_transfer", amount, item, GetPlayerName(tonumber(destinationInventory))))
+                end
+                if destinationType == 'player' then
+                    CallRemoteEvent(tonumber(destinationInventory), "MakeSuccessNotification", _("received_transfer", amount, item, GetPlayerName(tonumber(originInventory))))
+                end
+            else
+                -- If added and not removed, remove added item
+
+                if itemAdded then
+                    if destinationType == 'player' then
+                        RemoveInventory(tonumber(destinationInventory), item, tonumber(amount), false, player)
+                    else
+                        RemoveVehicleInventory(tonumber(destinationInventory), item, tonumber(amount), false, player)
+                    end
+                end
+
+                -- If removed and not added, re-add removed item
+
+                if itemRemoved then
+                    if originType == 'player' then
+                        itemAdded = AddInventory(tonumber(originInventory), item, tonumber(amount), player)
+                    else
+                        itemAdded = AddVehicleInventory(tonumber(originInventory), item, tonumber(amount), player)
+                    end
+                end
+
+                CallRemoteEvent(player, "MakeErrorNotification", _("item_transfer_error"))
             end
         end
     end

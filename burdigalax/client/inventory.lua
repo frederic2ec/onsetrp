@@ -49,7 +49,7 @@ end
 
 AddRemoteEvent("UpdateUIInventory", function(player, item, quantity, equiped)
     local equiped = equiped or false
-    ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.updateItemsInventories("..player..", [{ id: '"..item.."', quantity: "..quantity..", isEquipped: "..tostring(equiped).." }]);")
+    ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.updateItemsInventories('"..player.."', [{ id: '"..item.."', quantity: "..quantity..", isEquipped: "..tostring(equiped).." }]);")
 end)
 
 function onEquipItemInventory(event)
@@ -62,8 +62,8 @@ AddEvent('BURDIGALAX_inventory_onEquip', onEquipItemInventory)
 
 function onTransferItems(event)
     local data = json_decode(event)
-    ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.updateItemsInventories("..data.destinationInventoryId..", [{ id: "..data.idItem..", quantity: "..data.newQuantityDestination.." }]);")
-    ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.updateItemsInventories("..data.originInventoryId..", [{ id: "..data.idItem..", quantity: "..data.newQuantityOrigin.." }]);")
+    ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.updateItemsInventories('"..data.destinationInventoryId.."', [{ id: '"..item.."', quantity: "..data.newQuantityDestination.." }]);")
+    ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.updateItemsInventories('"..data.originInventoryId.."', [{ id: '"..item.."', quantity: "..data.newQuantityOrigin.." }]);")
 end
 AddEvent('BURDIGALAX_inventory_onTransfer', onTransferItems)
 
@@ -133,8 +133,6 @@ function BuildInventoryJson(items, playerInventory, playerName, playerId, player
     if friskedInventory ~= nil then
         json.inventories[1].selectedNearbyInventoryId = friskedInventory.id
     end
-
-    print(json_encode(json))
 
     return json
 end
