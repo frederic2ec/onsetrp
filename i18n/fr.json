@@ -574,5 +574,6 @@
     "under_water_help": "Vous êtes dans l'eau ? Tapez /unstuck dans le chat ! (\"Numpad /\" pour l'afficher)",
     "item_menu": "Menu objets",
     "admin_give_item_success": "Objet donné avec succès",
-    "admin_give_item_fail": "Impossible de donner cet objet"
+    "admin_give_item_fail": "Impossible de donner cet objet",
+    "orange": "orange"
 }
