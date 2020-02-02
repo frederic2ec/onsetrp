@@ -1,45 +1,33 @@
--- --------------------------------------------------------
--- Hôte :                        127.0.0.1
--- Version du serveur:           10.4.11-MariaDB - mariadb.org binary distribution
--- SE du serveur:                Win64
--- HeidiSQL Version:             10.2.0.5599
--- --------------------------------------------------------
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-
 -- Listage de la structure de la table roleplay. accounts
 CREATE TABLE IF NOT EXISTS `accounts` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `steamid` varchar(17) NOT NULL,
   `name` varchar(255) NOT NULL DEFAULT 'Unregistered',
   `clothing` text NOT NULL,
-  `police` tinyint(1) NOT NULL DEFAULT 0,
-  `medic` tinyint(1) NOT NULL DEFAULT 0,
+  `police` tinyint(1) NOT NULL DEFAULT '0',
+  `medic` tinyint(1) NOT NULL DEFAULT '0',
   `inventory` text NOT NULL,
   `position` text NOT NULL,
-  `admin` tinyint(3) unsigned NOT NULL DEFAULT 0,
-  `health` float NOT NULL DEFAULT 100,
+  `admin` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `health` float NOT NULL DEFAULT '100',
   `health_state` varchar(255) NOT NULL DEFAULT 'alive',
   `death_pos` text NOT NULL,
-  `armor` float NOT NULL DEFAULT 0,
-  `thirst` float NOT NULL DEFAULT 100,
-  `hunger` float NOT NULL DEFAULT 100,
-  `bank_balance` int(11) NOT NULL DEFAULT 900,
-  `created` tinyint(1) NOT NULL DEFAULT 0,
+  `armor` float NOT NULL DEFAULT '0',
+  `thirst` float NOT NULL DEFAULT '100',
+  `hunger` float NOT NULL DEFAULT '100',
+  `bank_balance` int(11) NOT NULL DEFAULT '900',
+  `created` tinyint(1) NOT NULL DEFAULT '0',
   `phone_number` varchar(255) DEFAULT NULL,
-  `driver_license` tinyint(1) NOT NULL DEFAULT 0,
-  `gun_license` tinyint(1) NOT NULL DEFAULT 0,
-  `helicopter_license` tinyint(1) NOT NULL DEFAULT 0,
+  `driver_license` tinyint(1) NOT NULL DEFAULT '0',
+  `gun_license` tinyint(1) NOT NULL DEFAULT '0',
+  `helicopter_license` tinyint(1) NOT NULL DEFAULT '0',
   `drug_knowledge` text NOT NULL,
   `job` varchar(20) DEFAULT NULL,
-  `is_cuffed` tinyint(1) NOT NULL DEFAULT 0,
-  `age` int(11) NOT NULL DEFAULT 0,
+  `is_cuffed` tinyint(1) NOT NULL DEFAULT '0',
+  `age` int(11) NOT NULL DEFAULT '0',
+  `is_online` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- Listage de la structure de la table roleplay. bans
 CREATE TABLE IF NOT EXISTS `bans` (
