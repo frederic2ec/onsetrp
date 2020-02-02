@@ -405,6 +405,7 @@
     "salary_notification": "Votre salaire : {1}",
     "cant_while_driving": "Impossible en conduisant",
     "empty_inventory": "L'inventaire est vide !",
+    "pick_first": "Vous devez d'abord le transférer dans votre inventaire",
     "name_all_category": "Tous les objets",
     "name_equipable_category": "Equipement",
     "total": "Total",
