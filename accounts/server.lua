@@ -303,7 +303,7 @@ function SavePlayerAccount(player)
     local x, y, z = GetPlayerLocation(player)
     PlayerData[player].position = {x = x, y = y, z = z}
     
-    local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', inventory = '?', created = '?', position = '?', driver_license = ?, gun_license = ?, helicopter_license = ?, drug_knowledge = '?', job = '?', is_cuffed = ?, age = ?, is_online = ? WHERE id = ? LIMIT 1;",
+    local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, bank_balance = ?, health = ?, armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', inventory = '?', created = '?', position = '?', driver_license = ?, gun_license = ?, helicopter_license = ?, drug_knowledge = '?', job = '?', is_cuffed = ?, age = ?, is_online = '?' WHERE id = ? LIMIT 1;",
         PlayerData[player].admin,
         PlayerData[player].bank_balance,
         PlayerData[player].health,
@@ -322,7 +322,7 @@ function SavePlayerAccount(player)
         PlayerData[player].job or "",
         PlayerData[player].is_cuffed or 0,
         PlayerData[player].age or 30,
-        PlayerData[player].is_online,
+        PlayerData[player].is_online or 0,
         PlayerData[player].accountid
     )
     mariadb_query(sql, query)
