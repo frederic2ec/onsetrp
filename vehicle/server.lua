@@ -362,7 +362,8 @@ function RemoveVehicleInventory(vehicle, item, amount, player)
         end
 
         if player then
-            UpdateUIInventory(player, "vehicle_"..vehicle, item, VehicleData[vehicle].inventory[item])
+            local count = VehicleData[vehicle].inventory[item] or 0
+            UpdateUIInventory(player, "vehicle_"..vehicle, item, count)
         end
 
         SaveVehicleData(vehicle)

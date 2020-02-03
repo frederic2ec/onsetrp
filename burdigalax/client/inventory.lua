@@ -49,6 +49,7 @@ end
 
 AddRemoteEvent("UpdateUIInventory", function(player, item, quantity, equiped)
     local equiped = equiped or false
+    local quantity = quantity or 0
     ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.updateItemsInventories('"..player.."', [{ id: '"..item.."', quantity: "..quantity..", isEquipped: "..tostring(equiped).." }]);")
 end)
 
@@ -106,6 +107,7 @@ function BuildInventoryJson(items, playerInventory, playerName, playerId, player
 
         if friskedInventory ~= nil and friskedInventory.id == player.id then
             inventory.hasReadAccess = true
+            inventory.nearbyInventoriesIds = { playerId }
             inventory.items = InventoryAvailableItems(friskedInventory.inventory)
             inventory.categoriesIds = {
                 'food',
