@@ -289,7 +289,7 @@ AddRemoteEvent("TransferInventory", function(player, originInventory, item, amou
             if destinationType == 'player' then
                 itemAdded = AddInventory(destinationInventory, item, amount, player)
             else
-                itemAdded = AddVehicleInventory(originInventory, item, amount, player)
+                itemAdded = AddVehicleInventory(destinationInventory, item, amount, player)
             end
             
             if originType == 'player' then
