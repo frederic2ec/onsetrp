@@ -307,7 +307,6 @@ function SavePlayerAccount(player)
         return
     end
     
-    
     PlayerData[player].health = GetPlayerHealth(player)
     
     -- Sauvegarde de la position du joueur
