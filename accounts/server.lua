@@ -18,6 +18,10 @@ AddEvent("OnPackageStop", function()
     print("All accounts have been saved !")
 end)
 
+function OnPlayerJoin(player)
+    SetPlayerSpawnLocation(player, 227603, -65590, 400, 90)
+end
+AddEvent("OnPlayerJoin", OnPlayerJoin)
 
 function OnPlayerSteamAuth(player)
     print('JOINING → ', GetPlayerSteamId(player))
@@ -107,7 +111,8 @@ end
 function OnAccountCreated(player)
     PlayerData[player].accountid = mariadb_get_insert_id()
     
-    CallRemoteEvent(player, "askClientCreation")
+    CallRemoteEvent(player, "InitWelcome", false)
+    ServerCharacterCreation(player)
     
     SetPlayerLoggedIn(player)
     SetAvailablePhoneNumber(player)
@@ -165,38 +170,44 @@ function OnAccountLoaded(player)
 
         CallEvent("job:onspawn", player)-- Trigger the loading of jobs when player is fully loaded (have to be set up for each jobs)
 
-        setPositionAndSpawn(player, PlayerData[player].position)
-        
-        PlayerData[player].is_online = 1
-
         SetPlayerLoggedIn(player)
 
+        print(PlayerData[player].created)
+
         if PlayerData[player].created == 0 then
-            CallRemoteEvent(player, "askClientCreation")
+            CallRemoteEvent(player, "InitWelcome", false)
+            ServerCharacterCreation(player)
         else
+            CallRemoteEvent(player, "InitWelcome", true)
             SetPlayerName(player, string.sub(PlayerData[player].name, 1, 1).."_____") -- hide name
-            -- playerhairscolor = getHairsColor(PlayerData[player].clothing[2])
-            -- CallRemoteEvent(player, "ClientChangeClothing", player, 0, PlayerData[player].clothing[1], playerhairscolor[1], playerhairscolor[2], playerhairscolor[3], playerhairscolor[4])
-            -- CallRemoteEvent(player, "ClientChangeClothing", player, 1, PlayerData[player].clothing[3], 0, 0, 0, 0)
-            -- CallRemoteEvent(player, "ClientChangeClothing", player, 4, PlayerData[player].clothing[4], 0, 0, 0, 0)
-            -- CallRemoteEvent(player, "ClientChangeClothing", player, 5, PlayerData[player].clothing[5], 0, 0, 0, 0)
             UpdateClothes(player)
             DisplayPlayerBackpack(player)
-        -- CallRemoteEvent(player, "AskSpawnMenu")
         end
+
         LoadPlayerPhoneContacts(player)
         print("Account ID " .. PlayerData[player].accountid .. " loaded for " .. GetPlayerIP(player))
     end
 end
 
-function setPositionAndSpawn(player, position)
-    if position ~= nil and position.x ~= nil and position.y ~= nil and position.z ~= nil then
-        SetPlayerLocation(player, PlayerData[player].position.x, PlayerData[player].position.y, PlayerData[player].position.z + 250)-- Pour empêcher de se retrouver sous la map
+function setPositionAndSpawn(player)
+    if PlayerData[player].created == 0 then
+        CallRemoteEvent(player, "askClientCreation")
     else
-        SetPlayerLocation(player, 227603, -65590, 400)
+        local position = PlayerData[player].position
+        
+        if position == nil or position.x == nil or position.y == nil or position.z == nil then
+            PlayerData[player].position.x = 227603
+            PlayerData[player].position.y = -65590
+            PlayerData[player].position.z = 400
+        end
+        
+        SetPlayerLocation(player, PlayerData[player].position.x, PlayerData[player].position.y, PlayerData[player].position.z + 250) -- To be "sure" you won't spawn under the map
         SetPlayerHeading(player, 180)
+        SavePlayerAccount()
     end
 end
+
+AddRemoteEvent("setPositionAndSpawn", setPositionAndSpawn)
 
 function SetAvailablePhoneNumber(player)
     -- Generate a random phone number

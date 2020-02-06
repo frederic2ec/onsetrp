@@ -31,6 +31,11 @@ function getWeaponID(modelid)
 end
 
 AddRemoteEvent("EquipInventory", function(player, originInventory, itemName, amount, inVehicle, vehiclSpeed)
+    if (amount <= 0) then
+        return false
+    end
+
+      
     if string.find(originInventory, 'vehicle_') then
         CallRemoteEvent(player, "MakeErrorNotification", _("pick_first"))
         return false
@@ -85,6 +90,10 @@ function UnequipWeapon(player, originInventory, itemName, slot)
 end
 
 AddRemoteEvent("UseInventory", function(player, originInventory, itemName, amount, inVehicle, vehiclSpeed)
+    if (amount <= 0) then
+        return false
+    end
+
     if string.find(originInventory, 'vehicle_') then
         CallRemoteEvent(player, "MakeErrorNotification", _("pick_first"))
         return false
@@ -231,11 +240,21 @@ function UseItem(player, originInventory, item, amount, animation)
 end
 
 AddRemoteEvent("TransferInventory", function(player, originInventory, item, amount, destinationInventory)
-    if originInventory == nil or destinationInventory == nil then
+
+    amount = tonumber(amount)
+
+    print(originInventory)
+    print(item)
+    print(amount)
+    print(destinationInventory)
+
+    if (amount <= 0) then
         return false
     end
 
-    amount = tonumber(amount)
+    if originInventory == nil or destinationInventory == nil then
+        return false
+    end
 
     local originType, originX, originY, originZ, destX, destY, destZ
 
@@ -268,6 +287,8 @@ AddRemoteEvent("TransferInventory", function(player, originInventory, item, amou
     destinationInventory = tonumber(destinationInventory)
 
     local dist = GetDistance3D(originX, originY, originZ, destX, destY, destZ)
+
+    print(dist)
     
     if dist <= 200 then
         local enoughItems = false
@@ -289,7 +310,7 @@ AddRemoteEvent("TransferInventory", function(player, originInventory, item, amou
             if destinationType == 'player' then
                 itemAdded = AddInventory(destinationInventory, item, amount, player)
             else
-                itemAdded = AddVehicleInventory(originInventory, item, amount, player)
+                itemAdded = AddVehicleInventory(destinationInventory, item, amount, player)
             end
             
             if originType == 'player' then
@@ -350,6 +371,10 @@ AddEvent("OnPlayerSpawn", function(player)
 end)
 
 AddRemoteEvent("RemoveFromInventory", function(player, originInventory, item, amount)
+    if (amount <= 0) then
+        return false
+    end
+
     if PlayerData[originInventory].inventory[item] < tonumber(amount) then
         CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_item"))
     else
@@ -358,6 +383,10 @@ AddRemoteEvent("RemoveFromInventory", function(player, originInventory, item, am
 end)
 
 function AddInventory(inventoryId, item, amount, player)
+    if (amount <= 0) then
+        return false
+    end
+
     local player = player or inventoryId
     
     local slotsAvailables = tonumber(GetPlayerMaxSlots(inventoryId)) - tonumber(GetPlayerUsedSlots(inventoryId))
@@ -382,6 +411,10 @@ function AddInventory(inventoryId, item, amount, player)
 end
 
 function RemoveInventory(inventoryId, item, amount, drop, player)
+    if (amount <= 0) then
+        return false
+    end
+
     local player = player or inventoryId
     
     if PlayerData[inventoryId].inventory[item] == nil then
@@ -424,6 +457,10 @@ function RemoveInventory(inventoryId, item, amount, drop, player)
 end
 
 function SetInventory(player, item, amount)
+    if (amount <= 0) then
+        return false
+    end
+
     PlayerData[player].inventory[item] = amount
     return true
 end

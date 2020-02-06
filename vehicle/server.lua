@@ -221,6 +221,8 @@ AddRemoteEvent("OpenTrunk", function(player)
     
     table.insert(playersList, { id = vehicleId, name = vehicleName })
 
+    SetPlayerPropertyValue(player, "opened-trunk", vehicle, true)
+
     CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].name, player, playersList, GetPlayerMaxSlots(player), friskedInventory)
 
     -- CallRemoteEvent(player, "OpenVehicleInventory", PlayerData[player].inventory, VehicleData[vehicle].inventory)
@@ -233,9 +235,9 @@ AddRemoteEvent("VehicleKeys", function(player)
     CallRemoteEvent(player, "OpenVehicleKeys", keyslist, playerlist)
 end)
 
-AddRemoteEvent("CloseTrunk", function(player)
-    local vehicle = GetNearestCar(player)
-    SetVehicleTrunkRatio(vehicle, 0.0)
+AddRemoteEvent("CloseTrunk", function(player, openedTrunk)
+    local vehicle = openedTrunk or GetNearestCar(player)
+    closeTrunk(vehicle)
 end)
 
 AddRemoteEvent("UnflipVehicle", function(player) 

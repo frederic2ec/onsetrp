@@ -25,6 +25,12 @@ function CloseUIInventory(context)
     if context == '"transfer"' then
         ExecuteWebJS(inventoryUI, "ResetSelectedNearbyInventory()")
     else
+        local openedTrunk = GetPlayerPropertyValue(GetPlayerId(), "opened-trunk")
+        if openedTrunk ~= nil and openedTrunk ~= 0 then
+            CallRemoteEvent("CloseTrunk", openedTrunk)
+            SetPlayerPropertyValue(GetPlayerId(), "opened-trunk", false, true)
+        end
+
         ShowMouseCursor(false)
         SetInputMode(INPUT_GAME)
         Delay(100, function()
@@ -39,6 +45,9 @@ AddEvent("BURDIGALAX_inventory_onClose", CloseUIInventory)
 function OpenUIInventory(items, playerInventory, playerName, playerId, playersList, maxSlots, friskedInventory)
     CallRemoteEvent("account:setplayerbusy", GetPlayerId())
     personalMenuIsOpen = 1
+    print("-----------")
+    print("BURDIGALAX_inventory.setConfig("..json_encode(BuildInventoryJson(items, playerInventory, playerName, playerId, playersList, maxSlots, friskedInventory))..");")
+    print("-----------")
     ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.setConfig("..json_encode(BuildInventoryJson(items, playerInventory, playerName, playerId, playersList, maxSlots, friskedInventory))..");")
     ShowMouseCursor(true)
     SetInputMode(INPUT_GAMEANDUI)
@@ -63,8 +72,10 @@ AddEvent('BURDIGALAX_inventory_onEquip', onEquipItemInventory)
 
 function onTransferItems(event)
     local data = json_decode(event)
-    ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.updateItemsInventories('"..data.destinationInventoryId.."', [{ id: '"..item.."', quantity: "..data.newQuantityDestination.." }]);")
-    ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.updateItemsInventories('"..data.originInventoryId.."', [{ id: '"..item.."', quantity: "..data.newQuantityOrigin.." }]);")
+    data.item = data.item or data.idItem
+
+    ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.updateItemsInventories('"..data.destinationInventoryId.."', [{ id: '"..data.item.."', quantity: "..data.newQuantityDestination.." }]);")
+    ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.updateItemsInventories('"..data.originInventoryId.."', [{ id: '"..data.item.."', quantity: "..data.newQuantityOrigin.." }]);")
 end
 AddEvent('BURDIGALAX_inventory_onTransfer', onTransferItems)
 

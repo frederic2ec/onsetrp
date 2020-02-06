@@ -44,6 +44,7 @@
         "admin/s_spectate.lua"
     ],
     "client_scripts": [
+        "welcome/client.lua",
         "keys/c_config.lua",
         "accounts/client.lua",
         "hunger/client.lua",
@@ -211,6 +212,12 @@
         "scoreboard/scoreboard/admin-icons/law.png",
         "scoreboard/scoreboard/admin-icons/teleport.png",
         "scoreboard/scoreboard/admin-icons/pill.png",
-        "scoreboard/scoreboard/admin-icons/reanimation.png"
+        "scoreboard/scoreboard/admin-icons/reanimation.png",
+        "welcome/index_fr.html",
+        "welcome/index.css",
+        "welcome/index.js",
+        "welcome/logo.png",
+        "welcome/background.png",
+        "welcome/image.png"
     ]
 }

@@ -57,7 +57,7 @@ defaultCharacter = {
     shoes = 'normal_shoes'
 }
 
-AddRemoteEvent("ServerCharacterCreation", function(player)
+function ServerCharacterCreation(player)
     local color = hairsColor[defaultCharacter.haircolors]
     local skin = skinColor[defaultCharacter.skins]
     CallRemoteEvent(player, "ClientChangeClothing", player, 0, hairsModel[defaultCharacter.hair], color[1], color[2], color[3], color[4])
@@ -68,9 +68,13 @@ AddRemoteEvent("ServerCharacterCreation", function(player)
 
     SetPlayerBusy(player)
 
-    CallRemoteEvent(player, "askClientCreation")
-    -- CallRemoteEvent(player, "openModify", defaultCharacter, true)
-end)
+    Delay(2000, function ()
+        CallRemoteEvent(player, "askClientCreation")
+    end)
+end
+
+AddRemoteEvent("ServerCharacterCreation", ServerCharacterCreation)
+
 AddCommand("newchar", function(player)
     CallRemoteEvent(player, "openCharacterCreation", hairsModel, shirtsModel, pantsModel, shoesModel, hairsColor)
 end)
