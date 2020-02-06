@@ -6,6 +6,7 @@ function OnPackageStart()
     CreateTimer(function()
         for k, v in pairs(GetAllPlayers()) do
             SavePlayerAccount(v)
+            CheckForBansFromOutside(v)
         end
     end, 30000)
 end
@@ -363,6 +364,20 @@ AddRemoteEvent("account:setplayernotbusy", SetPlayerNotBusy)-- To do it clientsi
 function GetPlayerBusy(player)-- Shortcut to get the busy state of the player
     local result = GetPlayerPropertyValue(player, "PlayerIsBusy") or false
     return result
+end
+
+function CheckForBansFromOutside(player)
+    local query = mariadb_prepare(sql, "SELECT steamid, reason FROM bans WHERE steamid = '?' LIMIT 1;",
+        tostring(GetPlayerSteamId(player)))
+    
+    mariadb_async_query(sql, query, OnBansChecked, player)
+end
+
+function OnBansChecked(player)
+    if mariadb_get_row_count() > 0 then
+        local ban = mariadb_get_assoc(1)
+        KickPlayer(player, _("banned_from_intranet", ban["reason"]))
+    end
 end
 
 -- Exports

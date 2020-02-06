@@ -191,6 +191,7 @@
     "vehicle_trunk": "Coffre de la voiture",
     "get": "Obtenir",
     "banned_for": "🚨 Vous avez été banni de ce serveur pour: {1} le {2}",
+    "banned_from_intranet": "🚨 Vous avez été banni: {1}",
     "kicked_for": "🚨 Vous avez été exclu de ce serveur pour: {1}",
     "gas_station": "Station Service",
     "town": "Banlieue Industrielle",
