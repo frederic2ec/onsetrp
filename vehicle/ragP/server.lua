@@ -16,8 +16,10 @@
     local ragTime = math.floor((currentspeed/2)*random)*1000
     Delay(100, function ()
         SetPlayerRagdoll(player,true)
+        CallRemoteEvent(player, "LockControlMove", true)
         Delay(ragTime,function()
             SetPlayerRagdoll(player,false)
+            CallRemoteEvent(player, "LockControlMove", false)
             SetPlayerAnimation(player, S_animation)
         end)
     end)
