@@ -184,6 +184,8 @@ function OnAccountLoaded(player)
             DisplayPlayerBackpack(player)
         end
 
+        setPositionAndSpawn(player)
+
         LoadPlayerPhoneContacts(player)
         print("Account ID " .. PlayerData[player].accountid .. " loaded for " .. GetPlayerIP(player))
     end
