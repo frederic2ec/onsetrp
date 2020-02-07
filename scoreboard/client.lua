@@ -60,6 +60,12 @@ AddEvent("scoreboard:admin:heal", function(player)
   end
 end)
 
+AddEvent("scoreboard:admin:cuff", function(player)
+  if IsAdmin == true  then
+    CallRemoteEvent("AdminCuffPlayer", player)    
+  end
+end)
+
 AddEvent("scoreboard:admin:freeze", function(player)
   if IsAdmin == true  then
     CallRemoteEvent("AdminFreezePlayer", player)    

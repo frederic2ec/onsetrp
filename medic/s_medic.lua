@@ -187,6 +187,7 @@ AddEvent("OnPlayerSpawn", function(player)-- On player death
     if PlayerData and PlayerData[player] then
         if PlayerData[player].has_been_revived == false or PlayerData[player].has_been_revived == nil then -- Clean inv
             PlayerData[player].inventory = {}
+            SetPlayerCuffed(player, false)
         end
         GiveMedicEquipmentToPlayer(player)
     end
