@@ -125,13 +125,19 @@ end
 AddRemoteEvent("admin:menu:getitemlist", function(player)
     local itemList = {}
     for k,v in pairs(Items) do
-        if v.category ~= "weapons" then
-            itemList[k] = _(v.name)
-        end 
+        itemList[k] = _(v.name)
     end
     CallRemoteEvent(player, "admin:menu:showitemmenu", itemList)    
 end)
 
+AddRemoteEvent("AdminCuffPlayer", function(player, toPlayer)
+    if tonumber(PlayerData[player].admin) ~= 1 then return end
+    if PlayerData[toPlayer].is_cuffed == 1 then
+        SetPlayerCuffed(toPlayer, false)
+    else
+        SetPlayerCuffed(toPlayer, true)
+    end
+end)  
 
 AddRemoteEvent("AdminRezPlayer", function(player, toPlayer)
     if tonumber(PlayerData[player].admin) ~= 1 then return end

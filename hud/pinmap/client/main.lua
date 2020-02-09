@@ -4,9 +4,9 @@ local mapGui = nil
 local miniMapGui = nil
 local devMode = false
 local mapUILoaded = false
-local minimapUILoaded
+local minimapUILoaded = false
 
-local function OnPackageStart()
+function DisplayMinimap()
 	local screenX, screenY = GetScreenSize()
 	mapGui = CreateWebUI(0, 0, 0, 0, 0, 60)	
 	
@@ -15,14 +15,14 @@ local function OnPackageStart()
 	SetWebAlignment(mapGui, 0, 0)
 	SetWebAnchors(mapGui, 0.1, 0.1, 0.9, 0.9) --Set up my web ui to take up the center 80% of the screen
 
-    SetWebVisibility(mapGui, WEB_HIDDEN)
-    
-    local minimapWidth = 300
-    local minimapHeight = 300
-    local minX = 0 + 30/screenX
-    local maxX = 0 + 30/screenX + minimapWidth/screenX
-    local minY = 1 - minimapHeight/screenY - 30/screenY
-    local maxY = 1 - 30/screenY
+	SetWebVisibility(mapGui, WEB_HIDDEN)  
+
+	local minimapWidth = 300
+	local minimapHeight = 300
+	local minX = 0 + 30/screenX
+	local maxX = 0 + 30/screenX + minimapWidth/screenX
+	local minY = 1 - minimapHeight/screenY - 30/screenY
+	local maxY = 1 - 30/screenY
 	miniMapGui = CreateWebUI(0, 0, 0, 0, 0, 144)
 	LoadWebFile(miniMapGui, "http://asset/" .. GetPackageName() .. "/hud/pinmap/client/web/minimap.html")
 
@@ -30,8 +30,8 @@ local function OnPackageStart()
 	SetWebAnchors(miniMapGui, minX, minY, maxX, maxY) --Set up my web ui to take up the center 80% of the screen
 
 	SetWebVisibility(miniMapGui, WEB_HITINVISIBLE)
+	minimapUILoaded = true
 end
-AddEvent("OnPackageStart", OnPackageStart)
 
 function InitializeMapValues() --This will send the width/height of the map which will be used by the WebUI to make sure user does not drag map off screen as well as send the legend info
 	local screenX, screenY = GetScreenSize()
@@ -212,23 +212,25 @@ end
 AddEvent("ClearMapDestination", ClearMapDestination)
 
 function UpdatePositionOnMap()
-	if (isMapOpen == true) then
-		local x, y, z = GetPlayerLocation()
-		heading = GetPlayerHeading() + 90
-		if (heading < 0) then
-			heading = heading + 360
+	if (minimapUILoaded) then
+		if (isMapOpen == true) then
+			local x, y, z = GetPlayerLocation()
+			heading = GetPlayerHeading() + 90
+			if (heading < 0) then
+				heading = heading + 360
+			end
+			jsString = "UpdatePlayerPosition(" .. x .. "," .. y .. "," .. z .. "," .. heading .. ");"
+			ExecuteWebJS(mapGui, jsString)
+		else
+			local x, y, z = GetPlayerLocation()
+			_, heading = GetCameraRotation()
+			heading = heading + 90
+			if (heading < 0) then
+				heading = heading + 360
+			end
+			jsString = "UpdatePlayerPosition(" .. x .. "," .. y .. "," .. z .. "," .. heading .. ");"
+			ExecuteWebJS(miniMapGui, jsString)
 		end
-		jsString = "UpdatePlayerPosition(" .. x .. "," .. y .. "," .. z .. "," .. heading .. ");"
-        ExecuteWebJS(mapGui, jsString)
-    else
-        local x, y, z = GetPlayerLocation()
-        _, heading = GetCameraRotation()
-        heading = heading + 90
-		if (heading < 0) then
-			heading = heading + 360
-		end
-		jsString = "UpdatePlayerPosition(" .. x .. "," .. y .. "," .. z .. "," .. heading .. ");"
-        ExecuteWebJS(miniMapGui, jsString)
 	end
 end
 CreateTimer(UpdatePositionOnMap, 10)

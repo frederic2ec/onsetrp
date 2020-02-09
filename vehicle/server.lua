@@ -198,8 +198,40 @@ AddRemoteEvent("unlockVehicle", unlockVehicle)
 
 AddRemoteEvent("OpenTrunk", function(player)
     local vehicle = GetNearestCar(player)
-    SetVehicleTrunkRatio(vehicle, 60.0)
-    CallRemoteEvent(player, "OpenVehicleInventory", PlayerData[player].inventory, VehicleData[vehicle].inventory)
+
+    if GetVehiclePropertyValue(vehicle, "locked") then 
+        MakeNotification(_("this_vehicle_locked"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+        return false 
+    end
+    
+    openTrunk(vehicle)
+
+    local x, y, z = GetPlayerLocation(player)
+    local nearestPlayers = GetPlayersInRange3D(x, y, z, 1000)
+    local playersList = {}
+    for k, v in pairs(nearestPlayers) do
+        if k ~= player then
+            table.insert(playersList, {id = k, name = GetPlayerName(k)})
+        end
+    end
+    
+    local vehicleId = "vehicle_"..vehicle
+    local vehicleName = _("vehicle_"..VehicleData[vehicle].modelid)
+    
+    friskedInventory = { 
+        id = vehicleId, 
+        name = vehicleName,
+        inventory = VehicleData[vehicle].inventory,
+        maxSlots = VehicleTrunkSlots["vehicle_"..VehicleData[vehicle].modelid]
+    }
+    
+    table.insert(playersList, { id = vehicleId, name = vehicleName })
+
+    SetPlayerPropertyValue(player, "opened-trunk", vehicle, true)
+
+    CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].name, player, playersList, GetPlayerMaxSlots(player), friskedInventory)
+
+    -- CallRemoteEvent(player, "OpenVehicleInventory", PlayerData[player].inventory, VehicleData[vehicle].inventory)
 end)
 
 AddRemoteEvent("VehicleKeys", function(player) 
@@ -209,9 +241,9 @@ AddRemoteEvent("VehicleKeys", function(player)
     CallRemoteEvent(player, "OpenVehicleKeys", keyslist, playerlist)
 end)
 
-AddRemoteEvent("CloseTrunk", function(player)
-    local vehicle = GetNearestCar(player)
-    SetVehicleTrunkRatio(vehicle, 0.0)
+AddRemoteEvent("CloseTrunk", function(player, openedTrunk)
+    local vehicle = openedTrunk or GetNearestCar(player)
+    closeTrunk(vehicle)
 end)
 
 AddRemoteEvent("UnflipVehicle", function(player) 
@@ -241,7 +273,6 @@ AddRemoteEvent("VehicleUnstore", function(player, item, amount)
         RemoveVehicleInventory(vehicle, item, amount)
     end
 end)
-
 
 AddRemoteEvent("VehicleGiveKey", function(player, toplayer)
     local vehicle = GetNearestCar(player)
@@ -308,23 +339,44 @@ function getVehicleId(modelid)
     return modelid:gsub("vehicle_", "")
 end
 
-function AddVehicleInventory(vehicle, item, amount)
-    if VehicleData[vehicle].inventory[item] == nil then
-        VehicleData[vehicle].inventory[item] = amount
+function AddVehicleInventory(vehicle, item, amount, player)
+    if item == "cash" or VehicleTrunkSlots["vehicle_"..VehicleData[vehicle].modelid] >= (amount * ItemsWeight[item]) then
+        if VehicleData[vehicle].inventory[item] == nil then
+            VehicleData[vehicle].inventory[item] = amount
+        else
+            VehicleData[vehicle].inventory[item] = VehicleData[vehicle].inventory[item] + amount
+        end
+        
+        if player then
+            UpdateUIInventory(player, "vehicle_"..vehicle, item, VehicleData[vehicle].inventory[item])
+        end
+
+        SaveVehicleData(vehicle)
+        
+        return true
     else
-        VehicleData[vehicle].inventory[item] = VehicleData[vehicle].inventory[item] + amount
+        return false
     end
 end
 
-function RemoveVehicleInventory(vehicle, item, amount)
+function RemoveVehicleInventory(vehicle, item, amount, player)
     if VehicleData[vehicle].inventory[item] == nil then
-        return
+        return false
     else
         if VehicleData[vehicle].inventory[item] - amount < 1 then
             VehicleData[vehicle].inventory[item] = nil
         else
             VehicleData[vehicle].inventory[item] = VehicleData[vehicle].inventory[item] - amount
         end
+
+        if player then
+            local count = VehicleData[vehicle].inventory[item] or 0
+            UpdateUIInventory(player, "vehicle_"..vehicle, item, count)
+        end
+
+        SaveVehicleData(vehicle)
+
+        return true
     end
 end
 
@@ -348,30 +400,40 @@ AddRemoteEvent("ToggleEngine", function(player, vehicle)
     end
 end)
 
-AddRemoteEvent("ToggleTrunk", function(player)
+function ToggleTrunk(player)
     if IsPlayerInVehicle(player) then
         if GetPlayerVehicleSeat(player) == 1 then
             vehicle = GetPlayerVehicle(player)
             if GetVehicleTrunkRatio(vehicle) > 0.0 and GetVehicleTrunkRatio(vehicle) < 60.0 then
                 -- Animation was already running
             elseif GetVehicleTrunkRatio(vehicle) == 60.0 then
-                CreateCountTimer(function()
-                    openRatio = GetVehicleTrunkRatio(vehicle) - 0.5
-                    if openRatio >= 0.0 then
-                        SetVehicleTrunkRatio(vehicle, openRatio)
-                    end
-                end, 25, 120)
+                closeTrunk(vehicle)
             else
-                CreateCountTimer(function()
-                    openRatio = GetVehicleTrunkRatio(vehicle) + 0.5
-                    if openRatio <= 60.0 then
-                        SetVehicleTrunkRatio(vehicle, openRatio)
-                    end
-                end, 25, 120)
+                openTrunk(vehicle)
             end
         end
     end
-end)
+end
+
+function openTrunk(vehicle)
+    CreateCountTimer(function()
+        openRatio = GetVehicleTrunkRatio(vehicle) + 1
+        if openRatio <= 60.0 then
+            SetVehicleTrunkRatio(vehicle, openRatio)
+        end
+    end, 25, 60)
+end
+
+function closeTrunk(vehicle)
+    CreateCountTimer(function()
+        openRatio = GetVehicleTrunkRatio(vehicle) - 1
+        if openRatio >= 0.0 then
+            SetVehicleTrunkRatio(vehicle, openRatio)
+        end
+    end, 25, 60)
+end
+
+AddRemoteEvent("ToggleTrunk", ToggleTrunk)
 
 AddRemoteEvent("ToggleHood", function(player)
     if IsPlayerInVehicle(player) then

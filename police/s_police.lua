@@ -337,6 +337,10 @@ function SetPlayerCuffed(player, state)
 end
 
 function FinePlayer(player, amount, reason)
+    if (amount <= 0) then
+        return false
+    end
+      
     if PlayerData[player].police ~= 1 then return end
     if PlayerData[player].job ~= "police" then return end
     
