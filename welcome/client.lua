@@ -2,7 +2,7 @@ local Dialog = ImportPackage("dialogui")
 local _ = _ or function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, ...) end
 
 local welcomeUI
-local isCreated
+local isCreated = false
 local hideGameElements = true
 local isInHomepage = true
 local screenWidth, screenHeight = GetScreenSize()
