@@ -88,7 +88,6 @@ AddRemoteEvent("EquipInventory", function(player, originInventory, itemName, amo
                 end
 
                 BackpackPutOnAnim(player, 3000, 'FACEPALM')
-
                 
                 if PlayerData[player][itemName] then
                     UpdateUIInventory(player, originInventory, itemName, PlayerData[originInventory].inventory[itemName], false)

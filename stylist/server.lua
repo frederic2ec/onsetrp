@@ -49,9 +49,9 @@ end)
 AddRemoteEvent("startModify", function(player, isCreation)
 	local isCreation = isCreation or false
 
-	-- if isCreation then
-	-- 	SetPlayerDimension(player, 1000 + player)
-	-- end
+	if isCreation then
+		SetPlayerDimension(player, player)
+	end
 
 	SetPlayerName(player, " ")
 
@@ -93,7 +93,7 @@ AddRemoteEvent("ModifyEvent", function(player, hairsChoice, shirtsChoice, pantsC
     table.insert(PlayerData[player].clothing, shoesChoice)
 	table.insert(PlayerData[player].clothing, skinChoice)
 
-	-- SetPlayerDimension(player, 1)
+	SetPlayerDimension(player, 0)
 	SetPlayerNotBusy(player)
 
 	for k, v in pairs(GetStreamedPlayersForPlayer(player)) do
