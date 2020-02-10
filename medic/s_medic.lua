@@ -229,6 +229,7 @@ function SpawnMedicCar(player)-- to spawn an ambulance
         
         PlayerData[player].job_vehicle = vehicle
         CreateVehicleData(player, vehicle, 3)
+        SetVehicleRespawnParams(vehicle, false)
         SetVehiclePropertyValue(vehicle, "locked", true, true)
         CallRemoteEvent(player, "MakeNotification", _("spawn_vehicle_success", _("medic_car")), "linear-gradient(to right, #00b09b, #96c93d)")
     else
