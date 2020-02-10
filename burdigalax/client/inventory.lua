@@ -215,6 +215,10 @@ function InventoryAvailableItems(playerInventory)
         for slot, v in pairs({ 1, 2, 3 }) do
             local slotWeapon, ammo = GetPlayerWeapon(slot)
 
+            if GetPlayerPropertyValue(GetPlayerId(), "WearingItem") then
+                isEquipped = GetPlayerPropertyValue(GetPlayerId(), "WearingItem") == inventoryItem
+            end
+
             if "weapon_"..slotWeapon == inventoryItem then
                 isEquipped = true
             end

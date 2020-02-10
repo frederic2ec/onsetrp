@@ -78,8 +78,37 @@ AddRemoteEvent("EquipInventory", function(player, originInventory, itemName, amo
             end
             CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_slots"))
         else
-            -- No weapons items
+            if itemName == 'bandana' or itemName == 'bag' then
+                local objectId
+
+                if itemName == 'bandana' then
+                    objectId = 463
+                else
+                    objectId = 455
+                end
+
+                BackpackPutOnAnim(player, 3000, 'FACEPALM')
+
+                
+                if PlayerData[player][itemName] then
+                    UpdateUIInventory(player, originInventory, itemName, PlayerData[originInventory].inventory[itemName], false)
+                    SetPlayerPropertyValue(player, "WearingItem", nil, true)
+                    Delay(2000, function()
+                        DestroyObject(PlayerData[player][itemName])
+                        PlayerData[player][itemName] = nil
+                    end)
+                else
+                    UpdateUIInventory(player, originInventory, itemName, PlayerData[originInventory].inventory[itemName], true)
+                    SetPlayerPropertyValue(player, "WearingItem", itemName, true)
+                    Delay(2000, function() 
+                        local x, y, z = GetPlayerLocation(player)
+                        PlayerData[player][itemName] = CreateObject(objectId, x, y, z)
+                        SetObjectAttached(PlayerData[player][itemName], ATTACH_PLAYER, player, 8.0, 0.0, 0.0, 0.0, 90.0, -90.0, "head")
+                    end)
+                end
             end
+            -- No weapons items
+        end
     end
 end)
 
@@ -240,13 +269,7 @@ function UseItem(player, originInventory, item, amount, animation)
 end
 
 AddRemoteEvent("TransferInventory", function(player, originInventory, item, amount, destinationInventory)
-
     amount = tonumber(amount)
-
-    print(originInventory)
-    print(item)
-    print(amount)
-    print(destinationInventory)
 
     if (amount <= 0) then
         return false
@@ -287,8 +310,6 @@ AddRemoteEvent("TransferInventory", function(player, originInventory, item, amou
     destinationInventory = tonumber(destinationInventory)
 
     local dist = GetDistance3D(originX, originY, originZ, destX, destY, destZ)
-
-    print(dist)
     
     if dist <= 200 then
         local enoughItems = false
@@ -535,9 +556,10 @@ function DisplayPlayerBackpack(player, anim)
     end
 end
 
-function BackpackPutOnAnim(player, timer)
+function BackpackPutOnAnim(player, timer, animation)
     if timer == nil then timer = 5000 end
-    SetPlayerAnimation(player, "CHECK_EQUIPMENT3")
+    if animation == nil then animation = 'CHECK_EQUIPMENT3' end
+    SetPlayerAnimation(player, animation)
     Delay(timer, function()
         SetPlayerAnimation(player, "STOP")
     end)
