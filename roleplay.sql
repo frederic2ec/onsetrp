@@ -145,7 +145,9 @@ INSERT INTO `items` (`id`, `name`, `category`, `subcategory`, `price`, `weight`,
 	(47, 'defibrillator', 'job_item', 'tool', 0, 6000, 0, 0, 0, 0),
 	(48, 'adrenaline_syringe', 'job_item', 'tool', 0, 1000, 0, 0, 0, 1),
 	(49, 'bandage', 'job_item', 'tool', 0, 1000, 0, 0, 0, 1),
-	(50, 'herring', 'job_item', 'food', 0, 5000, 35, 0, 0, 1);
+	(50, 'herring', 'job_item', 'food', 0, 5000, 35, 0, 0, 1),
+	(51, 'bandana', 'miscellaneous', 'object', 3000, 100, 0, 0, 1, 0),
+    	(52, 'bag', 'miscellaneous', 'object', 3000, 100, 0, 0, 1, 0);
 
 -- Listage de la structure de la table roleplay. logs
 CREATE TABLE IF NOT EXISTS `logs` (
