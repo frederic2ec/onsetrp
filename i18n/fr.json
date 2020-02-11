@@ -397,7 +397,7 @@
     "drugdealer_answer_cocain": "Oui, je cherche de la cocaïne",
     "drugdealer_ask_payment": "Je veux bien t'aider mais ça te coutera {1}$",
     "drugdealer_explain": "Un plaisir de faire du business avec toi. Je t'ai envoyé un SMS avec les coordonnées GPS. Amuse toi bien.",
-    "drugdealer_tempinfo": "[INFO] tant que nous n'avons pas de téléphone, utilisez les commandes /showdrugs et /hidedrugs pour afficher ou cacher les positions GPS.",
+    "drugdealer_tempinfo": "[INFO] Temporairement, utilisez les commandes /showdrugs et /hidedrugs pour afficher ou cacher les positions GPS.",
     "drugdealer_wts": "Je souhaite vendre ce que j'ai",
     "drugdealer_checkdrugs": "Ok laisse moi vérifier ta came, reste dans le coin",
     "drugdealer_toofaraway": "Reste a proximité du dealer pendant qu'il vérifie ta came",

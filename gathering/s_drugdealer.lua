@@ -67,7 +67,7 @@ end)
 
 
 AddCommand("showdrugs", function(player)
-    if PlayerData[player].police == 0 and PlayerData[player].medic == 0 and PlayerData[player].drug_knowledge ~= nil then
+    if PlayerData[player].job ~= "police" and PlayerData[player].job ~= "medic" and PlayerData[player].drug_knowledge ~= nil then
         CallRemoteEvent(player, "drugdealer:showdrugs", PlayerData[player].drug_knowledge)        
     end
 end)
