@@ -69,7 +69,7 @@ AddRemoteEvent("carDealerInteract", function(player, cardealerobject)
 			local x2, y2, z2 = GetPlayerLocation(player)
 			local dist = GetDistance3D(x, y, z, x2, y2, z2)
 	
-			if dist < 150 then
+			if dist < 250 then
 				for k,v in pairs(CarDealerTable) do
 					if cardealerobject == v.npc then
 						CallRemoteEvent(player, "openCarDealer", v.vehicles, v.colors)

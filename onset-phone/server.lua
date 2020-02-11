@@ -14,6 +14,8 @@ function LoadPhone(player)
         local query = mariadb_prepare(sql, "SELECT * FROM messages WHERE messages.from = '?' OR messages.to = '?';", tostring(PlayerData[player].phone_number), tostring(PlayerData[player].phone_number))
 
         mariadb_async_query(sql, query, OnMessagesLoaded, player)
+    else
+        SetPlayerNotBusy(player)
     end
 end
 AddRemoteEvent("LoadPhone", LoadPhone)

@@ -145,7 +145,11 @@ INSERT INTO `items` (`id`, `name`, `category`, `subcategory`, `price`, `weight`,
 	(47, 'defibrillator', 'job_item', 'tool', 0, 6000, 0, 0, 0, 0),
 	(48, 'adrenaline_syringe', 'job_item', 'tool', 0, 1000, 0, 0, 0, 1),
 	(49, 'bandage', 'job_item', 'tool', 0, 1000, 0, 0, 0, 1),
-	(50, 'herring', 'job_item', 'food', 0, 5000, 35, 0, 0, 1);
+	(50, 'herring', 'job_item', 'food', 0, 5000, 35, 0, 0, 1),
+	(51, 'mask_1', 'masks', 'object', 5000, 100, 0, 0, 1, 0),
+	(52, 'mask_2', 'masks', 'object', 5000, 100, 0, 0, 1, 0),
+	(53, 'mask_3', 'masks', 'object', 7000, 100, 0, 0, 1, 0),
+	(54, 'mask_4', 'masks', 'object', 7000, 100, 0, 0, 1, 0);
 
 -- Listage de la structure de la table roleplay. logs
 CREATE TABLE IF NOT EXISTS `logs` (
@@ -318,7 +322,8 @@ INSERT INTO `shops` (`id`, `name`, `category`, `x`, `y`, `z`, `h`) VALUES
 	(6, 'gunshop', 'weapons', -181943, -40882, 1163, 90),
 	(7, 'gunshop', 'weapons', 206071, 193057, 1357, 180),
 	(9, 'ironsmith', 'ironsmith', -189805, -34122, 1148, 90),
-	(10, 'ironsmith', 'ironsmith', 182971, 199704, 1315, -90);
+	(10, 'ironsmith', 'ironsmith', 182971, 199704, 1315, -90),
+	(11, 'masks', 'masks', 185510, 182923, 1301, -180);
 
 -- Listage de la structure de la table roleplay. whitelist
 CREATE TABLE IF NOT EXISTS `whitelist` (

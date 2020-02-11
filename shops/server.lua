@@ -36,7 +36,6 @@ AddEvent("database:connected", function()
                 usable = tonumber(item['usable']),
                 equipable = tonumber(item['equipable'])
             })
-
         end
 
         ItemsWeight['cash'] = 0

@@ -200,7 +200,7 @@ AddRemoteEvent("OpenTrunk", function(player)
     local vehicle = GetNearestCar(player)
 
     if GetVehiclePropertyValue(vehicle, "locked") then 
-        MakeNotification(_("this_vehicle_locked"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+	CallRemoteEvent(player, "MakeNotification", _("this_vehicle_locked"), "linear-gradient(to right, #ff5f6d, #ffc371)")
         return false 
     end
     
