@@ -1,7 +1,5 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
-local personalMenu
-
 AddRemoteEvent("OpenPersonalMenu", function(items, inventory, playerName, playerId, playerList, maxSlots, searchedPlayer)
     OpenUIInventory(items, inventory, playerName, playerId, playerList, maxSlots, searchedPlayer)
 end)
@@ -46,13 +44,19 @@ AddEvent('BURDIGALAX_inventory_onTransfer', itemTransferedInInventory)
 AddEvent("OnKeyPress", function( key )
     local cuffed = GetPlayerPropertyValue(GetPlayerId(), "cuffed") or false
         
-    if key == INVENTORY_KEY and not GetPlayerBusy() and not cuffed then
-        local vehicle = GetPlayerVehicle()
-
-        if vehicle ~= 0 then
-            CallRemoteEvent("ServerPersonalMenu", true, GetVehicleForwardSpeed(vehicle))
+    if key == INVENTORY_KEY then
+        if InventoryIsOpened then
+            CloseUIInventory()
         else
-            CallRemoteEvent("ServerPersonalMenu", false)
+            if not GetPlayerBusy() and not cuffed then
+                local vehicle = GetPlayerVehicle()
+    
+                if vehicle ~= 0 then
+                    CallRemoteEvent("ServerPersonalMenu", true, GetVehicleForwardSpeed(vehicle))
+                else
+                    CallRemoteEvent("ServerPersonalMenu", false)
+                end
+            end
         end
     end
 end)

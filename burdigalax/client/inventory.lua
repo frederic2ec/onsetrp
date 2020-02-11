@@ -2,6 +2,8 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 
 local inventoryUI
 
+InventoryIsOpened = false
+
 function OnPackageStartInventory()
     local width, height = GetScreenSize()
     inventoryUI = CreateWebUI(0, 0, 0, 0, 10, 60)
@@ -20,6 +22,7 @@ AddEvent("OnPackageStop", OnPackageStopInventory)
 -- CLOSE
 
 function CloseUIInventory(context)
+    InventoryIsOpened = false
     CallRemoteEvent("account:setplayernotbusy", GetPlayerId())
     personalMenuIsOpen = 0
     if context == '"transfer"' then
@@ -43,6 +46,7 @@ AddEvent("BURDIGALAX_inventory_onClose", CloseUIInventory)
 -- INIT
 
 function OpenUIInventory(items, playerInventory, playerName, playerId, playersList, maxSlots, friskedInventory)
+    InventoryIsOpened = true
     CallRemoteEvent("account:setplayerbusy", GetPlayerId())
     personalMenuIsOpen = 1
     ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.setConfig("..json_encode(BuildInventoryJson(items, playerInventory, playerName, playerId, playersList, maxSlots, friskedInventory))..");")
