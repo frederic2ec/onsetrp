@@ -78,13 +78,27 @@ AddRemoteEvent("EquipInventory", function(player, originInventory, itemName, amo
             end
             CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_slots"))
         else
-            if itemName == 'bandana' or itemName == 'bag' then
+            if string.find(itemName, 'mask_') then
                 local objectId
-
-                if itemName == 'bandana' then
+ 
+                local objX = 8.0
+                local objY = 0.0
+                local objZ = 0.0
+                
+                if itemName == 'mask_1' then
                     objectId = 463
-                else
+                elseif itemName == 'mask_2' then
                     objectId = 455
+                elseif itemName == 'mask_3' then
+                    objX = -3.0
+                    objY = 12.0
+                    objZ = 0.0
+                    objectId = 1451
+                elseif itemName == 'mask_4' then
+                    objX = -5.0
+                    objY = -5.0
+                    objZ = 6.0
+                    objectId = 1452
                 end
 
                 BackpackPutOnAnim(player, 3000, 'FACEPALM')
@@ -102,7 +116,7 @@ AddRemoteEvent("EquipInventory", function(player, originInventory, itemName, amo
                     Delay(2000, function() 
                         local x, y, z = GetPlayerLocation(player)
                         PlayerData[player][itemName] = CreateObject(objectId, x, y, z)
-                        SetObjectAttached(PlayerData[player][itemName], ATTACH_PLAYER, player, 8.0, 0.0, 0.0, 0.0, 90.0, -90.0, "head")
+                        SetObjectAttached(PlayerData[player][itemName], ATTACH_PLAYER, player, objX, objY, objZ, 0.0, 90.0, -90.0, "head")
                     end)
                 end
             end
