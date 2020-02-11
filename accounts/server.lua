@@ -170,10 +170,10 @@ function OnAccountLoaded(player)
         setPlayerHunger(player, tonumber(result['hunger']))
 
         CallEvent("job:onspawn", player)-- Trigger the loading of jobs when player is fully loaded (have to be set up for each jobs)
-
+        
+        PlayerData[player].is_online = 1
+        
         SetPlayerLoggedIn(player)
-
-        print(PlayerData[player].created)
 
         if PlayerData[player].created == 0 then
             CallRemoteEvent(player, "InitWelcome", false)

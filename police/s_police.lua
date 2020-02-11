@@ -254,6 +254,7 @@ function SpawnPoliceCar(player)
         local vehicle = CreateVehicle(3, spawnPoint.x, spawnPoint.y, spawnPoint.z, spawnPoint.h)
         PlayerData[player].job_vehicle = vehicle
         CreateVehicleData(player, vehicle, 3)
+        SetVehicleRespawnParams(vehicle, false)
         SetVehiclePropertyValue(vehicle, "locked", true, true)
         CallRemoteEvent(player, "MakeNotification", _("spawn_vehicle_success", " patrol car"), "linear-gradient(to right, #00b09b, #96c93d)")
     else
