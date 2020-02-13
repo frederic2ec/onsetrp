@@ -10,7 +10,7 @@ local canUsePhoneWhileGathering = false
 
 function LoadPhone(player)
     if (canUsePhoneWhileGathering or not PlayerData[player].onAction) and canUsePhoneWithoutPhoneItem or PlayerData[player].inventory[phoneItemName] then
-                local x, y, z = GetPlayerLocation(player)
+        local x, y, z = GetPlayerLocation(player)
         local Ophone = CreateObject(181, x, y, z)
         SetObjectAttached(Ophone, ATTACH_PLAYER, player, -11.0, 4.0, 6.0, 30.0, -10.0, -10.0, "hand_r")
         CallRemoteEvent(player, "StockPhone", Ophone)
