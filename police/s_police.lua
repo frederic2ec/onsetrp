@@ -1,6 +1,6 @@
 local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, ...) end
 
-local MAX_POLICE = 20 -- Number of policemens at the same time
+local MAX_POLICE = 30 -- Number of policemens at the same time
 local ALLOW_RESPAWN_VEHICLE = true -- Allow the respawn of the vehicle by destroying the previously spawned one. (Can break RP if the car is stolen or need repairs or fuel)
 local NB_HANDCUFFS = 3
 
