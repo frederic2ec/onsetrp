@@ -104,8 +104,7 @@ AddRemoteEvent("transferAtm", function(player, amount, toplayer)
 	--
 	--
 	--
-
-	if tonumber(amount) <= 0 then return end
+	
 	if tonumber(amount) > PlayerData[player].bank_balance then
         CallRemoteEvent(player, "MakeNotification", _("transfer_error"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 	else
