@@ -103,7 +103,7 @@ function OnAccountCheckIpBan(player)
 end
 
 function CreatePlayerAccount(player)
-    local query = mariadb_prepare(sql, "INSERT INTO `accounts` (`id`, `steamid`, `name`, `clothing`, `police`, `medic`, `inventory`, `position`, `admin`, `health`, `health_state`, `death_pos`, `armor`, `thirst`, `hunger`, `bank_balance`, `created`, `phone_number`, `driver_license`, `gun_license`, `helicopter_license`, `drug_knowledge`, `job`, `is_cuffed`, `age`) VALUES (NULL, '?', 'Unregistered', '[]', '0', '0', '[]', '[]', '0', '100', 'alive', '', '0', '100', '100', '900', '0', NULL, '0', '0', '0', '[]', NULL, '0', '0');",
+    local query = mariadb_prepare(sql, "INSERT INTO `accounts` (`id`, `steamid`, `name`, `clothing`, `police`, `medic`, `inventory`, `position`, `admin`, `health`, `health_state`, `death_pos`, `armor`, `thirst`, `hunger`, `bank_balance`, `created`, `phone_number`, `driver_license`, `gun_license`, `helicopter_license`, `drug_knowledge`, `job`, `is_cuffed`, `age`) VALUES (NULL, '?', 'Unregistered', '[]', '0', '0', '[]', '[]', '0', '100', 'alive', '', '0', '100', '100', '4900', '0', NULL, '0', '0', '0', '[]', NULL, '0', '0');",
         tostring(GetPlayerSteamId(player)))
     
     mariadb_query(sql, query, OnAccountCreated, player)
@@ -267,7 +267,7 @@ function CreatePlayerData(player)
     PlayerData[player].thirst = 100
     PlayerData[player].hunger = 100
     PlayerData[player].health = 100
-    PlayerData[player].bank_balance = 900
+    PlayerData[player].bank_balance = 4900
     PlayerData[player].job_vehicle = nil
     PlayerData[player].job = ""
     PlayerData[player].phone_contacts = {}
