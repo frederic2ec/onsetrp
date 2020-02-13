@@ -255,10 +255,12 @@ AddRemoteEvent("VehicleGiveKey", function(player, toplayer)
     local vehicle = GetNearestCar(player)
     local toplayer = tonumber(toplayer)
 
-    if VehicleData[vehicle].keys[toplayer] == nil then
-        VehicleData[vehicle].keys[toplayer] = 1
-    else
-        CallRemoteEvent(player, "MakeNotification", _("already_have_key"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+    if VehicleData[vehicle].keys[player] == 1 then
+        if VehicleData[vehicle].keys[toplayer] == nil then
+            VehicleData[vehicle].keys[toplayer] = 1
+        else
+            CallRemoteEvent(player, "MakeNotification", _("already_have_key"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+        end
     end
 end)
 
