@@ -17,7 +17,7 @@ AddEvent("OnKeyPress", function(key)
     if key == INTERACT_KEY and not GetPlayerBusy() then
         local NearestATM = GetNearestATM()
 		if NearestATM ~= 0 then
-            CallRemoteEvent("account:setplayerbusy", GetPlayerId())
+            CallRemoteEvent("account:setplayerbusy")
             CallRemoteEvent("atmInteract", NearestATM)
 		end
 	end
@@ -25,7 +25,7 @@ end)
 
 AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == atm then
-        CallRemoteEvent("account:setplayernotbusy", GetPlayerId())
+        CallRemoteEvent("account:setplayernotbusy")
         local args = { ... }
         if button == 1 then
             if args[1] ~= "" then
