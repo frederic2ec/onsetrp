@@ -24,7 +24,7 @@ end)
 
 AddRemoteEvent("OnPhoneLoaded", function(player, phoneNumber, money, messages, contacts)
     phoneOpened = true
-    SetPlayerPropertyValue(player, 'uiMode', 'free')
+    CallRemoteEvent("account:setplayerbusy")
     ExecuteWebJS(web, "initPhone({ currentUserPhone: '"..phoneNumber.."', money: "..money..", contacts: "..json_encode(contacts)..", messages: "..json_encode(messages).."});")
     SetIgnoreLookInput(true)
     SetIgnoreMoveInput(true)
@@ -77,6 +77,7 @@ AddEvent("ClosePhone", function()
 end)
 
 function ClosePhone()
+    CallRemoteEvent("account:setplayernotbusy")
     phoneOpened = false
     SetIgnoreLookInput(false)
     SetIgnoreMoveInput(false)

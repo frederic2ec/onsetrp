@@ -217,7 +217,6 @@ function GatheringCleanPlayerActions(player)-- Clean timers and actions for a pl
     end
 end
 
-
 --- GATHERING
 AddRemoteEvent("gathering:gather:start", function(player, gatherPickup)-- Start the gathering
     local gather = GetGatherByGatherPickup(gatherPickup)
