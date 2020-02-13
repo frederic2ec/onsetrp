@@ -45,17 +45,15 @@ function InitializeMapValues() --This will send the width/height of the map whic
 	end
 	
     mapUILoaded = true
-    if (minimapUILoaded) then
-        CallRemoteEvent("PinmapRequestLegend")
-    end
+    CallRemoteEvent("PinmapRequestLegend")
 end
 AddEvent("OnMapUILoaded", InitializeMapValues) --This event is called by the map.js after the page is loaded. If we try to execute the web js before the page is loaded, it's invalid behavior.
 
 function InitializeMinimapValues() --This will send the width/height of the map which will be used by the WebUI to make sure user does not drag map off screen as well as send the legend info
     minimapUILoaded = true
-    if (mapUILoaded) then
-        CallRemoteEvent("PinmapRequestLegend")
-    end
+    --if (mapUILoaded) then
+    --    CallRemoteEvent("PinmapRequestLegend")
+    --end
 end
 AddEvent("OnMinimapUILoaded", InitializeMinimapValues) --This event is called by the map.js after the page is loaded. If we try to execute the web js before the page is loaded, it's invalid behavior.
 
