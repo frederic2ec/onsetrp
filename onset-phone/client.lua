@@ -86,3 +86,11 @@ function OpenPhone()
     CallRemoteEvent("account:setplayerbusy", GetPlayerId())    
     CallRemoteEvent("LoadPhone")
 end
+
+AddRemoteEvent("StockPhone", function(OPhone)
+    if OPhone ~= nil then
+        phone = OPhone
+    else
+        CallRemoteEvent("DestroyPhone", phone)
+    end
+end)
