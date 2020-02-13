@@ -252,6 +252,16 @@ AddRemoteEvent("gathering:gather:start", function(player, gatherPickup)-- Start 
 end)
 
 function DoGathering(player, gather, antiglitchKey)
+    local ableToGather = false
+    for k,v in pairs(gatherTable[gather].gatherPickup) do
+        local x,y,z = GetPickupLocation(v)
+        local x2,y2,z2 = GetPlayerLocation(player)
+        if GetDistance3D(x, y, z, x2, y2, z2) <= 2000 then
+            ableToGather = true
+        end    
+    end
+    if ableToGather == false then return end
+
     -- #4 Lock and prepare player
     CallRemoteEvent(player, "LockControlMove", true)
     
@@ -331,6 +341,17 @@ AddRemoteEvent("gathering:process:start", function(player, processPickup)
 end)
 
 function DoProcessing(player, gather, process, processKey, antiglitchKey)
+    
+    local x,y,z = GetPickupLocation(process.processPickup)
+    local x2,y2,z2 = GetPlayerLocation(player)
+    if GetDistance3D(x, y, z, x2, y2, z2) > 150 then
+        return
+    end    
+
+    local x,y,z = GetPickupLocation(process.processPickup)
+    local x2,y2,z2 = GetPlayerLocation(player)
+    if GetDistance3D(x, y, z, x2, y2, z2) > 2000 then return end
+    
     -- #4 Check if player have items we need to process
     if PlayerData[player].inventory[process.step_require] == nil or PlayerData[player].inventory[process.step_require] < process.step_require_number then
         CallRemoteEvent(player, "MakeNotification", _("process_not_enough_item", process.step_require_number, _(process.step_require)), "linear-gradient(to right, #ff5f6d, #ffc371)")
