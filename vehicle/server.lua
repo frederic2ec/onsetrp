@@ -203,7 +203,7 @@ AddRemoteEvent("OpenTrunk", function(player)
 	CallRemoteEvent(player, "MakeNotification", _("this_vehicle_locked"), "linear-gradient(to right, #ff5f6d, #ffc371)")
         return false 
     end
-    
+
     openTrunk(vehicle)
 
     local x, y, z = GetPlayerLocation(player)
@@ -230,8 +230,6 @@ AddRemoteEvent("OpenTrunk", function(player)
     SetPlayerPropertyValue(player, "opened-trunk", vehicle, true)
 
     CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].name, player, playersList, GetPlayerMaxSlots(player), friskedInventory)
-
-    -- CallRemoteEvent(player, "OpenVehicleInventory", PlayerData[player].inventory, VehicleData[vehicle].inventory)
 end)
 
 AddRemoteEvent("VehicleKeys", function(player) 
@@ -251,27 +249,6 @@ AddRemoteEvent("UnflipVehicle", function(player)
     local rx, ry, rz = GetVehicleRotation(vehicle)
 
     SetVehicleRotation(vehicle, 0, ry, 0 )
-end)
-
-AddRemoteEvent("VehicleStore", function(player, item, amount) 
-    local vehicle = GetNearestCar(player)
-    if tonumber(PlayerData[player].inventory[item]) < tonumber(amount) then
-        CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-    else
-        RemoveInventory(player, item, amount)
-        AddVehicleInventory(vehicle, item, amount)
-    end
-end)
-
-AddRemoteEvent("VehicleUnstore", function(player, item, amount) 
-    local vehicle = GetNearestCar(player)
-
-    if tonumber(VehicleData[vehicle].inventory[item]) < tonumber(amount) then
-        CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-    else
-        AddInventory(player, item, amount)
-        RemoveVehicleInventory(vehicle, item, amount)
-    end
 end)
 
 AddRemoteEvent("VehicleGiveKey", function(player, toplayer)
