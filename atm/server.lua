@@ -94,12 +94,21 @@ AddRemoteEvent("depositAtm", depositAtm)
 
 
 AddRemoteEvent("transferAtm", function(player, amount, toplayer)
-	if tonumber(amount) <= 0 then return end
-	if tonumber(amount) > PlayerData[player].bank_balance then
-        CallRemoteEvent(player, "MakeNotification", _("transfer_error"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-	else
-        PlayerData[player].bank_balance = PlayerData[player].bank_balance - amount
-        PlayerData[tonumber(toplayer)].bank_balance = PlayerData[tonumber(toplayer)].bank_balance  + amount
-        CallRemoteEvent(player, "MakeNotification", _("transfer_success", amount, _("currency")), "linear-gradient(to right, #00b09b, #96c93d)")
-    end
+	--
+	-- Disable ATM Transfer while we're not using Database user ID
+	--
+	
+	CallRemoteEvent(player, "MakeNotification", _("transfer_error"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+	
+	--
+	--
+	--
+	
+	-- if tonumber(amount) > PlayerData[player].bank_balance then
+    --     CallRemoteEvent(player, "MakeNotification", _("transfer_error"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+	-- else
+    --     PlayerData[player].bank_balance = PlayerData[player].bank_balance - amount
+    --     PlayerData[tonumber(toplayer)].bank_balance = PlayerData[tonumber(toplayer)].bank_balance  + amount
+    --     CallRemoteEvent(player, "MakeNotification", _("transfer_success", amount, _("currency")), "linear-gradient(to right, #00b09b, #96c93d)")
+    -- end
 end)

@@ -43,7 +43,7 @@ AddRemoteEvent("OpenSpawnMenu", function(spawnList, house)
     end
     Dialog.setSelectLabeledOptions(spawnMenu, 1, 1, spawns) 
     onSpawn = true
-    CallRemoteEvent("account:setplayerbusy", GetPlayerId())
+    CallRemoteEvent("account:setplayerbusy")
     Dialog.show(spawnMenu)
 end)
 

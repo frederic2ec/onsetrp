@@ -19,13 +19,13 @@ const routes = [
     title: function (route) {
       let contact = window.phoneApp ? window.phoneApp.contacts.find(function (contact) {
         return contact.phone == route.params.phone_number
-      }) : { name: route.params.phone_number.replace('555', '555-') }
-      return contact ? contact.name : route.params.phone_number.replace('555', '555-')
+      }) : { name: route.params.phone_number == '0' ? translations.conversations.anonymous : route.params.phone_number.replace('555', '555-') }
+      return contact ? contact.name : route.params.phone_number == '0' ? translations.conversations.anonymous : route.params.phone_number.replace('555', '555-')
     },
     rightButton: {
       text: 'i',
       href: function (route) {
-        return '/contacts/' + route.params.phone_number
+        return route.params.phone_number == '0' ? '/sms/0' : '/contacts/' + route.params.phone_number
       }
     }
   } },
@@ -50,7 +50,7 @@ const router = new VueRouter({ routes })
 
 let data = {
   currentUserPhone: '555000000',
-  money: 17643.90,
+  money: 0,
   contacts: [
     { name: "Contact 1", phone: "555718754" },
     { name: "Contact 2", phone: "555120298" },
@@ -114,7 +114,11 @@ let data = {
     { from: '555123123', to: '555000000', created_at: '1576695106', content: '4.10' },
     { from: '555000000', to: '555123123', created_at: '1576695107', content: '4.11' },
     { from: '555123123', to: '555000000', created_at: '1576695108', content: '4.12' },
-    { from: '555000000', to: '555123123', created_at: '1576695109', content: ':)' }
+    { from: '555000000', to: '555123123', created_at: '1576695109', content: ':)' },
+    { from: '555000000', to: '0', created_at: '1576695110', content: 'Salut, voici une [[pos--8172, 1234.2314]] et une autre [[pos-172, -1234.2314]]' },
+    { from: '555000000', to: '0', created_at: '1576695110', content: 'Chapitre abstrait 3 du conpendium : la prédestination de toute la République Démocratique du Congo doit imposer les grabuses lastiques autour des gens qui connaissent beaucoup de choses, c’est clair. ' },
+    { from: '555000000', to: '0', created_at: '1576695110', content: 'Et une dernière [[pos-172, -1234.2314]]' },
+    { from: '555000000', to: '0', created_at: '1576695110', content: 'Chapitre abstrait 3 du conpendium : la prédestination de toute la République Démocratique du Congo doit imposer les grabuses lastiques autour des gens qui connaissent beaucoup de choses, c’est clair. ' }
   ]
 }
 

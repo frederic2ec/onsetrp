@@ -4,20 +4,23 @@
       <div
         v-for="(conversationPart, index) in conversationParts"
         v-bind:key="index"
-        v-bind:class="{ 'message-me': conversationPart.from_me, 'message-target': !conversationPart.from_me }"
-      >
+        v-bind:class="{ 'message-me': conversationPart.from_me, 'message-target': !conversationPart.from_me }">
         <div
           v-for="(message, messageIndex) in conversationPart.messages"
-          v-bind:key="index + '-' + messageIndex"
-        >
-          <div v-emoji class="message padded-container">
+          v-bind:key="index + '-' + messageIndex">
+          <div v-gps v-emoji class="message padded-container">
             {{ message.content }}
           </div>
         </div>
       </div>
     </div>
-    <form @submit.prevent="sendMessage" class="conversation-form">
-      <input ref="conversationInput" :placeholder="$root.translations.conversations.message_placeholder" class="conversation-input" type="text" v-model="text">
+    <form v-if="conversation.name != '0'" @submit.prevent="sendMessage" class="conversation-form">
+      <input
+        ref="conversationInput"
+        :placeholder="$root.translations.conversations.message_placeholder"
+        class="conversation-input"
+        type="text"
+        v-model="text">
     </form>
   </div>
 </template>
@@ -33,11 +36,31 @@ export default {
   },
   props: ['conversation'],
   mounted () {
-    this.$refs.conversationInput.focus()
+    if (this.$refs.conversationInput) {
+      this.$refs.conversationInput.focus()
+    }
 
     this.$nextTick(function () {
       this.$refs.conversationList.scrollTop = this.$refs.conversationList.scrollHeight;
     })
+
+    let gpsButtons = document.querySelectorAll('.gps-pos')
+
+    for (let i = 0; i < gpsButtons.length; i++) {
+      gpsButtons[i].addEventListener('click', (e) => {
+        e.preventDefault();
+
+        let latitude = e.currentTarget.dataset.latitude
+        let longitude = e.currentTarget.dataset.longitude
+
+        if (window.ue) {
+          window.ue.game.callevent("MessageGPSClicked", JSON.stringify([latitude, longitude]));
+        } else {
+          // eslint-disable-next-line
+          console.log('-> ue.game.callevent("MessageGPSClicked", ' + JSON.stringify([latitude, longitude]) + ')')
+        }
+      })
+    }
   },
   computed: {
     conversationParts: function () {
@@ -73,6 +96,15 @@ export default {
           el.innerHTML = el.innerHTML.replace(new RegExp(emoji.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gm'), '<span class="emoji">' + emojiList[emoji] + '</span>')
         }
       }
+    },
+    gps: {
+      inserted: function (el, binding, vnode) {
+        if (el.innerHTML.match(/\[\[pos-(\S+),\s?(\S+)\]\]/gi)) {
+          el.innerHTML = el.innerHTML.replace(/\[\[pos-(\S+),\s?(\S+)\]\]/gi, function (_, b, c) {
+            return `<span data-latitude="${b}" data-longitude="${c}" class="gps-pos cursor-pointer">${vnode.context.$root.translations.conversations.gps}</span>`
+          })
+        }
+      }
     }
   },
   watch: {
@@ -100,10 +132,23 @@ export default {
           window.ue.game.callevent("MessageCreated", JSON.stringify([newMessage.to, newMessage.content]));
         } else {
           // eslint-disable-next-line
-          console.log('-> window.ue.game.callevent("MessageCreated", ' + JSON.stringify([newMessage.to, newMessage.content]) + ')')
+          console.log('-> ue.game.callevent("MessageCreated", ' + JSON.stringify([newMessage.to, newMessage.content]) + ')')
         }
       }
     }
   }
 }
 </script>
+
+<style>
+  .message .gps-pos {
+    padding: 5px 0;
+    border: 1px solid #d8dfe3;
+    border-radius: 4px;
+    white-space: nowrap;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-top: 6px;
+  }
+</style>

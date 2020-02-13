@@ -113,7 +113,7 @@ function buyCarServer(player, modelid, color, cardealerobject)
 	local color = getVehicleColor(color, cardealerobject)
 	local modelid = getVehicleId(modelid)
 
-	if tonumber(price) > GetPlayerCash(player) then
+	if price == nil or tonumber(price) > GetPlayerCash(player) then
         CallRemoteEvent(player, "MakeErrorNotification",_("no_money_car"))
     else
         local x, y, z = GetPlayerLocation(player)
