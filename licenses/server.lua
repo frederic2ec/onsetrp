@@ -2,8 +2,8 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 
 Licenses = {
     driver_license = 1500,
-    gun_license = 6000,
-    helicopter_license = 30000
+    gun_license = 6000
+--     helicopter_license = 30000
 }
 LicensesNpcLocation = { x = 169336, y = 193430, z = 1307, h = 180 }
 -- LicensesNpcLocation = { x = 211564, y = 175848, z = 1307, h = 180 }
