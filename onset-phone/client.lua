@@ -13,9 +13,9 @@ local phoneHome
 local phoneContacts
 
 AddEvent("OnKeyPress", function(key)
-    if key == PHONE_OPEN_KEY and not phoneOpened and not GetPlayerBusy() then
+    if key == "K" and not phoneOpened then
         OpenPhone()
-    elseif key == PHONE_CLOSE_KEY and phoneOpened then
+    elseif key == "Escape" and phoneOpened then
         ClosePhone()
     end
 end)
@@ -57,10 +57,15 @@ AddEvent("MessageCreated", function(phone, content)
     CallRemoteEvent("MessageCreated", phone, content)
 end)
 
+-- GPS CLICK
+
+AddEvent("MessageGPSClicked", function(latitude, longitude)
+    CallRemoteEvent("MessageGPSClicked", latitude, longitude)
+end)
+
 -- MESSAGE RECEIVED
 
 AddRemoteEvent("NewMessage", function(from, to, content, created_at)
-    print("------------------------")
     MakeNotification(_("new_message"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     ExecuteWebJS(web, 'newMessage('..json_encode({ from = from, to = to, content = content, created_at = tostring(created_at) })..');')
 end)
@@ -72,7 +77,6 @@ AddEvent("ClosePhone", function()
 end)
 
 function ClosePhone()
-    CallRemoteEvent("account:setplayernotbusy", GetPlayerId())
     phoneOpened = false
     SetIgnoreLookInput(false)
     SetIgnoreMoveInput(false)
@@ -83,6 +87,5 @@ function ClosePhone()
 end
 
 function OpenPhone()
-    CallRemoteEvent("account:setplayerbusy", GetPlayerId())    
     CallRemoteEvent("LoadPhone")
 end

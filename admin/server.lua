@@ -242,6 +242,7 @@ AddRemoteEvent("AdminGiveMoney", function(player, toPlayer, account, amount)
 end)
 
 AddRemoteEvent("AdminGiveItem", function(player, toPlayer, qty, item)
+    if tonumber(PlayerData[player].admin) ~= 1 then return end
     if AddInventory(tonumber(toPlayer), Items[tonumber(item)].name, tonumber(qty)) then
         CallRemoteEvent(player, "MakeNotification", _("admin_give_item_success"), "linear-gradient(to right, #00b09b, #96c93d)")
     else

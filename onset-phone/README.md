@@ -5,6 +5,7 @@
 - Choose an app
 	- SMS (by [@rdlh](https://github.com/rdlh))
 	- Contacts (by [@rdlh](https://github.com/rdlh))
+	- Banking (by [@rdlh](https://github.com/rdlh))
 ### 🧑‍🤝‍🧑 Contacts:
 - View and search your contacts list
 - Create contacts
@@ -21,7 +22,6 @@
 - [x] SQL injections proof
 
 ## TODO:
-- Make sure the receiver is getting the message (needs to be tested on a real server)
 - Emergency services
 
 ## Coming soon:
@@ -29,7 +29,6 @@
 - Change background
 - Send GPS position
 - More emoji
-- Bug fixes
 
 ## Add it in your server:
 

@@ -9,13 +9,11 @@ local canUsePhoneWhileGathering = false
 -- LOADING
 
 function LoadPhone(player)
-    if (canUsePhoneWhileGathering or not GetPlayerBusy(player)) and canUsePhoneWithoutPhoneItem or PlayerData[player].inventory[phoneItemName] then
+    if (canUsePhoneWhileGathering or not PlayerData[player].onAction) and canUsePhoneWithoutPhoneItem or PlayerData[player].inventory[phoneItemName] then
         SetPlayerAnimation(player, 'PHONE_HOLD')
         local query = mariadb_prepare(sql, "SELECT * FROM messages WHERE messages.from = '?' OR messages.to = '?';", tostring(PlayerData[player].phone_number), tostring(PlayerData[player].phone_number))
 
         mariadb_async_query(sql, query, OnMessagesLoaded, player)
-    else
-        SetPlayerNotBusy(player)
     end
 end
 AddRemoteEvent("LoadPhone", LoadPhone)
@@ -83,10 +81,10 @@ function MessageCreated(player, phone, content)
     local created_at = tostring(os.time(os.date("!*t")))
 
     local from = nil
-    if player ~= -1 then 
-        from = PlayerData[player].phone_number
+    if player == 0 then
+        from = "0"
     else
-        from = "Anonymous"
+        from = PlayerData[player].phone_number
     end
     local query = mariadb_prepare(sql, "INSERT INTO messages (`id`, `from`, `to`, `content`, `created_at`) VALUES (NULL, '?', '?', '?', '?');",
         tostring(from), phone, content, created_at)
@@ -98,8 +96,17 @@ function MessageCreated(player, phone, content)
             CallRemoteEvent(playerId, "NewMessage", from, phone, content, created_at)
         end
     end
-	
+
     mariadb_query(sql, query, NullCallback)
+end
+AddRemoteEvent("MessageCreated", MessageCreated)
+
+-- GPS CLICK
+
+function MessageGPSClicked(player, latitude, longitude)
+    print("GPS")
+    print(latitude)
+    print(longitude)
 end
 AddRemoteEvent("MessageCreated", MessageCreated)
 
