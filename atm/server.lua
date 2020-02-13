@@ -94,6 +94,17 @@ AddRemoteEvent("depositAtm", depositAtm)
 
 
 AddRemoteEvent("transferAtm", function(player, amount, toplayer)
+	--
+	-- Disable ATM Transfer while we're not using Database user ID
+	--
+	
+	CallRemoteEvent(player, "MakeNotification", _("transfer_error"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+	return
+	
+	--
+	--
+	--
+
 	if tonumber(amount) <= 0 then return end
 	if tonumber(amount) > PlayerData[player].bank_balance then
         CallRemoteEvent(player, "MakeNotification", _("transfer_error"), "linear-gradient(to right, #ff5f6d, #ffc371)")
