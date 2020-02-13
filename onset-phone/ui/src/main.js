@@ -60,7 +60,8 @@ let data = {
     { name: "Contact 6", phone: "555202939" },
     { name: "Contact 7", phone: "555854259" },
     { name: "Contact 8", phone: "555783889" },
-    { name: "Contact 9", phone: "555129423" }
+    { name: "Contact 9", phone: "555129423" },
+    { name: "Contact 99", phone: "555129429" },
   ],
   messages: [
     { from: '555000000', to: '555718754', created_at: '1576695058', content: '1.1' },

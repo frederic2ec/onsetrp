@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <form v-if="conversation.name != '0'" @submit.prevent="sendMessage" class="conversation-form">
+    <form v-if="conversation == null || conversation.name != '0'" @submit.prevent="sendMessage" class="conversation-form">
       <input
         ref="conversationInput"
         :placeholder="$root.translations.conversations.message_placeholder"
