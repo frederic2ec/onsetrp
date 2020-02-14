@@ -1,12 +1,22 @@
 function Scoreboard_RequestUpdate(player)
   local _send = {}
   for _, v in ipairs(GetAllPlayers()) do
+    if PlayerData[v] == nil then
+        goto continue
+    end
+    if PlayerData[v].name == nil then
+        goto continue
+    end
+    if PlayerData[v].steamname == nil then
+        goto continue
+    end
     _send[v] = {
       ['id'] = v,
       ['name'] = PlayerData[v].name or GetPlayerName(v),
       ['steamid'] = tostring(GetPlayerSteamId(v)),
       ['ping'] = GetPlayerPing(v)
     }
+    ::continue::
   end
 
   CallRemoteEvent(player, 'OnServerScoreboardUpdate', _send, GetServerName(), #GetAllPlayers(), GetMaxPlayers())
