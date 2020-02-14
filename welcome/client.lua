@@ -43,10 +43,6 @@ end)
 AddEvent("CloseAndCreateCharacter", function()
     isInHomepage = false
     hideGameElements = false
-    SetIgnoreLookInput(false)
-    SetIgnoreMoveInput(false)
-    ShowMouseCursor(false)
-    SetInputMode(INPUT_GAME)
     SetWebVisibility(welcomeUI, WEB_HIDDEN)
     --CallRemoteEvent("setPositionAndSpawn")
     StartCameraFade(1, 0, 5, RGB(0, 0, 0))
