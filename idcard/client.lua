@@ -37,7 +37,7 @@ end)
 
 -- LOADING
 
-AddRemoteEvent("OnCardDataLoaded", function(id, name, driverLicense, gunLicense, helicopterLicense)
+AddRemoteEvent("OnCardDataLoaded", function(id, name, driverLicense, gunLicense, helicopterLicense, age)
     SetIgnoreLookInput(true)
     SetIgnoreMoveInput(true)
     ShowMouseCursor(true)
@@ -71,7 +71,7 @@ AddRemoteEvent("OnCardDataLoaded", function(id, name, driverLicense, gunLicense,
     
     -- Coming soon: job and jobTitle
     -- ExecuteWebJS(web, 'LoadCardFromData('..json_encode({ name = name, age = "32", job = company, jobTitle = job, issued = "23/12/2019" })..');')
-    ExecuteWebJS(webIdCard, 'LoadCardFromData('..json_encode({ id = id, name = name, licenses = licenses, age = "32", issued = "23/12/2019" })..');')
+    ExecuteWebJS(webIdCard, 'LoadCardFromData('..json_encode({ id = id, name = name, licenses = licenses, age = age, issued = "23/12/2019" })..');')
 end)
 
 AddRemoteEvent("ConfirmIdCardShow", function(shownTo)
