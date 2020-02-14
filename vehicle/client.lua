@@ -50,7 +50,7 @@ function OnKeyPress(key)
     
     local nearestVehicle = getNearestVehicle()
 
-    if key == VEHICLE_MENU_KEY and not GetPlayerBusy() then
+    if key == VEHICLE_MENU_KEY and not GetPlayerBusy() and not IsPlayerInVehicle()  then
         if nearestVehicle ~= 0 then
             CallRemoteEvent("ServerVehicleMenu", nearestVehicle)
         end
