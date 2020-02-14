@@ -240,3 +240,15 @@ function GetNeareststylistNPC()
 
 	return 0
 end
+
+AddEvent("OnHideMainMenu", function()
+	if isEditingClothes then
+		Delay(1, function()
+			SetIgnoreLookInput(true)
+			SetIgnoreMoveInput(true)
+			ShowMouseCursor(true)
+			SetInputMode(INPUT_GAMEANDUI)
+		end)
+	end
+end)
+
