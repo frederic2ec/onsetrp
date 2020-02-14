@@ -29,7 +29,7 @@ end
 AddEvent('OnKeyPress', Scoreboard_OnKeyPress)
 
 function Scoreboard_OnKeyRelease(key)
-  if key == 'Tab' then
+  if key == 'Tab' and IsAdmin == true then
     ShowMouseCursor(false)   
     SetInputMode(INPUT_GAME)
     SetWebVisibility(ScoreboardUI, WEB_HIDDEN)
