@@ -217,7 +217,7 @@ AddRemoteEvent("OpenTrunk", function(player)
             goto continue
         end
         if k ~= player then
-            table.insert(playersList, {id = k, name = PlayerData[player].name})
+            table.insert(playersList, {id = k, name = PlayerData[k].name})
         end
         ::continue::
     end

@@ -440,13 +440,13 @@ function LaunchFriskPlayer(player, target)
     
     local playerList = {}
     for k, v in pairs(GetStreamedPlayersForPlayer(player)) do
-        if PlayerData[v] == nil then
+        if PlayerData[k] == nil then
             goto continue
         end
-        if PlayerData[v].name == nil then
+        if PlayerData[k].name == nil then
             goto continue
         end
-        if k ~= player then table.insert(playerList, {id = k, name = PlayerData[v].name}) end
+        if k ~= player then table.insert(playerList, {id = k, name = PlayerData[k].name}) end
         ::continue::
     end
     
