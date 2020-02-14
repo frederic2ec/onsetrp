@@ -32,7 +32,7 @@ AddRemoteEvent("drugdealer:proceedpayment", function(player, amount, knowledge)
     if cash >= amount then
         RemovePlayerCash(player, amount)
         PlayerData[player].drug_knowledge[knowledge] = 1
-        MessageCreated(-1, PlayerData[player].phone_number, _("drugdealer_tempinfo"))        
+        MessageCreated(0, PlayerData[player].phone_number, _("drugdealer_tempinfo"))        
         CallRemoteEvent(player, "drugdealer:paymentsucceed")        
     else
         CallRemoteEvent(player, "drugdealer:paymentfail")
