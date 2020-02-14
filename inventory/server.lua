@@ -178,7 +178,7 @@ AddRemoteEvent("UseInventory", function(player, originInventory, itemName, amoun
                 if nearestCar ~= 0 then
                     if GetVehicleHealth(nearestCar) > 4000 then
                         CallRemoteEvent(player, "MakeErrorNotification", _("dont_need_repair"))
-                    elseif GetVehicleHoodRatio(nearestCar) ~= 60.0 and GetVehicleModel(nearestCar) ~= 10 then
+                    elseif GetVehicleHoodRatio(nearestCar) < 5 and GetVehicleModel(nearestCar) ~= 10 and GetVehicleModel(nearestCar) ~= 24 then
                         CallRemoteEvent(player, "MakeErrorNotification", _("need_to_open_hood"))
                     else
                         CallRemoteEvent(player, "LockControlMove", true)
