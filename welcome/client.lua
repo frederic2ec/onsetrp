@@ -56,4 +56,15 @@ function OnRenderHUD()
 end
 AddEvent("OnRenderHUD", OnRenderHUD)
 
+AddEvent("OnHideMainMenu", function()
+    if isInHomepage then
+        Delay(1, function()
+            SetIgnoreLookInput(true)
+            SetIgnoreMoveInput(true)
+            ShowMouseCursor(true)
+        end)
+    end
+end)
+
+
 
