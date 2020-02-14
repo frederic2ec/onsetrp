@@ -273,7 +273,7 @@ AddCommand("delveh", function(player)
 end)
 
 AddEvent("OnPlayerDeath", function(player, instigator)
-    message = PlayerData[player].name .. " was killed by " .. PlayerData[instigator].name)
+    message = PlayerData[player].name .. " was killed by " .. PlayerData[instigator].name
     local query = mariadb_prepare(sql, "INSERT INTO logs VALUES (NULL, NULL, '?');",
 		message)
 

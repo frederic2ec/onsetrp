@@ -18,6 +18,7 @@ local wpObject
 local currentCallout
 
 local reviveScreenHUD
+local isReviveScreen = false
 
 AddRemoteEvent("medic:setup", function(_medicNpcIds, _medicVehicleNpcIds, _medicGarageIds, _medicEquipmentNpcIds, _medicHospitalLocationIds)
     medicNpcIds = _medicNpcIds
@@ -65,6 +66,16 @@ AddEvent("OnKeyPress", function(key)
             StartServiceConversation(IsNearbyNpc(GetPlayerId(), medicNpcIds))
         end
 end)
+
+AddEvent("OnHideMainMenu", function()
+    if isReviveScreen then
+        Delay(1, function()
+            ShowMouseCursor(true)
+            SetInputMode(INPUT_GAMEANDUI)
+        end)
+    end
+end)
+
 
 AddEvent("OnDialogSubmit", function(dialog, button, ...)
     local args = {...}
@@ -174,10 +185,12 @@ function ToggleReviveScreen(value)
         SetWebVisibility(reviveScreenHUD, WEB_VISIBLE)
         ShowMouseCursor(true)
         SetInputMode(INPUT_GAMEANDUI)
+        isReviveScreen = true
     else
         SetWebVisibility(reviveScreenHUD, WEB_HIDDEN)
         ShowMouseCursor(false)
         SetInputMode(INPUT_GAME)
+        isReviveScreen = false
     end
 end
 
