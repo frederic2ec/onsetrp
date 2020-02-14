@@ -61,6 +61,16 @@ AddEvent("OnKeyPress", function( key )
     end
 end)
 
+AddEvent("OnHideMainMenu", function()
+    if InventoryIsOpened then
+        Delay(1, function() 
+            ShowMouseCursor(true)
+            SetInputMode(INPUT_GAMEANDUI)
+        end)
+    end
+end)
+
+
 AddRemoteEvent("LockControlMove", function(move)
     SetIgnoreMoveInput(move)
 end)
