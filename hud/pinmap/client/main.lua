@@ -180,6 +180,16 @@ function OnKeyPress(key)
 end
 AddEvent("OnKeyPress", OnKeyPress)
 
+AddEvent("OnHideMainMenu", function()
+	if isMapOpen then
+		Delay(1, function()
+			SetInputMode(INPUT_GAMEANDUI)
+			ShowMouseCursor(true)
+		end)
+	end
+end)
+
+
 function OnKeyRelease(key)
     if (key == MAP_ZOOMIN_KEY or key == MAP_ZOOMOUT_KEY) then
         if (zoomTimer ~= nil) then
