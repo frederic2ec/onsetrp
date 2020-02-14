@@ -217,57 +217,57 @@ AddRemoteEvent("UseInventory", function(player, originInventory, itemName, amoun
                     end
                 end
             end
-            if itemName == "lockpick" then
-                local nearestCar = GetNearestCar(player)
-                local nearestHouseDoor = GetNearestHouseDoor(player)
-                if nearestCar ~= 0 then
-                    if VehicleData[nearestCar] ~= nil then
-                        if GetVehiclePropertyValue(nearestCar, "locked") then
-                            CallRemoteEvent(player, "LockControlMove", true)
-                            SetPlayerAnimation(player, "LOCKDOOR")
-                            Delay(3000, function()
-                                SetPlayerAnimation(player, "LOCKDOOR")
-                            end)
-                            Delay(6000, function()
-                                SetPlayerAnimation(player, "LOCKDOOR")
-                            end)
-                            Delay(10000, function()
-                                SetVehiclePropertyValue(nearestCar, "locked", false, true)
-                                CallRemoteEvent(player, "MakeSuccessNotification", _("car_unlocked"))
-                                RemoveInventory(originInventory, itemName, amount)
-                                CallRemoteEvent(player, "LockControlMove", false)
-                                SetPlayerAnimation(player, "STOP")
-                            end)
-                        else
-                            CallRemoteEvent(player, "MakeErrorNotification", _("vehicle_already_unlocked"))
-                        end
-                    end
-                end
-                if nearestHouseDoor ~= 0 then
-                    nearestHouse = getHouseDoor(nearestHouseDoor)
-                    if nearestHouse ~= 0 then
-                        if houses[nearestHouse].lock then
-                            CallRemoteEvent(player, "LockControlMove", true)
-                            SetPlayerAnimation(player, "LOCKDOOR")
-                            Delay(3000, function()
-                                SetPlayerAnimation(player, "LOCKDOOR")
-                            end)
-                            Delay(6000, function()
-                                SetPlayerAnimation(player, "LOCKDOOR")
-                            end)
-                            Delay(10000, function()
-                                houses[nearestHouse].lock = false
-                                CallRemoteEvent(player, "MakeSuccessNotification", _("unlock_house"))
-                                RemoveInventory(originInventory, itemName, amount)
-                                CallRemoteEvent(player, "LockControlMove", false)
-                                SetPlayerAnimation(player, "STOP")
-                            end)
-                        else
-                            CallRemoteEvent(player, "MakeErrorNotification", _("house_already_unlock"))
-                        end
-                    end
-                end
-            end
+            -- if itemName == "lockpick" then -- TEMP
+            --     local nearestCar = GetNearestCar(player)
+            --     local nearestHouseDoor = GetNearestHouseDoor(player)
+            --     if nearestCar ~= 0 then
+            --         if VehicleData[nearestCar] ~= nil then
+            --             if GetVehiclePropertyValue(nearestCar, "locked") then
+            --                 CallRemoteEvent(player, "LockControlMove", true)
+            --                 SetPlayerAnimation(player, "LOCKDOOR")
+            --                 Delay(3000, function()
+            --                     SetPlayerAnimation(player, "LOCKDOOR")
+            --                 end)
+            --                 Delay(6000, function()
+            --                     SetPlayerAnimation(player, "LOCKDOOR")
+            --                 end)
+            --                 Delay(10000, function()
+            --                     SetVehiclePropertyValue(nearestCar, "locked", false, true)
+            --                     CallRemoteEvent(player, "MakeSuccessNotification", _("car_unlocked"))
+            --                     RemoveInventory(originInventory, itemName, amount)
+            --                     CallRemoteEvent(player, "LockControlMove", false)
+            --                     SetPlayerAnimation(player, "STOP")
+            --                 end)
+            --             else
+            --                 CallRemoteEvent(player, "MakeErrorNotification", _("vehicle_already_unlocked"))
+            --             end
+            --         end
+            --     end
+            --     if nearestHouseDoor ~= 0 then
+            --         nearestHouse = getHouseDoor(nearestHouseDoor)
+            --         if nearestHouse ~= 0 then
+            --             if houses[nearestHouse].lock then
+            --                 CallRemoteEvent(player, "LockControlMove", true)
+            --                 SetPlayerAnimation(player, "LOCKDOOR")
+            --                 Delay(3000, function()
+            --                     SetPlayerAnimation(player, "LOCKDOOR")
+            --                 end)
+            --                 Delay(6000, function()
+            --                     SetPlayerAnimation(player, "LOCKDOOR")
+            --                 end)
+            --                 Delay(10000, function()
+            --                     houses[nearestHouse].lock = false
+            --                     CallRemoteEvent(player, "MakeSuccessNotification", _("unlock_house"))
+            --                     RemoveInventory(originInventory, itemName, amount)
+            --                     CallRemoteEvent(player, "LockControlMove", false)
+            --                     SetPlayerAnimation(player, "STOP")
+            --                 end)
+            --             else
+            --                 CallRemoteEvent(player, "MakeErrorNotification", _("house_already_unlock"))
+            --             end
+            --         end
+            --     end
+            -- end
             CallEvent("job:usespecialitem", player, itemName)-- REDIRECT TO JOBS SCRIPT TO USE ITEM
         end
     end
