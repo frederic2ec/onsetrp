@@ -39,3 +39,14 @@ function OnShortcutsClosed()
     SetWebVisibility(shortcutsUI, WEB_HIDDEN)
 end
 AddEvent("OnShortcutsClosed", OnShortcutsClosed)
+
+AddEvent("OnHideMainMenu", function()
+    if GetWebVisibility(shortcutsUI) ~= 0 then
+        Delay(1, function()
+            SetIgnoreLookInput(true)
+            SetIgnoreMoveInput(true)
+            ShowMouseCursor(true)
+            SetInputMode(INPUT_GAMEANDUI)  
+        end)
+    end
+end)
