@@ -3,7 +3,7 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 function OnPlayerChat(player, message)
     -- Region message
     local streamedPlayers = GetStreamedPlayersForPlayer(player)
-    message = '<span>'..GetPlayerName(player)..'('..player..'):</> '..message
+    message = '<span>'..PlayerData[player].name..'('..player..'):</> '..message
     for k,v in pairs(streamedPlayers) do
         AddPlayerChat(k, message)
     end

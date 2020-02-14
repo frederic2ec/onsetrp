@@ -88,11 +88,25 @@ end)
 AddRemoteEvent("OpenVehicleKeys", function(keyslist, playerlist)
     local keys = {}
     for k,v in pairs(keyslist) do
-        keys[tostring(k)] = GetPlayerName(k)
+        if PlayerData[k] == nil then
+            goto continue
+        end
+        if PlayerData[k].name == nil then
+            goto continue
+        end
+        keys[tostring(k)] = PlayerData[k].name
+        ::continue::
     end
     local players = {}
     for k,v in pairs(playerlist) do
-        players[tostring(k)] = GetPlayerName(k)
+        if PlayerData[k] == nil then
+            goto continue
+        end
+        if PlayerData[k].name == nil then
+            goto continue
+        end
+        players[tostring(k)] = PlayerData[k].name
+        ::continue::
     end
     Dialog.setSelectLabeledOptions(vehicleKeys, 1, 1, keys)
     Dialog.setSelectLabeledOptions(vehicleKeys, 1, 2, players)

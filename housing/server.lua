@@ -2419,7 +2419,7 @@ AddRemoteEvent("BuyHouse", function(player, house)
         RemovePlayerCash(player, houses[house].price)
         houses[house].owner = tonumber(PlayerData[player].accountid)
         DestroyText3D(houses[house].txtentities[2])
-        houses[house].txtentities[2] = CreateText3D( _("owner").." "..GetPlayerName(player), 10, houses[house].text[1] , houses[house].text[2], houses[house].text[3], 0, 0, 0 )
+        houses[house].txtentities[2] = CreateText3D( _("owner").." "..PlayerData[player].name, 10, houses[house].text[1] , houses[house].text[2], houses[house].text[3], 0, 0, 0 )
     end
 end)
 

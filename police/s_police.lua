@@ -440,7 +440,14 @@ function LaunchFriskPlayer(player, target)
     
     local playerList = {}
     for k, v in pairs(GetStreamedPlayersForPlayer(player)) do
-        if k ~= player then table.insert(playerList, {id = k, name = GetPlayerName(k)}) end
+        if PlayerData[v] == nil then
+            goto continue
+        end
+        if PlayerData[v].name == nil then
+            goto continue
+        end
+        if k ~= player then table.insert(playerList, {id = k, name = PlayerData[v].name}) end
+        ::continue::
     end
     
     searchedPlayer = {id = tonumber(target), name = PlayerData[tonumber(target)].name, inventory = PlayerData[tonumber(target)].inventory}

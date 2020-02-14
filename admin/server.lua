@@ -273,7 +273,7 @@ AddCommand("delveh", function(player)
 end)
 
 AddEvent("OnPlayerDeath", function(player, instigator)
-    message = GetPlayerName(player) .. " was killed by " .. GetPlayerName(instigator)
+    message = PlayerData[player].name .. " was killed by " .. PlayerData[instigator].name)
     local query = mariadb_prepare(sql, "INSERT INTO logs VALUES (NULL, NULL, '?');",
 		message)
 
@@ -289,7 +289,7 @@ AddEvent("OnPlayerDamage", function(player, damagetype, amount)
 		"Vehicle Collision"
 	}
 
-    message = GetPlayerName(player).."("..player..") took "..amount.." damage of type "..DamageName[damagetype]
+    message = PlayerData[player].name.."("..player..") took "..amount.." damage of type "..DamageName[damagetype]
     local query = mariadb_prepare(sql, "INSERT INTO logs VALUES (NULL, NULL, '?');",
     message)
 
@@ -307,7 +307,7 @@ AddEvent("OnPlayerWeaponShot", function(player, weapon, hittype, hitid, hitX, hi
 		"in water"
 	}
 	
-	message = GetPlayerName(player).."("..player..") shot "..action[hittype].." (ID "..hitid..") using weapon ("..weapon..")"
+	message = PlayerData[player].name.."("..player..") shot "..action[hittype].." (ID "..hitid..") using weapon ("..weapon..")"
 	
 	local query = mariadb_prepare(sql, "INSERT INTO logs VALUES (NULL, NULL, '?');",
     message)

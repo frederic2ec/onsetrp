@@ -210,9 +210,16 @@ AddRemoteEvent("OpenTrunk", function(player)
     local nearestPlayers = GetPlayersInRange3D(x, y, z, 1000)
     local playersList = {}
     for k, v in pairs(nearestPlayers) do
-        if k ~= player then
-            table.insert(playersList, {id = k, name = GetPlayerName(k)})
+        if PlayerData[k] == nil then
+            goto continue
         end
+        if PlayerData[k].name == nil then
+            goto continue
+        end
+        if k ~= player then
+            table.insert(playersList, {id = k, name = PlayerData[player].name})
+        end
+        ::continue::
     end
     
     local vehicleId = "vehicle_"..vehicle

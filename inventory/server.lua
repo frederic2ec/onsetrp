@@ -15,7 +15,7 @@ AddRemoteEvent("ServerPersonalMenu", function(player, inVehicle, vehiclSpeed)
     local playerList = {}
     for k, v in pairs(nearestPlayers) do
         if k ~= player then
-            table.insert(playerList, {id = k, name = GetPlayerName(k)})
+            table.insert(playerList, {id = k, name = PlayerData[player].name})
         end
     end
     

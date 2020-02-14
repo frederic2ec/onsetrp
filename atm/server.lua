@@ -50,7 +50,14 @@ AddRemoteEvent("atmInteract", function(player, atmobject)
 			local playersIds = GetAllPlayers()
 			playersNames = {}
 			for k,v in pairs(playersIds) do
-				playersNames[tostring(k)] = GetPlayerName(k)
+				if PlayerData[k] == nil then
+					goto continue
+				end
+				if PlayerData[k].name == nil then
+					goto continue
+				end
+				playersNames[tostring(k)] = PlayerData[k].name
+				::continue::
 			end
 			CallRemoteEvent(player, "openAtm", bank, cash, playersNames)
 		end
