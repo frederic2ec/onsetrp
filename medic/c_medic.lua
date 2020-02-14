@@ -162,6 +162,7 @@ AddRemoteEvent("medic:client:showcallouts", function(callouts)
 end)
 
 AddRemoteEvent("medic:callout:createwp", function(target, x, y, z)
+    if wpObject ~= nil then DestroyWaypoint(wpObject) end
     currentCallout = target
     wpObject = CreateWaypoint(x, y, z, _("medic_waypoing_label"))
 end)

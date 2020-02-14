@@ -465,6 +465,12 @@ end)
 
 --------- HEALTH BEHAVIOR END
 --------- CALLOUTS
+AddCommand("clearcallouts", function(player)
+    if PlayerData[player].admin ~= 1 then return end
+    callOuts = {}
+    print('CALLOUTS → Cleared')
+end)
+
 function CreateMedicCallout(player)-- create a new callout
     if GetMedicsOnDuty(player) < 1 then
         CallRemoteEvent(player, "MakeErrorNotification", _("medic_no_medic"))
@@ -492,11 +498,17 @@ function MedicCalloutTake(player, target)-- allow a medic to take the callout
     if PlayerData[player].medic ~= 1 then return end
     if PlayerData[player].job ~= "medic" then return end
     if callOuts[tonumber(target)] == nil then return end
+    for k,v in pairs(callOuts) do
+        if v.taken == player then
+            CallRemoteEvent(player, "MakeErrorNotification", _("medic_already_have_callout"))
+            return
+        end
+    end
     if callOuts[tonumber(target)].taken ~= false then
         CallRemoteEvent(player, "MakeErrorNotification", _("medic_callout_taken"))
         return
     end
-    callOuts[tonumber(target)].taken = true
+    callOuts[tonumber(target)].taken = player
     local x, y, z = GetPlayerLocation(tonumber(target))
     CallRemoteEvent(player, "medic:callout:createwp", tonumber(target), x, y, z)
     CallRemoteEvent(player, "MakeNotification", _("medic_you_took_callout"), "linear-gradient(to right, #00b09b, #96c93d)")
@@ -508,10 +520,7 @@ function MedicCalloutEnd(player, target)-- allow a medic to end a callout
     if PlayerData[player].medic ~= 1 then return end
     if PlayerData[player].job ~= "medic" then return end
     if callOuts[tonumber(target)] == nil then return end
-    if callOuts[tonumber(target)].taken ~= true then
-        CallRemoteEvent(player, "MakeErrorNotification", _("an_error_occured"))
-        return
-    end
+    if callOuts[tonumber(target)].taken ~= player then return end
     callOuts[tonumber(target)] = nil
     CallRemoteEvent(player, "medic:callout:clean", tonumber(target))
     CallRemoteEvent(player, "MakeNotification", _("medic_ended_callout"), "linear-gradient(to right, #00b09b, #96c93d)")
@@ -529,8 +538,8 @@ AddRemoteEvent("medic:callout:getlist", function(player)
         local x2,y2,z2 = GetPlayerLocation(k)
         local dist = math.floor(tonumber(GetDistance2D(x, y, x2, y2)) / 100)
         calloutsList[k] = "["..k.."] "..tostring(dist).." m"
-        if v.taken == true then
-            calloutsList[k] = calloutsList[k].."   ".._("medic_callout_taken_menu")
+        if v.taken ~= false then            
+            calloutsList[k] = calloutsList[k].."   ".._("medic_callout_taken_menu", PlayerData[player].name)
         end
     end
 
