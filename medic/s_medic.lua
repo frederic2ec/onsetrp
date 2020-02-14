@@ -32,7 +32,7 @@ local MEDIC_EQUIPMENT_NPC = {
 }
 
 local MEDIC_HOSPITAL_LOCATION = {
-    {x = 212122, y = 158715, radius = 2000}
+    {x = 213079, y = 155179, radius = 8000}
 }
 
 local MEDIC_EQUIPEMENT_NEEDED = {
