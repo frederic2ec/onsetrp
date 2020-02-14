@@ -7,9 +7,6 @@ function Scoreboard_RequestUpdate(player)
     if PlayerData[v].name == nil then
         goto continue
     end
-    if PlayerData[v].steamname == nil then
-        goto continue
-    end
     _send[v] = {
       ['id'] = v,
       ['name'] = PlayerData[v].name or GetPlayerName(v),
