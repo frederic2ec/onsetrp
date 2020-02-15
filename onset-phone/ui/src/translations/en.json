@@ -38,5 +38,13 @@
     "sendmoney": "Send money",
     "bills": "Pay bills",
     "comingsoon": "Coming soon"
+  },
+  "emergency": {
+    "title": "Emergencies",
+    "subtitle": "Warning ! Real emergencies only.",
+    "police": "Police",
+    "medic": "Medics",
+    "reason": "Why are you calling ?",
+    "submit": "I need help !"
   }
 }

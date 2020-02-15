@@ -231,6 +231,9 @@
         "welcome/index.js",
         "welcome/logo.png",
         "welcome/background.png",
-        "welcome/image.png"
+        "welcome/image.png",
+        "callouts/ui/index.html",
+        "callouts/ui/main.js",
+        "callouts/ui/main.css"
     ]
 }
