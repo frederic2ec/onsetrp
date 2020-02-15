@@ -18,7 +18,6 @@ function LoadPhone(player)
 end
 AddRemoteEvent("LoadPhone", LoadPhone)
 
-
 function UnloadPhone(player)
     SetPlayerAnimation(player, 'PHONE_TAKEOUT_HOLD')
 end
