@@ -452,7 +452,7 @@ AddEvent("OnPlayerDeath", function(player, instigator)-- do some stuff when play
 end)
 
 function CreateMedicCallout(player)
-    CreateCallout(player, "medic", "Personne dans le coma")
+    CreateCallout(player, "medic", "Coma")
 end
 AddRemoteEvent("medic:callout:create", CreateMedicCallout)
 
