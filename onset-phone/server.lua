@@ -108,7 +108,7 @@ function MessageGPSClicked(player, latitude, longitude)
     print(latitude)
     print(longitude)
 end
-AddRemoteEvent("MessageCreated", MessageCreated)
+AddRemoteEvent("MessageGPSClicked", MessageGPSClicked)
 
 -- UTILS
 
