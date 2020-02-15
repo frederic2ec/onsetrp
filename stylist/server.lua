@@ -53,7 +53,7 @@ AddRemoteEvent("startModify", function(player, isCreation)
 		SetPlayerDimension(player, player)
 	end
 
-	SetPlayerName(player, tostring(player))
+	SetPlayerName(player,PlayerData[player].accountid)
 
 	SetPlayerBusy(player)
 
@@ -102,7 +102,7 @@ AddRemoteEvent("ModifyEvent", function(player, hairsChoice, shirtsChoice, pantsC
 
 	UpdateClothes(player)
 	SetPlayerLocation(player, PLAYER_SPAWN_POINT.x, PLAYER_SPAWN_POINT.y, PLAYER_SPAWN_POINT.z)
-	SetPlayerName(player, tostring(player))
+	SetPlayerName(player,PlayerData[player].accountid)
 	SavePlayerAccount(player)
 end)
 
