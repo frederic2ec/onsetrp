@@ -33,7 +33,7 @@ function OnPackageStart()
 	SetWebAlignment(ArmorHud, 1.0, 0.0)
 	SetWebAnchors(ArmorHud, 0.0, 0.0, 1.0, 1.0) 
 	LoadWebFile(ArmorHud, "http://asset/onsetrp/hud/armor/armor.html")
-    SetWebVisibility(ArmorHud, WEB_HITINVISIBLE)
+    	SetWebVisibility(ArmorHud, WEB_HITINVISIBLE)
 
     VehicleHud = CreateWebUI(0, 0, 0, 0, 0, 60)
 	SetWebAlignment(VehicleHud, 1.0, 0.0)
