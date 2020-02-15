@@ -2,6 +2,8 @@
 
 body {
     font-family: 'Open Sans', sans-serif;
+    padding: 100px;
+    -webkit-font-smoothing: antialiased;
 }
 
 #main {

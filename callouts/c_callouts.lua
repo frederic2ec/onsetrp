@@ -7,12 +7,10 @@ local currentCallout
 local calloutsUI = nil
 
 function OnPackageStart()
-	calloutsUI = CreateWebUI(0, 0, 0, 0, 60)
+	calloutsUI = CreateWebUI(0, 0, 0, 1, 60)
 	LoadWebFile(calloutsUI, "http://asset/" .. GetPackageName() .. "/callouts/ui/index.html")
-	local screenWidth, screenHeight = GetScreenSize()
-	SetWebSize(calloutsUI, screenWidth - 150, screenHeight - 150)
-	SetWebAlignment(calloutsUI, 0.5, 0.5)
-	SetWebAnchors(calloutsUI, 0.5, 0.5, 0.5, 0.5)
+    SetWebAlignment(calloutsUI, 0, 0)
+    SetWebAnchors(calloutsUI, 0, 0, 1, 1)
     SetWebVisibility(calloutsUI, WEB_HIDDEN)
 end
 AddEvent("OnPackageStart", OnPackageStart)
