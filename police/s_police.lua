@@ -338,7 +338,7 @@ function SetPlayerCuffed(player, state)
 end
 
 function FinePlayer(player, amount, reason)
-    if (amount <= 0) then
+    if (tonumber(amount) <= 0) then
         return false
     end
       
