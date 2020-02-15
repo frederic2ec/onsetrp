@@ -2,12 +2,12 @@ local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, .
 
 local callOuts = {}
 
-AddCommand("ccmed", function(player)
-    CreateCallout(player, "medic", "Coma")
+AddCommand("med", function(player, label)
+    CreateCallout(player, "medic", tostring(label))
 end)
 
-AddCommand("ccpol", function(player)
-    CreateCallout(player, "police", "on m'a volé mon argent moumoumou")
+AddCommand("911", function(player, label)
+    CreateCallout(player, "police", tostring(label))
 end)
 
 
