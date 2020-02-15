@@ -118,10 +118,10 @@ end)
 
 function UpdateCalloutsList(player, job)
     local job = job or PlayerData[player].job
-    local calloutsList = GetCalloutsList(player)
-
+    
     for k, v in pairs(GetAllPlayers()) do
         if job == PlayerData[v].job then
+            local calloutsList = GetCalloutsList(v)
             CallRemoteEvent(v, "callouts:updatelist", calloutsList)  
         end
     end

@@ -70,12 +70,13 @@ function StopCallout(calloutId)
 end
 AddEvent("callouts:ui:stop", StopCallout)
 
-function CloseCallout(calloutId)
+function CloseCallout(player)
     SetIgnoreLookInput(false)
     SetIgnoreMoveInput(false)
     ShowMouseCursor(false)
     SetInputMode(INPUT_GAME)
     SetWebVisibility(calloutsUI, WEB_HIDDEN)
+    SetPlayerNotBusy(player)
 end
 AddEvent("callouts:ui:close", CloseCallout)
 
