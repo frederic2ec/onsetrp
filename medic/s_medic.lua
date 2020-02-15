@@ -442,13 +442,22 @@ AddEvent("OnPlayerDeath", function(player, instigator)-- do some stuff when play
     if GetMedicsOnDuty(player) > 0 then
         if AUTO_CALL_FOR_MEDIC == true then CreateMedicCallout(player) end
         
-        CallRemoteEvent(player, "medic:revivescreen:btncallmedic:toggle", 1)
+         CallRemoteEvent(player, "medic:revivescreen:btncallmedic:toggle", 1)
     else
         CallRemoteEvent(player, "medic:revivescreen:btncallmedic:toggle", 0)
     end
     
     SetPlayerBusy(player)
     PlayerData[player].has_been_revived = false
+end)
+
+function CreateMedicCallout(player)
+    CreateCallout(player, "medic", "Personne dans le coma")
+end
+AddRemoteEvent("medic:callout:create", CreateMedicCallout)
+
+AddCommand("suicide", function(player)
+    SetPlayerHealth(player, 0)    
 end)
 
 AddRemoteEvent("medic:giveup", function(player)
