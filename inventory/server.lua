@@ -11,7 +11,7 @@ AddRemoteEvent("ServerPersonalMenu", function(player, inVehicle, vehiclSpeed)
     end
     
     local x, y, z = GetPlayerLocation(player)
-    local nearestPlayers = GetPlayersInRange3D(x, y, z, 1000)
+    local nearestPlayers = GetPlayersInRange3D(x, y, z, 200)
     local playerList = {}
     for k, v in pairs(nearestPlayers) do
         if k ~= player then
