@@ -180,7 +180,7 @@ function OnAccountLoaded(player)
             ServerCharacterCreation(player)
         else
             CallRemoteEvent(player, "InitWelcome", true)
-            SetPlayerName(player, "_")
+            SetPlayerName(player, tostring(player))
             UpdateClothes(player)
             DisplayPlayerBackpack(player)
         end
