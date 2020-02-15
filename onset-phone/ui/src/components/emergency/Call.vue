@@ -26,6 +26,7 @@ export default {
                 // eslint-disable-next-line
                 console.log('-> window.ue.game.callevent("callouts:new", ' + JSON.stringify([this.$route.params.service,  this.callReason]) + ')')
             }
+            this.$router.push('/emergency')
         }
     }
 }
