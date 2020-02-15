@@ -76,7 +76,7 @@ function CloseCallout(player)
     ShowMouseCursor(false)
     SetInputMode(INPUT_GAME)
     SetWebVisibility(calloutsUI, WEB_HIDDEN)
-    SetPlayerNotBusy(player)
+    CallRemoteEvent("account:setplayernotbusy")
 end
 AddEvent("callouts:ui:close", CloseCallout)
 
