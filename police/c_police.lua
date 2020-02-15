@@ -26,7 +26,7 @@ end)
 
 AddEvent("OnTranslationReady", function()
         -- POLICE MENU
-        policeMenu = Dialog.create(_("police_menu"), nil, _("handcuff_player"), _("put_player_in_vehicle"), _("remove_player_from_vehicle"), _("give_player_fine"),_("search_police"), _("cancel"))
+        policeMenu = Dialog.create(_("police_menu"), nil, _("handcuff_player"), _("put_player_in_vehicle"), _("remove_player_from_vehicle"), _("give_player_fine"),_("search_police"),_("callouts"), _("callouts_menu_end_callout"), _("cancel"))
         
         -- FINE MENU
         policeFineMenu = Dialog.create(_("finePolice"), nil, _("give_fine"), _("cancel"))
@@ -111,6 +111,12 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
         end
         if button == 5 then
             CallRemoteEvent("police:friskplayer")            
+        end
+        if button == 6 then -- take callout
+            CallEvent("callouts:openingmenu")                        
+        end
+        if button == 7 then -- end callout
+            CallEvent("callouts:stoppingcallout")            
         end
     end
     

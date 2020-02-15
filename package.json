@@ -41,7 +41,8 @@
         "animation/pickndrop_s.lua",
         "medic/s_medic.lua",
         "medic/s_damage.lua",
-        "admin/s_spectate.lua"
+        "admin/s_spectate.lua",
+        "callouts/s_callouts.lua"
     ],
     "client_scripts": [
         "welcome/client.lua",
@@ -88,7 +89,8 @@
         "medic/c_medic.lua",
         "medic/c_damage.lua",
         "chat/client.lua",
-        "admin/c_spectate.lua"
+        "admin/c_spectate.lua",
+        "callouts/c_callouts.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",
