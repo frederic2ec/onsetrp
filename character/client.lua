@@ -86,7 +86,7 @@ AddRemoteEvent("openCharacterCreation", function(lhairs, lshirts, lpants, lshoes
     SetIgnoreLookInput(true)
     SetIgnoreMoveInput(true)
     ShowMouseCursor(true)
-    SetInputMode(INPUT_GAMEANDUI)
+    SetInputMode(INPUT_UI)
     SetWebVisibility(webIdCard, WEB_VISIBLE)
 end)
 
