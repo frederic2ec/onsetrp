@@ -20,6 +20,7 @@ AddCommand("clearcallouts", function(player)
 end)
 
 function CreateCallout(player, job, label)-- create a new callout
+    label = string.gsub(label, '"', '')
     if callOuts[player] ~= nil and callOuts[player].taken ~= false then return end
     local x, y, z = GetPlayerLocation(player)
     local caller_job = nil
