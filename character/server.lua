@@ -79,7 +79,7 @@ AddRemoteEvent("ServerCharacterCreation", ServerCharacterCreation)
 AddRemoteEvent("CharacterCreated", function(player, firstname, lastname, age)
     PlayerData[player].name = firstname.." "..lastname
     PlayerData[player].age = age
-    SetPlayerName(" ")
+    SetPlayerName(player, "_")
     
     CallRemoteEvent(player, "openModify", defaultCharacter, true)
 end)
