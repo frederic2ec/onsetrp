@@ -29,7 +29,7 @@ AddRemoteEvent("OnPhoneLoaded", function(player, phoneNumber, money, messages, c
     SetIgnoreLookInput(true)
     SetIgnoreMoveInput(true)
     ShowMouseCursor(true)
-    SetInputMode(INPUT_GAMEANDUI)
+    SetInputMode(INPUT_UI)
     SetWebVisibility(web, WEB_VISIBLE)
 end)
 
