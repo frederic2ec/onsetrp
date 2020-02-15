@@ -16,6 +16,7 @@ AddRemoteEvent("ServerPersonalMenu", function(player, inVehicle, vehiclSpeed)
     for k, v in pairs(nearestPlayers) do
         if k ~= player then
             --table.insert(playerList, {id = k, name = PlayerData[k].name})
+            print("nearest players", k, PlayerData[k].accountid, GetPlayerName(k))
             local playerName
             if PlayerData[k].accountid ~= nil and PlayerData[k].accountid ~= 0 then playerName = PlayerData[k].accountid else playerName = GetPlayerName(k) end            
             table.insert(playerList, {id = k, name = playerName}) -- On prend le nom affiché (l'accountid)
