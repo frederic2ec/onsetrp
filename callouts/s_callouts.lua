@@ -33,8 +33,7 @@ function CreateCallout(player, job, label)-- create a new callout
 
     callOuts[player] = { location = {x = x, y = y, z = z}, taken = false, job = job, label = label, caller_job = caller_job }
     CalloutsNotifyPlayers(callOuts[player])
-
-    UpdateCalloutsList(player)
+    UpdateCalloutsList(player, job)
 
     if job == "medic" then
         CallRemoteEvent(player, "MakeNotification", _("medic_callout_created"), "linear-gradient(to right, #00b09b, #96c93d)", 10000)
@@ -117,12 +116,13 @@ AddRemoteEvent("callouts:getlist", function(player)
     CallRemoteEvent(player, "callouts:displaymenu", calloutsList)    
 end)
 
-function UpdateCalloutsList(player)
+function UpdateCalloutsList(player, job)
+    local job = job or PlayerData[player].job
     local calloutsList = GetCalloutsList(player)
 
     for k, v in pairs(GetAllPlayers()) do
-        if PlayerData[player].job == PlayerData[v].job then
-            CallRemoteEvent(player, "callouts:updatelist", calloutsList)  
+        if job == PlayerData[v].job then
+            CallRemoteEvent(v, "callouts:updatelist", calloutsList)  
         end
     end
 end
