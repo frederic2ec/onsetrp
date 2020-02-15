@@ -32,7 +32,7 @@ local VEHICLE_SPAWN_LOCATION = {
 }
 
 local POLICE_SERVICE_NPC = {
-    {x = 191680, y = 208448, z = 2424, h = 0},
+    {x = 191680, y = 208448, z = 2427, h = 0},
     {x = -173771, y = -64070, z = 1209, h = 90},
 }
 
@@ -338,7 +338,7 @@ function SetPlayerCuffed(player, state)
 end
 
 function FinePlayer(player, amount, reason)
-    if (amount <= 0) then
+    if (tonumber(amount) <= 0) then
         return false
     end
       

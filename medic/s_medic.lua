@@ -371,8 +371,7 @@ function MedicRevivePlayer(player)-- To revive a player. can fail. need defib.
             end)
             
             CallRemoteEvent(nearestPlayer, "medic:revivescreen:toggle", false)
-            CallRemoteEvent(player, "MakeNotification", _("medic_revived_success"), "linear-gradient(to right, #00b09b, #96c93d)")
-            if callOuts[nearestPlayer] and callOuts[nearestPlayer].taken == true then MedicCalloutEnd(player, nearestPlayer) end
+            CallRemoteEvent(player, "MakeNotification", _("medic_revived_success"), "linear-gradient(to right, #00b09b, #96c93d)")            
             return
         else -- Failure !
             CallRemoteEvent(player, "MakeErrorNotification", _("medic_revived_failure"))
