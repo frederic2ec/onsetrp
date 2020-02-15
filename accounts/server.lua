@@ -180,9 +180,7 @@ function OnAccountLoaded(player)
             ServerCharacterCreation(player)
         else
             CallRemoteEvent(player, "InitWelcome", true)
-            --SetPlayerName(player, string.sub(PlayerData[player].name, 1, 1).."______") -- hide name
-            SetPlayerName(player, " ")
-            --SetPlayerName(player, PlayerData[player].name)
+            SetPlayerName(player, "_")
             UpdateClothes(player)
             DisplayPlayerBackpack(player)
         end
