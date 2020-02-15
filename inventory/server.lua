@@ -459,7 +459,6 @@ function RemoveInventory(inventoryId, item, amount, drop, player)
         return false
     else
         if PlayerData[inventoryId].inventory[item] - amount < 1 then
-            PlayerData[inventoryId].inventory[item] = nil
             UpdateUIInventory(player, inventoryId, item, 0)
 
             weapon = getWeaponID(item)
@@ -472,6 +471,8 @@ function RemoveInventory(inventoryId, item, amount, drop, player)
                     end
                 end
             end
+            
+            PlayerData[inventoryId].inventory[item] = nil
         else
             PlayerData[inventoryId].inventory[item] = PlayerData[inventoryId].inventory[item] - amount
             UpdateUIInventory(player, inventoryId, item, PlayerData[inventoryId].inventory[item])
