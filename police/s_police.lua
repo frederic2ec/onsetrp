@@ -439,19 +439,7 @@ function LaunchFriskPlayer(player, target)
     if GetPlayerPropertyValue(target, "cuffed") ~= true then return end
     
     local playerList = {}
-    for k, v in pairs(GetStreamedPlayersForPlayer(player)) do
-        if PlayerData[k] == nil then
-            goto continue
-        end
-        if PlayerData[k].name == nil then
-            goto continue
-        end
-        -- if k ~= player then table.insert(playerList, {id = k, name = PlayerData[k].name}) end
-        local playerName
-        if PlayerData[k].accountid ~= nil and PlayerData[k].accountid ~= 0 then playerName = PlayerData[k].accountid else playerName = GetPlayerName(k) end            
-        table.insert(playerList, {id = k, name = playerName}) -- On prend le nom affiché (l'accountid)
-        ::continue::
-    end
+    table.insert(playerList, {id = k, name = PlayerData[target].accountid})
     
     searchedPlayer = {id = tonumber(target), name = PlayerData[tonumber(target)].name, inventory = PlayerData[tonumber(target)].inventory}
     CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].name, player, playerList, GetPlayerMaxSlots(player), searchedPlayer)
