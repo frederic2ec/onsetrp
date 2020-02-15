@@ -443,14 +443,13 @@ function LaunchFriskPlayer(player, target)
     local playerList = {}
     for k, v in pairs(nearestPlayers) do
         if k ~= player then
-            --table.insert(playerList, {id = k, name = PlayerData[k].name})
             local playerName
             if PlayerData[k].accountid ~= nil and PlayerData[k].accountid ~= 0 then playerName = PlayerData[k].accountid else playerName = GetPlayerName(k) end            
             table.insert(playerList, {id = k, name = playerName}) -- On prend le nom affiché (l'accountid)
         end
     end
     
-    searchedPlayer = {id = tonumber(target), name = PlayerData[tonumber(target)].name, inventory = PlayerData[tonumber(target)].inventory}
+    searchedPlayer = {id = tonumber(target), name = PlayerData[tonumber(target)].accountid, inventory = PlayerData[tonumber(target)].inventory}
     CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].name, player, playerList, GetPlayerMaxSlots(player), searchedPlayer)
 end
 
