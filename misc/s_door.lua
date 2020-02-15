@@ -385,7 +385,7 @@ AddEvent("OnPackageStart", function()
 	-- START PRISON A-BLOCK CELL DOORS (Administrative Segregation, 1st Floor)
 	CreateDoor(11, -175013.000000, 73822.000000, 1535.000000, 180.0, true) --
 	CreateDoor(11, -175014.000000, 73472.000000, 1535.000000, 180.0, true) --
-	CreateDoor(11, -175013.000000, 72772.000000, 1535.000000, 180.0, true) --
+	CreateDoor(11, -175013.000000, 73122.000000, 1535.000000, 180.0, true) --
 	CreateDoor(11, -175014.000000, 72772.000000, 1535.000000, 180.0, true) --
 	CreateDoor(11, -175014.000000, 72422.000000, 1535.000000, 180.0, true) --
 	CreateDoor(11, -175014.000000, 72072.000000, 1535.000000, 180.0, true) --
