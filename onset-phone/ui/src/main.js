@@ -9,6 +9,8 @@ import Homescreen from './Homescreen.vue'
 import Sms from './components/sms/Sms.vue'
 import Contacts from './components/contacts/Contacts.vue'
 import Bank from './components/bank/Bank.vue'
+import Emergency from './components/emergency/Emergency.vue'
+import Call from './components/emergency/Call.vue'
 
 Vue.config.productionTip = false
 
@@ -42,7 +44,9 @@ const routes = [
     let contact = window.phoneApp ? window.phoneApp.contacts.find(function(contact){ return contact.phone == route.params.phone_number }) : { name: route.params.phone_number.replace('555', '555-') }
     return contact ? contact.name : route.params.phone_number.replace('555', '555-')
   } } },
-  { path: '/bank', component: Bank, name: 'Bank', meta: { title: translations.bank.title } }
+  { path: '/bank', component: Bank, name: 'Bank', meta: { title: translations.bank.title } },
+  { path: '/emergency', component: Emergency, name: 'Emergency', meta: { title: translations.emergency.title } },
+  { path: '/emergency/:service', component: Call, name: 'Call', meta: { title: translations.emergency.title } }
 ]
 Vue.use(VueRouter)
 
