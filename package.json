@@ -97,6 +97,8 @@
         "hud/speaking/hud.html",
         "hud/health/health.png",
         "hud/health/health.html",
+        "hud/armor/armor.png",
+        "hud/armor/armor.html",
         "hud/thirst/thirst.png",
         "hud/thirst/thirst.html",
         "hud/hunger/hunger.png",
