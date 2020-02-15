@@ -88,7 +88,7 @@ function LoadCallouts(calls) {
             }
         }
     } else {
-        document.getElementById('callouts').innerHTML = '<tr><td>Aucun appels</td><td></td><td></td><td></td></tr>'
+        document.getElementById('callouts').innerHTML = '<tr><td>Aucun appel</td><td></td><td></td><td></td></tr>'
     }
 }
 

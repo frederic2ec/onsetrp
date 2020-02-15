@@ -18,8 +18,10 @@ AddRemoteEvent("ServerPersonalMenu", function(player, inVehicle, vehiclSpeed)
             --table.insert(playerList, {id = k, name = PlayerData[k].name})
             print("nearest players", k, PlayerData[k].accountid, GetPlayerName(k))
             local playerName
-            if PlayerData[k].accountid ~= nil and PlayerData[k].accountid ~= 0 then playerName = PlayerData[k].accountid else playerName = GetPlayerName(k) end            
-            table.insert(playerList, {id = k, name = playerName}) -- On prend le nom affiché (l'accountid)
+            if PlayerData[k] ~= nil then
+                if PlayerData[k].accountid ~= nil and PlayerData[k].accountid ~= 0 then playerName = PlayerData[k].accountid else playerName = GetPlayerName(k) end            
+                table.insert(playerList, {id = k, name = playerName}) -- On prend le nom affiché (l'accountid)
+            end
         end
     end
     
@@ -38,7 +40,6 @@ AddRemoteEvent("EquipInventory", function(player, originInventory, itemName, amo
     if (amount <= 0) then
         return false
     end
-
       
     if string.find(originInventory, 'vehicle_') then
         CallRemoteEvent(player, "MakeErrorNotification", _("pick_first"))
@@ -340,8 +341,6 @@ AddRemoteEvent("TransferInventory", function(player, originInventory, item, amou
         if not enoughItems then
             CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_item"))
         else
-            SetPlayerAnimation(player, "PICKUP_MIDDLE")
-
             local itemAdded = false
             local itemRemoved = false
 
@@ -360,6 +359,7 @@ AddRemoteEvent("TransferInventory", function(player, originInventory, item, amou
             if itemAdded and itemRemoved then
                 if originType == 'player' then
                     if destinationType == 'player' then
+                        SetPlayerAnimation(originInventory, "PICKUP_MIDDLE")
                         CallRemoteEvent(originInventory, "MakeSuccessNotification", _("successful_transfer", amount, item, PlayerData[destinationInventory].name))
                     else
                         CallRemoteEvent(originInventory, "MakeSuccessNotification", _("successful_drop", amount, item))
@@ -367,6 +367,7 @@ AddRemoteEvent("TransferInventory", function(player, originInventory, item, amou
                 end
                 if destinationType == 'player' then
                     if originType == 'player' then
+                        SetPlayerAnimation(destinationInventory, "PICKUP_MIDDLE")
                         CallRemoteEvent(destinationInventory, "MakeSuccessNotification", _("received_transfer", amount, item, PlayerData[originInventory].name))
                     else
                         CallRemoteEvent(destinationInventory, "MakeSuccessNotification", _("successful_pick", amount, item))
@@ -459,7 +460,6 @@ function RemoveInventory(inventoryId, item, amount, drop, player)
         return false
     else
         if PlayerData[inventoryId].inventory[item] - amount < 1 then
-            PlayerData[inventoryId].inventory[item] = nil
             UpdateUIInventory(player, inventoryId, item, 0)
 
             weapon = getWeaponID(item)
@@ -472,6 +472,8 @@ function RemoveInventory(inventoryId, item, amount, drop, player)
                     end
                 end
             end
+            
+            PlayerData[inventoryId].inventory[item] = nil
         else
             PlayerData[inventoryId].inventory[item] = PlayerData[inventoryId].inventory[item] - amount
             UpdateUIInventory(player, inventoryId, item, PlayerData[inventoryId].inventory[item])

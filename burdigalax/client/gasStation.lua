@@ -36,7 +36,7 @@ function OpenUIGasStation(cash, maxFuel, currentFuel, gasoilPrice, gasoilPlusPri
     SetIgnoreLookInput(true)
     SetIgnoreMoveInput(true)
     ShowMouseCursor(true)
-    SetInputMode(INPUT_GAMEANDUI)
+    SetInputMode(INPUT_UI)
     SetWebVisibility(gasStationUI, WEB_VISIBLE)
 end
 AddEvent("OpenUIGasStation", OpenUIGasStation)
