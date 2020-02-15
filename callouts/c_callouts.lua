@@ -4,13 +4,18 @@ local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, .
 local wpObject
 local currentCallout
 
-local calloutsMenu
+local calloutsUI = nil
 
-AddEvent("OnTranslationReady", function()
-    -- CALLOUTS MENU
-    calloutsMenu = Dialog.create(_("callout_menu"), nil, _("callout_take"), _("cancel"))
-    Dialog.addSelect(calloutsMenu, 1, _("callouts"), 8)
-end)
+function OnPackageStart()
+	calloutsUI = CreateWebUI(0, 0, 0, 0, 60)
+	LoadWebFile(calloutsUI, "http://asset/" .. GetPackageName() .. "/callouts/ui/index.html")
+	local screenWidth, screenHeight = GetScreenSize()
+	SetWebSize(calloutsUI, screenWidth - 50, screenHeight - 50)
+	SetWebAlignment(calloutsUI, 0.5, 0.5)
+	SetWebAnchors(calloutsUI, 0.5, 0.5, 0.5, 0.5)
+    SetWebVisibility(calloutsUI, WEB_HIDDEN)
+end
+AddEvent("OnPackageStart", OnPackageStart)
 
 function OpeningCalloutMenu() 
     CallRemoteEvent("callouts:getlist")    
@@ -19,8 +24,17 @@ AddEvent("callouts:openingmenu", OpeningCalloutMenu)
 AddRemoteEvent("callouts:openingmenu", OpeningCalloutMenu)
 
 AddRemoteEvent("callouts:displaymenu", function(callouts)
-    Dialog.setSelectLabeledOptions(calloutsMenu, 1, 1, callouts)
-    Dialog.show(calloutsMenu)
+    SetIgnoreLookInput(true)
+    SetIgnoreMoveInput(true)
+    ShowMouseCursor(true)
+    SetInputMode(INPUT_GAMEANDUI)
+    SetWebVisibility(calloutsUI, WEB_VISIBLE)
+    
+    ExecuteWebJS(calloutsUI, 'LoadCallouts('..json_encode(callouts)..');')
+end)
+
+AddRemoteEvent("callouts:updatelist", function(callouts)
+    ExecuteWebJS(calloutsUI, 'LoadCallouts('..json_encode(callouts)..');')
 end)
 
 AddEvent("OnDialogSubmit", function(dialog, button, ...)
@@ -46,6 +60,24 @@ function CreateCallout(service, reason)
 end
 AddEvent("callouts:new", CreateCallout)
 
+function TakeCallout(calloutId)
+    CallRemoteEvent("callouts:start", calloutId)
+end
+AddEvent("callouts:ui:take", TakeCallout)
+
+function StopCallout(calloutId)
+    CallRemoteEvent("callouts:end", calloutId)
+end
+AddEvent("callouts:ui:stop", StopCallout)
+
+function CloseCallout(calloutId)
+    SetIgnoreLookInput(false)
+    SetIgnoreMoveInput(false)
+    ShowMouseCursor(false)
+    SetInputMode(INPUT_GAME)
+    SetWebVisibility(calloutsUI, WEB_HIDDEN)
+end
+AddEvent("callouts:ui:close", CloseCallout)
 
 AddRemoteEvent("callouts:createwp", function(target, x, y, z, label)
     if wpObject ~= nil then DestroyWaypoint(wpObject) end
