@@ -38,5 +38,13 @@
     "sendmoney": "Envoyer de l'argent",
     "bills": "Payer une facture",
     "comingsoon": "Arrive bientôt"
+  },
+  "emergency": {
+    "title": "Appels d'urgences",
+    "subtitle": "Attention ! Cette application est réservée aux appels d'urgences.",
+    "police": "Police",
+    "medic": "SAMU",
+    "reason": "Quelle est la raison de votre appel ?",
+    "submit": "Demander de l'aide"
   }
 }

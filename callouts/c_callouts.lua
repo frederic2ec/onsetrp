@@ -41,6 +41,11 @@ function StopCurrentCallout()
 end
 AddEvent("callouts:stoppingcallout", StopCurrentCallout)
 
+function CreateCallout(service, reason)
+    CallRemoteEvent("callouts:create", service, reason)
+end
+AddEvent("callouts:new", CreateCallout)
+
 
 AddRemoteEvent("callouts:createwp", function(target, x, y, z, label)
     if wpObject ~= nil then DestroyWaypoint(wpObject) end
