@@ -117,7 +117,7 @@ function BuildInventoryJson(items, playerInventory, playerName, playerId, player
             hasReadAccess = false
         }
 
-        if friskedInventory ~= nil and friskedInventory.id == player.id then
+        if friskedInventory ~= nil and tostring(friskedInventory.id) == tostring(player.id) then
             inventory.hasReadAccess = true
             inventory.nearbyInventoriesIds = { tostring(playerId) }
             inventory.items = InventoryAvailableItems(friskedInventory.inventory)
