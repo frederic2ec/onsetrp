@@ -14,7 +14,7 @@ local Radios = {
 local nowPlaying = {}
 local TIMER_REFRESH_RADIO_POSITION = 25
 local HOOD_BONUS = 70
-local RADIO_RADIUS = 500
+local RADIO_RADIUS = 700
 local BASE_VOLUME = 0.2
 
 AddEvent("OnPackageStart", function()
