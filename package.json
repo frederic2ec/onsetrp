@@ -42,7 +42,8 @@
         "medic/s_medic.lua",
         "medic/s_damage.lua",
         "admin/s_spectate.lua",
-        "callouts/s_callouts.lua"
+        "callouts/s_callouts.lua",
+        "onset-characterize/server.lua"
     ],
     "client_scripts": [
         "welcome/client.lua",
@@ -90,7 +91,8 @@
         "medic/c_damage.lua",
         "chat/client.lua",
         "admin/c_spectate.lua",
-        "callouts/c_callouts.lua"
+        "callouts/c_callouts.lua",
+        "onset-characterize/client.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",
@@ -234,6 +236,11 @@
         "welcome/image.png",
         "callouts/ui/index.html",
         "callouts/ui/main.js",
-        "callouts/ui/main.css"
+        "callouts/ui/main.css",
+        "onset-characterize/ui/index.html",
+        "onset-characterize/ui/characterize.js",
+        "onset-characterize/ui/jquery.js",
+        "onset-characterize/ui/style.css",
+        "onset-characterize/click.wav"
     ]
 }

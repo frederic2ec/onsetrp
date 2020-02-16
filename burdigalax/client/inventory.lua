@@ -63,11 +63,11 @@ AddRemoteEvent("UpdateUIInventory", function(player, item, quantity, equiped)
     ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.updateItemsInventories('"..player.."', [{ id: '"..item.."', quantity: "..quantity..", isEquipped: "..tostring(equiped).." }]);")
 end)
 
-function onEquipItemInventory(event)
-    local data = json_decode(event)
-    ExecuteWebJS(inventoryUI, 'setEquipItemInventory('..data.idInventory..','..data.idItem..','..tostring(data.isEquipped)..');')
-end
-AddEvent('BURDIGALAX_inventory_onEquip', onEquipItemInventory)
+-- function onEquipItemInventory(event)
+--     local data = json_decode(event)
+--     ExecuteWebJS(inventoryUI, 'setEquipItemInventory('..data.idInventory..','..data.idItem..','..tostring(data.isEquipped)..');')
+-- end
+-- AddEvent('BURDIGALAX_inventory_onEquip', onEquipItemInventory)
 
 -- TRANSFERT
 
