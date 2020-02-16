@@ -10,10 +10,9 @@ AddRemoteEvent("ServerPersonalMenu", function(player, inVehicle, vehiclSpeed)
         return CallRemoteEvent(player, "MakeErrorNotification", _("cant_while_driving"))
     end
     
-    local x, y, z = GetPlayerLocation(player)
-    local nearestPlayers = GetPlayersInRange3D(x, y, z, 200)
+    local playerX, playerY, playerZ = GetPlayerLocation(player)
     local playerList = {}
-    for k, v in pairs(nearestPlayers) do
+    for k, v in pairs(GetPlayersInRange3D(playerX, playerY, playerZ, 300)) do
         if k ~= player then
             --table.insert(playerList, {id = k, name = PlayerData[k].name})
             print("nearest players", k, PlayerData[k].accountid, GetPlayerName(k))
@@ -442,6 +441,7 @@ function AddInventory(inventoryId, item, amount, player)
             DisplayPlayerBackpack(player, 1)
         end
         UpdateUIInventory(player, inventoryId, item, PlayerData[inventoryId].inventory[item])
+        UpdateUIInventory(inventoryId, inventoryId, item, PlayerData[inventoryId].inventory[item])
         SavePlayerAccount(player)
         return true
     else
@@ -477,6 +477,7 @@ function RemoveInventory(inventoryId, item, amount, drop, player)
         else
             PlayerData[inventoryId].inventory[item] = PlayerData[inventoryId].inventory[item] - amount
             UpdateUIInventory(player, inventoryId, item, PlayerData[inventoryId].inventory[item])
+            UpdateUIInventory(inventoryId, inventoryId, item, PlayerData[inventoryId].inventory[item])
         end
         if item == "item_backpack" then
             DisplayPlayerBackpack(player, 1)
