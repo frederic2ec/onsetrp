@@ -418,6 +418,8 @@ AddRemoteEvent("RemoveFromInventory", function(player, originInventory, item, am
         return false
     end
 
+    originInventory = tonumber(originInventory)
+
     if PlayerData[originInventory].inventory[item] < tonumber(amount) then
         CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_item"))
     else
