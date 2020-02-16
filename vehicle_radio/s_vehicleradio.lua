@@ -13,8 +13,8 @@ local Radios = {
 
 local nowPlaying = {}
 local TIMER_REFRESH_RADIO_POSITION = 25
-local HOOD_BONUS = 70
-local RADIO_RADIUS = 700
+local HOOD_BONUS = 300
+local RADIO_RADIUS = 800
 local BASE_VOLUME = 0.2
 
 AddEvent("OnPackageStart", function()
@@ -35,12 +35,21 @@ function VehicleRadioToggle(player)
         if nowPlaying[veh] ~= nil then
             sr.DestroySound3D(nowPlaying[veh].sound)
             nowPlaying[veh] = nil
+            for k=1, GetVehicleNumberOfSeats(veh) do
+                local target = GetVehiclePassenger(veh, k)
+                if IsValidPlayer(target) then CallRemoteEvent(target, "vehicle:radio:toggleui", false) end
+            end
         else
             nowPlaying[veh] = {}
             nowPlaying[veh].channel = 1
-            local sound = sr.CreateSound3D(Radios[1].url, x, y, z + HOOD_BONUS, RADIO_RADIUS, BASE_VOLUME)        
+            local sound = sr.CreateSound3D(Radios[1].url, x, y, z + HOOD_BONUS, RADIO_RADIUS, BASE_VOLUME)
             nowPlaying[veh].sound = sound
-            nowPlaying[veh].volume = BASE_VOLUME
+            nowPlaying[veh].volume = BASE_VOLUME            
+            for k=1, GetVehicleNumberOfSeats(veh) do                
+                local target = GetVehiclePassenger(veh, k)
+                if IsValidPlayer(target) then CallRemoteEvent(target, "vehicle:radio:toggleui", true) end
+            end
+            CallRemoteEvent(player, "vehicle:radio:updateui", Radios[nowPlaying[veh].channel].label, nowPlaying[veh].volume)        
         end
     end
 end
@@ -58,18 +67,27 @@ function VehicleRadioUpdateVolume(player, increaseOrLower)
             if nowPlaying[veh].volume < 0 then nowPlaying[veh].volume = 0 end
         end
         sr.SetSound3DVolume(nowPlaying[veh].sound, nowPlaying[veh].volume)
+        for k=1, GetVehicleNumberOfSeats(veh) do
+            local target = GetVehiclePassenger(veh, k)
+            if IsValidPlayer(target) then CallRemoteEvent(target, "vehicle:radio:updateui", Radios[nowPlaying[veh].channel].label, nowPlaying[veh].volume) end
+        end    
     end
 end
 AddRemoteEvent("vehicle:radio:updatevolume", VehicleRadioUpdateVolume)
 
 function VehicleRadioUpdateChannel(player, channelId)
     local veh = GetPlayerVehicle(player)
-    if veh ~= nil and veh ~= 0 and nowPlaying[veh] ~= nil then
+    if veh ~= nil and veh ~= 0 and nowPlaying[veh] ~= nil and channelId <= 7 then
         if GetPlayerVehicleSeat(player) ~= 1 and GetPlayerVehicleSeat(player) ~= 2 then return end
         local x, y, z = GetVehicleLocation(veh)
         sr.DestroySound3D(nowPlaying[veh].sound)
         local sound = sr.CreateSound3D(Radios[channelId].url, x, y, z + HOOD_BONUS, RADIO_RADIUS, nowPlaying[veh].volume)        
         nowPlaying[veh].sound = sound
+        nowPlaying[veh].channel = channelId   
+        for k=1, GetVehicleNumberOfSeats(veh) do
+            local target = GetVehiclePassenger(veh, k)
+            if IsValidPlayer(target) then CallRemoteEvent(target, "vehicle:radio:updateui", Radios[nowPlaying[veh].channel].label, nowPlaying[veh].volume) end
+        end
     end
 end
 AddRemoteEvent("vehicle:radio:updatechannel", VehicleRadioUpdateChannel)
@@ -77,6 +95,13 @@ AddRemoteEvent("vehicle:radio:updatechannel", VehicleRadioUpdateChannel)
 AddEvent("OnPlayerLeaveVehicle", function(player, veh, seat)
     if seat == 1 and nowPlaying[veh] ~= nil then
         sr.DestroySound3D(nowPlaying[veh].sound)
-        nowPlaying[veh] = nil
+        nowPlaying[veh] = nil        
+    end
+    CallRemoteEvent(player, "vehicle:radio:toggleui", false)
+end)
+
+AddEvent("OnPlayerEnterVehicle", function(player, veh, seat)
+    if nowPlaying[veh] ~= nil then
+        CallRemoteEvent(player, "vehicle:radio:toggleui", true)
     end
 end)

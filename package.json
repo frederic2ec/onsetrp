@@ -234,6 +234,8 @@
         "welcome/image.png",
         "callouts/ui/index.html",
         "callouts/ui/main.js",
-        "callouts/ui/main.css"
+        "callouts/ui/main.css",
+        "vehicle_radio/ui/radio.html",
+        "vehicle_radio/ui/assets/musical-note.png"
     ]
 }
