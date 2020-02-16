@@ -9,6 +9,7 @@ Roleplay framework for the game [Onset](https://store.steampowered.com/app/11058
 
 ## Packages requirements
 
+- [soundstreamer](https://github.com/Sheaven/SoundStreamer)
 - [i18n](https://github.com/OnfireNetwork/i18n)
 - [dialogui](https://github.com/OnfireNetwork/dialogui)
 - [cinematicui](https://github.com/rdlh/cinematicui)
@@ -18,6 +19,7 @@ Roleplay framework for the game [Onset](https://store.steampowered.com/app/11058
 ## Example packages setup
 ```
 "packages": [
+    "soundstreamer",
     "i18n",
     "dialogui",
     "cinematicui",
