@@ -23,6 +23,9 @@ VEHICLE_TRUNK_KEY = "O" -- To open the vehicle trunk
 VEHICLE_HOOD_KEY = "P" -- To open the vehicle hood
 ADMIN_MENU_KEY = "N" -- To show the admin menu
 TOGGLE_CHAT_KEY = "Num /" -- To toggle the chat
+VEHICLE_RADIO_KEY = "R" -- To toggle radio (ctrl)
+VEHICLE_RADIO_LOWER_KEY = "Num -" -- To lower radio (ctrl)
+VEHICLE_RADIO_INCREASE_KEY = "Num +" -- To increase radio (ctrl)
 
 function GetAllKeybinds()
     return {
