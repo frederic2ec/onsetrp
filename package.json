@@ -239,6 +239,7 @@
         "callouts/ui/main.css",
         "vehicle_radio/ui/radio.html",
         "vehicle_radio/ui/assets/musical-note.png",
+        "vehicle_radio/ui/assets/OdibeeSans-Regular.ttf",
         "onset-characterize/ui/index.html",
         "onset-characterize/ui/characterize.js",
         "onset-characterize/ui/jquery.js",
