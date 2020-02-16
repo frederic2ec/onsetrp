@@ -448,9 +448,11 @@ function LaunchFriskPlayer(player, target)
             table.insert(playerList, {id = k, name = playerName}) -- On prend le nom affiché (l'accountid)
         end
     end
+
+    print("Frisk: "..target.." -> "..PlayerData[tonumber(target)].accountid)
     
-    searchedPlayer = {id = tonumber(target), name = PlayerData[tonumber(target)].accountid, inventory = PlayerData[tonumber(target)].inventory}
-    CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].name, player, playerList, GetPlayerMaxSlots(player), searchedPlayer)
+    friskedPlayer = { id = tostring(target), name = PlayerData[tonumber(target)].accountid, inventory = PlayerData[tonumber(target)].inventory }
+    CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].name, player, playerList, GetPlayerMaxSlots(player), friskedPlayer)
 end
 
 --------- INTERACTIONS END
@@ -484,7 +486,7 @@ function GetNearestPlayer(player, maxDist)
             local x2, y2, z2 = GetPlayerLocation(v)
             local currentDist = GetDistance3D(x, y, z, x2, y2, z2)
             if (dist == nil or currentDist < dist) and currentDist <= tonumber(maxDist) then
-                closestPlayer = v
+                closestPlayer = k
                 dist = currentDist
             end
         end
@@ -501,7 +503,6 @@ function GetNearestPlayers(player, maxDist)
             local x2, y2, z2 = GetPlayerLocation(k)
             local currentDist = GetDistance3D(x, y, z, x2, y2, z2)
             if currentDist < maxDist then
-                print("Proche de "..PlayerData[player].accountid..": "..PlayerData[k].accountid.." ("..currentDist..")")
                 table.insert(closestPlayers, k)
             end
         end
