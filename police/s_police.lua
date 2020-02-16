@@ -497,12 +497,14 @@ function GetNearestPlayers(player, maxDist)
     local x, y, z = GetPlayerLocation(player)
     local closestPlayers = {}
     for k, v in pairs(GetStreamedPlayersForPlayer(player)) do
-        if v ~= player then
-            local x2, y2, z2 = GetPlayerLocation(v)
+        if k ~= player then
+            local x2, y2, z2 = GetPlayerLocation(k)
             local currentDist = GetDistance3D(x, y, z, x2, y2, z2)
+            print("Position for "..k..": "..x2, y2, z2)
+            print("Position for "..player..": "..x, y, z)
             print("Distance between "..PlayerData[player].accountid.." and "..PlayerData[k].accountid..": "..currentDist)
             if currentDist < maxDist then
-                table.insert(closestPlayers, v)
+                table.insert(closestPlayers, k)
             end
         end
     end
