@@ -46,6 +46,8 @@ AddRemoteEvent("EquipInventory", function(player, originInventory, itemName, amo
         return false
     end
 
+    originInventory = tonumber(originInventory)
+
     if inVehicle and GetPlayerState(player) == PS_DRIVER and vehiclSpeed > 0 then
         CallRemoteEvent(player, "MakeErrorNotification", _("cant_while_driving"))
         return false
@@ -145,6 +147,8 @@ AddRemoteEvent("UseInventory", function(player, originInventory, itemName, amoun
         CallRemoteEvent(player, "MakeErrorNotification", _("pick_first"))
         return false
     end
+
+    originInventory = tonumber(originInventory)
 
     if inVehicle and GetPlayerState(player) == PS_DRIVER and vehiclSpeed > 0 then
         return CallRemoteEvent(player, "MakeErrorNotification", _("cant_while_driving"))
