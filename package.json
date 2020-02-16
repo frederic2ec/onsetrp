@@ -237,6 +237,8 @@
         "callouts/ui/index.html",
         "callouts/ui/main.js",
         "callouts/ui/main.css",
+        "vehicle_radio/ui/radio.html",
+        "vehicle_radio/ui/assets/musical-note.png",
         "onset-characterize/ui/index.html",
         "onset-characterize/ui/characterize.js",
         "onset-characterize/ui/jquery.js",
