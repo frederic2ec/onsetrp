@@ -464,6 +464,7 @@ function RemoveInventory(inventoryId, item, amount, drop, player)
     else
         if PlayerData[inventoryId].inventory[item] - amount < 1 then
             UpdateUIInventory(player, inventoryId, item, 0)
+            UpdateUIInventory(inventoryId, inventoryId, item, 0)
 
             weapon = getWeaponID(item)
             
