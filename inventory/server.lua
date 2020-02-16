@@ -11,19 +11,15 @@ AddRemoteEvent("ServerPersonalMenu", function(player, inVehicle, vehiclSpeed)
     end
     
     local playerList = {}
-    print("-------------")
-    print("For: "..player)
-    for k, v in pairs(GetNearestPlayers(player, 300)) do
-        if k ~= player then
-            print("Nearest players: ", k, PlayerData[k].accountid, GetPlayerName(k))
+    for k, neatPlayerId in pairs(GetNearestPlayers(player, 300)) do
+        if neatPlayerId ~= player then
             local playerName
-            if PlayerData[k] ~= nil then
-                if PlayerData[k].accountid ~= nil and PlayerData[k].accountid ~= 0 then playerName = PlayerData[k].accountid else playerName = GetPlayerName(k) end            
-                table.insert(playerList, {id = k, name = playerName}) -- On prend le nom affiché (l'accountid)
+            if PlayerData[neatPlayerId] ~= nil then
+                if PlayerData[neatPlayerId].accountid ~= nil and PlayerData[neatPlayerId].accountid ~= 0 then playerName = PlayerData[neatPlayerId].accountid else playerName = GetPlayerName(neatPlayerId) end            
+                table.insert(playerList, {id = neatPlayerId, name = playerName}) -- On prend le nom affiché (l'accountid)
             end
         end
     end
-    print("-------------")
     
     CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].name, player, playerList, GetPlayerMaxSlots(player))
 end)
@@ -45,6 +41,8 @@ AddRemoteEvent("EquipInventory", function(player, originInventory, itemName, amo
         CallRemoteEvent(player, "MakeErrorNotification", _("pick_first"))
         return false
     end
+
+    originInventory = tonumber(originInventory)
 
     if inVehicle and GetPlayerState(player) == PS_DRIVER and vehiclSpeed > 0 then
         CallRemoteEvent(player, "MakeErrorNotification", _("cant_while_driving"))
@@ -145,6 +143,8 @@ AddRemoteEvent("UseInventory", function(player, originInventory, itemName, amoun
         CallRemoteEvent(player, "MakeErrorNotification", _("pick_first"))
         return false
     end
+
+    originInventory = tonumber(originInventory)
 
     if inVehicle and GetPlayerState(player) == PS_DRIVER and vehiclSpeed > 0 then
         return CallRemoteEvent(player, "MakeErrorNotification", _("cant_while_driving"))
@@ -413,6 +413,8 @@ AddRemoteEvent("RemoveFromInventory", function(player, originInventory, item, am
     if (amount <= 0) then
         return false
     end
+
+    originInventory = tonumber(originInventory)
 
     if PlayerData[originInventory].inventory[item] < tonumber(amount) then
         CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_item"))
