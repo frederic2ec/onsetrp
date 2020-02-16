@@ -495,7 +495,7 @@ end
 function GetNearestPlayers(player, maxDist)
     local maxDist = maxDist or 300
     local x, y, z = GetPlayerLocation(player)
-    local closestPlayers
+    local closestPlayers = {}
     for k, v in pairs(GetStreamedPlayersForPlayer(player)) do
         if v ~= player then
             local x2, y2, z2 = GetPlayerLocation(v)
