@@ -37,7 +37,10 @@ function VehicleRadioToggle(player)
             nowPlaying[veh] = nil
             for k=1, GetVehicleNumberOfSeats(veh) do
                 local target = GetVehiclePassenger(veh, k)
-                if IsValidPlayer(target) then CallRemoteEvent(target, "vehicle:radio:toggleui", false) end
+                if IsValidPlayer(target) then 
+                    CallRemoteEvent(target, "vehicle:radio:toggleui", false) 
+                    CallRemoteEvent(target, "vehicle:radio:updateui", Radios[nowPlaying[veh].channel].label, nowPlaying[veh].volume)  
+                end
             end
         else
             nowPlaying[veh] = {}
@@ -47,9 +50,11 @@ function VehicleRadioToggle(player)
             nowPlaying[veh].volume = BASE_VOLUME            
             for k=1, GetVehicleNumberOfSeats(veh) do                
                 local target = GetVehiclePassenger(veh, k)
-                if IsValidPlayer(target) then CallRemoteEvent(target, "vehicle:radio:toggleui", true) end
-            end
-            CallRemoteEvent(player, "vehicle:radio:updateui", Radios[nowPlaying[veh].channel].label, nowPlaying[veh].volume)        
+                if IsValidPlayer(target) then 
+                    CallRemoteEvent(target, "vehicle:radio:toggleui", true) 
+                    CallRemoteEvent(target, "vehicle:radio:updateui", Radios[nowPlaying[veh].channel].label, nowPlaying[veh].volume)  
+                end
+            end                  
         end
     end
 end
