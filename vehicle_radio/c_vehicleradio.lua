@@ -50,9 +50,7 @@ AddRemoteEvent("vehicle:radio:toggleui", function(state)
 end)
 
 function UpdateRadio(radio, volume)
-    volume = math.floor( volume * 100 )
-    AddPlayerChat(radio.." "..volume)
-    
+    volume = math.floor( volume * 100 )    
     ExecuteWebJS(vehicleRadioUi, "UpdateRadio('" .. tostring(radio) .. "', " .. tostring(volume) .. ");")
 end
 AddRemoteEvent("vehicle:radio:updateui", UpdateRadio)
