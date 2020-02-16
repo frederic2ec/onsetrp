@@ -187,7 +187,7 @@ end)
 
 AddRemoteEvent("medic:deathalarm", function()
     local alarm = CreateSound("client/files/medicDeathAlarm.mp3")
-    SetSoundVolume(alarm, 0.5)
+    SetSoundVolume(alarm, 0.1)
     Delay(3000, function()
         DestroySound(alarm)        
     end)    
