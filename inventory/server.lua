@@ -10,13 +10,12 @@ AddRemoteEvent("ServerPersonalMenu", function(player, inVehicle, vehiclSpeed)
         return CallRemoteEvent(player, "MakeErrorNotification", _("cant_while_driving"))
     end
     
-    local x, y, z = GetPlayerLocation(player)
-    local nearestPlayers = GetPlayersInRange3D(x, y, z, 200)
     local playerList = {}
-    for k, v in pairs(nearestPlayers) do
+    print("-------------")
+    print("For: "..player)
+    for k, v in pairs(GetNearestPlayers(player, 300)) do
         if k ~= player then
-            --table.insert(playerList, {id = k, name = PlayerData[k].name})
-            print("nearest players", k, PlayerData[k].accountid, GetPlayerName(k))
+            print("Nearest players: ", k, PlayerData[k].accountid, GetPlayerName(k))
             local playerName
             if PlayerData[k] ~= nil then
                 if PlayerData[k].accountid ~= nil and PlayerData[k].accountid ~= 0 then playerName = PlayerData[k].accountid else playerName = GetPlayerName(k) end            
@@ -24,6 +23,7 @@ AddRemoteEvent("ServerPersonalMenu", function(player, inVehicle, vehiclSpeed)
             end
         end
     end
+    print("-------------")
     
     CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].name, player, playerList, GetPlayerMaxSlots(player))
 end)
@@ -442,6 +442,7 @@ function AddInventory(inventoryId, item, amount, player)
             DisplayPlayerBackpack(player, 1)
         end
         UpdateUIInventory(player, inventoryId, item, PlayerData[inventoryId].inventory[item])
+        UpdateUIInventory(inventoryId, inventoryId, item, PlayerData[inventoryId].inventory[item])
         SavePlayerAccount(player)
         return true
     else
@@ -477,6 +478,7 @@ function RemoveInventory(inventoryId, item, amount, drop, player)
         else
             PlayerData[inventoryId].inventory[item] = PlayerData[inventoryId].inventory[item] - amount
             UpdateUIInventory(player, inventoryId, item, PlayerData[inventoryId].inventory[item])
+            UpdateUIInventory(inventoryId, inventoryId, item, PlayerData[inventoryId].inventory[item])
         end
         if item == "item_backpack" then
             DisplayPlayerBackpack(player, 1)

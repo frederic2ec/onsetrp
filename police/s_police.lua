@@ -492,6 +492,22 @@ function GetNearestPlayer(player, maxDist)
     return closestPlayer
 end
 
+function GetNearestPlayers(player, maxDist)
+    local maxDist = maxDist or 300
+    local x, y, z = GetPlayerLocation(player)
+    local closestPlayers = {}
+    for k, v in pairs(GetStreamedPlayersForPlayer(player)) do
+        if v ~= player then
+            local x2, y2, z2 = GetPlayerLocation(v)
+            local currentDist = GetDistance3D(x, y, z, x2, y2, z2)
+            if currentDist < maxDist then
+                table.insert(closestPlayers, v)
+            end
+        end
+    end
+    return closestPlayers
+end
+
 function PoliceGetClosestSpawnPoint(player)
     local x, y, z = GetPlayerLocation(player)
     local closestSpawnPoint
