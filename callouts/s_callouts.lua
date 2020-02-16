@@ -47,7 +47,7 @@ AddRemoteEvent("callouts:create", CreateCallout)
 
 function CalloutsNotifyPlayers(callout)-- send the new callout to medics and policemens
     for k, v in pairs(GetAllPlayers()) do
-        if PlayerData[v].job ~= nil and PlayerData[v].job ~= "" and callout.job == PlayerData[v].job then
+        if PlayerData[v] ~= nil and PlayerData[v].job ~= nil and PlayerData[v].job ~= "" and callout.job == PlayerData[v].job then
             if callout.job == "medic" then
                 CallRemoteEvent(v, "MakeNotification", _("medic_new_callout", callout.label), "linear-gradient(to right, #00b09b, #96c93d)", 10000)
                 CallRemoteEvent(v, "medic:deathalarm")         
@@ -120,7 +120,7 @@ function UpdateCalloutsList(player, job)
     local job = job or PlayerData[player].job
     
     for k, v in pairs(GetAllPlayers()) do
-        if job == PlayerData[v].job then
+        if PlayerData[v] ~= nil and PlayerData[v].job ~= nil and PlayerData[v].job ~= "" and job == PlayerData[v].job then
             local calloutsList = GetCalloutsList(v)
             CallRemoteEvent(v, "callouts:updatelist", calloutsList)  
         end

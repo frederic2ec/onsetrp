@@ -1,9 +1,9 @@
 local webview = nil
 
 AddEvent("OnKeyPress", function(key)
-    if key == "F6" and not GetPlayerBusy() then
-        ShowPanel()
-    end
+    -- if key == "F6" and not GetPlayerBusy() then
+    --     ShowPanel()
+    -- end
 end)
 
 function ShowPanel()
