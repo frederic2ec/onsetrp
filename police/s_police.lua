@@ -486,7 +486,7 @@ function GetNearestPlayer(player, maxDist)
             local x2, y2, z2 = GetPlayerLocation(v)
             local currentDist = GetDistance3D(x, y, z, x2, y2, z2)
             if (dist == nil or currentDist < dist) and currentDist <= tonumber(maxDist) then
-                closestPlayer = k
+                closestPlayer = v
                 dist = currentDist
             end
         end
