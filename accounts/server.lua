@@ -292,7 +292,7 @@ function DestroyPlayerData(player)
         PlayerData[player].job_vehicle = nil
     end
 
-    local attachedObjects { "backpack", "mask_1", "mask_2", "mask_3", "mask_4" }
+    local attachedObjects = { "backpack", "mask_1", "mask_2", "mask_3", "mask_4" }
 
     for k, itemToRemove in pairs(attachedObjects) do
         if PlayerData[player][itemToRemove] ~= nil then
