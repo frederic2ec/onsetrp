@@ -15,7 +15,7 @@ local workingCops = {}
 -- Configs
 
 local robberyLocation = { 213940.421875, 192764.109375, 1309.3317871094 }
-local minumumCopsToStartARobbery = 10
+local minumumCopsToStartARobbery = 1 -- temp
 local timeBeforeGettingMoneyInMinutes = 5
 local timeBeforeMoneyDespawn = 5
 local timeBeforeNewRobbery = 15
