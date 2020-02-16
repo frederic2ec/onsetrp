@@ -500,10 +500,8 @@ function GetNearestPlayers(player, maxDist)
         if k ~= player then
             local x2, y2, z2 = GetPlayerLocation(k)
             local currentDist = GetDistance3D(x, y, z, x2, y2, z2)
-            print("Position for "..k..": "..x2, y2, z2)
-            print("Position for "..player..": "..x, y, z)
-            print("Distance between "..PlayerData[player].accountid.." and "..PlayerData[k].accountid..": "..currentDist)
             if currentDist < maxDist then
+                print("Proche de "..PlayerData[player].accountid..": "..PlayerData[k].accountid.." ("..currentDist..")")
                 table.insert(closestPlayers, k)
             end
         end
