@@ -423,9 +423,11 @@ end
 
 function closeTrunk(vehicle)
     CreateCountTimer(function()
-        openRatio = GetVehicleTrunkRatio(vehicle) - 1
-        if openRatio >= 0.0 then
-            SetVehicleTrunkRatio(vehicle, openRatio)
+        if vehicle then
+            openRatio = GetVehicleTrunkRatio(vehicle) - 1
+            if openRatio >= 0.0 then
+                SetVehicleTrunkRatio(vehicle, openRatio)
+            end
         end
     end, 25, 60)
 end
