@@ -7,7 +7,7 @@ local SQL_USER = "root"
 local SQL_PASS = ""
 local SQL_DATA = "roleplay"
 local SQL_CHAR = "utf8mb4"
-local SQL_LOGL = "debug"
+local SQL_LOGL = "error"
 
 -- Setup a MariaDB connection when the package/server starts
 local function OnPackageStart()
