@@ -41,7 +41,7 @@
         "medic/s_medic.lua",
         "medic/s_damage.lua",
         "admin/s_spectate.lua",
-        "searchobject/server.lua"
+        "searchobject/server.lua",
         "callouts/s_callouts.lua",
         "onset-characterize/server.lua"
     ],
@@ -91,7 +91,7 @@
         "medic/c_damage.lua",
         "chat/client.lua",
         "admin/c_spectate.lua",
-        "searchobject/client.lua"
+        "searchobject/client.lua",
         "callouts/c_callouts.lua",
         "onset-characterize/client.lua"
     ],
