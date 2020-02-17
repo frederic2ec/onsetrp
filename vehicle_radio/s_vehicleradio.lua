@@ -20,9 +20,14 @@ local BASE_VOLUME = 0.2
 AddEvent("OnPackageStart", function()
     CreateTimer(function()        
         for k, v in pairs(nowPlaying) do
-            local x, y, z = GetVehicleLocation(k)
-            sr.SetSound3DLocation(v.sound, x, y, z + HOOD_BONUS)
-            local x2,y2,z2 = GetObjectLocation(v.sound)
+            if IsValidVehicle(k) then            
+                local x, y, z = GetVehicleLocation(k)
+                sr.SetSound3DLocation(v.sound, x, y, z + HOOD_BONUS)
+                local x2,y2,z2 = GetObjectLocation(v.sound)
+            else
+                sr.DestroySound3D(nowPlaying[veh].sound)
+                nowPlaying[k] = nil
+            end
         end    
     end, TIMER_REFRESH_RADIO_POSITION)
 end)
