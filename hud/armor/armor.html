@@ -99,7 +99,7 @@
             if (armorlife >= 0 && armorlife <= 10)
                 pourcentageElt.style.color = "#ff1100";
 
-            if (menuIsOpen == 1) { // Si le menu perso est ouvert, on affiche quoi qu'il arrive
+            if (menuIsOpen == 1 && armorlife > 0) { // Si le menu perso est ouvert, on affiche quoi qu'il arrive
                 armorElt.style.opacity = "1";
                 pourcentageElt.style.opacity = "0.9";
             } else { // Sinon, on applique la règle de base
@@ -110,7 +110,7 @@
                 if (armorlife > 40 && armorlife <= 50) {
                     armorElt.style.opacity = "0.4";
                     pourcentageElt.style.opacity = "0.9";
-                }armorlife
+                }
                 if (armorlife > 20 && armorlife <= 40) {
                     armorElt.style.opacity = "0.6";
                     pourcentageElt.style.opacity = "0.9";
@@ -119,9 +119,13 @@
                     armorElt.style.opacity = "0.8";
                     pourcentageElt.style.opacity = "0.9";
                 }
-                if (armorlife >= 0 && armorlife <= 10) {
+                if (armorlife > 0 && armorlife <= 10) {
                     armorElt.style.opacity = "1";
                     pourcentageElt.style.opacity = "0.9";
+                }
+                if (armorlife <= 0) {
+                    armorElt.style.opacity = "0";
+                    pourcentageElt.style.opacity = "0.0";
                 }
             }
         }
