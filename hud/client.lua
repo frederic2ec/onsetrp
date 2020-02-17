@@ -4,6 +4,7 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 local HungerFoodHud
 local ThirstHud
 local HealthHud
+local ArmorHud
 local VehicleHud
 -- local SpeakingHud
 
@@ -28,6 +29,12 @@ function OnPackageStart()
 	LoadWebFile(HealthHud, "http://asset/onsetrp/hud/health/health.html")
     SetWebVisibility(HealthHud, WEB_HITINVISIBLE)
 
+    ArmorHud = CreateWebUI(0, 0, 0, 0, 0, 28)
+	SetWebAlignment(ArmorHud, 1.0, 0.0)
+	SetWebAnchors(ArmorHud, 0.0, 0.0, 1.0, 1.0) 
+	LoadWebFile(ArmorHud, "http://asset/onsetrp/hud/armor/armor.html")
+    	SetWebVisibility(ArmorHud, WEB_HITINVISIBLE)
+
     VehicleHud = CreateWebUI(0, 0, 0, 0, 0, 60)
 	SetWebAlignment(VehicleHud, 1.0, 0.0)
 	SetWebAnchors(VehicleHud, 0.0, 0.0, 1.0, 1.0) 
@@ -47,9 +54,11 @@ AddEvent("OnPackageStart", OnPackageStart)
 
 function updateHud()
     local pHealth = GetPlayerHealth()
+    local pArmor = GetPlayerArmor()
     local pHunger = GetPlayerPropertyValue(GetPlayerId(), "hunger")
     local pThirst = GetPlayerPropertyValue(GetPlayerId(), "thirst")
     if HealthHud ~= nil and pHealth ~= nil then ExecuteWebJS(HealthHud, "SetHealth("..pHealth..", "..personalMenuIsOpen..");") end -- Fix robustesse
+    if ArmorHud ~= nil and pArmor ~= nil then ExecuteWebJS(ArmorHud, "SetArmor("..pArmor..", "..personalMenuIsOpen..");") end
     if HungerFoodHud ~= nil and pHunger ~= nil then ExecuteWebJS(HungerFoodHud, "SetHunger("..pHunger..", "..personalMenuIsOpen..");") end
     if ThirstHud ~= nil and pThirst ~= nil then ExecuteWebJS(ThirstHud, "SetThirst("..pThirst..", "..personalMenuIsOpen..");") end
 
@@ -83,6 +92,7 @@ function hideRPHud()
     SetWebVisibility(HungerFoodHud, WEB_HIDDEN)
     SetWebVisibility(ThirstHud, WEB_HIDDEN)
     SetWebVisibility(HealthHud, WEB_HIDDEN)
+    SetWebVisibility(ArmorHud, WEB_HIDDEN)
     --SetWebVisibility(SpeakingHud, WEB_HIDDEN)
 end
 
@@ -90,6 +100,7 @@ function showRPHud()
     SetWebVisibility(HungerFoodHud, WEB_HITINVISIBLE)
     SetWebVisibility(ThirstHud, WEB_HITINVISIBLE)
     SetWebVisibility(HealthHud, WEB_HITINVISIBLE)
+    SetWebVisibility(ArmorHud, WEB_HITINVISIBLE)
     --SetWebVisibility(SpeakingHud, WEB_HITINVISIBLE)
 end
 
