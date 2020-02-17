@@ -573,7 +573,7 @@ AddRemoteEvent("ObjectDrop", function(player, bool, item, amount)
             ObjectID = 1010
         elseif item == "tree_log" or item == "wood_plank" or item == "treated_wood_plank" then
             ObjectID = 1575
-            sx, sy, sz = 0.5
+            sx, sy, sz = 0.5, 0.5, 0.5
         end
         SetPlayerAnimation(player, "CHECK_EQUIPMENT")
         objetdrop = CreateObject(ObjectID, x, y, z - 95, rx, ry, rz)
