@@ -99,34 +99,12 @@
             if (armorlife >= 0 && armorlife <= 10)
                 pourcentageElt.style.color = "#ff1100";
 
-            if (menuIsOpen == 1) { // Si le menu perso est ouvert, on affiche quoi qu'il arrive
+            if (menuIsOpen == 1 && armorlife > 0) { // Si le menu perso est ouvert, on affiche si et seulement si l'armure est > 0
                 armorElt.style.opacity = "1";
                 pourcentageElt.style.opacity = "0.9";
-            } else { // Sinon, on applique la règle de base
-                if (armorlife > 50 && armorlife <= 100) {
-                    armorElt.style.opacity = "0.0";
-                    pourcentageElt.style.opacity = "0.0";
-                }
-                if (armorlife > 40 && armorlife <= 50) {
-                    armorElt.style.opacity = "0.4";
-                    pourcentageElt.style.opacity = "0.9";
-                }
-                if (armorlife > 20 && armorlife <= 40) {
-                    armorElt.style.opacity = "0.6";
-                    pourcentageElt.style.opacity = "0.9";
-                }
-                if (armorlife > 10 && armorlife <= 20) {
-                    armorElt.style.opacity = "0.8";
-                    pourcentageElt.style.opacity = "0.9";
-                }
-                if (armorlife >= 1 && armorlife <= 10) {
-                    armorElt.style.opacity = "1";
-                    pourcentageElt.style.opacity = "0.9";
-                }
-                if (armorlife == 0){
-                    armorElt.style.opacity = "0.0";
-                    pourcentageElt.style.opacity = "0.0";
-                }
+            } else {
+                armorElt.style.opacity = "0.0";
+                pourcentageElt.style.opacity = "0.0";
             }
         }
 
