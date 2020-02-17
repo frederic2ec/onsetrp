@@ -358,7 +358,9 @@ AddRemoteEvent("TransferInventory", function(player, originInventory, item, amou
             if itemAdded and itemRemoved then
                 if originType == 'player' then
                     if destinationType == 'player' then
-                        SetPlayerAnimation(originInventory, "PICKUP_MIDDLE")
+                        if PlayerData[originInventory].is_cuffed == 0 then
+                            SetPlayerAnimation(originInventory, "PICKUP_MIDDLE")
+                        end
                         CallRemoteEvent(originInventory, "MakeSuccessNotification", _("successful_transfer", amount, item, PlayerData[destinationInventory].name))
                     else
                         CallRemoteEvent(originInventory, "MakeSuccessNotification", _("successful_drop", amount, item))
@@ -366,7 +368,9 @@ AddRemoteEvent("TransferInventory", function(player, originInventory, item, amou
                 end
                 if destinationType == 'player' then
                     if originType == 'player' then
-                        SetPlayerAnimation(destinationInventory, "PICKUP_MIDDLE")
+                        if PlayerData[destinationInventory].is_cuffed == 0 then
+                            SetPlayerAnimation(destinationInventory, "PICKUP_MIDDLE")
+                        end
                         CallRemoteEvent(destinationInventory, "MakeSuccessNotification", _("received_transfer", amount, item, PlayerData[originInventory].name))
                     else
                         CallRemoteEvent(destinationInventory, "MakeSuccessNotification", _("successful_pick", amount, item))
