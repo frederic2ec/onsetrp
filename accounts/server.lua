@@ -267,7 +267,7 @@ function CreatePlayerData(player)
     PlayerData[player].thirst = 100
     PlayerData[player].hunger = 100
     PlayerData[player].health = 100
-    PlayerData[player].bank_balance = 4900
+    PlayerData[player].bank_balance = 7000 -- For BETA 3
     PlayerData[player].job_vehicle = nil
     PlayerData[player].job = ""
     PlayerData[player].phone_contacts = {}
@@ -291,10 +291,14 @@ function DestroyPlayerData(player)
         DestroyVehicleData(PlayerData[player].job_vehicle)
         PlayerData[player].job_vehicle = nil
     end
-    
-    if PlayerData[player].backpack ~= nil then
-        DestroyObject(PlayerData[player].backpack)
-        PlayerData[player].backpack = nil
+
+    local attachedObjects = { "backpack", "mask_1", "mask_2", "mask_3", "mask_4" }
+
+    for k, itemToRemove in pairs(attachedObjects) do
+        if PlayerData[player][itemToRemove] ~= nil then
+            DestroyObject(PlayerData[player][itemToRemove])
+            PlayerData[player][itemToRemove] = nil
+        end
     end
     
     PlayerData[player] = nil

@@ -1,9 +1,9 @@
 local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, ...) end
 
-local BLEEDING_CHANCE = 33 -- Chance for the player to bleed on damage
-local INITIAL_DAMAGE_TO_BLEED = 2 -- how much the damages have to be divided by
+local BLEEDING_CHANCE = 40 -- Chance for the player to bleed on damage
+local INITIAL_DAMAGE_TO_BLEED = 1.5 -- how much the damages have to be divided by
 local DAMAGE_PER_TICK = 1 -- the damages the player will take on each tick
-local BLEEDING_DAMAGE_INTERVAL = 3000 -- The interval to apply damages
+local BLEEDING_DAMAGE_INTERVAL = 5000 -- The interval to apply damages
 local BLEED_EFFECT_AMOUNT = 70 -- the amount of bleed effect (red flash)
 local TASER_LOCK_DURATION = 10000
 local TASER_EFFECT_DURATION = 20000

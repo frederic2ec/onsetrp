@@ -63,11 +63,11 @@ AddRemoteEvent("UpdateUIInventory", function(player, item, quantity, equiped)
     ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.updateItemsInventories('"..player.."', [{ id: '"..item.."', quantity: "..quantity..", isEquipped: "..tostring(equiped).." }]);")
 end)
 
-function onEquipItemInventory(event)
-    local data = json_decode(event)
-    ExecuteWebJS(inventoryUI, 'setEquipItemInventory('..data.idInventory..','..data.idItem..','..tostring(data.isEquipped)..');')
-end
-AddEvent('BURDIGALAX_inventory_onEquip', onEquipItemInventory)
+-- function onEquipItemInventory(event)
+--     local data = json_decode(event)
+--     ExecuteWebJS(inventoryUI, 'setEquipItemInventory('..data.idInventory..','..data.idItem..','..tostring(data.isEquipped)..');')
+-- end
+-- AddEvent('BURDIGALAX_inventory_onEquip', onEquipItemInventory)
 
 -- TRANSFERT
 
@@ -97,7 +97,7 @@ function BuildInventoryJson(items, playerInventory, playerName, playerId, player
                 noNearbyInventories = _("no_nearby_inventories")
             }
         },
-        mainInventoryId = playerId,
+        mainInventoryId = tostring(playerId),
         items = InventoryItems(items),
         effects = InventoryEffects(),
         categories = InventoryCategories(),
@@ -110,16 +110,16 @@ function BuildInventoryJson(items, playerInventory, playerName, playerId, player
 
     for k, player in pairs(playersList) do
         local inventory = {
-            id = player.id,
+            id = tostring(player.id),
             storageSize = maxSlots,
             description = player.name,
             selectName = player.name,
             hasReadAccess = false
         }
 
-        if friskedInventory ~= nil and friskedInventory.id == player.id then
+        if friskedInventory ~= nil and tostring(friskedInventory.id) == tostring(player.id) then
             inventory.hasReadAccess = true
-            inventory.nearbyInventoriesIds = { playerId }
+            inventory.nearbyInventoriesIds = { tostring(playerId) }
             inventory.items = InventoryAvailableItems(friskedInventory.inventory)
             inventory.categoriesIds = {
                 'food',
@@ -140,12 +140,12 @@ function BuildInventoryJson(items, playerInventory, playerName, playerId, player
             end
         end
 
-        table.insert(json.inventories[1].nearbyInventoriesIds, player.id)
+        table.insert(json.inventories[1].nearbyInventoriesIds, tostring(player.id))
         table.insert(json.inventories, inventory)
     end
 
     if friskedInventory ~= nil then
-        json.inventories[1].selectedNearbyInventoryId = friskedInventory.id
+        json.inventories[1].selectedNearbyInventoryId = tostring(friskedInventory.id)
     end
 
     return json
@@ -154,7 +154,7 @@ end
 function Inventories(playerId, playerName, playerInventory, maxSlots)
     return {
         {
-            id = playerId,
+            id = tostring(playerId),
             storageSize = maxSlots,
             name = _('backpack'),
             description = playerName,

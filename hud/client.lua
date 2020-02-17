@@ -59,8 +59,8 @@ function updateHud()
     local pThirst = GetPlayerPropertyValue(GetPlayerId(), "thirst")
     if HealthHud ~= nil and pHealth ~= nil then ExecuteWebJS(HealthHud, "SetHealth("..pHealth..", "..personalMenuIsOpen..");") end -- Fix robustesse
     if ArmorHud ~= nil and pArmor ~= nil then ExecuteWebJS(ArmorHud, "SetArmor("..pArmor..", "..personalMenuIsOpen..");") end
-    if ThirstHud ~= nil and pThirst ~= nil then ExecuteWebJS(ThirstHud, "SetThirst("..pThirst..", "..personalMenuIsOpen..");") end
     if HungerFoodHud ~= nil and pHunger ~= nil then ExecuteWebJS(HungerFoodHud, "SetHunger("..pHunger..", "..personalMenuIsOpen..");") end
+    if ThirstHud ~= nil and pThirst ~= nil then ExecuteWebJS(ThirstHud, "SetThirst("..pThirst..", "..personalMenuIsOpen..");") end
 
     if GetPlayerVehicle() ~= 0 then
         local vehiclespeed = math.floor(GetVehicleForwardSpeed(GetPlayerVehicle()))

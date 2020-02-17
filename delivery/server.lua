@@ -125,6 +125,7 @@ AddRemoteEvent("FinishDelivery", function(player)
     
     if delivery == nil then
         CallRemoteEvent(player, "MakeNotification", _("no_delivery"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+        return
     end
     
     local x, y, z = GetPlayerLocation(player)

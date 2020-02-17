@@ -1,0 +1,221 @@
+
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>VehicleRadio</title>
+    <style>
+        @font-face {
+            font-family: 'Odibee Sans';
+            src: url('assets/OdibeeSans-Regular.ttf');
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            font-family: 'Odibee Sans', cursive;
+            color: rgb(236, 236, 236);
+        }
+
+        .radio-container {
+            margin-right: 60%;
+            margin-left: 20%;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border:0.5pt #262626 solid;
+            position: absolute;
+            bottom: 0;
+            width: 20%;
+            height: 100px;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .row {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .col {
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .center {
+            justify-content: center;
+        }
+
+        .col span {
+            font-size: 20px;
+        }
+
+        .note-container {
+            width: 15%;
+        }
+
+        .radio-title-container {
+            padding-left: 10px;
+            width: 55%;
+        }
+
+        .radio-volume-container {
+            width: 30%;
+        }
+
+        .right {
+            justify-content: right;
+        }
+
+        .nowplaying-container {
+            font-size: 20px;
+            width:100%;
+            padding-left:20px;
+            padding-right:20px;
+        }
+
+        .defileParent {
+            display: block;
+            margin: 3em auto;
+            overflow: hidden;
+            position: relative;
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        .defile {
+            display: block;
+            -webkit-animation: linear marqueelike 15s infinite;
+            -moz-animation: linear marqueelike 15s infinite;
+            -o-animation: linear marqueelike 15s infinite;
+            -ms-animation: linear marqueelike 15s infinite;
+            animation: linear marqueelike 15s infinite;
+            margin-left: -100%;
+            padding: 0 5px;
+            text-align: left;
+            height: 25px;
+        }
+
+
+        .defile:after {
+            content: attr(data-text);
+            position: absolute;
+            white-space: nowrap;
+            padding-left: 10px;
+        }
+
+        @-webkit-keyframes marqueelike {
+
+            0%,
+            100% {
+                margin-left: 0;
+            }
+
+            99.99% {
+                margin-left: -100%;
+            }
+        }
+
+        @-moz-keyframes marqueelike {
+
+            0%,
+            100% {
+                margin-left: 0;
+            }
+
+            99.99% {
+                margin-left: -100%;
+            }
+        }
+
+        @-o-keyframes marqueelike {
+
+            0%,
+            100% {
+                margin-left: 0;
+            }
+
+            99.99% {
+                margin-left: -100%;
+            }
+        }
+
+        @-ms-keyframes marqueelike {
+
+            0%,
+            100% {
+                margin-left: 0;
+            }
+
+            99.99% {
+                margin-left: -100%;
+            }
+        }
+
+        @keyframes marqueelike {
+
+            0%,
+            100% {
+                margin-left: 0;
+            }
+
+            99.99% {
+                margin-left: -100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="radio-container">
+        <div class="row">
+            <div class="col note-container center">
+                <img src="assets/musical-note.png" alt="note" />
+            </div>
+
+            <div class="col radio-title-container">
+                <span>Radio <span id="radio-value"></span></span>
+            </div>
+
+            <div class="col radio-volume-container right">
+                <span>Volume : <span id="volume-value">0</span>%</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="nowplaying-container">
+            <div class="defileParent">
+                <span class="defile" id="nowplaying" data-text=""></span>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script>
+        function UpdateRadio(radio, volume) {
+            console.log(radio, volume);
+            let radioElt = document.getElementById('radio-value');
+            let volumeElt = document.getElementById('volume-value');
+            radioElt.innerText = radio;
+            volumeElt.innerText = volume;
+        }
+
+        function UpdateNowPlaying(nowPlaying) {
+            console.log(nowPlaying);
+            let defile = document.getElementById('nowplaying');
+            defile.dataset['text'] = 'En lecture : ' + nowPlaying;
+        }
+    </script>
+</body>
+
+</html>

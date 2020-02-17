@@ -16,7 +16,7 @@ local VEHICLE_SPAWN_LOCATION = {
 }
 
 local MEDIC_SERVICE_NPC = {
-    {x = 211596, y = 159679, z = 1320, h = 90},
+    {x = 212493, y = 157096, z = 2780, h = 180},
 }
 
 local MEDIC_VEHICLE_NPC = {
@@ -28,11 +28,11 @@ local MEDIC_GARAGE = {
 }
 
 local MEDIC_EQUIPMENT_NPC = {
-    {x = 211252, y = 158777, z = 1322, h = 90},
+    {x = 212744, y = 157405, z = 2781, h = -90},
 }
 
 local MEDIC_HOSPITAL_LOCATION = {
-    {x = 213079, y = 155179, radius = 8000}
+    {x = 213079, y = 155179, radius = 2000}
 }
 
 local MEDIC_EQUIPEMENT_NEEDED = {
@@ -371,8 +371,7 @@ function MedicRevivePlayer(player)-- To revive a player. can fail. need defib.
             end)
             
             CallRemoteEvent(nearestPlayer, "medic:revivescreen:toggle", false)
-            CallRemoteEvent(player, "MakeNotification", _("medic_revived_success"), "linear-gradient(to right, #00b09b, #96c93d)")
-            if callOuts[nearestPlayer] and callOuts[nearestPlayer].taken == true then MedicCalloutEnd(player, nearestPlayer) end
+            CallRemoteEvent(player, "MakeNotification", _("medic_revived_success"), "linear-gradient(to right, #00b09b, #96c93d)")            
             return
         else -- Failure !
             CallRemoteEvent(player, "MakeErrorNotification", _("medic_revived_failure"))
@@ -591,3 +590,10 @@ function IsHospitalInRange(player)-- to nknow if player and targets are in range
     end
     return false
 end
+
+
+AddCommand("medtest", function(player)
+    if PlayerData[player].admin ~= 1 then return end
+    local veh = GetPlayerVehicle(player)    
+    SetVehicleTrunkRatio(veh, 90)
+end)

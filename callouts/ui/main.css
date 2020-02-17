@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    padding: 100px;
+    -webkit-font-smoothing: antialiased;
+}
+
+#main {
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+#cross {
+    padding: 12px;
+    cursor: pointer;
+    text-align: right;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table td, table th {
+    padding: .75rem;
+    vertical-align: top;
+    box-sizing: border-box;
+    border-top: 1px solid #dee2e6;
+    text-align: left;
+}
+
+table {
+    width: 100%;
+}
+
+table tbody tr:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.05);
+}
+
+.label {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    transition: color .15s;
+}
+
+.label-police {
+    color: #fff;
+    background-color: #007bff;
+}
+
+.label-medic {
+    color: #fff;
+    background-color: #28a745;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-error {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}

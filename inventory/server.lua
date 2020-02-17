@@ -10,12 +10,14 @@ AddRemoteEvent("ServerPersonalMenu", function(player, inVehicle, vehiclSpeed)
         return CallRemoteEvent(player, "MakeErrorNotification", _("cant_while_driving"))
     end
     
-    local x, y, z = GetPlayerLocation(player)
-    local nearestPlayers = GetPlayersInRange3D(x, y, z, 1000)
     local playerList = {}
-    for k, v in pairs(nearestPlayers) do
-        if k ~= player then
-            table.insert(playerList, {id = k, name = PlayerData[k].name})
+    for k, neatPlayerId in pairs(GetNearestPlayers(player, 300)) do
+        if neatPlayerId ~= player then
+            local playerName
+            if PlayerData[neatPlayerId] ~= nil then
+                if PlayerData[neatPlayerId].accountid ~= nil and PlayerData[neatPlayerId].accountid ~= 0 then playerName = PlayerData[neatPlayerId].accountid else playerName = GetPlayerName(neatPlayerId) end            
+                table.insert(playerList, {id = neatPlayerId, name = playerName}) -- On prend le nom affiché (l'accountid)
+            end
         end
     end
     
@@ -34,12 +36,13 @@ AddRemoteEvent("EquipInventory", function(player, originInventory, itemName, amo
     if (amount <= 0) then
         return false
     end
-
       
     if string.find(originInventory, 'vehicle_') then
         CallRemoteEvent(player, "MakeErrorNotification", _("pick_first"))
         return false
     end
+
+    originInventory = tonumber(originInventory)
 
     if inVehicle and GetPlayerState(player) == PS_DRIVER and vehiclSpeed > 0 then
         CallRemoteEvent(player, "MakeErrorNotification", _("cant_while_driving"))
@@ -140,6 +143,8 @@ AddRemoteEvent("UseInventory", function(player, originInventory, itemName, amoun
         CallRemoteEvent(player, "MakeErrorNotification", _("pick_first"))
         return false
     end
+
+    originInventory = tonumber(originInventory)
 
     if inVehicle and GetPlayerState(player) == PS_DRIVER and vehiclSpeed > 0 then
         return CallRemoteEvent(player, "MakeErrorNotification", _("cant_while_driving"))
@@ -336,8 +341,6 @@ AddRemoteEvent("TransferInventory", function(player, originInventory, item, amou
         if not enoughItems then
             CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_item"))
         else
-            SetPlayerAnimation(player, "PICKUP_MIDDLE")
-
             local itemAdded = false
             local itemRemoved = false
 
@@ -356,6 +359,7 @@ AddRemoteEvent("TransferInventory", function(player, originInventory, item, amou
             if itemAdded and itemRemoved then
                 if originType == 'player' then
                     if destinationType == 'player' then
+                        SetPlayerAnimation(originInventory, "PICKUP_MIDDLE")
                         CallRemoteEvent(originInventory, "MakeSuccessNotification", _("successful_transfer", amount, item, PlayerData[destinationInventory].name))
                     else
                         CallRemoteEvent(originInventory, "MakeSuccessNotification", _("successful_drop", amount, item))
@@ -363,6 +367,7 @@ AddRemoteEvent("TransferInventory", function(player, originInventory, item, amou
                 end
                 if destinationType == 'player' then
                     if originType == 'player' then
+                        SetPlayerAnimation(destinationInventory, "PICKUP_MIDDLE")
                         CallRemoteEvent(destinationInventory, "MakeSuccessNotification", _("received_transfer", amount, item, PlayerData[originInventory].name))
                     else
                         CallRemoteEvent(destinationInventory, "MakeSuccessNotification", _("successful_pick", amount, item))
@@ -409,6 +414,8 @@ AddRemoteEvent("RemoveFromInventory", function(player, originInventory, item, am
         return false
     end
 
+    originInventory = tonumber(originInventory)
+
     if PlayerData[originInventory].inventory[item] < tonumber(amount) then
         CallRemoteEvent(player, "MakeErrorNotification", _("not_enough_item"))
     else
@@ -437,6 +444,7 @@ function AddInventory(inventoryId, item, amount, player)
             DisplayPlayerBackpack(player, 1)
         end
         UpdateUIInventory(player, inventoryId, item, PlayerData[inventoryId].inventory[item])
+        UpdateUIInventory(inventoryId, inventoryId, item, PlayerData[inventoryId].inventory[item])
         SavePlayerAccount(player)
         return true
     else
@@ -455,8 +463,8 @@ function RemoveInventory(inventoryId, item, amount, drop, player)
         return false
     else
         if PlayerData[inventoryId].inventory[item] - amount < 1 then
-            PlayerData[inventoryId].inventory[item] = nil
             UpdateUIInventory(player, inventoryId, item, 0)
+            UpdateUIInventory(inventoryId, inventoryId, item, 0)
 
             weapon = getWeaponID(item)
             
@@ -468,9 +476,12 @@ function RemoveInventory(inventoryId, item, amount, drop, player)
                     end
                 end
             end
+            
+            PlayerData[inventoryId].inventory[item] = nil
         else
             PlayerData[inventoryId].inventory[item] = PlayerData[inventoryId].inventory[item] - amount
             UpdateUIInventory(player, inventoryId, item, PlayerData[inventoryId].inventory[item])
+            UpdateUIInventory(inventoryId, inventoryId, item, PlayerData[inventoryId].inventory[item])
         end
         if item == "item_backpack" then
             DisplayPlayerBackpack(player, 1)

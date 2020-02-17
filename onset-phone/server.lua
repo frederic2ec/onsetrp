@@ -18,7 +18,6 @@ function LoadPhone(player)
 end
 AddRemoteEvent("LoadPhone", LoadPhone)
 
-
 function UnloadPhone(player)
     SetPlayerAnimation(player, 'PHONE_TAKEOUT_HOLD')
 end
@@ -92,7 +91,7 @@ function MessageCreated(player, phone, content)
     local playersIds = GetAllPlayers()
 
     for playerId, v in pairs(playersIds) do
-        if PlayerData[playerId].phone_number == phone then
+        if PlayerData[playerId] ~= nil and PlayerData[playerId].phone_number == phone then
             CallRemoteEvent(playerId, "NewMessage", from, phone, content, created_at)
         end
     end
@@ -108,7 +107,7 @@ function MessageGPSClicked(player, latitude, longitude)
     print(latitude)
     print(longitude)
 end
-AddRemoteEvent("MessageCreated", MessageCreated)
+AddRemoteEvent("MessageGPSClicked", MessageGPSClicked)
 
 -- UTILS
 

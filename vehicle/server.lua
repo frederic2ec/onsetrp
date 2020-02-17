@@ -326,7 +326,7 @@ function getVehicleId(modelid)
 end
 
 function AddVehicleInventory(vehicle, item, amount, player)
-    if item == "cash" or VehicleTrunkSlots["vehicle_"..VehicleData[vehicle].modelid] >= (amount * ItemsWeight[item]) then
+    if item == "cash" or (VehicleTrunkSlots["vehicle_"..VehicleData[vehicle].modelid] - GetVehicleUsedSlots(vehicle)) >= (amount * ItemsWeight[item]) then
         if VehicleData[vehicle].inventory[item] == nil then
             VehicleData[vehicle].inventory[item] = amount
         else
@@ -341,6 +341,7 @@ function AddVehicleInventory(vehicle, item, amount, player)
         
         return true
     else
+        UpdateUIInventory(player, "vehicle_"..vehicle, item, VehicleData[vehicle].inventory[item])
         return false
     end
 end
@@ -364,6 +365,16 @@ function RemoveVehicleInventory(vehicle, item, amount, player)
 
         return true
     end
+end
+
+function GetVehicleUsedSlots(vehicle)
+    local usedSlots = 0
+    for k, v in pairs(VehicleData[vehicle].inventory) do
+        if k ~= 'cash' then
+            usedSlots = usedSlots + (v * ItemsWeight[k])
+        end
+    end
+    return usedSlots
 end
 
 AddRemoteEvent("ToggleEngine", function(player, vehicle)

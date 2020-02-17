@@ -32,7 +32,7 @@ local VEHICLE_SPAWN_LOCATION = {
 }
 
 local POLICE_SERVICE_NPC = {
-    {x = 191680, y = 208448, z = 2424, h = 0},
+    {x = 191680, y = 208448, z = 2427, h = 0},
     {x = -173771, y = -64070, z = 1209, h = 90},
 }
 
@@ -338,7 +338,7 @@ function SetPlayerCuffed(player, state)
 end
 
 function FinePlayer(player, amount, reason)
-    if (amount <= 0) then
+    if (tonumber(amount) <= 0) then
         return false
     end
       
@@ -438,20 +438,21 @@ function LaunchFriskPlayer(player, target)
     if PlayerData[player].job ~= "police" then return end
     if GetPlayerPropertyValue(target, "cuffed") ~= true then return end
     
+    local x, y, z = GetPlayerLocation(player)
+    local nearestPlayers = GetPlayersInRange3D(x, y, z, 200)
     local playerList = {}
-    for k, v in pairs(GetStreamedPlayersForPlayer(player)) do
-        if PlayerData[k] == nil then
-            goto continue
+    for k, v in pairs(nearestPlayers) do
+        if k ~= player then
+            local playerName
+            if PlayerData[k].accountid ~= nil and PlayerData[k].accountid ~= 0 then playerName = PlayerData[k].accountid else playerName = GetPlayerName(k) end            
+            table.insert(playerList, {id = k, name = playerName}) -- On prend le nom affiché (l'accountid)
         end
-        if PlayerData[k].name == nil then
-            goto continue
-        end
-        if k ~= player then table.insert(playerList, {id = k, name = PlayerData[k].name}) end
-        ::continue::
     end
+
+    print("Frisk: "..target.." -> "..PlayerData[tonumber(target)].accountid)
     
-    searchedPlayer = {id = tonumber(target), name = PlayerData[tonumber(target)].name, inventory = PlayerData[tonumber(target)].inventory}
-    CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].name, player, playerList, GetPlayerMaxSlots(player), searchedPlayer)
+    friskedPlayer = { id = tostring(target), name = PlayerData[tonumber(target)].accountid, inventory = PlayerData[tonumber(target)].inventory }
+    CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].name, player, playerList, GetPlayerMaxSlots(player), friskedPlayer)
 end
 
 --------- INTERACTIONS END
@@ -482,15 +483,35 @@ function GetNearestPlayer(player, maxDist)
     local dist
     for k, v in pairs(GetStreamedPlayersForPlayer(player)) do
         if v ~= player then
-            local x2, y2, z2 = GetPlayerLocation(v)
-            local currentDist = GetDistance3D(x, y, z, x2, y2, z2)
-            if (dist == nil or currentDist < dist) and currentDist <= tonumber(maxDist) then
-                closestPlayer = v
-                dist = currentDist
+            if IsValidPlayer(v) then
+                local x2, y2, z2 = GetPlayerLocation(v)
+                local currentDist = GetDistance3D(x, y, z, x2, y2, z2)
+                if (dist == nil or currentDist < dist) and currentDist <= tonumber(maxDist) then
+                    closestPlayer = v
+                    dist = currentDist
+                end
             end
         end
     end
     return closestPlayer
+end
+
+function GetNearestPlayers(player, maxDist)
+    local maxDist = maxDist or 300
+    local x, y, z = GetPlayerLocation(player)
+    local closestPlayers = {}
+    for k, v in pairs(GetStreamedPlayersForPlayer(player)) do
+        if k ~= player then
+            if IsValidPlayer(k) then            
+                local x2, y2, z2 = GetPlayerLocation(k)
+                local currentDist = GetDistance3D(x, y, z, x2, y2, z2)
+                if currentDist < maxDist then
+                    table.insert(closestPlayers, k)
+                end
+            end
+        end
+    end
+    return closestPlayers
 end
 
 function PoliceGetClosestSpawnPoint(player)

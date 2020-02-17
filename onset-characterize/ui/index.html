@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <script src="jquery.js"></script>
+    <script src="characterize.js"></script>
+
+    <script>
+        if (typeof ue === 'undefined') {
+            // for browser testing outside of game
+            ue = { game: { callevent: console.log } };
+        }
+        (function (obj) {
+            ue.game = {};
+            ue.game.callevent = function (name, ...args) {
+                if (typeof name != "string") {
+                    return;
+                }
+                if (args.length == 0) {
+                    obj.callevent(name, "")
+                } else {
+                    let params = []
+                    for (let i = 0; i < args.length; i++) {
+                        params[i] = args[i];
+                    }
+                    obj.callevent(name, JSON.stringify(params));
+                }
+            };
+        })(ue.game);
+        CallEvent = ue.game.callevent;
+    </script>
+
+	<link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div id="container">
+        <form id="characterize-form">
+            <h2>Characterize</h2>
+            <div>
+                <label for="preset">Presets</label>
+                <input type="range" id="preset" name="preset" min="1" max="30" />
+                <span id="preset_value"></span>
+            </div>
+            <div>
+                <label for="body">Body Model</label>
+                <input type="range" id="body" name="body" min="1" />
+                <span id="body_value"></span>
+            </div>
+            <div>
+                <label for="hair">Hair</label>
+                <input type="range" id="hair" name="hair" min="1" />
+                <span id="hair_value"></span>
+            </div>
+            <div>
+                <label for="hair_color">Hair Color</label>
+                <input type="range" id="hair_color" name="hair_color" min="1" />
+                <span id="hair_color_value"></span>
+            </div>
+            <div>
+                <label for="shirt">Shirt</label>
+                <input type="range" id="shirt" name="shirt" min="1" />
+                <span id="shirt_value"></span>
+            </div>
+            <div>
+                <label for="shirt_color">Shirt Color</label>
+                <input type="range" id="shirt_color" name="shirt_color" min="1" />
+                <span id="shirt_color_value"></span>
+            </div>
+            <div>
+                <label for="pants">Pants</label>
+                <input type="range" id="pants" name="pants" min="1" />
+                <span id="pants_value"></span>
+            </div>
+            <div>
+                <label for="pants_color">Pants Color</label>
+                <input type="range" id="pants_color" name="pants_color" min="1" />
+                <span id="pants_color_value"></span>
+            </div>
+            <div>
+                <label for="shoes">Shoes</label>
+                <input type="range" id="shoes" name="shoes" min="1" />
+                <span id="shoes_value"></span>
+            </div>
+            <div>
+                <button id="submit">Submit</button>
+                <button id="close">Close</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
