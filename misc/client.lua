@@ -16,6 +16,7 @@ function OnKeyPress(key)
 		else
 			EnableFirstPersonCamera(true)
 			SetNearClipPlane(10)
+			CallEvent("CheckSiting")
 		end
 	end
 end
@@ -30,3 +31,27 @@ AddEvent("OnPlayerSpawn", function()
 	SetPostEffect("DepthOfField", "Distance", 0)
 end)
 
+AddEvent("CheckSiting", function()
+	player = GetPlayerId()
+	if GetPlayerPropertyValue(player, "sit") then
+		SetControllerOrientedMovement(false)
+	end
+end)
+
+AddEvent("OnPlayerCrouch", function()
+	IsPlayerCrouching(true)
+end)
+
+AddEvent("OnPlayerEndCrouch", function()
+	IsPlayerCrouching(false)
+end)
+
+function IsPlayerCrouching(booleen)
+	if booleen ~= nil then
+		bool = booleen
+	else
+		return bool
+	end
+end
+
+AddFunctionExport("IsPlayerCrouching", IsPlayerCrouching)

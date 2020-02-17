@@ -1,4 +1,4 @@
--- Based on MasterCedric (https://github.com/MasterCedric/)
+-- Based on MasterCedric (https://github.com/MasterCedric/), modification by GalaxHD551
 
 animationWheelUI = nil
 
@@ -26,9 +26,6 @@ AddEvent("OnKeyPress", function(key)
 			ShowMouseCursor(false)
 			SetInputMode(INPUT_GAME)
 		end
-
-	elseif key == INTERACT_KEY and not IsPlayerInVehicle(GetPlayerId()) and not GetPlayerBusy() then
-		CallRemoteEvent("PickupGun")		
 	end
 end)
 
@@ -45,21 +42,12 @@ AddEvent("drop", function(player)
 		SetWebVisibility(animationWheelUI, WEB_HIDDEN)
 		ShowMouseCursor(false)
 		SetInputMode(INPUT_GAME)
-		CallRemoteEvent("DropGun")
-	else
-		--can't do /prevent bug
+		local slot = GetPlayerEquippedWeaponSlot()
+		local model, ammo, mag = GetPlayerWeapon(slot)
+		local bool = nil
+		local bool = IsPlayerCrouching(bool)
+		CallRemoteEvent("DropGun", mag, bool)
 	end	
-end)
-
-AddEvent("OnObjectStreamIn", function(object)
-	if IsValidObject(object) and GetObjectPropertyValue(object, "collision") == false then
-		GetObjectActor(object):SetActorEnableCollision(false)
-	end
-end)
-
-AddRemoteEvent("GetClientObjects", function()
-	CallRemoteEvent("ReturnedObjects", GetStreamedObjects(false))
-	CallRemoteEvent("ReturnedObjects", GetStreamedObjects(false))
 end)
 
 -- PLAYER LIPS

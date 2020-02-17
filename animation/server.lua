@@ -1,3 +1,4 @@
+local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 -- Based on MasterCedric (https://github.com/MasterCedric/)
 -- Based on OnfireNetwork (https://github.com/OnfireNetwork/)
 
@@ -79,4 +80,35 @@ AddEvent("OnPlayerQuit", function(player)
         DestroyObject(objects[player][k])
     end
     objects[player] = nil
+end)
+
+AddRemoteEvent("DropGun", function(player, mag, bool)
+	local slot = GetPlayerEquippedWeaponSlot(player)
+	if GetPlayerWeapon(player, slot) ~= 1 then
+		local model, ammo = GetPlayerWeapon(player, slot)
+	    	local x, y, z = GetPlayerLocation(player)
+		if bool then
+			z = z + 40
+		end
+	    	local h = GetPlayerHeading(player)
+        	local item = "weapon_" .. tostring(model)
+        	local objet = model + 2
+	    	SetPlayerAnimation(player, "STOP")
+	    	SetPlayerWeapon(player, 1, 0, true, slot, false)
+	    	SetPlayerAnimation(player, "CARRY_SHOULDER_SETDOWN")
+        	RemoveInventory(player, item, 1)
+        	if model == 21 then
+            		objet = model + 1387
+        	end
+        	Delay(1000, function()
+			droppedgun = CreateObject(objet, x, y, z - 95, 90, h -90)
+		    	SetObjectPropertyValue(droppedgun, "isgun", true, true)
+		    	SetObjectPropertyValue(droppedgun, "collision", false, true)
+		    	SetObjectPropertyValue(droppedgun, "model", model, true)
+            		SetObjectPropertyValue(droppedgun, "ammo", ammo, true)
+            		SetObjectPropertyValue(droppedgun, "mag", mag, true)
+        	end)
+    	else
+        	return CallRemoteEvent(player, "MakeNotification", _("nothing_todrop"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+    	end
 end)

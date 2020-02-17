@@ -24,7 +24,6 @@ AddRemoteEvent("ServerPersonalMenu", function(player, inVehicle, vehiclSpeed)
     CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].name, player, playerList, GetPlayerMaxSlots(player))
 end)
 
-
 function getWeaponID(modelid)
     if modelid:find("weapon_") then
         return modelid:gsub("weapon_", "")
@@ -487,19 +486,115 @@ function RemoveInventory(inventoryId, item, amount, drop, player)
             DisplayPlayerBackpack(player, 1)
         end
         if drop == 1 then
-            local x, y, z = GetPlayerLocation(player)
-            local pickup = CreatePickup(620, x, y, z - 90)
-            local text = CreateText3D(_(item) .. " x" .. amount, 15, x, y, z, 0, 0, 0)
-            
-            Delay(300000, function(pickup, text)
-                DestroyPickup(pickup)
-                DestroyText3D(text)
-            end, pickup, text)
+            local bool = nil
+            CallRemoteEvent(player, "CheckCrouch", bool, item, amount)
         end
         SavePlayerAccount(player)
         return true
     end
 end
+
+AddRemoteEvent("ObjectDrop", function(player, bool, item, amount)
+    local x, y, z = GetPlayerLocation(player)
+    if bool then
+        z = z + 40
+    end
+    weapon = getWeaponID(item)
+    weapon = tonumber(weapon)
+    local slot = GetPlayerEquippedWeaponSlot(player)
+    if weapon ~= 0 then
+        if GetPlayerWeapon(player, slot) ~= weapon then
+            for i = 1,3 do
+                if GetPlayerWeapon(player, i) == weapon then
+                    EquipPlayerWeaponSlot(player, i)
+                    Delay(940, function()
+                        SetPlayerWeapon(player, 1, 0, true, i)
+                        SetPlayerAnimation(player, "CARRY_SHOULDER_SETDOWN")
+                    end)
+                    break
+                end
+            end
+        else
+            SetPlayerWeapon(player, 1, 0, true, slot)
+            SetPlayerAnimation(player, "CARRY_SHOULDER_SETDOWN")
+        end
+        if weapon == 21 then
+            weapon = weapon + 1385
+        end
+        objetdrop = CreateObject(weapon + 2, x, y, z - 95, 90)
+        SetObjectPropertyValue(objetdrop, "isitem", true, true)
+        SetObjectPropertyValue(objetdrop, "collision", false, true)
+        SetObjectPropertyValue(objetdrop, "item", item, true)
+        SetObjectPropertyValue(objetdrop, "amount", amount, true)
+    else
+        ObjectID = 620
+        rx = 0
+        ry = 0
+        rz = 0
+        sx = 1.0
+        sy = 1.0
+        sz = 1.0
+        if item == "cash" then
+            if amount < 1000 then
+                ObjectID = 1497
+            elseif amount < 4000 then
+                ObjectID = 1499
+            else
+                ObjectID = 1501
+            end
+        elseif item == "water_bottle" then
+            ObjectID = 1631
+        elseif item == "apple" then
+            ObjectID = 1616
+        elseif item == "donut" then
+            ObjectID = 1648
+        elseif item == "phone" then
+            ObjectID = 181
+            rz = -90
+        elseif item == "pickaxe" then
+            ObjectID = 1063
+            rz = 90
+        elseif item == "lumberjack_saw" then
+            ObjectID = 1075
+        elseif item == "lumberjack_axe" then
+            ObjectID = 1047
+        elseif item == "fishing_rod" then
+            ObjectID = 1111
+            rx = 90
+        elseif item == "health_kit" then
+            ObjectID = 794
+        elseif item == "repair_kit" then
+            ObjectID = 551
+        elseif item == "handcuffs" then
+            ObjectID = 1439
+        elseif item == "jerican" then
+            ObjectID = 1011
+        elseif item == "lockpick" then
+            ObjectID = 1010
+        elseif item == "tree_log" or item == "wood_plank" or item == "treated_wood_plank" then
+            ObjectID = 1575
+            sx, sy, sz = 0.5
+        end
+        SetPlayerAnimation(player, "CHECK_EQUIPMENT")
+        objetdrop = CreateObject(ObjectID, x, y, z - 95, rx, ry, rz)
+        SetObjectScale(objetdrop, sx, sy, sz)
+        text = CreateText3D(_(item).." x"..amount, 15, x, y, z, 0,0,0)
+        SetObjectPropertyValue(objetdrop, "isitem", true, true)
+        SetObjectPropertyValue(objetdrop, "collision", false, true)
+        SetObjectPropertyValue(objetdrop, "item", item, true)
+        SetObjectPropertyValue(objetdrop, "amount", amount, true)
+        SetText3DPropertyValue(text, "textitem", true, true)
+    end
+
+    Delay(300000, function(objetdrop, text)
+        if objetdrop ~= nil then
+            DestroyObject(objetdrop)
+            if text ~= nil then
+                DestroyText3D(text)
+            end
+        end                           
+    end, objetdrop, text)
+end)
 
 function SetInventory(player, item, amount)
     if (amount <= 0) then

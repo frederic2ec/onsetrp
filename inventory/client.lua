@@ -75,3 +75,7 @@ AddRemoteEvent("LockControlMove", function(move)
     SetIgnoreMoveInput(move)
 end)
 
+AddRemoteEvent("CheckCrouch", function(bool, item, amount)
+    bool = IsPlayerCrouching(bool)
+    CallRemoteEvent("ObjectDrop", bool, item, amount)
+end)
