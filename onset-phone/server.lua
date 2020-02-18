@@ -10,14 +10,16 @@ local canUsePhoneWhileGathering = false
 
 function LoadPhone(player)
     if (canUsePhoneWhileGathering or not PlayerData[player].onAction) and canUsePhoneWithoutPhoneItem or PlayerData[player].inventory[phoneItemName] then
-        local x, y, z = GetPlayerLocation(player)
-        local Ophone = CreateObject(181, x, y, z)
-        SetObjectAttached(Ophone, ATTACH_PLAYER, player, -11.0, 4.0, 6.0, 30.0, -10.0, -10.0, "hand_r")
-        CallRemoteEvent(player, "StockPhone", Ophone)
-        SetPlayerAnimation(player, 'PHONE_TAKEOUT')
-        Delay(1200, function()
-            SetPlayerAnimation(player, 'PHONE_HOLD')
-        end)
+	if not GetPlayerPropertyValue(player, "sit") then
+        	local x, y, z = GetPlayerLocation(player)
+        	local Ophone = CreateObject(181, x, y, z)
+        	SetObjectAttached(Ophone, ATTACH_PLAYER, player, -11.0, 4.0, 6.0, 30.0, -10.0, -10.0, "hand_r")
+        	CallRemoteEvent(player, "StockPhone", Ophone)
+        	SetPlayerAnimation(player, 'PHONE_TAKEOUT')
+        	Delay(1200, function()
+            		SetPlayerAnimation(player, 'PHONE_HOLD')
+        	end)
+	end
 
         local query = mariadb_prepare(sql, "SELECT * FROM messages WHERE messages.from = '?' OR messages.to = '?';", tostring(PlayerData[player].phone_number), tostring(PlayerData[player].phone_number))
 
@@ -28,8 +30,10 @@ AddRemoteEvent("LoadPhone", LoadPhone)
 
 
 function UnloadPhone(player)
-    SetPlayerAnimation(player, 'PHONE_PUTAWAY')
-    CallRemoteEvent(player, "StockPhone")
+	if not GetPlayerPropertyValue(player, "sit") then
+    		SetPlayerAnimation(player, 'PHONE_PUTAWAY')
+    		CallRemoteEvent(player, "StockPhone")
+	end
 end
 AddRemoteEvent("UnloadPhone", UnloadPhone)
 
