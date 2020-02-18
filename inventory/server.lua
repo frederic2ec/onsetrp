@@ -296,10 +296,6 @@ AddRemoteEvent("TransferInventory", function(player, originInventory, item, amou
         return false
     end
 
-    if player ~= originInventory and PlayerData[destinationInventory].is_cuffed == 0 then
-        return false
-    end
-
     local originType, originX, originY, originZ, destX, destY, destZ
 
     -- ORIGIN INVENTORY
@@ -309,6 +305,10 @@ AddRemoteEvent("TransferInventory", function(player, originInventory, item, amou
         originInventory = string.gsub(originInventory, 'vehicle_', '')
         originX, originY, originZ = GetVehicleLocation(originInventory)
     else
+        if player ~= originInventory and PlayerData[originInventory].is_cuffed == 0 then
+            return false
+        end
+
         originType = 'player'
         originX, originY, originZ = GetPlayerLocation(originInventory)
     end
