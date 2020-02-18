@@ -296,6 +296,10 @@ AddRemoteEvent("TransferInventory", function(player, originInventory, item, amou
         return false
     end
 
+    if player ~= originInventory and PlayerData[destinationInventory].is_cuffed == 0 then
+        return false
+    end
+
     local originType, originX, originY, originZ, destX, destY, destZ
 
     -- ORIGIN INVENTORY
