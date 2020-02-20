@@ -22,8 +22,8 @@ local teleportPlace = {
     lumberjack_process_1 = {-70149, -59260, 1466},
     lumberjack_supplier = {203566, 171875, 1306},
     peach_gather = {-174432, 10837, 1831},
-    cocaine_gather = {-45600, -106988, 2574},
-    cocaine_process = {-215517, -51147, 200},
+    cocaine_gather = {74387, -137535, 2178},
+    cocaine_process = {-215517, -92653, 2293},
     fishing_gather_1 = {232464, 193521, 112},
     fishing_gather_2 = {-220130, 23036, 107},
     fishing_supplier = {-21295, -22954, 2080},
@@ -31,8 +31,8 @@ local teleportPlace = {
     mining_process_1 = {-82629, 90991, 481},
     mining_process_2 = {-191437, -31107, 1148},
     mining_supplier = {67862, 184741, 535},
-    ironsmith = { -189805, -34122, 1148},
-    hospital = { 213530, 158344, 1416}
+    ironsmith = {-189805, -34122, 1148},
+    hospital = {213530, 158344, 1416}
 }
 
 local weaponList = {
@@ -142,7 +142,7 @@ end)
 
 AddRemoteEvent("AdminRezPlayer", function(player, toPlayer)
     if tonumber(PlayerData[player].admin) ~= 1 then return end
-    if GetPlayerHealth(toPlayer) > 0 then return end
+    if GetPlayerHealth(toPlayer) == nil or GetPlayerHealth(toPlayer) > 0 then return end
     local x, y, z = GetPlayerLocation(toPlayer)
     local h = GetPlayerHeading(toPlayer)
     SetPlayerSpawnLocation(toPlayer, x, y, z, h)

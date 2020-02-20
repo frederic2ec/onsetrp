@@ -152,7 +152,7 @@ end)
 function unlockVehicle(player)
     local nearestCar = GetNearestCar(player)
     local vehicle = VehicleData[nearestCar] 
-    if nearestCar ~= 0 then
+    if vehicle and nearestCar ~= 0 and PlayerData[player] then
         if PlayerData[player].admin == 1 then
             if GetVehiclePropertyValue(nearestCar, "locked") then
                 CallRemoteEvent(player, "MakeNotification", _("car_unlocked"), "linear-gradient(to right, #00b09b, #96c93d)")
@@ -241,9 +241,11 @@ end)
 
 AddRemoteEvent("VehicleKeys", function(player) 
     local vehicle = GetNearestCar(player)
-    local keyslist = VehicleData[vehicle].keys
-    local playerlist = GetAllPlayers()
-    CallRemoteEvent(player, "OpenVehicleKeys", keyslist, playerlist)
+    if vehicle then
+        local keyslist = VehicleData[vehicle].keys
+        local playerlist = GetAllPlayers()
+        CallRemoteEvent(player, "OpenVehicleKeys", keyslist, playerlist)
+    end
 end)
 
 AddRemoteEvent("CloseTrunk", function(player, openedTrunk)
@@ -440,24 +442,27 @@ AddRemoteEvent("ToggleHood", function(player)
     if IsPlayerInVehicle(player) then
         if GetPlayerVehicleSeat(player) == 1 then
             vehicle = GetPlayerVehicle(player)
-            if GetVehicleHoodRatio(vehicle) > 0.0 and GetVehicleHoodRatio(vehicle) < 60.0 then
-                -- Animation was already running
-            elseif GetVehicleHoodRatio(vehicle) == 60.0 then
-                CreateCountTimer(function()
-                    if vehicle and GetVehicleHoodRatio(vehicle) then
-                        openRatio = GetVehicleHoodRatio(vehicle) - 0.5
-                        if openRatio >= 0.0 then
+
+            if GetVehicleHoodRatio(vehicle) then
+                if GetVehicleHoodRatio(vehicle) > 0.0 and GetVehicleHoodRatio(vehicle) < 60.0 then
+                    -- Animation was already running
+                elseif GetVehicleHoodRatio(vehicle) == 60.0 then
+                    CreateCountTimer(function()
+                        if vehicle and GetVehicleHoodRatio(vehicle) then
+                            openRatio = GetVehicleHoodRatio(vehicle) - 0.5
+                            if openRatio >= 0.0 then
+                                SetVehicleHoodRatio(vehicle, openRatio)
+                            end
+                        end
+                    end, 25, 120)
+                else
+                    CreateCountTimer(function()
+                        openRatio = GetVehicleHoodRatio(vehicle) + 0.5
+                        if openRatio <= 60.0 then
                             SetVehicleHoodRatio(vehicle, openRatio)
                         end
-                    end
-                end, 25, 120)
-            else
-                CreateCountTimer(function()
-                    openRatio = GetVehicleHoodRatio(vehicle) + 0.5
-                    if openRatio <= 60.0 then
-                        SetVehicleHoodRatio(vehicle, openRatio)
-                    end
-                end, 25, 120)
+                    end, 25, 120)
+                end
             end
         end
     end

@@ -97,7 +97,9 @@ AddRemoteEvent("ModifyEvent", function(player, hairsChoice, shirtsChoice, pantsC
 	SetPlayerNotBusy(player)
 
 	for k, v in pairs(GetStreamedPlayersForPlayer(player)) do
-        ChangeOtherPlayerClothes(v, player)
+		if IsPlayerStreamedIn(v) then
+			ChangeOtherPlayerClothes(v, player)
+		end
     end
 
 	UpdateClothes(player)

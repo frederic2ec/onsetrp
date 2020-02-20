@@ -396,6 +396,7 @@ function StartSelling(player, npc)
         CallRemoteEvent(player, "loadingbar:show", _("selling_of_item", tonumber(PlayerData[player].inventory[item]), _(item)), time)-- LOADING BAR
         
         Delay(time * 1000, function()
+            if PlayerData[player].inventory[item] == nil then return end
             local x, y, z = GetPlayerLocation(player)
             local x2, y2, z2 = GetNPCLocation(npc)
             if GetDistance3D(x, y, z, x2, y2, z2) <= 200 then

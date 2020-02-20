@@ -2,10 +2,12 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 
 function OnPlayerChat(player, message)
     -- Region message
-    local streamedPlayers = GetStreamedPlayersForPlayer(player)
     message = '<span>'..PlayerData[player].name..'('..player..'):</> '..message
-    for k,v in pairs(streamedPlayers) do
-        AddPlayerChat(v, message)
+    
+    for k, v in pairs(GetStreamedPlayersForPlayer(player)) do
+        if IsPlayerStreamedIn(v) then
+            AddPlayerChat(v, message)
+        end
     end
 
     local query = mariadb_prepare(sql, "INSERT INTO logs VALUES (NULL, UNIX_TIMESTAMP(), '?');",
