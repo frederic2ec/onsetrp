@@ -336,9 +336,9 @@ AddRemoteEvent("TransferInventory", function(player, originInventory, item, amou
         local enoughItems = false
 
         if originType == 'player' then
-            enoughItems = PlayerData[originInventory].inventory[item] >= amount
+            enoughItems = VehicleData[originInventory].inventory[item] == nil or PlayerData[originInventory].inventory[item] >= amount
         else
-            enoughItems = VehicleData[originInventory].inventory[item] >= amount
+            enoughItems = VehicleData[originInventory].inventory[item] == nil or VehicleData[originInventory].inventory[item] >= amount
         end
 
         if not enoughItems then

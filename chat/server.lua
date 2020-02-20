@@ -5,7 +5,7 @@ function OnPlayerChat(player, message)
     local streamedPlayers = GetStreamedPlayersForPlayer(player)
     message = '<span>'..PlayerData[player].name..'('..player..'):</> '..message
     for k,v in pairs(streamedPlayers) do
-        AddPlayerChat(k, message)
+        AddPlayerChat(v, message)
     end
 
     local query = mariadb_prepare(sql, "INSERT INTO logs VALUES (NULL, UNIX_TIMESTAMP(), '?');",
