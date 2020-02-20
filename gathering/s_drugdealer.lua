@@ -6,7 +6,7 @@ local npcTable = {
 local npcTableCached = {}
 
 local drugsUnitPrice = {
-    cocaine = 10
+    cocaine = 35
 }
 
 AddEvent("OnPackageStart", function(player)
