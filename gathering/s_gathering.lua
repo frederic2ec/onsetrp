@@ -48,6 +48,9 @@ gatherTable = {
             {model = 145, x = -175449, y = 11528, z = 1757, rx = 0, ry = 80, rz = 0},
             {model = 145, x = -175171, y = 12038, z = 1719, rx = 0, ry = 50, rz = 0},
             {model = 145, x = -174581, y = 12021, z = 1686, rx = 0, ry = 40, rz = 0},
+        },
+        sell_zone = {
+            { x = -167521, y = -39359, z = 1146, h = 180, item_to_sell = "peach", price_per_unit = 2, sell_time = 2 }
         }
     },
     {-- COCAINE
@@ -112,7 +115,7 @@ gatherTable = {
         gather_time = 6,
         gather_animation_attachement = {modelid = 1111, bone = "hand_r"},
         sell_zone = {
-            {x = -21295, y = -22954, z = 2080, h = -90, item_to_sell = "herring", price_per_unit = 8, sell_time = 5}
+            {x = -21295, y = -22954, z = 2080, h = -90, item_to_sell = "herring", price_per_unit = 5, sell_time = 5}
         }
     },
     {-- MINING

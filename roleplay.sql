@@ -131,7 +131,7 @@ INSERT INTO `items` (`id`, `name`, `category`, `subcategory`, `price`, `weight`,
 	(NULL, 'weapon_20', 'weapons', 'weapon', 5000000, 30000, 0, 0, 1, 0),
 	(NULL, 'weapon_21', 'weapons', 'weapon', 5000000, 5000, 0, 0, 1, 0),
 	(NULL, 'iron_pipe', 'job_item', 'object', 0, 16000, 0, 0, 0, 0),
-	(NULL, 'peach', 'miscellaneous', 'food', 35, 4000, 30, 5, 0, 1),
+	(NULL, 'peach', 'job_item', 'food', 0, 4000, 30, 5, 0, 1),
 	(NULL, 'item_backpack', 'miscellaneous', 'object', 150, 1000, 0, 0, 1, 0),
 	(NULL, 'coca_leaf', 'drugs', 'object', 0, 1000, 0, 0, 0, 0),
 	(NULL, 'cocaine', 'drugs', 'object', 0, 4000, 0, 0, 0, 1),
@@ -147,9 +147,9 @@ INSERT INTO `items` (`id`, `name`, `category`, `subcategory`, `price`, `weight`,
 	(NULL, 'bandage', 'job_item', 'tool', 0, 1000, 0, 0, 0, 1),
 	(NULL, 'herring', 'job_item', 'food', 0, 5000, 35, 0, 0, 1),
 	(NULL, 'mask_1', 'masks', 'object', 5000, 100, 0, 0, 1, 0),
-	(NULL, 'mask_2', 'masks', 'object', 5000, 100, 0, 0, 1, 0),
-	(NULL, 'mask_3', 'masks', 'object', 7000, 100, 0, 0, 1, 0),
-	(NULL, 'mask_4', 'masks', 'object', 7000, 100, 0, 0, 1, 0);
+	(NULL, 'mask_2', 'masks', 'object', 6000, 100, 0, 0, 1, 0),
+	(NULL, 'mask_3', 'masks', 'object', 8000, 100, 0, 0, 1, 0),
+	(NULL, 'mask_4', 'masks', 'object', 10000, 100, 0, 0, 1, 0);
 
 -- Listage de la structure de la table roleplay. logs
 CREATE TABLE IF NOT EXISTS `logs` (
