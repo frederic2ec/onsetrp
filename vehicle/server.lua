@@ -444,9 +444,11 @@ AddRemoteEvent("ToggleHood", function(player)
                 -- Animation was already running
             elseif GetVehicleHoodRatio(vehicle) == 60.0 then
                 CreateCountTimer(function()
-                    openRatio = GetVehicleHoodRatio(vehicle) - 0.5
-                    if openRatio >= 0.0 then
-                        SetVehicleHoodRatio(vehicle, openRatio)
+                    if GetVehicleHoodRatio(vehicle) then
+                        openRatio = GetVehicleHoodRatio(vehicle) - 0.5
+                        if openRatio >= 0.0 then
+                            SetVehicleHoodRatio(vehicle, openRatio)
+                        end
                     end
                 end, 25, 120)
             else
