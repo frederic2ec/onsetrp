@@ -425,7 +425,7 @@ end
 
 function closeTrunk(vehicle)
     CreateCountTimer(function()
-        if vehicle then
+        if vehicle and GetVehicleTrunkRatio(vehicle) then
             openRatio = GetVehicleTrunkRatio(vehicle) - 1
             if openRatio >= 0.0 then
                 SetVehicleTrunkRatio(vehicle, openRatio)
@@ -444,7 +444,7 @@ AddRemoteEvent("ToggleHood", function(player)
                 -- Animation was already running
             elseif GetVehicleHoodRatio(vehicle) == 60.0 then
                 CreateCountTimer(function()
-                    if GetVehicleHoodRatio(vehicle) then
+                    if vehicle and GetVehicleHoodRatio(vehicle) then
                         openRatio = GetVehicleHoodRatio(vehicle) - 0.5
                         if openRatio >= 0.0 then
                             SetVehicleHoodRatio(vehicle, openRatio)

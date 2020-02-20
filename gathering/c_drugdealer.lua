@@ -212,12 +212,12 @@ local gpsTable = {}
 AddRemoteEvent("drugdealer:showdrugs", function(knowledges)
     gpsTable = {}
     
-    table.insert(gpsTable, {label = _("drugdealer_name"), x = 38011, y = 144418, z = 1400})
+    table.insert(gpsTable, {label = _("drugdealer_name"), x = 72234, y = 1658, z = 1370})
     
     for k, v in pairs(knowledges) do
         if k == "cocaine" and v == 1 then
-            table.insert(gpsTable, {label = _("gather") .. " " .. _("coca_leaf"), x = -45600, y = -106988, z = 2574})
-            table.insert(gpsTable, {label = _("process") .. " " .. _("coca_leaf"), x = -215517, y = -51147, z = 200})
+            table.insert(gpsTable, {label = _("gather") .. " " .. _("coca_leaf"), x = 101448, y = -137535, z = 2178})
+            table.insert(gpsTable, {label = _("process") .. " " .. _("coca_leaf"), x = 74387, y = -1658, z = 1370})
         end
     end
     
