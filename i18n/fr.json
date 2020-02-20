@@ -281,7 +281,7 @@
     "city": "Centre-Ville",
     "unprocessed_rock": "Pierre non transformée",
     "processed_rock": "Pierre transformée",
-    "not_whitelisted": "Vous n'êtes pas sur la liste blanche !",
+    "not_whitelisted": "Vous n'êtes pas sur la liste blanche ! Merci de vous rendre sur https://intranet.onset-rp.com/ pour obtenir votre accès ;)",
     "job_full": "Ce métier est complet !",
     "police_job": "Officier de police",
     "police_menu": "Menu Police",
