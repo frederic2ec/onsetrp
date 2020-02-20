@@ -16,3 +16,9 @@ AddEvent("OnPlayerSteamAuth", function(player)
         end, player)
     end
 end)
+
+AddEvent("OnPackageStart", function()
+    if whitelist == true then
+        print('→ Whitelist initialized')
+    end
+end)
