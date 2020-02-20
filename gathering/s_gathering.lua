@@ -52,13 +52,13 @@ gatherTable = {
     },
     {-- COCAINE
         gather_zone = {
-            {x = -45600, y = -106988, z = 2574}
+            {x = 101428, y = -137524, z = 2932}
         },
         gather_item = "coca_leaf",
         gather_time = 7,
         process_steps = {
             {
-                step_zone = {x = -215517, y = -51147, z = 200},
+                step_zone = {x = 74387, y = -92653, z = 2293},
                 step_require = "coca_leaf",
                 step_require_number = 3,
                 step_processed_item = "cocaine",
