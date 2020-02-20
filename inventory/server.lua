@@ -332,7 +332,7 @@ AddRemoteEvent("TransferInventory", function(player, originInventory, item, amou
 
     local dist = GetDistance3D(originX, originY, originZ, destX, destY, destZ)
     
-    if dist <= 200 then
+    if dist <= 500 then
         local enoughItems = false
 
         if originType == 'player' then
