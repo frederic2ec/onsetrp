@@ -142,7 +142,7 @@ end)
 
 AddRemoteEvent("AdminRezPlayer", function(player, toPlayer)
     if tonumber(PlayerData[player].admin) ~= 1 then return end
-    if GetPlayerHealth(toPlayer) == nil or GetPlayerHealth(toPlayer) > 0 then return end
+    if GetPlayerHealth(toPlayer) == nil or GetPlayerHealth(toPlayer) == false or GetPlayerHealth(toPlayer) > 0 then return end
     local x, y, z = GetPlayerLocation(toPlayer)
     local h = GetPlayerHeading(toPlayer)
     SetPlayerSpawnLocation(toPlayer, x, y, z, h)
