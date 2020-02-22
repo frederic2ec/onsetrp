@@ -8,7 +8,8 @@ function Scoreboard_RequestUpdate(player)
         goto continue
     end
     _send[v] = {
-      ['id'] = PlayerData[v].accountid,
+      ['id'] = v,
+      ['accountid'] = PlayerData[v].accountid,
       ['name'] = PlayerData[v].name or GetPlayerName(v),
       ['steamid'] = tostring(GetPlayerSteamId(v)),
       ['ping'] = GetPlayerPing(v)

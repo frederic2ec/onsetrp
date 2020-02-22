@@ -6,28 +6,28 @@ function ResetScoreboard() {
     tableOuter.scrollTop = 0;
 }
 
-function AddPlayer(id, name, steamid, ping) {
+function AddPlayer(id, accountid, name, steamid, ping) {
     let table = document.getElementsByTagName("table")[0];
     let tableContent = table.getElementsByTagName("tbody")[0].innerHTML;
 
     table.getElementsByTagName("tbody")[0].innerHTML =
         tableContent +
         `<tr>
-    <td>#${id}</td>
+    <td>#${accountid}</td>
     <td>${name}</td>
     <td>${steamid}</td>
     <td>${ping}ms</td>
     <td class="right">
-        <button class="btn-level-0" onclick="spec(${id})"><img src="admin-icons/binoculars.png"/> SPC</button>&nbsp;    
-        <button class="btn-level-0" onclick="heal(${id})"><img src="admin-icons/pill.png"/> HEAL</button>&nbsp;    
-        <button class="btn-level-0" onclick="rez(${id})"><img src="admin-icons/reanimation.png"/> REZ</button>&nbsp;    
-        <button class="btn-level-0" onclick="cuff(${id})"><img src="admin-icons/jail.png"/> CUFF</button>&nbsp;    
-        <button class="btn-level-1" onclick="goto(${id})"><img src="admin-icons/teleport.png"/> GOTO</button>&nbsp;
-        <button class="btn-level-1" onclick="bring(${id})"><img src="admin-icons/teleport.png"/> BRING</button>&nbsp;
-        <button class="btn-level-2" onclick="freeze(${id})"><img src="admin-icons/freeze.png"/> FRZ</button>&nbsp;
-        <button class="btn-level-2" onclick="ragdoll(${id})"><img src="admin-icons/doll.png"/> RGD</button>&nbsp;
-        <button class="btn-level-3 btn-margin-left" onclick="kick(${id})"><img src="admin-icons/kick.png"/> KICK</button>&nbsp;
-        <button class="btn-level-3" onclick="ban(${id})"><img src="admin-icons/law.png"/> BAN</button>     
+        <button class="btn-level-0" onclick="spec(${id})">SPC</button>&nbsp;    
+        <button class="btn-level-0" onclick="heal(${id})">HEAL</button>&nbsp;    
+        <button class="btn-level-0" onclick="rez(${id})">REZ</button>&nbsp;    
+        <button class="btn-level-0" onclick="cuff(${id})">CUFF</button>&nbsp;    
+        <button class="btn-level-1" onclick="goto(${id})">GOTO</button>&nbsp;
+        <button class="btn-level-1" onclick="bring(${id})"> BRING</button>&nbsp;
+        <button class="btn-level-2" onclick="freeze(${id})">FRZ</button>&nbsp;
+        <button class="btn-level-2" onclick="ragdoll(${id})">RGD</button>&nbsp;
+        <button class="btn-level-3 btn-margin-left" onclick="kick(${id})">KICK</button>&nbsp;
+        <button class="btn-level-3" onclick="ban(${id})">BAN</button>     
     </td>
   </tr>`;
 }
