@@ -569,6 +569,7 @@
     "medic_menu_put_player_in_vehicle": "Mettre la personne dans l'ambulance",
     "medic_menu_remove_player_from_vehicle": "Faire sortir la personne de l'ambulance",
     "callouts_menu_end_callout": "Mettre fin à l'appel en cours",
+    "call_police_mecano": "Appeler une dépaneuse",
     "medic_garage_menu": "Garage des médecins",
     "medic_garage_menu_spawn_ambulance": "Sortir une ambulance",
     "medic_equipment_menu": "Équipement de médecin",

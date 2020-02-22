@@ -433,6 +433,15 @@ function FriskPlayer(player)
 end
 AddRemoteEvent("police:friskplayer", FriskPlayer)
 
+function PoliceRemoveVehicle(player)
+    if PlayerData[player].police ~= 1 then return end
+    if PlayerData[player].job ~= "police" then return end
+    
+    local vehicle = getNearestVehicle()
+    MoveVehicleToGarage(vehicle)
+end
+AddRemoteEvent("police:removevehicle", PoliceRemoveVehicle)
+
 function LaunchFriskPlayer(player, target)
     if PlayerData[player].police ~= 1 then return end
     if PlayerData[player].job ~= "police" then return end

@@ -119,13 +119,7 @@ function OnPlayerPickupHit(player, pickup)
                 seat = GetPlayerVehicleSeat(player)
                 if (vehicle ~= 0 and seat == 1) then
                     if (VehicleData[vehicle].owner == PlayerData[player].accountid) then
-                        local query = mariadb_prepare(sql, "UPDATE `player_garage` SET `garage`=1 WHERE `id` = ?;",
-                        tostring(VehicleData[vehicle].garageid)
-                        )
-                        mariadb_async_query(sql, query)
-                        DestroyVehicle(vehicle)
-                        DestroyVehicleData(vehicle)
-                        return CallRemoteEvent(player, "MakeNotification", _("vehicle_stored"), "linear-gradient(to right, #00b09b, #96c93d)")
+                        MoveVehicleToGarage(vehicle)
                     end
                 end
             end
@@ -133,6 +127,18 @@ function OnPlayerPickupHit(player, pickup)
 	end
 end
 AddEvent("OnPlayerPickupHit", OnPlayerPickupHit)
+
+function MoveVehicleToGarage(vehicle)
+    if vehicle then
+        local query = mariadb_prepare(sql, "UPDATE `player_garage` SET `garage`=1 WHERE `id` = ?;",
+        tostring(VehicleData[vehicle].garageid)
+        )
+        mariadb_async_query(sql, query)
+        DestroyVehicle(vehicle)
+        DestroyVehicleData(vehicle)
+        return CallRemoteEvent(player, "MakeNotification", _("vehicle_stored"), "linear-gradient(to right, #00b09b, #96c93d)")
+    end
+end
 
 function spawnCarServer(player, id)
     local query = mariadb_prepare(sql, "SELECT * FROM player_garage WHERE id = ?;",

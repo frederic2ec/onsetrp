@@ -13,17 +13,17 @@ CarDefaultColors = {
 CarDefaultVehicles = {
 	vehicle_25 = 2000,
 	vehicle_1 = 6000,
-	vehicle_4 = 12000,
-	vehicle_5 = 9000,
 	vehicle_19 = 6000,
+	vehicle_5 = 9000,
+	vehicle_4 = 12000,
+	vehicle_7 = 30000,
 	vehicle_11 = 40000,
 	vehicle_12 = 50000,
-	vehicle_6 = 70000,
-	vehicle_7 = 30000,
 	vehicle_22 = 45000,
 	vehicle_23 = 45000,
 	vehicle_17 = 60000,
 	vehicle_18 = 60000,
+	vehicle_6 = 70000,
 }
 
 CarDealerTable = {

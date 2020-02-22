@@ -16,7 +16,12 @@ AddRemoteEvent("ServerPersonalMenu", function(player, inVehicle, vehiclSpeed)
             local playerName
             if PlayerData[neatPlayerId] ~= nil then
                 if PlayerData[neatPlayerId].accountid ~= nil and PlayerData[neatPlayerId].accountid ~= 0 then playerName = PlayerData[neatPlayerId].accountid else playerName = GetPlayerName(neatPlayerId) end            
-                table.insert(playerList, {id = neatPlayerId, name = playerName}) -- On prend le nom affiché (l'accountid)
+                
+                if PlayerData[neatPlayerId].is_cuffed == 1 then
+                    table.insert(playerList, { id = neatPlayerId, name = "qqq"..playerName }) -- On prend le nom affiché (l'accountid)
+                else
+                    table.insert(playerList, { id = neatPlayerId, name = playerName }) -- On prend le nom affiché (l'accountid)
+                end
             end
         end
     end
