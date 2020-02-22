@@ -156,7 +156,6 @@ function OnAccountLoaded(player)
         PlayerData[player].drug_knowledge = json_decode(result['drug_knowledge'])
         PlayerData[player].job = result['job']
         PlayerData[player].is_cuffed = math.tointeger(result['is_cuffed'])
-        print('PLAYER IS CUFFED → ',PlayerData[player].is_cuffed)
         PlayerData[player].age = math.tointeger(result['age'])
         PlayerData[player].health = math.tointeger(result['health'])
         

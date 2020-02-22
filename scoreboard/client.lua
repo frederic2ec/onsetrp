@@ -39,11 +39,13 @@ AddEvent('OnKeyRelease', Scoreboard_OnKeyRelease)
 
 function Scoreboard_OnServerScoreboardUpdate(data, name, players, maxplayers)
   if data == nil then return end
+  AddPlayerChat('UPDATE SB')
+  
 
   ExecuteWebJS(ScoreboardUI, 'ResetScoreboard()')
   ExecuteWebJS(ScoreboardUI, 'SetInformation("' .. name .. '", ' .. players .. ', ' .. maxplayers .. ')')
   for _, v in pairs(data) do
-    ExecuteWebJS(ScoreboardUI, 'AddPlayer (' .. v['id'] .. ',' .. v['accountid'] .. '"' .. v['name'] .. '","' .. v['steamid'] .. '", ' .. v['ping'] .. ')')
+    ExecuteWebJS(ScoreboardUI, 'AddPlayer (' .. v['id'] .. ',' .. v['accountid'] .. ',"' .. v['name'] .. '","' .. v['steamid'] .. '", ' .. v['ping'] .. ')')
   end
 end
 AddRemoteEvent('OnServerScoreboardUpdate', Scoreboard_OnServerScoreboardUpdate)
