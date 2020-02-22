@@ -26,6 +26,7 @@ body.center {
   height: 90%;
   background: rgba(26,26,26,0.5);
   position: relative;
+  border-radius: 15px;
 }
 
 .table {
@@ -95,16 +96,13 @@ table th {
 }
 
 .server {
-  height: 20px;
+  height: 30px;
   width: 100%;
   color: #727272;
   position: absolute;
   bottom: 0;
-  padding: 0 7px;
-}
-
-.server > .name {
-  float: left;
+  padding: 0 15px;
+  font-weight: bold;
 }
 
 .server > .players {
