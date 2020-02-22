@@ -301,6 +301,7 @@ function DestroyPlayerData(player)
         end
     end
     
+    print("Player disconnected : " .. PlayerData[player].accountid)
     PlayerData[player] = nil
     print("Data destroyed for : " .. player)
 end

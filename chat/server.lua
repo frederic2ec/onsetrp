@@ -3,9 +3,9 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 function OnPlayerChat(player, message)
     -- Region message
     message = '<span>'..PlayerData[player].name..'('..player..'):</> '..message
-    
+
     for k, v in pairs(GetStreamedPlayersForPlayer(player)) do
-        if IsPlayerStreamedIn(v) then
+        if player and v and IsPlayerStreamedIn(player, v) then
             AddPlayerChat(v, message)
         end
     end

@@ -257,7 +257,9 @@ AddRemoteEvent("UnflipVehicle", function(player)
     local vehicle = GetNearestCar(player)
     local rx, ry, rz = GetVehicleRotation(vehicle)
 
-    SetVehicleRotation(vehicle, 0, ry, 0 )
+    if vehicle then
+        SetVehicleRotation(vehicle, 0, ry, 0 )
+    end
 end)
 
 AddRemoteEvent("VehicleGiveKey", function(player, toplayer)
@@ -457,9 +459,11 @@ AddRemoteEvent("ToggleHood", function(player)
                     end, 25, 120)
                 else
                     CreateCountTimer(function()
-                        openRatio = GetVehicleHoodRatio(vehicle) + 0.5
-                        if openRatio <= 60.0 then
-                            SetVehicleHoodRatio(vehicle, openRatio)
+                        if GetVehicleHoodRatio(vehicle) then
+                            openRatio = GetVehicleHoodRatio(vehicle) + 0.5
+                            if openRatio <= 60.0 then
+                                SetVehicleHoodRatio(vehicle, openRatio)
+                            end
                         end
                     end, 25, 120)
                 end

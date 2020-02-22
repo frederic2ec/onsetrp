@@ -56,7 +56,6 @@ end)
         for i,j in pairs(v.location) do
             v.object[i] = CreatePickup(v.modelid , v.location[i][1], v.location[i][2], v.location[i][3])
 
-
             table.insert(GarageStoreObjectsCached, v.object[i])
         end
 	end
