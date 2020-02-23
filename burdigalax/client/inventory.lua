@@ -25,15 +25,16 @@ function CloseUIInventory(context)
     InventoryIsOpened = false
     CallRemoteEvent("account:setplayernotbusy", GetPlayerId())
     personalMenuIsOpen = 0
-    if context == '"transfer"' then
-        ExecuteWebJS(inventoryUI, "ResetSelectedNearbyInventory()")
-    else
-        local openedTrunk = GetPlayerPropertyValue(GetPlayerId(), "opened-trunk")
-        if openedTrunk ~= nil and openedTrunk ~= 0 then
-            CallRemoteEvent("CloseTrunk", openedTrunk)
-            SetPlayerPropertyValue(GetPlayerId(), "opened-trunk", false, true)
-        end
 
+    if IsViewingTrunk then
+        CallRemoteEvent("CloseTrunk", IsViewingTrunk)
+        IsViewingTrunk = false
+    end
+
+    if context == '"transfer"' then
+        ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.updateInventories([{ id: '"..GetPlayerId().."', selectedNearbyInventoryId: null }])")
+    else
+        ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.hide();")
         ShowMouseCursor(false)
         SetInputMode(INPUT_GAME)
         Delay(100, function()
@@ -53,6 +54,7 @@ function OpenUIInventory(items, playerInventory, playerName, playerId, playersLi
     ShowMouseCursor(true)
     SetInputMode(INPUT_GAMEANDUI)
     SetWebVisibility(inventoryUI, WEB_VISIBLE)
+    ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.show();")
 end
 
 -- UPDATE
@@ -117,10 +119,15 @@ function BuildInventoryJson(items, playerInventory, playerName, playerId, player
             hasReadAccess = false
         }
 
-        if friskedInventory ~= nil and tostring(friskedInventory.id) == tostring(player.id) then
+        -- if friskedInventory ~= nil and tostring(friskedInventory.id) == tostring(player.id) then
+        if player.access then
+            if player.inventory == nil then
+                player.inventory = { }
+            end
+
             inventory.hasReadAccess = true
             inventory.nearbyInventoriesIds = { tostring(playerId) }
-            inventory.items = InventoryAvailableItems(friskedInventory.inventory)
+            inventory.items = InventoryAvailableItems(player.inventory)
             inventory.categoriesIds = {
                 'food',
                 'object',
@@ -129,14 +136,14 @@ function BuildInventoryJson(items, playerInventory, playerName, playerId, player
                 'weapon'
             }
 
-            if string.find(friskedInventory.id, 'vehicle_') then
+            if string.find(player.id, 'vehicle_') then
                 inventory.name = _('trunk')
             else
                 inventory.name = _('inventory')
             end
 
-            if maxSlots then
-                inventory.storageSize = friskedInventory.maxSlots
+            if player.maxSlots then
+                inventory.storageSize = player.maxSlots
             end
         end
 

@@ -1,7 +1,7 @@
 local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, ...) end
 
 local MAX_POLICE = 30 -- Number of policemens at the same time
-local ALLOW_RESPAWN_VEHICLE = true -- Allow the respawn of the vehicle by destroying the previously spawned one. (Can break RP if the car is stolen or need repairs or fuel)
+local ALLOW_RESPAWN_VEHICLE = false -- Allow the respawn of the vehicle by destroying the previously spawned one. (Can break RP if the car is stolen or need repairs or fuel)
 local NB_HANDCUFFS = 3
 
 --- PLAN B EN CAS DE FPS EN DELIRE AVEC LE MOD DE SALSI
@@ -63,11 +63,9 @@ AddEvent("OnPackageStart", function()
         table.insert(policeNpcIds, v.npcObject)
     end
     
-    if ALLOW_RESPAWN_VEHICLE then
-        for k, v in pairs(POLICE_GARAGE) do
-            v.garageObject = CreatePickup(2, v.x, v.y, v.z)
-            table.insert(policeGarageIds, v.garageObject)
-        end
+    for k, v in pairs(POLICE_GARAGE) do
+        v.garageObject = CreatePickup(2, v.x, v.y, v.z)
+        table.insert(policeGarageIds, v.garageObject)
     end
     
     for k, v in pairs(POLICE_VEHICLE_NPC) do
@@ -256,6 +254,7 @@ function SpawnPoliceCar(player)
         CreateVehicleData(player, vehicle, 3)
         SetVehicleRespawnParams(vehicle, false)
         SetVehiclePropertyValue(vehicle, "locked", true, true)
+        VehicleData[vehicle].inventory = { repair_kit = 2, jerican = 2 }
         CallRemoteEvent(player, "MakeNotification", _("spawn_vehicle_success", " patrol car"), "linear-gradient(to right, #00b09b, #96c93d)")
     else
         CallRemoteEvent(player, "MakeErrorNotification", _("cannot_spawn_vehicle"))
@@ -276,15 +275,16 @@ end
 
 AddEvent("OnPlayerPickupHit", function(player, pickup)-- Store the vehicle in garage
     if PlayerData[player].job ~= "police" then return end
+    
     for k, v in pairs(POLICE_GARAGE) do
         if v.garageObject == pickup then
             local vehicle = GetPlayerVehicle(player)
+            
             if vehicle == nil then return end
+            
             local seat = GetPlayerVehicleSeat(player)
-            if vehicle == PlayerData[player].job_vehicle and
-                VehicleData[vehicle].owner == PlayerData[player].accountid and
-                seat == 1
-            then
+
+            if vehicle == PlayerData[player].job_vehicle and VehicleData[vehicle].owner == PlayerData[player].accountid and seat == 1 then
                 DespawnPoliceCar(player)
             end
         end
@@ -433,6 +433,15 @@ function FriskPlayer(player)
 end
 AddRemoteEvent("police:friskplayer", FriskPlayer)
 
+function PoliceRemoveVehicle(player)
+    if PlayerData[player].police ~= 1 then return end
+    if PlayerData[player].job ~= "police" then return end
+    
+    local vehicle = GetNearestVehicle(player)
+    MoveVehicleToGarage(vehicle, player)
+end
+AddRemoteEvent("police:removevehicle", PoliceRemoveVehicle)
+
 function LaunchFriskPlayer(player, target)
     if PlayerData[player].police ~= 1 then return end
     if PlayerData[player].job ~= "police" then return end
@@ -448,8 +457,6 @@ function LaunchFriskPlayer(player, target)
             table.insert(playerList, {id = k, name = playerName}) -- On prend le nom affiché (l'accountid)
         end
     end
-
-    print("Frisk: "..target.." -> "..PlayerData[tonumber(target)].accountid)
     
     friskedPlayer = { id = tostring(target), name = PlayerData[tonumber(target)].accountid, inventory = PlayerData[tonumber(target)].inventory }
     CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].name, player, playerList, GetPlayerMaxSlots(player), friskedPlayer)
@@ -478,6 +485,7 @@ end)
 --------- MISC END
 -- Tools
 function GetNearestPlayer(player, maxDist)
+    local maxDist = maxDist or 300
     local x, y, z = GetPlayerLocation(player)
     local closestPlayer
     local dist
@@ -494,6 +502,22 @@ function GetNearestPlayer(player, maxDist)
         end
     end
     return closestPlayer
+end
+
+function GetNearestVehicle(player, maxDist)
+    local maxDist = maxDist or 300
+    local x, y, z = GetPlayerLocation(player)
+    local closestVehicle
+    local dist
+    for k, v in pairs(GetStreamedVehiclesForPlayer(player)) do
+        local x2, y2, z2 = GetVehicleLocation(v)
+        local currentDist = GetDistance3D(x, y, z, x2, y2, z2)
+        if (dist == nil or currentDist < dist) and currentDist <= tonumber(maxDist) then
+            closestVehicle = v
+            dist = currentDist
+        end
+    end
+    return closestVehicle
 end
 
 function GetNearestPlayers(player, maxDist)

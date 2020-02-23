@@ -1,7 +1,18 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
-AddRemoteEvent("OpenPersonalMenu", function(items, inventory, playerName, playerId, playerList, maxSlots, searchedPlayer)
-    OpenUIInventory(items, inventory, playerName, playerId, playerList, maxSlots, searchedPlayer)
+IsViewingTrunk = false
+
+AddRemoteEvent("OpenPersonalMenu", function(items, inventory, playerName, playerId, nearInventories, maxSlots, searchedPlayer, nearInventoryItems)
+    local nearInventoryItems = nearInventoryItems or { }
+    for k, nearInventory in pairs(nearInventories) do
+        for nearInventoryItemId, nearInventoryItem in pairs(nearInventoryItems) do
+            if nearInventory.id == nearInventoryItemId then
+                nearInventory.inventory = nearInventoryItem
+            end
+        end
+    end
+
+    OpenUIInventory(items, inventory, playerName, playerId, nearInventories, maxSlots, searchedPlayer, nearInventoryItems)
 end)
 
 function itemUsedInInventory(event)
@@ -39,6 +50,24 @@ function itemTransferedInInventory(event)
     CallRemoteEvent("TransferInventory", data.originInventoryId, data.idItem, data.quantity, data.destinationInventoryId)
 end
 AddEvent('BURDIGALAX_inventory_onTransfer', itemTransferedInInventory)
+
+function OnSelectedInventoryChange(event)
+    local data = json_decode(event)
+
+    if data.originInventoryId == tostring(GetPlayerId()) and data.destinationInventoryId then
+        if string.find(data.destinationInventoryId, 'vehicle_') then
+            local destinationVehicle = string.gsub(data.destinationInventoryId, 'vehicle_', '')
+            destinationVehicle = tonumber(destinationVehicle)
+            
+            IsViewingTrunk = destinationVehicle
+            CallRemoteEvent("OpenCarTrunk", destinationVehicle)
+        elseif data.destinationInventoryId == "none" and IsViewingTrunk then
+            CallRemoteEvent("CloseTrunk", IsViewingTrunk)
+            IsViewingTrunk = false
+        end
+    end
+end
+AddEvent('BURDIGALAX_inventory_onChangeNearbyInventorySelected', OnSelectedInventoryChange)
 
 
 AddEvent("OnKeyPress", function( key )

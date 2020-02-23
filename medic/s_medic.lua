@@ -1,7 +1,7 @@
 local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, ...) end
 
 local MAX_MEDIC = 20
-local ALLOW_RESPAWN_VEHICLE = true
+local ALLOW_RESPAWN_VEHICLE = false
 local TIMER_RESPAWN_WAITER = 1800 -- 30 minutes
 local REVIVE_PERCENT_SUCCESS = 40 -- in percent
 local TIME_TO_REVIVE = 15 -- in seconds
@@ -62,11 +62,9 @@ AddEvent("OnPackageStart", function()
         table.insert(medicNpcIds, v.npcObject)
     end
     
-    if ALLOW_RESPAWN_VEHICLE then
-        for k, v in pairs(MEDIC_GARAGE) do
-            v.garageObject = CreatePickup(2, v.x, v.y, v.z)
-            table.insert(medicGarageIds, v.garageObject)
-        end
+    for k, v in pairs(MEDIC_GARAGE) do
+        v.garageObject = CreatePickup(2, v.x, v.y, v.z)
+        table.insert(medicGarageIds, v.garageObject)
     end
     
     for k, v in pairs(MEDIC_VEHICLE_NPC) do

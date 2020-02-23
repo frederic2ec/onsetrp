@@ -10,18 +10,42 @@ AddRemoteEvent("ServerPersonalMenu", function(player, inVehicle, vehiclSpeed)
         return CallRemoteEvent(player, "MakeErrorNotification", _("cant_while_driving"))
     end
     
-    local playerList = {}
+    local nearInventories = {}
+    local nearInventoryItems = {}
+
+    -- Player inventories
     for k, neatPlayerId in pairs(GetNearestPlayers(player, 300)) do
         if neatPlayerId ~= player then
             local playerName
             if PlayerData[neatPlayerId] ~= nil then
-                if PlayerData[neatPlayerId].accountid ~= nil and PlayerData[neatPlayerId].accountid ~= 0 then playerName = PlayerData[neatPlayerId].accountid else playerName = GetPlayerName(neatPlayerId) end            
-                table.insert(playerList, {id = neatPlayerId, name = playerName}) -- On prend le nom affiché (l'accountid)
+                if PlayerData[neatPlayerId].accountid ~= nil and PlayerData[neatPlayerId].accountid ~= 0 then
+                    playerName = PlayerData[neatPlayerId].accountid 
+                else 
+                    playerName = GetPlayerName(neatPlayerId) 
+                end            
+                
+                if PlayerData[neatPlayerId].is_cuffed == 1 then
+                    table.insert(nearInventories, { id = neatPlayerId, name = playerName, access = true, maxSlots = GetPlayerMaxSlots(neatPlayerId) })
+                    nearInventoryItems[neatPlayerId] = PlayerData[tonumber(neatPlayerId)].inventory
+                else
+                    table.insert(nearInventories, { id = neatPlayerId, name = playerName })
+                end
             end
         end
     end
     
-    CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].name, player, playerList, GetPlayerMaxSlots(player))
+    -- Vehicle inventories
+    for k, nearVehicleId in pairs(GetNearestCars(player, 600)) do
+        if VehicleData[nearVehicleId] ~= nil and not GetVehiclePropertyValue(nearVehicleId, "locked") then
+            local vehicleId = "vehicle_"..nearVehicleId
+            local vehicleName = _("vehicle_"..VehicleData[nearVehicleId].modelid)
+
+            table.insert(nearInventories, { id = vehicleId, name = vehicleName, access = true, maxSlots = VehicleTrunkSlots["vehicle_"..VehicleData[nearVehicleId].modelid] })
+            nearInventoryItems[vehicleId] = VehicleData[tonumber(nearVehicleId)].inventory
+        end
+    end
+
+    CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].accountid, player, nearInventories, GetPlayerMaxSlots(player), nil, nearInventoryItems)
 end)
 
 function getWeaponID(modelid)
