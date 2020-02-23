@@ -106,9 +106,6 @@ end)
 AddRemoteEvent("PayGasStation", function(player, count, fuel, vehicle)
     price = count * tonumber(gasPrices[fuel])
 
-    print(count)
-    print(price)
-
     local resultPay = RemovePlayerCash(player, price)
     if resultPay then
         VehicleData[vehicle].fuel = VehicleData[vehicle].fuel + count
