@@ -96,8 +96,8 @@ function ApplyBleeding(player, damageAmount)
         i = i + 1
         SetPlayerHealth(player, GetPlayerHealth(player) - DAMAGE_PER_TICK)
         CallRemoteEvent(player, "damage:bleed:tickeffect", BLEED_EFFECT_AMOUNT)
-        for k, v in pairs(GetAllPlayers(player)) do
-            if IsPlayerStreamedIn(v) then
+        for k, v in pairs(GetStreamedPlayersForPlayer(player)) do
+            if IsValidPlayer(v) then
                 CallRemoteEvent(v, "damage:bleed:dropblood", player)
             end
         end
