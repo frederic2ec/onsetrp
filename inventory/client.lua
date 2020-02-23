@@ -1,6 +1,6 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
-local isViewingTrunk
+local isViewingTrunk = nil
 
 AddRemoteEvent("OpenPersonalMenu", function(items, inventory, playerName, playerId, nearInventories, maxSlots, searchedPlayer, nearInventoryItems)
     local nearInventoryItems = nearInventoryItems or { }
@@ -60,11 +60,11 @@ function OnSelectedInventoryChange(event)
             destinationVehicle = tonumber(destinationVehicle)
             isViewingTrunk = destinationVehicle
             CallRemoteEvent("OpenCarTrunk", destinationVehicle)
-        else
-            if data.destinationInventoryId == "none" and isViewingTrunk then
-                CallRemoteEvent("CloseTrunk", isViewingTrunk)
-                isViewingTrunk = false
-            end
+            print("OpenCarTrunk"..isViewingTrunk)
+        elseif data.destinationInventoryId == "none" and isViewingTrunk ~= nil then
+            print("CloseTrunk"..isViewingTrunk)
+            CallRemoteEvent("CloseTrunk", isViewingTrunk)
+            isViewingTrunk = nil
         end
     end
 end
