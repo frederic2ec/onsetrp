@@ -250,7 +250,6 @@ AddRemoteEvent("VehicleKeys", function(player)
 end)
 
 AddRemoteEvent("CloseTrunk", function(player, openedTrunk)
-    print("CloseTrunk: "..openedTrunk)
     local openedTrunk = openedTrunk or GetNearestCar(player)
     closeTrunk(openedTrunk)
 end)
@@ -436,7 +435,6 @@ function ToggleTrunk(player)
 end
 
 function openTrunk(vehicle)
-    print("openTrunk: "..vehicle)
     CreateCountTimer(function()
         if GetVehicleTrunkRatio(vehicle) then
             openRatio = GetVehicleTrunkRatio(vehicle) + 1
