@@ -25,7 +25,7 @@ AddEvent("OnPackageStart", function()
                 sr.SetSound3DLocation(v.sound, x, y, z + HOOD_BONUS)
                 local x2,y2,z2 = GetObjectLocation(v.sound)
             else
-                sr.DestroySound3D(nowPlaying[veh].sound)
+                sr.DestroySound3D(nowPlaying[k].sound)
                 nowPlaying[k] = nil
             end
         end    
