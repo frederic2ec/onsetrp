@@ -26,7 +26,7 @@ function CloseUIInventory(context)
     CallRemoteEvent("account:setplayernotbusy", GetPlayerId())
     personalMenuIsOpen = 0
     if context == '"transfer"' then
-        ExecuteWebJS(inventoryUI, "ResetSelectedNearbyInventory()")
+        ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.updateInventory('"..GetPlayerId().."', { selectedNearbyInventoryId: null})")
     else
         local openedTrunk = GetPlayerPropertyValue(GetPlayerId(), "opened-trunk")
         if openedTrunk ~= nil and openedTrunk ~= 0 then

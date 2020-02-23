@@ -55,16 +55,17 @@ function OnSelectedInventoryChange(event)
     local data = json_decode(event)
 
     if data.originInventoryId == tostring(GetPlayerId()) and data.destinationInventoryId then
+        local isViewingTrunk = GetPlayerPropertyValue(GetPlayerId(), "opened-trunk")
+
         if string.find(data.destinationInventoryId, 'vehicle_') then
             local destinationVehicle = string.gsub(data.destinationInventoryId, 'vehicle_', '')
             destinationVehicle = tonumber(destinationVehicle)
-            isViewingTrunk = destinationVehicle
+            
+            SetPlayerPropertyValue(GetPlayerId(), "opened-trunk", destinationVehicle)
             CallRemoteEvent("OpenCarTrunk", destinationVehicle)
-            print("OpenCarTrunk"..isViewingTrunk)
         elseif data.destinationInventoryId == "none" and isViewingTrunk ~= nil then
-            print("CloseTrunk"..isViewingTrunk)
             CallRemoteEvent("CloseTrunk", isViewingTrunk)
-            isViewingTrunk = nil
+            SetPlayerPropertyValue(GetPlayerId(), "opened-trunk", nil)
         end
     end
 end
