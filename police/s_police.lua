@@ -63,11 +63,9 @@ AddEvent("OnPackageStart", function()
         table.insert(policeNpcIds, v.npcObject)
     end
     
-    if ALLOW_RESPAWN_VEHICLE then
-        for k, v in pairs(POLICE_GARAGE) do
-            v.garageObject = CreatePickup(2, v.x, v.y, v.z)
-            table.insert(policeGarageIds, v.garageObject)
-        end
+    for k, v in pairs(POLICE_GARAGE) do
+        v.garageObject = CreatePickup(2, v.x, v.y, v.z)
+        table.insert(policeGarageIds, v.garageObject)
     end
     
     for k, v in pairs(POLICE_VEHICLE_NPC) do
