@@ -22,10 +22,11 @@ body.center {
 }
 
 .background {
-  width: 70%;
-  height: 70%;
+  width: 90%;
+  height: 90%;
   background: rgba(26,26,26,0.5);
   position: relative;
+  border-radius: 15px;
 }
 
 .table {
@@ -61,7 +62,7 @@ table tr:nth-child(1) {
 table tr:nth-child(1), table tr:nth-child(1) td {
   height: 36px;
   text-align: left;
-  background: #3684ff;
+  background: #972300;
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -72,6 +73,10 @@ table tr:nth-child(1) td:first-child {
 
 table tr:nth-child(1) td > img {
   height: 60%;
+}
+
+table th {
+  padding: 5px 10px 5px 10px;
 }
 
 ::-webkit-scrollbar {
@@ -91,16 +96,13 @@ table tr:nth-child(1) td > img {
 }
 
 .server {
-  height: 20px;
+  height: 30px;
   width: 100%;
   color: #727272;
   position: absolute;
   bottom: 0;
-  padding: 0 7px;
-}
-
-.server > .name {
-  float: left;
+  padding: 0 15px;
+  font-weight: bold;
 }
 
 .server > .players {
