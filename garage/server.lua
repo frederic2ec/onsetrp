@@ -140,7 +140,7 @@ function MoveVehicleToGarage(vehicle, player)
 end
 
 function spawnCarServer(player, id)
-    local query = mariadb_prepare(sql, "SELECT * FROM player_garage WHERE id = ?;",
+    local query = mariadb_prepare(sql, "SELECT * FROM player_garage WHERE id = '?';",
     tostring(id))
     mariadb_async_query(sql, query, spawnCarServerLoaded, player)
 end
