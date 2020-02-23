@@ -199,26 +199,26 @@ function spawnCarServerLoaded(player)
 	end
 end
 
-function sellCarServer(player, id)
-    local query = mariadb_prepare(sql, "SELECT * FROM player_garage WHERE id = ?;",
-    tostring(id))
+-- function sellCarServer(player, id)
+--     local query = mariadb_prepare(sql, "SELECT * FROM player_garage WHERE id = ?;",
+--     tostring(id))
 
-    mariadb_async_query(sql, query, sellCarServerLoaded, player)
-end
-AddRemoteEvent("sellCarServer", sellCarServer)
+--     mariadb_async_query(sql, query, sellCarServerLoaded, player)
+-- end
+-- AddRemoteEvent("sellCarServer", sellCarServer)
 
-function sellCarServerLoaded(player)
-    for i=1,mariadb_get_row_count() do
-        local result = mariadb_get_assoc(i)
+-- function sellCarServerLoaded(player)
+--     for i=1,mariadb_get_row_count() do
+--         local result = mariadb_get_assoc(i)
 
-        local id = math.tointeger(result["id"])
-        local modelid = math.tointeger(result["modelid"])
-        local name = _("vehicle_"..modelid)
-        local price = math.ceil(result["price"] * 0.25)
+--         local id = math.tointeger(result["id"])
+--         local modelid = math.tointeger(result["modelid"])
+--         local name = _("vehicle_"..modelid)
+--         local price = math.ceil(result["price"] * 0.25)
 
-        local query = mariadb_prepare(sql, "DELETE FROM `player_garage` WHERE `id` = ?;", tostring(id))
-        mariadb_async_query(sql, query)
-        AddPlayerCash(player, price)
-        return CallRemoteEvent(player, "MakeNotification", _("sell_vehicle_success", tostring(name), price, _("currency")), "linear-gradient(to right, #00b09b, #96c93d)")
-	end
-end
+--         local query = mariadb_prepare(sql, "DELETE FROM `player_garage` WHERE `id` = ?;", tostring(id))
+--         mariadb_async_query(sql, query)
+--         AddPlayerCash(player, price)
+--         return CallRemoteEvent(player, "MakeNotification", _("sell_vehicle_success", tostring(name), price, _("currency")), "linear-gradient(to right, #00b09b, #96c93d)")
+-- 	end
+-- end
