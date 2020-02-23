@@ -45,9 +45,6 @@ function SecondsToTime(d) {
 }
 
 function SetInformation(name, players, maxplayers) {
-    let infoName = document.getElementsByClassName("name")[0];
-    infoName.getElementsByTagName("small")[0].innerHTML = `Server: ${name}`;
-
     let infoPlayers = document.getElementsByClassName("players")[0];
     infoPlayers.getElementsByTagName(
         "small"

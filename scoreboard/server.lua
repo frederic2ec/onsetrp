@@ -9,7 +9,6 @@ function Scoreboard_RequestUpdate(player)
                 ['steamid'] = tostring(GetPlayerSteamId(v)),
                 ['ping'] = GetPlayerPing(v)
             }
-            print(json_encode(_send[v]))
         end
     end
     
