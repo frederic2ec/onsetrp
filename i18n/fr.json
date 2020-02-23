@@ -605,5 +605,6 @@
     "delivery_location_price_refunded" : "Vous avez rendu le matériel. {1} $ vous ont été rendus pour l'état du véhicule.",
     "delivery_vehicle_too_far_away": "Votre véhicule de prêt est trop loin. Vous ne serez pas remboursé.",
     "delivery_desc": "Ce service nécessite le dépot de {1} $ de location pour le véhicule de fonction. Si vous le rendez en état vous serez remboursé en quasi-totalité.",
-    "delivery_start_success": "Le montant de la location a bien été prélevé, votre véhicule vous attend."
+    "delivery_start_success": "Le montant de la location a bien été prélevé, votre véhicule vous attend.",
+    "delivery_need_delivery_truck": "Vous avez besoin de votre camion de livraison pour faire ça"
 }
