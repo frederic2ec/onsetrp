@@ -12,9 +12,20 @@ local moneyMenu
 local banMenu
 local logMenu
 local itemMenu
+local broadcastMenu
+
+local broadcastUi
+
+AddEvent("OnPackageStart", function()
+    broadcastUi = CreateWebUI(0, 0, 0, 0, 0, 60)
+    SetWebAlignment(broadcastUi, 1.0, 0.0)
+    SetWebAnchors(broadcastUi, 0.0, 0.0, 1.0, 1.0)
+    LoadWebFile(broadcastUi, "http://asset/onsetrp/admin/broadcastui/broadcastui.html")
+    SetWebVisibility(broadcastUi, WEB_VISIBLE)
+end)
 
 AddEvent("OnTranslationReady", function()
-    adminMenu = Dialog.create(_("admin_menu"), nil, _("teleportation"), _("weapon"), _("vehicle"), _("money"),_("items"), _("ban_kick"), _("log"),_("cancel"))
+    adminMenu = Dialog.create(_("admin_menu"), nil, _("teleportation"), _("weapon"), _("vehicle"), _("money"),_("items"), _("ban_kick"), _("log"),_("broadcast"),_("cancel"))
     teleportMenu = Dialog.create(_("teleport_menu"), nil, _("teleport_to_place"), _("teleport_to_player"), _("teleport_player"), _("cancel"))
     teleportPlaceMenu = Dialog.create(_("teleport_to_player"), nil, _("teleport"), _("cancel"))
     Dialog.addSelect(teleportPlaceMenu, 1, _("place"), 8)
@@ -38,6 +49,9 @@ AddEvent("OnTranslationReady", function()
     Dialog.addTextInput(banMenu, 1, _("reason"))
     logMenu = Dialog.create(_("log_menu"), nil, _("cancel"))
     Dialog.addSelect(logMenu, 1, _("log"), 12)
+    broadcastMenu = Dialog.create(_("broadcast"), nil, _("send"), _("cancel"))
+    Dialog.addTextInput(broadcastMenu, 1, _("text_to_send"))
+    Dialog.addTextInput(broadcastMenu, 1, _("display_time"))
 end)
 
 
@@ -72,6 +86,11 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
         end
         if button == 7 then
             Dialog.show(logMenu)
+        end
+        if button == 8 then -- broadcast
+            CallRemoteEvent("account:setplayerbusy")   
+            SetIgnoreMoveInput(true)         
+            Dialog.show(broadcastMenu)
         end
     end
     if dialog == teleportMenu then 
@@ -195,6 +214,11 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
             CallRemoteEvent("AdminGiveItem", args[1],args[2],args[3])
         end
     end
+    if dialog == broadcastMenu then
+        CallRemoteEvent("account:setplayernotbusy")      
+        SetIgnoreMoveInput(false)    
+        CallRemoteEvent("admin:broadcast", args[1], args[2])        
+    end
 end)
 
 AddRemoteEvent("OpenAdminMenu", function(teleportPlace, playersNames, weaponsIds, vehicleIds, logs) 
@@ -256,5 +280,14 @@ AddEvent("OnRenderHUD", function()
     if under_water_help then
         DrawText(700, 10, _("under_water_help"))
     end
+end)
+
+AddRemoteEvent("admin:broadcast:display", function(name, message, temps)
+    ExecuteWebJS(broadcastUi, " Broadcast('"..name.."', '"..message.."', "..temps..");")   
+    local sound = CreateSound("client/files/broadcast.mp3")
+    SetSoundVolume(sound, 0.1)
+    Delay(2500, function()
+        DestroySound(sound)        
+    end)
 end)
 

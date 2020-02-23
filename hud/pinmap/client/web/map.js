@@ -153,7 +153,7 @@ function ActivateCustomContextMenu(e) {
     menu.style.top = e.pageY + "px"; //Adjust topleft y coordinate of menu to mouse pos
 }
 
-function MenuOptionClicked(option) {
+function MenuOptionClicked(option, x, y) {
     //This is called when one of the right click menu options are clicked.
     var menu = document.getElementById("menu");
     menu.style.display = "none"; //Hide menu when option is clicked
@@ -192,6 +192,23 @@ function MenuOptionClicked(option) {
     if (option == "TeleportHere") {
         var worldCoords = MapHelper.UIPixelToWorld(pixelCoords);
         CallEvent("RequestTeleportToLocation", worldCoords[0], worldCoords[1]); //Call event to main.lua with x,y coordinates so that client can call remote event to server with coordinates
+    }
+    if (option == "SetCalloutDestination" && x != null && y != null) {
+        destinationMarker.worldX = x; //Store world X for destination marker - this is used when recalculating mapdiv position due to scrolling in/out
+        destinationMarker.worldY = y; //Store world Y for destination marker - this is used when recalculating mapdiv position due to scrolling in/out
+        var coords = {};
+        coords[0] = MapHelper.WorldToMapImgX(destinationMarker.worldX);
+        coords[1] = MapHelper.WorldToMapImgY(destinationMarker.worldY);
+        coords = MapHelper.AdjustCoordinatesForMapOrientation(coords);
+        destinationMarker.style.left = coords[0] * mapScale - 16 + "px";
+        destinationMarker.style.top = coords[1] * mapScale - 32 + "px";
+        destinationMarker.style.display = "block"; //Show destination marker
+        CallEvent(
+            "UpdateMapDestination",
+            destinationMarker.worldX,
+            destinationMarker.worldY,
+            0
+        ); //Send destination marker x,y coords to main.lua
     }
 }
 

@@ -28,16 +28,17 @@ end)
 
 AddEvent("OnDialogSubmit", function(dialog, button, ...)
     local args = { ... }
+    
 	if dialog == characterCreation then
         if button == 1 then
             if args[1] == "" or args[2] == "" then
                 MakeNotification(_("enter_valid_name"), "linear-gradient(to right, #ff5f6d, #ffc371)")
                 Dialog.show(characterCreation)
-            elseif args[3] == "" then
+            elseif args[3] == "" or tonumber(args[3]) == nil then                
                 MakeNotification(_("enter_valid_age"), "linear-gradient(to right, #ff5f6d, #ffc371)")
                 Dialog.show(characterCreation)
             else
-                CallRemoteEvent("CharacterCreated", args[1], args[2], args[3])
+                CallRemoteEvent("CharacterCreated", args[1], args[2], tonumber(args[3]))
             end
         end
     end

@@ -31,7 +31,7 @@ CarDealerTable = {
 		vehicles = CarDefaultVehicles,
 		colors = CarDefaultColors,
 		location = { 162911, 191166, 1380, 180 },
-		spawn = { 162516, 190352, 1347, -90 }
+		spawn = { 162518, 189841, 1347, -90 }
     },
     {
 		vehicles = CarDefaultVehicles,

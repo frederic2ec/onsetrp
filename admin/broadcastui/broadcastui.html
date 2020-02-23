@@ -1,0 +1,78 @@
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Broadcast</title>
+    <style>
+        @font-face {
+            font-family: 'Odibee Sans';
+            src: url('http://asset/onsetrp/vehicle_radio/ui/assets/OdibeeSans-Regular.ttf');
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            font-family: 'Odibee Sans', cursive;
+            color: rgb(236, 236, 236);
+        }
+
+        #container {
+            margin: -10px 10% 0 10%;
+            padding: 10px 5%;
+            background-image: linear-gradient(to bottom, rgba(140, 0, 0, 0.6), rgba(154, 42, 0, 0.6), rgba(168, 68, 0, 0.6), rgba(180, 92, 0, 0.6), rgba(190, 116, 0, 0.6));
+            /* backdrop-filter: blur(5px); */
+            border-radius: 10px;
+            box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
+            transition: opacity 0.5s ease-in-out;
+            opacity: 0;
+        }
+
+        #emetteur {
+            font-weight: bold;
+            font-size: 20px;
+            letter-spacing: 1;
+        }
+
+        #message {
+            text-align: justify;
+            font-size: 23px;
+            letter-spacing: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container">
+        <p id="emetteur">Émetteur : emetteur</p>
+        <p id="message">Message : message</p>
+    </div>
+
+
+    <script>
+        function Broadcast(_emetteur, _message, tempsaffichage) {
+            var container = document.getElementById('container');
+            var emetteur = document.getElementById('emetteur');
+            var message = document.getElementById('message');
+            emetteur.innerHTML = "Émetteur : " + _emetteur;
+            message.innerHTML = "Message : " + _message;
+            container.style.opacity = 1.0;
+            HideBroadcast(tempsaffichage);
+        }
+
+        function HideBroadcast(tempsaffichage){
+            var container = document.getElementById('container');
+            var emetteur = document.getElementById('emetteur');
+            var message = document.getElementById('message');            
+            setTimeout(() => {
+                container.style.opacity = 0.0;
+            }, tempsaffichage * 1000);
+        }        
+
+        //Broadcast("Max Bishop", "Avis de tempête, rentrez chez vous !", 50)
+    </script>
+</body>
+
+</html>

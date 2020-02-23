@@ -144,6 +144,7 @@
         "client/files/policeAlertBank.mp3",
         "client/files/medicDeathAlarm.mp3",
         "client/files/bankAlarm.mp3",
+        "client/files/broadcast.mp3",
         "idcard/id.html",
         "idcard/id.js",
         "idcard/id.css",
@@ -247,6 +248,7 @@
         "onset-characterize/ui/characterize.js",
         "onset-characterize/ui/jquery.js",
         "onset-characterize/ui/style.css",
-        "onset-characterize/click.wav"
+        "onset-characterize/click.wav",
+        "admin/broadcastui/broadcastui.html"
     ]
 }

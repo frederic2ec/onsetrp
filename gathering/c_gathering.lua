@@ -19,7 +19,7 @@ AddEvent("OnTranslationReady", function()
 end)
 
 function OnKeyPress(key)
-    if key == INTERACT_KEY then
+	if key == INTERACT_KEY and not IsPlayerInVehicle() then
         local NearestGatherZone = GetNearestGatherZone()
 		local NearestProcessZone = GetNearestProcessZone()
 		local NearestSellNpc = IsNearbyNpc(GetPlayerId(), sellNpcsIds) -- → c_police

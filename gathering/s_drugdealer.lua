@@ -66,13 +66,13 @@ AddRemoteEvent("drugdealer:doneselling", function(player, price)
 end)
 
 
-AddCommand("showdrugs", function(player)
-    if PlayerData[player].job ~= "police" and PlayerData[player].job ~= "medic" and PlayerData[player].drug_knowledge ~= nil then
-        CallRemoteEvent(player, "drugdealer:showdrugs", PlayerData[player].drug_knowledge)        
-    end
-end)
+-- AddCommand("showdrugs", function(player)
+--     if PlayerData[player].job ~= "police" and PlayerData[player].job ~= "medic" and PlayerData[player].drug_knowledge ~= nil then
+--         CallRemoteEvent(player, "drugdealer:showdrugs", PlayerData[player].drug_knowledge)        
+--     end
+-- end)
 
-AddCommand("hidedrugs", function(player)
-    CallRemoteEvent(player, "drugdealer:hidedrugs")        
-end)
+-- AddCommand("hidedrugs", function(player)
+--     CallRemoteEvent(player, "drugdealer:hidedrugs")        
+-- end)
 
