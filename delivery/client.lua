@@ -4,15 +4,19 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 local deliveryNPC
 local deliveryNpcMenu
 local deliveryMenu
+local vehiclePrice = 0
 
-AddRemoteEvent("SetupDelivery", function(deliverynpc) 
+AddRemoteEvent("SetupDelivery", function(deliverynpc, _vehiclePrice) 
     deliveryNPC = deliverynpc
-end)
+    vehiclePrice = _vehiclePrice
 
-AddEvent("OnTranslationReady", function()
-    deliveryNpcMenu = Dialog.create(_("delivery_menu"), nil, _("start_stop_delivery") ,_("cancel"))
+    deliveryNpcMenu = Dialog.create(_("delivery_menu"), _("delivery_desc", vehiclePrice), _("start_stop_delivery") ,_("cancel"))
     deliveryMenu = Dialog.create(_("delivery_menu"), nil, _("next_delivery"), _("finish_delivery"), _("cancel"))
 end)
+
+-- AddEvent("OnTranslationReady", function()
+    
+-- end)
 
 AddEvent("OnKeyPress", function( key )
     if key == INTERACT_KEY and not GetPlayerBusy() then
