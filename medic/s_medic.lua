@@ -186,13 +186,16 @@ AddEvent("OnPlayerSpawn", function(player)-- On player death
     SetPlayerRagdoll(player, false)
     if PlayerData and PlayerData[player] then
         if PlayerData[player].has_been_revived == false or PlayerData[player].has_been_revived == nil then -- Clean inv
-            PlayerData[player].inventory = {}
+            AlterInventoryOnDeath(player)
             SetPlayerCuffed(player, false)
         end
         GiveMedicEquipmentToPlayer(player)
     end
 end)
 
+function AlterInventoryOnDeath(player)  -- TODO
+    PlayerData[player].inventory = {}
+end
 
 --------- SERVICE AND EQUIPMENT END
 --------- MEDIC VEHICLE
