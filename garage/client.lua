@@ -5,7 +5,8 @@ local garageDealer
 local GarageDealerIds = { }
 
 AddEvent("OnTranslationReady", function()
-	garageDealer = Dialog.create(_("garage"), nil, _("spawn"), _("sell") , _("cancel"))
+	-- garageDealer = Dialog.create(_("garage"), nil, _("spawn"), _("sell") , _("cancel"))
+	garageDealer = Dialog.create(_("garage"), nil, _("spawn"), _("cancel"))
 	Dialog.addSelect(garageDealer, 1, _("vehicle_list"), 10)
 end)
 
@@ -29,13 +30,13 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
                 CallRemoteEvent("spawnCarServer", args[1])
 			end
         end
-        if button == 2 then
-            if args[1] == "" then
-                MakeNotification(_("select_car_to_sell"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-            else
-                CallRemoteEvent("sellCarServer", args[1])
-            end
-        end
+        -- if button == 2 then
+        --     if args[1] == "" then
+        --         MakeNotification(_("select_car_to_sell"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+        --     else
+        --         CallRemoteEvent("sellCarServer", args[1])
+        --     end
+        -- end
     end
 end)
 
