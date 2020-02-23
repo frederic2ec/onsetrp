@@ -3,11 +3,11 @@ local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, .
 local MAX_MEDIC = 20
 local ALLOW_RESPAWN_VEHICLE = true
 local TIMER_RESPAWN_WAITER = 1800 -- 30 minutes
-local REVIVE_PERCENT_SUCCESS = 33 -- in percent
+local REVIVE_PERCENT_SUCCESS = 40 -- in percent
 local TIME_TO_REVIVE = 15 -- in seconds
 local AUTO_CALL_FOR_MEDIC = false
 local TIME_TO_HEAL = 5 -- in seconds
-local AMOUNT_TO_HEAL_PER_INTERACTION = 20 -- Hp that will be healed each time the medic interact
+local AMOUNT_TO_HEAL_PER_INTERACTION = 30 -- Hp that will be healed each time the medic interact
 
 local DEFAULT_RESPAWN_POINT = {x = 212124, y = 159055, z = 1305, h = 90}
 
@@ -37,14 +37,14 @@ local MEDIC_HOSPITAL_LOCATION = {
 
 local MEDIC_EQUIPEMENT_NEEDED = {
     {item = "defibrillator", qty = 1},
-    {item = "adrenaline_syringe", qty = 2},
+    {item = "adrenaline_syringe", qty = 5},
     {item = "bandage", qty = 5},
-    {item = "health_kit", qty = 1},
+    {item = "health_kit", qty = 3},
 }
 
 local ITEM_MEDKIT_HEAL = 10
 local ITEM_MEDKIT_MAX_HEAL = 30
-local ITEM_ADRENALINE_SYRINGE_HEAL = 20
+local ITEM_ADRENALINE_SYRINGE_HEAL = 50
 local ITEM_TIME_TO_USE = 5
 
 local medicNpcIds = {}
@@ -192,6 +192,8 @@ AddEvent("OnPlayerSpawn", function(player)-- On player death
         GiveMedicEquipmentToPlayer(player)
     end
 end)
+
+
 --------- SERVICE AND EQUIPMENT END
 --------- MEDIC VEHICLE
 function SpawnMedicCar(player)-- to spawn an ambulance
@@ -489,6 +491,10 @@ function MedicUseItem(player, item)
                 SetPlayerHealth(player, GetPlayerHealth(player) + ITEM_MEDKIT_HEAL)
                 if GetPlayerHealth(player) > ITEM_MEDKIT_MAX_HEAL then SetPlayerHealth(player, ITEM_MEDKIT_MAX_HEAL) end
                 PlayerData[player].health = GetPlayerHealth(player)
+                if PlayerData[player].job == "medic" then
+                    SetPlayerHealth(player, 60)
+                    PlayerData[player].health = 60
+                end
                 RemoveInventory(player, item, 1)
                 CallRemoteEvent(player, "MakeNotification", _("medic_item_health_kit_success"), "linear-gradient(to right, #00b09b, #96c93d)")
             end)
