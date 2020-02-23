@@ -207,27 +207,27 @@ function GetNearestNpc()
     return 0
 end
 
-local gpsTable = {}
+-- local gpsTable = {}
 
-AddRemoteEvent("drugdealer:showdrugs", function(knowledges)
-    gpsTable = {}
+-- AddRemoteEvent("drugdealer:showdrugs", function(knowledges)
+--     gpsTable = {}
     
-    table.insert(gpsTable, {label = _("drugdealer_name"), x = 72234, y = -1658, z = 1370})
+--     table.insert(gpsTable, {label = _("drugdealer_name"), x = 72234, y = -1658, z = 1370})
     
-    for k, v in pairs(knowledges) do
-        if k == "cocaine" and v == 1 then
-            table.insert(gpsTable, {label = _("gather") .. " " .. _("coca_leaf"), x = 101448, y = -137535, z = 2178})
-            table.insert(gpsTable, {label = _("process") .. " " .. _("coca_leaf"), x = 74387, y = -92653, z = 2293})
-        end
-    end
+--     for k, v in pairs(knowledges) do
+--         if k == "cocaine" and v == 1 then
+--             table.insert(gpsTable, {label = _("gather") .. " " .. _("coca_leaf"), x = 101448, y = -137535, z = 2178})
+--             table.insert(gpsTable, {label = _("process") .. " " .. _("coca_leaf"), x = 74387, y = -92653, z = 2293})
+--         end
+--     end
     
-    for k, v in pairs(gpsTable) do
-        gpsTable[k].waypoint = CreateWaypoint(v.x, v.y, v.z, v.label)
-    end
-end)
+--     for k, v in pairs(gpsTable) do
+--         gpsTable[k].waypoint = CreateWaypoint(v.x, v.y, v.z, v.label)
+--     end
+-- end)
 
-AddRemoteEvent("drugdealer:hidedrugs", function()
-    for k, v in pairs(gpsTable) do
-        DestroyWaypoint(gpsTable[k].waypoint)
-    end
-end)
+-- AddRemoteEvent("drugdealer:hidedrugs", function()
+--     for k, v in pairs(gpsTable) do
+--         DestroyWaypoint(gpsTable[k].waypoint)
+--     end
+-- end)

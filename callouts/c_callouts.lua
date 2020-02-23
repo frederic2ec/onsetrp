@@ -82,10 +82,14 @@ AddRemoteEvent("callouts:createwp", function(target, x, y, z, label)
     if wpObject ~= nil then DestroyWaypoint(wpObject) end
     currentCallout = target
     wpObject = CreateWaypoint(x, y, z, tostring(label))
+
+    CallEvent("UpdateCalloutDestination", x, y)    
 end)
 
 AddRemoteEvent("callouts:cleanwp", function()
     currentCallout = nil
     if wpObject ~= nil then DestroyWaypoint(wpObject) end
     wpObject = nil
+
+    CallEvent("ClearCalloutDestination")
 end)

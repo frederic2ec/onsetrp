@@ -127,6 +127,7 @@ AddRemoteEvent("admin:menu:getitemlist", function(player)
     local itemList = {}
     for k,v in pairs(Items) do
         itemList[k] = _(v.name)
+        print(k, _(v.name))
     end
     CallRemoteEvent(player, "admin:menu:showitemmenu", itemList)    
 end)
@@ -332,3 +333,11 @@ function UnstuckPlayer(player, height)
     end
 end
 AddRemoteEvent("admin:unstuck:teleport", UnstuckPlayer)
+
+function BroadcastMessage(player, message, tempsaffichage)
+    if PlayerData[player].admin ~= 1 then return end
+    for k,v in pairs(GetAllPlayers()) do
+        CallRemoteEvent(v, "admin:broadcast:display", PlayerData[player].name, message, tonumber(tempsaffichage)) 
+    end       
+end
+AddRemoteEvent("admin:broadcast", BroadcastMessage)

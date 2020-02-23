@@ -189,6 +189,7 @@ end
 
 --- GATHERING
 AddRemoteEvent("gathering:gather:start", function(player, gatherPickup)-- Start the gathering
+    if GetPlayerVehicle(player) ~= 0 then return end
     local gather = GetGatherByGatherPickup(gatherPickup)
     
     if gatherTable[gather] == nil then return end -- fail check
@@ -248,6 +249,7 @@ function DoGathering(player, gather, antiglitchKey)
     -- #7 When job is done, add to inventory and loop
     if PlayerData[player].isGathering == gather and PlayerData[player].gatheringAntiGlitch == antiglitchKey then
         Delay((gatherTable[gather].gather_time or defaultGatherTime) * 1000, function()
+            if GetPlayerVehicle(player) ~= 0 then return end
             if GetPlayerBusy(player) and PlayerData[player].isGathering == gather and PlayerData[player].gatheringAntiGlitch == antiglitchKey then -- Check if the player didnt canceled the job
                 if AddInventory(player, gatherTable[gather].gather_item, 1) == true then
                     CallRemoteEvent(player, "MakeNotification", _("gather_success", _(gatherTable[gather].gather_item)), "linear-gradient(to right, #00b09b, #96c93d)")
@@ -274,6 +276,7 @@ end
 
 --- PROCESSING
 AddRemoteEvent("gathering:process:start", function(player, processPickup)
+    if GetPlayerVehicle(player) ~= 0 then return end
     local gather = GetGatherByProcessPickup(processPickup)
     if gather == nil then return end
     if gatherTable[gather[1]] == nil and gatherTable[gather[1]].process_steps[gather[2]] then return end -- fail check
@@ -358,6 +361,7 @@ function DoProcessing(player, gather, process, processKey, antiglitchKey)
     -- #8 When job is done, add to inventory and loop
     if PlayerData[player].isProcessing == processKey and RemoveInventory(player, process.step_require, process.step_require_number) and PlayerData[player].gatheringAntiGlitch == antiglitchKey then
         Delay(process.step_process_time * 1000, function()
+            if GetPlayerVehicle(player) ~= 0 then return end
             if GetPlayerBusy(player) and PlayerData[player].isProcessing == processKey and PlayerData[player].gatheringAntiGlitch == antiglitchKey then -- Check if the player didnt canceled the job
                 if AddInventory(player, process.step_processed_item, process.step_processed_item_number) == true then
                     CallRemoteEvent(player, "MakeNotification", _("process_success", process.step_processed_item_number, _(process.step_processed_item)), "linear-gradient(to right, #00b09b, #96c93d)")

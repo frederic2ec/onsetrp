@@ -79,7 +79,6 @@ function CalloutTake(player, target)-- allow  to take the callout
 
     callOuts[tonumber(target)].taken = player
 
-    local x, y, z = GetPlayerLocation(tonumber(target))
     local label
 
     if PlayerData[player].job == "medic" then
@@ -92,7 +91,7 @@ function CalloutTake(player, target)-- allow  to take the callout
 
     UpdateCalloutsList(player)
 
-    CallRemoteEvent(player, "callouts:createwp", tonumber(target), x, y, z, label)
+    CallRemoteEvent(player, "callouts:createwp", tonumber(target), callOuts[tonumber(target)].location.x, callOuts[tonumber(target)].location.y, callOuts[tonumber(target)].location.z, label)
     CallRemoteEvent(player, "MakeNotification", _("callouts_you_took_callout"), "linear-gradient(to right, #00b09b, #96c93d)")
     CallRemoteEvent(tonumber(target), "MakeNotification", _("callout_has_been_taken"), "linear-gradient(to right, #00b09b, #96c93d)", 10000)
 end

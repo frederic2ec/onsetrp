@@ -398,9 +398,9 @@
     "drugdealer_nothingicando": "Il n'y a plus rien que je ne puisse t'apprendre .. Pour l'instant.",
     "drugdealer_notenoughmoney": "Tu te fou de moi mec ? Tu as pas suffisament de thunes !",
     "drugdealer_ask_drug": "Yo l'avorton. Tu as besoin d'un plan ?",
-    "drugdealer_answer_cocain": "Oui, je cherche de la cocaïne",
+    "drugdealer_answer_cocain": "Oui, je souhaiterais apprendre à fabriquer de la cocaïne",
     "drugdealer_ask_payment": "Je veux bien t'aider mais ça te coutera {1}$",
-    "drugdealer_explain": "Un plaisir de faire du business avec toi. Je t'ai envoyé un SMS avec les coordonnées GPS. Amuse toi bien.",
+    "drugdealer_explain": "Voilà, maintenant tu sais comment ça fonctionne. Reviens me voir quand tu souhaite vendre tout ça rapidement. Amuse toi bien.",
     "drugdealer_tempinfo": "[INFO] Temporairement, utilisez les commandes /showdrugs et /hidedrugs pour afficher ou cacher les positions GPS.",
     "drugdealer_wts": "Je souhaite vendre ce que j'ai",
     "drugdealer_checkdrugs": "Ok laisse moi vérifier ta came, reste dans le coin",
@@ -595,5 +595,9 @@
     "item_menu": "Menu objets",
     "admin_give_item_success": "Objet donné avec succès",
     "admin_give_item_fail": "Impossible de donner cet objet",
-    "orange": "orange"
+    "orange": "orange",
+    "broadcast": "Broadcast",
+    "send": "Envoyer",
+    "text_to_send": "Texte à envoyer",
+    "display_time": "Temps d'affichage"
 }
