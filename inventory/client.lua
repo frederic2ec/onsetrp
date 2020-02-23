@@ -61,14 +61,12 @@ function OnSelectedInventoryChange(event)
             isViewingTrunk = destinationVehicle
             CallRemoteEvent("OpenCarTrunk", destinationVehicle)
         else
-            print(333)
             if data.destinationInventoryId == "none" and isViewingTrunk then
                 CallRemoteEvent("CloseTrunk", isViewingTrunk)
                 isViewingTrunk = false
             end
         end
     end
-
 end
 AddEvent('BURDIGALAX_inventory_onChangeNearbyInventorySelected', OnSelectedInventoryChange)
 

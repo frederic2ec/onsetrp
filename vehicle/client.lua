@@ -6,7 +6,8 @@ local vehicleInventory
 local vehicleKeys
 
 AddEvent("OnTranslationReady", function()
-    vehicleMenu = Dialog.create("Vehicle", nil, _("trunk"), _("unflip"), _("unlock_lock"), _("keys"), _("cancel"))
+    -- vehicleMenu = Dialog.create("Vehicle", nil, _("trunk"), _("unflip"), _("unlock_lock"), _("keys"), _("cancel"))
+    vehicleMenu = Dialog.create("Vehicle", nil, _("unflip"), _("unlock_lock"), _("cancel"))
 
     vehicleKeys = Dialog.create(_("keys"), nil, _("give_key"), _("remove_key"), _("cancel"))
     Dialog.addSelect(vehicleKeys, 1, _("player"), 5)
@@ -117,16 +118,13 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
     local args = { ... }
 	if dialog == vehicleMenu then
 		if button == 1 then
-            CallRemoteEvent("OpenTrunk")
-        end
-        if button == 2 then
             CallRemoteEvent("UnflipVehicle")
         end
-        if button == 3 then
+        if button == 2 then
             CallRemoteEvent("unlockVehicle")
         end
-        if button == 4 then
-            CallRemoteEvent("VehicleKeys")
+        if button == 3 then
+            -- CallRemoteEvent("VehicleKeys")
         end
     end
 

@@ -1,7 +1,7 @@
 local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, ...) end
 
 local MAX_POLICE = 30 -- Number of policemens at the same time
-local ALLOW_RESPAWN_VEHICLE = true -- Allow the respawn of the vehicle by destroying the previously spawned one. (Can break RP if the car is stolen or need repairs or fuel)
+local ALLOW_RESPAWN_VEHICLE = false -- Allow the respawn of the vehicle by destroying the previously spawned one. (Can break RP if the car is stolen or need repairs or fuel)
 local NB_HANDCUFFS = 3
 
 --- PLAN B EN CAS DE FPS EN DELIRE AVEC LE MOD DE SALSI
@@ -256,6 +256,7 @@ function SpawnPoliceCar(player)
         CreateVehicleData(player, vehicle, 3)
         SetVehicleRespawnParams(vehicle, false)
         SetVehiclePropertyValue(vehicle, "locked", true, true)
+        VehicleData[vehicle].inventory = { repair_kit = 2, jerican = 2 }
         CallRemoteEvent(player, "MakeNotification", _("spawn_vehicle_success", " patrol car"), "linear-gradient(to right, #00b09b, #96c93d)")
     else
         CallRemoteEvent(player, "MakeErrorNotification", _("cannot_spawn_vehicle"))
@@ -458,8 +459,6 @@ function LaunchFriskPlayer(player, target)
             table.insert(playerList, {id = k, name = playerName}) -- On prend le nom affiché (l'accountid)
         end
     end
-
-    print("Frisk: "..target.." -> "..PlayerData[tonumber(target)].accountid)
     
     friskedPlayer = { id = tostring(target), name = PlayerData[tonumber(target)].accountid, inventory = PlayerData[tonumber(target)].inventory }
     CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].name, player, playerList, GetPlayerMaxSlots(player), friskedPlayer)
