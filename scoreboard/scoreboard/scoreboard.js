@@ -6,28 +6,33 @@ function ResetScoreboard() {
     tableOuter.scrollTop = 0;
 }
 
-function AddPlayer(id, accountid, name, steamid, ping) {
+function AddPlayer(id, accountid, name, ping, job, health, hunger, thirst, admin) {
     let table = document.getElementsByTagName("table")[0];
     let tableContent = table.getElementsByTagName("tbody")[0].innerHTML;
 
     table.getElementsByTagName("tbody")[0].innerHTML =
         tableContent +
-        `<tr>
+        `<tr class="${job != "" ? "job-"+job:""} ${admin == 1 ? "is-admin":""}">
     <td>#${accountid}</td>
-    <td>${name}</td>
-    <td>${steamid}</td>
-    <td>${ping}ms</td>
+    <td class="name">${name}</td>
+    <td>${job}</td>
+    <td>
+        <span class="btn health">${health} %</span>&nbsp;
+        <span class="btn hunger">${hunger} %</span>&nbsp;
+        <span class="btn thirst">${thirst} %</span>
+    </td>
+    <td>${ping} ms</td>
     <td class="right">
-        <button class="btn-level-0" onclick="spec(${id})">SPC</button>&nbsp;    
-        <button class="btn-level-0" onclick="heal(${id})">HEAL</button>&nbsp;    
-        <button class="btn-level-0" onclick="rez(${id})">REZ</button>&nbsp;    
-        <button class="btn-level-0" onclick="cuff(${id})">CUFF</button>&nbsp;    
-        <button class="btn-level-1" onclick="goto(${id})">GOTO</button>&nbsp;
-        <button class="btn-level-1" onclick="bring(${id})"> BRING</button>&nbsp;
-        <button class="btn-level-2" onclick="freeze(${id})">FRZ</button>&nbsp;
-        <button class="btn-level-2" onclick="ragdoll(${id})">RGD</button>&nbsp;
-        <button class="btn-level-3 btn-margin-left" onclick="kick(${id})">KICK</button>&nbsp;
-        <button class="btn-level-3" onclick="ban(${id})">BAN</button>     
+        <button class=" btn btn-level-0" onclick="spec(${id})">SPC</button>&nbsp;    
+        <button class=" btn btn-level-0" onclick="heal(${id})">HEAL</button>&nbsp;    
+        <button class=" btn btn-level-0" onclick="rez(${id})">REZ</button>&nbsp;    
+        <button class=" btn btn-level-0" onclick="cuff(${id})">CUFF</button>&nbsp;    
+        <button class=" btn btn-level-1" onclick="goto(${id})">GOTO</button>&nbsp;
+        <button class=" btn btn-level-1" onclick="bring(${id})"> BRING</button>&nbsp;
+        <button class=" btn btn-level-2" onclick="freeze(${id})">FRZ</button>&nbsp;
+        <button class=" btn btn-level-2" onclick="ragdoll(${id})">RGD</button>&nbsp;
+        <button class=" btn btn-level-3 btn-margin-left" onclick="kick(${id})">KICK</button>&nbsp;
+        <button class=" btn btn-level-3" onclick="ban(${id})">BAN</button>     
     </td>
   </tr>`;
 }
@@ -44,7 +49,7 @@ function SecondsToTime(d) {
     return hDisplay + mDisplay + sDisplay;
 }
 
-function SetInformation(name, players, maxplayers) {
+function SetInformation(players, maxplayers) {
     let infoPlayers = document.getElementsByClassName("players")[0];
     infoPlayers.getElementsByTagName(
         "small"

@@ -54,6 +54,10 @@ table tr:nth-child(even)  {
   background: #343434;
 }
 
+table tr {
+  background: #1a1a1a;
+}
+
 table tr:nth-child(1) {
   position: sticky;
   top: 0;
@@ -109,7 +113,7 @@ table th {
   float: right;
 }
 
-button {
+.btn {
   font-family: 'Raleway', 'Open Sans', sans-serif !important;
   border: none;
   color: white;
@@ -121,7 +125,7 @@ button {
 }
 
 .right {
-  text-align:right;
+  text-align:right !important;
 }
 
 .btn-level-0 {
@@ -140,7 +144,27 @@ button {
   margin-left: 30px;
 }
 
-button img {
-  height:12px;
-  width:12px;
+.job-police {
+  background-color: rgb(0, 0, 104) !important;
+}
+
+.job-medic {
+  background-color: rgb(114, 0, 0) !important;
+}
+
+.is-admin .name {
+  color: orange;
+  font-weight: bold;
+}
+
+.health {
+  background-color: rgb(148, 0, 0);
+}
+
+.hunger {
+  background-color: rgb(141, 80, 0);
+}
+
+.thirst {
+  background-color: rgb(0, 75, 136);
 }
