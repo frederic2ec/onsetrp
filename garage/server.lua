@@ -130,10 +130,9 @@ AddEvent("OnPlayerPickupHit", OnPlayerPickupHit)
 
 function MoveVehicleToGarage(vehicle, player)
     if vehicle then
-        local query = mariadb_prepare(sql, "UPDATE `player_garage` SET `garage`=1 WHERE `id` = ?;",
-        tostring(VehicleData[vehicle].garageid)
-        )
-        mariadb_async_query(sql, query)
+        if VehicleData[vehicle].garageid ~= 0 then
+            mariadb_async_query(sql, mariadb_prepare(sql, "UPDATE `player_garage` SET `garage`=1 WHERE `id` = ?;", tostring(VehicleData[vehicle].garageid)))
+        end
         DestroyVehicle(vehicle)
         DestroyVehicleData(vehicle)
         return CallRemoteEvent(player, "MakeNotification", _("vehicle_stored"), "linear-gradient(to right, #00b09b, #96c93d)")

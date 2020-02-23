@@ -35,7 +35,7 @@ AddRemoteEvent("ServerPersonalMenu", function(player, inVehicle, vehiclSpeed)
     end
     
     -- Vehicle inventories
-    for k, nearVehicleId in pairs(GetNearestCars(player, 300)) do
+    for k, nearVehicleId in pairs(GetNearestCars(player, 600)) do
         if VehicleData[nearVehicleId] ~= nil and not GetVehiclePropertyValue(nearVehicleId, "locked") then
             local vehicleId = "vehicle_"..nearVehicleId
             local vehicleName = _("vehicle_"..VehicleData[nearVehicleId].modelid)
@@ -45,7 +45,7 @@ AddRemoteEvent("ServerPersonalMenu", function(player, inVehicle, vehiclSpeed)
         end
     end
 
-    CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].name, player, nearInventories, GetPlayerMaxSlots(player), nil, nearInventoryItems)
+    CallRemoteEvent(player, "OpenPersonalMenu", Items, PlayerData[player].inventory, PlayerData[player].accountid, player, nearInventories, GetPlayerMaxSlots(player), nil, nearInventoryItems)
 end)
 
 function getWeaponID(modelid)
