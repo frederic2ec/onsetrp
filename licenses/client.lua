@@ -27,11 +27,13 @@ AddEvent("OnKeyPress", OnKeyPress)
 
 AddEvent("OnDialogSubmit", function(dialog, button, ...)
     if dialog == licenseNpcMenu then
-        local args = { ... }
-        if args[1] == "" then
-            MakeNotification(_("select_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
-        else
-            CallRemoteEvent("BuyLicense", args[1])
+        if button == 1 then
+            local args = { ... }
+            if args[1] == "" then
+                MakeNotification(_("select_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+            else
+                CallRemoteEvent("BuyLicense", args[1])
+            end
         end
     end
 end)
