@@ -276,15 +276,16 @@ end
 
 AddEvent("OnPlayerPickupHit", function(player, pickup)-- Store the vehicle in garage
     if PlayerData[player].job ~= "police" then return end
+    
     for k, v in pairs(POLICE_GARAGE) do
         if v.garageObject == pickup then
             local vehicle = GetPlayerVehicle(player)
+            
             if vehicle == nil then return end
+            
             local seat = GetPlayerVehicleSeat(player)
-            if vehicle == PlayerData[player].job_vehicle and
-                VehicleData[vehicle].owner == PlayerData[player].accountid and
-                seat == 1
-            then
+
+            if vehicle == PlayerData[player].job_vehicle and VehicleData[vehicle].owner == PlayerData[player].accountid and seat == 1 then
                 DespawnPoliceCar(player)
             end
         end
@@ -437,8 +438,8 @@ function PoliceRemoveVehicle(player)
     if PlayerData[player].police ~= 1 then return end
     if PlayerData[player].job ~= "police" then return end
     
-    local vehicle = getNearestVehicle()
-    MoveVehicleToGarage(vehicle)
+    local vehicle = GetNearestVehicle(player)
+    MoveVehicleToGarage(vehicle, player)
 end
 AddRemoteEvent("police:removevehicle", PoliceRemoveVehicle)
 
@@ -487,6 +488,7 @@ end)
 --------- MISC END
 -- Tools
 function GetNearestPlayer(player, maxDist)
+    local maxDist = maxDist or 300
     local x, y, z = GetPlayerLocation(player)
     local closestPlayer
     local dist
@@ -503,6 +505,22 @@ function GetNearestPlayer(player, maxDist)
         end
     end
     return closestPlayer
+end
+
+function GetNearestVehicle(player, maxDist)
+    local maxDist = maxDist or 300
+    local x, y, z = GetPlayerLocation(player)
+    local closestVehicle
+    local dist
+    for k, v in pairs(GetStreamedVehiclesForPlayer(player)) do
+        local x2, y2, z2 = GetVehicleLocation(v)
+        local currentDist = GetDistance3D(x, y, z, x2, y2, z2)
+        if (dist == nil or currentDist < dist) and currentDist <= tonumber(maxDist) then
+            closestVehicle = v
+            dist = currentDist
+        end
+    end
+    return closestVehicle
 end
 
 function GetNearestPlayers(player, maxDist)

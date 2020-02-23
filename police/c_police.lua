@@ -112,11 +112,11 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
         if button == 5 then
             CallRemoteEvent("police:friskplayer")            
         end
-        if button == 6 then -- take callout
+        if button == 6 then
             CallEvent("callouts:openingmenu")                        
         end
-        if button == 7 then -- end callout
-            CallEvent("police:removevehicle")            
+        if button == 7 then
+            CallRemoteEvent("police:removevehicle")            
         end
     end
     

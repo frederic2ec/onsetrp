@@ -3,31 +3,31 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 VehicleData = {}
 
 VehicleTrunkSlots = { -- slots for vehicles
-    vehicle_1= 205,
-    vehicle_2= 50,
-    vehicle_3= 80,
-    vehicle_4= 215,
-    vehicle_5= 205,
-    vehicle_6= 90,
-    vehicle_7= 315,
-    vehicle_8= 50,
-    vehicle_9= 10,
-    vehicle_10= 10,
-    vehicle_11= 140,
-    vehicle_12= 100,
-    vehicle_13= 100,
-    vehicle_14= 100,
-    vehicle_15= 100,
-    vehicle_16= 100,
-    vehicle_17= 540,
-    vehicle_18= 540,
-    vehicle_19= 205,
-    vehicle_20= 10,
-    vehicle_21= 100,
-    vehicle_22= 475,
-    vehicle_23= 475,
-    vehicle_24= 10,
-    vehicle_25= 160
+    vehicle_1 = 205,
+    vehicle_2 = 50,
+    vehicle_3 = 80,
+    vehicle_4 = 215,
+    vehicle_5 = 205,
+    vehicle_6 = 90,
+    vehicle_7 = 315,
+    vehicle_8 = 50,
+    vehicle_9 = 10,
+    vehicle_10 = 10,
+    vehicle_11 = 140,
+    vehicle_12 = 100,
+    vehicle_13 = 100,
+    vehicle_14 = 100,
+    vehicle_15 = 100,
+    vehicle_16 = 100,
+    vehicle_17 = 540,
+    vehicle_18 = 540,
+    vehicle_19 = 205,
+    vehicle_20 = 10,
+    vehicle_21 = 100,
+    vehicle_22 = 475,
+    vehicle_23 = 475,
+    vehicle_24 = 10,
+    vehicle_25 = 160
 }
 
 function CreateVehicleData(player, vehicle, modelid, fuel)
@@ -196,8 +196,9 @@ function unlockVehicle(player)
 end
 AddRemoteEvent("unlockVehicle", unlockVehicle)
 
-AddRemoteEvent("OpenTrunk", function(player)
-    local vehicle = GetNearestCar(player)
+AddRemoteEvent("OpenTrunk", function(player, vehicle)
+    print(vehicle)
+    local vehicle = vehicle or GetNearestCar(player)
 
     if GetVehiclePropertyValue(vehicle, "locked") then 
 	CallRemoteEvent(player, "MakeNotification", _("this_vehicle_locked"), "linear-gradient(to right, #ff5f6d, #ffc371)")
@@ -249,8 +250,9 @@ AddRemoteEvent("VehicleKeys", function(player)
 end)
 
 AddRemoteEvent("CloseTrunk", function(player, openedTrunk)
-    local vehicle = openedTrunk or GetNearestCar(player)
-    closeTrunk(vehicle)
+    print("CloseTrunk: "..openedTrunk)
+    local openedTrunk = openedTrunk or GetNearestCar(player)
+    closeTrunk(openedTrunk)
 end)
 
 AddRemoteEvent("UnflipVehicle", function(player) 
@@ -299,6 +301,23 @@ function GetNearestCar(player)
     end
 
     return 0
+end
+
+function GetNearestCars(player, distance)
+    local vehicleList = {}
+    local distance = distance or 300
+    local x, y, z = GetPlayerLocation(player)
+
+    for k, vehicleId in pairs(GetAllVehicles()) do
+        local x2, y2, z2 = GetVehicleLocation(vehicleId)
+        local dist = GetDistance3D(x, y, z, x2, y2, z2)
+
+        if dist < distance then
+            table.insert(vehicleList, vehicleId)
+        end
+    end
+
+    return vehicleList
 end
 
 function getVehicleName(modelid)
@@ -417,6 +436,7 @@ function ToggleTrunk(player)
 end
 
 function openTrunk(vehicle)
+    print("openTrunk: "..vehicle)
     CreateCountTimer(function()
         if GetVehicleTrunkRatio(vehicle) then
             openRatio = GetVehicleTrunkRatio(vehicle) + 1
@@ -426,6 +446,7 @@ function openTrunk(vehicle)
         end
     end, 25, 60)
 end
+AddRemoteEvent("OpenCarTrunk", openTrunk)
 
 function closeTrunk(vehicle)
     CreateCountTimer(function()

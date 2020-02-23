@@ -119,7 +119,7 @@ function OnPlayerPickupHit(player, pickup)
                 seat = GetPlayerVehicleSeat(player)
                 if (vehicle ~= 0 and seat == 1) then
                     if (VehicleData[vehicle].owner == PlayerData[player].accountid) then
-                        MoveVehicleToGarage(vehicle)
+                        MoveVehicleToGarage(vehicle, player)
                     end
                 end
             end
@@ -128,7 +128,7 @@ function OnPlayerPickupHit(player, pickup)
 end
 AddEvent("OnPlayerPickupHit", OnPlayerPickupHit)
 
-function MoveVehicleToGarage(vehicle)
+function MoveVehicleToGarage(vehicle, player)
     if vehicle then
         local query = mariadb_prepare(sql, "UPDATE `player_garage` SET `garage`=1 WHERE `id` = ?;",
         tostring(VehicleData[vehicle].garageid)
@@ -159,7 +159,7 @@ function spawnCarServerLoaded(player)
         local name = _("vehicle_"..modelid)
 
         local query = mariadb_prepare(sql, "UPDATE `player_garage` SET `garage`=0 WHERE `id` = ?;",
-        tostring(id)
+            tostring(id)
         )
 
         local x, y, z = GetPlayerLocation(player)
@@ -185,6 +185,9 @@ function spawnCarServerLoaded(player)
                     SetVehiclePropertyValue(vehicle, "fuel", true, fuel)
                     CreateVehicleData(player, vehicle, modelid, fuel)
                     VehicleData[vehicle].garageid = id
+                    if inventory == nil then
+                        inventory = {}
+                    end
                     VehicleData[vehicle].inventory = inventory
                     mariadb_async_query(sql, query)
                     CallRemoteEvent(player, "closeGarageDealer")
