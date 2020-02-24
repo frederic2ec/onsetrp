@@ -67,7 +67,7 @@ AddEvent("OnPackageStart", function()
                 SetVehiclePropertyValue(k, "fuel", VehicleData[k].fuel, true)
             end
         end
-    end, 15000)
+    end, 20000)
 end)
 
 AddEvent("OnPlayerJoin", function(player)
@@ -105,9 +105,6 @@ end)
 
 AddRemoteEvent("PayGasStation", function(player, count, fuel, vehicle)
     price = count * tonumber(gasPrices[fuel])
-
-    print(count)
-    print(price)
 
     local resultPay = RemovePlayerCash(player, price)
     if resultPay then

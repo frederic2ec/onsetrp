@@ -136,8 +136,7 @@ function GetCalloutsList(player)
     for k,v in pairs(callOuts) do
         if v.job == PlayerData[player].job then
             if IsValidPlayer(k) then
-                local x2,y2,z2 = GetPlayerLocation(k)
-                local dist = math.floor(tonumber(GetDistance2D(x, y, x2, y2)) / 100)
+                local dist = math.floor(tonumber(GetDistance2D(x, y, v.location.x, v.location.y)) / 100)
 
                 local taken = v.taken
 

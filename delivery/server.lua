@@ -33,9 +33,16 @@ local deliveryPoint = {
     {182881, 148416, 5933}
 }
 
+local LOCATION_PRICE = 2000
+local LOCATION_REFUND_PERCENTAGE = 0.8
+
+local PRICE_DIVIDER = 250
+local PRICE_PER_DIVIDE = 15
 
 local deliveryNpcCached = {}
 local playerDelivery = {}
+
+local trucksOnLocation = {}
 
 AddEvent("OnPackageStart", function()
     for k, v in pairs(deliveryNpc) do
@@ -52,11 +59,14 @@ AddEvent("OnPlayerQuit", function(player)
 end)
 
 AddEvent("OnPlayerJoin", function(player)
-    CallRemoteEvent(player, "SetupDelivery", deliveryNpcCached)
+    CallRemoteEvent(player, "SetupDelivery", deliveryNpcCached, LOCATION_PRICE)
 end)
 
 AddRemoteEvent("StartStopDelivery", function(player)
     local nearestDelivery = GetNearestDelivery(player)
+    local useBank = PlayerData[player].bank_balance >= LOCATION_PRICE
+    local useCash = PlayerData[player].inventory['cash'] ~= nil and PlayerData[player].inventory['cash'] >= LOCATION_PRICE
+    
     if PlayerData[player].job == "" then
         if PlayerData[player].job_vehicle ~= nil then
             DestroyVehicle(PlayerData[player].job_vehicle)
@@ -83,24 +93,61 @@ AddRemoteEvent("StartStopDelivery", function(player)
                 end
             end
             if isSpawnable then
+                
+                if useBank then
+                    PlayerData[player].bank_balance = PlayerData[player].bank_balance - LOCATION_PRICE
+                elseif useCash then
+                    RemovePlayerCash(player, LOCATION_PRICE)
+                else
+                    CallRemoteEvent(player, "MakeErrorNotification", _("delivery_not_enough_location_cash", LOCATION_PRICE))
+                    return
+                end
+                
                 local vehicle = CreateVehicle(24, deliveryNpc[nearestDelivery].spawn[1], deliveryNpc[nearestDelivery].spawn[2], deliveryNpc[nearestDelivery].spawn[3], deliveryNpc[nearestDelivery].spawn[4])
                 PlayerData[player].job_vehicle = vehicle
                 CreateVehicleData(player, vehicle, 24)
                 SetVehicleRespawnParams(vehicle, false)
                 SetVehiclePropertyValue(vehicle, "locked", true, true)
                 PlayerData[player].job = "delivery"
+                
+                trucksOnLocation[PlayerData[player].accountid] = vehicle
+                
+                CallRemoteEvent(player, "MakeNotification", _("delivery_start_success"), "linear-gradient(to right, #00b09b, #96c93d)")
                 return
             end
         end
     elseif PlayerData[player].job == "delivery" then
-        if PlayerData[player].job_vehicle ~= nil then
-            DestroyVehicle(PlayerData[player].job_vehicle)
-            DestroyVehicleData(PlayerData[player].job_vehicle)
+        
+        if trucksOnLocation[PlayerData[player].accountid] ~= nil then -- If the player has a job vehicle
+            local x, y, z = GetVehicleLocation(PlayerData[player].job_vehicle)
+            
+            local IsNearby = false
+            for k, v in pairs(deliveryNpc) do -- For each location npc
+                local dist = GetDistance3D(x, y, z, v.location[1], v.location[2], v.location[3])
+                if dist <= 2000 then -- if vehicle is nearby
+                    IsNearby = true
+                end
+            end
+            
+            if IsNearby then
+                local refund = LOCATION_PRICE * LOCATION_REFUND_PERCENTAGE
+                PlayerData[player].bank_balance = PlayerData[player].bank_balance + refund
+                CallRemoteEvent(player, "MakeNotification", _("delivery_location_price_refunded", refund), "linear-gradient(to right, #00b09b, #96c93d)")
+            else
+                CallRemoteEvent(player, "MakeErrorNotification", _("delivery_vehicle_too_far_away"))
+            end
+        end
+        
+        if trucksOnLocation[PlayerData[player].accountid] ~= nil then
+            DestroyVehicle(trucksOnLocation[PlayerData[player].accountid])
+            DestroyVehicleData(trucksOnLocation[PlayerData[player].accountid])
             PlayerData[player].job_vehicle = nil
+            trucksOnLocation[PlayerData[player].accountid] = nil
         end
         PlayerData[player].job = ""
         playerDelivery[player] = nil
         CallRemoteEvent(player, "ClientDestroyCurrentWaypoint")
+    
     end
 end)
 
@@ -114,9 +161,13 @@ AddRemoteEvent("NextDelivery", function(player)
     if playerDelivery[player] ~= nil then
         return CallRemoteEvent(player, "MakeNotification", _("finish_your_delivery"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     end
-    delivery = Random(1, #deliveryPoint)
+    delivery = {}
+    delivery[1] = Random(1, #deliveryPoint)
+    local x, y, z = GetPlayerLocation(player)
+    local dist = GetDistance3D(x, y, z, deliveryPoint[delivery[1]][1], deliveryPoint[delivery[1]][2], deliveryPoint[delivery[1]][3])
+    delivery[2] = ((dist / 100) / PRICE_DIVIDER) * PRICE_PER_DIVIDE
     playerDelivery[player] = delivery
-    CallRemoteEvent(player, "ClientCreateWaypoint", _("delivery"), deliveryPoint[delivery][1], deliveryPoint[delivery][2], deliveryPoint[delivery][3])
+    CallRemoteEvent(player, "ClientCreateWaypoint", _("delivery"), deliveryPoint[delivery[1]][1], deliveryPoint[delivery[1]][2], deliveryPoint[delivery[1]][3])
     CallRemoteEvent(player, "MakeNotification", _("new_delivery"), "linear-gradient(to right, #00b09b, #96c93d)")
 end)
 
@@ -130,14 +181,17 @@ AddRemoteEvent("FinishDelivery", function(player)
     
     local x, y, z = GetPlayerLocation(player)
     
-    local dist = GetDistance3D(x, y, z, deliveryPoint[delivery][1], deliveryPoint[delivery][2], deliveryPoint[delivery][3])
+    local dist = GetDistance3D(x, y, z, deliveryPoint[delivery[1]][1], deliveryPoint[delivery[1]][2], deliveryPoint[delivery[1]][3])
     
     if dist < 150.0 then
-        local reward = Random(50, 200)
+        if PlayerData[player].job_vehicle ~= GetPlayerVehicle(player) then
+            CallRemoteEvent(player, "MakeErrorNotification", _("delivery_need_delivery_truck"))
+            return
+        end
         
-        CallRemoteEvent(player, "MakeNotification", _("finished_delivery", reward, _("currency")), "linear-gradient(to right, #ff5f6d, #ffc371)")
+        CallRemoteEvent(player, "MakeNotification", _("finished_delivery", math.ceil(delivery[2]) or PRICE_PER_DIVIDE, _("currency")), "linear-gradient(to right, #00b09b, #96c93d)")
         
-        AddPlayerCash(player, reward)
+        AddPlayerCash(player, math.ceil(delivery[2]) or PRICE_PER_DIVIDE)
         playerDelivery[player] = nil
         CallRemoteEvent(player, "ClientDestroyCurrentWaypoint")
     else
@@ -163,3 +217,7 @@ function GetNearestDelivery(player)
     
     return 0
 end
+
+AddEvent("job:onspawn", function(player)
+    PlayerData[player].job_vehicle = trucksOnLocation[PlayerData[player].accountid]
+end)

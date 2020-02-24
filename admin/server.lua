@@ -127,7 +127,6 @@ AddRemoteEvent("admin:menu:getitemlist", function(player)
     local itemList = {}
     for k,v in pairs(Items) do
         itemList[k] = _(v.name)
-        print(k, _(v.name))
     end
     CallRemoteEvent(player, "admin:menu:showitemmenu", itemList)    
 end)

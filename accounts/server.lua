@@ -286,11 +286,11 @@ function DestroyPlayerData(player)
         return
     end
     
-    if PlayerData[player].job_vehicle ~= nil then
-        DestroyVehicle(PlayerData[player].job_vehicle)
-        DestroyVehicleData(PlayerData[player].job_vehicle)
-        PlayerData[player].job_vehicle = nil
-    end
+    -- if PlayerData[player].job_vehicle ~= nil then
+    --     DestroyVehicle(PlayerData[player].job_vehicle)
+    --     DestroyVehicleData(PlayerData[player].job_vehicle)
+    --     PlayerData[player].job_vehicle = nil
+    -- end
 
     local attachedObjects = { "backpack", "mask_1", "mask_2", "mask_3", "mask_4" }
 

@@ -1,23 +1,25 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 local minutes = 15
-local minimumWage = 50
-local inJobWage = 100
-local medicAndCopsSalary = 150
-local addMedicAndCopsSalaryToMinimumWage = true
+
+local MINIMUM_WAGE = 50
+local JOB_WAGE = 100
+local POLICE_WAGE = 200
+local MEDIC_WAGE = 500
 
 CreateTimer(function()
     for key, player in pairs(GetAllPlayers()) do
-        if PlayerData[player] then
-            local salary = minimumWage
-            if PlayerData[player].job == "police" or PlayerData[player].job == "medic" then
-                if addMedicAndCopsSalaryToMinimumWage then
-                    salary = salary + medicAndCopsSalary
-                else
-                    salary = medicAndCopsSalary
-                end
-            elseif PlayerData[player].job ~= nil and PlayerData[player].job ~= "" then
-                salary = inJobWage
+        if PlayerData[player] then 
+
+            -- THOSE HAS TO BE ORDER BY WAGE AMOUNT (desc)
+            if PlayerData[player].job == "medic" then
+                PlayerData[player].bank_balance = PlayerData[player].bank_balance + MEDIC_WAGE
+            elseif PlayerData[player].job == "police" then
+                PlayerData[player].bank_balance = PlayerData[player].bank_balance + POLICE_WAGE
+            elseif PlayerData[player].job ~= nil then
+                PlayerData[player].bank_balance = PlayerData[player].bank_balance + JOB_WAGE
+            else
+                PlayerData[player].bank_balance = PlayerData[player].bank_balance + MINIMUM_WAGE
             end
     
             PlayerData[player].bank_balance = PlayerData[player].bank_balance + salary

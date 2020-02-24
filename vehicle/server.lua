@@ -71,8 +71,6 @@ function OnPackageStart()
                 end
                 if VehicleData[v].owner == PlayerData[z].accountid then
                     hasOwner = true
-                    print(VehicleData[v].owner)
-                    print(PlayerData[z].accountid )
                     break
                 end
                 ::continue::
@@ -96,8 +94,6 @@ function OnPackageStart()
                 end
                 if VehicleData[v].owner == PlayerData[z].accountid then
                     hasOwner = true
-                    print(VehicleData[v].owner)
-                    print(PlayerData[z].accountid )
                     break
                 end
 		::continue::
@@ -197,7 +193,6 @@ end
 AddRemoteEvent("unlockVehicle", unlockVehicle)
 
 AddRemoteEvent("OpenTrunk", function(player, vehicle)
-    print(vehicle)
     local vehicle = vehicle or GetNearestCar(player)
 
     if GetVehiclePropertyValue(vehicle, "locked") then 
