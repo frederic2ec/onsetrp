@@ -232,7 +232,7 @@ function OnPhoneNumberChecked(player, phone_number)
         mariadb_async_query(sql, query)
     else
         -- Retry with a new phone number if the generated one is already allowed to another account
-        GetAvailablePhoneNumber(player)
+        SetAvailablePhoneNumber(player)
     end
 end
 
