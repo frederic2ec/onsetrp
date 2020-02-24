@@ -67,7 +67,7 @@ AddEvent("OnPackageStart", function()
                 SetVehiclePropertyValue(k, "fuel", VehicleData[k].fuel, true)
             end
         end
-    end, 15000)
+    end, 20000)
 end)
 
 AddEvent("OnPlayerJoin", function(player)
