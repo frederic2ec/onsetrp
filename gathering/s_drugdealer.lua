@@ -1,12 +1,12 @@
 local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, ...) end
 local npcTable = {
-    { x = 72234, y = -1658, z = 1370, h = -90}
+    { x = -20242, y = -16094, z = 2063, h = -90 }
 }
 
 local npcTableCached = {}
 
 local drugsUnitPrice = {
-    cocaine = 35
+    cocaine = 25
 }
 
 AddEvent("OnPackageStart", function(player)

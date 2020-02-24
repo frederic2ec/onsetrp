@@ -55,13 +55,13 @@ gatherTable = {
     },
     {-- COCAINE
         gather_zone = {
-            {x = 101448, y = -137535, z = 2178}
+            { x = -88620, y = -117082, z = 2396 }
         },
         gather_item = "coca_leaf",
         gather_time = 7,
         process_steps = {
             {
-                step_zone = {x = 74387, y = -92653, z = 2293},
+                step_zone = { x = -223006, y = 78605, z = 1625 },
                 step_require = "coca_leaf",
                 step_require_number = 3,
                 step_processed_item = "cocaine",
@@ -73,30 +73,30 @@ gatherTable = {
     },
     {-- FISHING
         gather_zone = {
-            {x = 232464, y = 193521, z = 112},
-            {x = -220130, y = 23036, z = 107},
+            { x = 232464, y = 193521, z = 112 },
+            { x = -220130, y = 23036, z = 107 },
         },
         gather_item = "herring",
         require_tool = "fishing_rod",
         gather_animation = "FISHING",
         gather_time = 6,
-        gather_animation_attachement = {modelid = 1111, bone = "hand_r"},
+        gather_animation_attachement = { modelid = 1111, bone = "hand_r" },
         sell_zone = {
-            {x = -21295, y = -22954, z = 2080, h = -90, item_to_sell = "herring", price_per_unit = 5, sell_time = 5}
+            { x = -21295, y = -22954, z = 2080, h = -90, item_to_sell = "herring", price_per_unit = 7, sell_time = 5 }
         }
     },
     {-- MINING
         gather_zone = {
-            {x = -101174, y = 98223, z = 180}
+            { x = -101174, y = 98223, z = 180 }
         },
         gather_item = "iron_ore",
         require_tool = "pickaxe",
         gather_animation = "PICKAXE_SWING",
         gather_time = 18,
-        gather_animation_attachement = {modelid = 1063, bone = "hand_r"},
+        gather_animation_attachement = { modelid = 1063, bone = "hand_r" },
         process_steps = {
             {
-                step_zone = {x = -82629, y = 90991, z = 481},
+                step_zone = { x = -82629, y = 90991, z = 481 },
                 step_require = "iron_ore",
                 step_require_number = 1,
                 step_processed_item = "iron_ingot",
@@ -104,7 +104,7 @@ gatherTable = {
                 step_process_time = 18,
             },
             {
-                step_zone = {x = -191437, y = -31107, z = 1148},
+                step_zone = { x = -191437, y = -31107, z = 1148 },
                 step_require = "iron_ingot",
                 step_require_number = 2,
                 step_processed_item = "iron_pipe",
@@ -113,7 +113,7 @@ gatherTable = {
             }
         },
         sell_zone = {
-            {x = 67862, y = 184741, z = 535, h = 90, item_to_sell = "iron_pipe", price_per_unit = 54, sell_time = 5}
+            { x = 67862, y = 184741, z = 535, h = 90, item_to_sell = "iron_pipe", price_per_unit = 54, sell_time = 5 }
         }
     }
 }

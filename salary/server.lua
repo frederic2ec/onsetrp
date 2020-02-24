@@ -22,8 +22,10 @@ CreateTimer(function()
                 PlayerData[player].bank_balance = PlayerData[player].bank_balance + MINIMUM_WAGE
             end
     
-            PlayerData[player].bank_balance = PlayerData[player].bank_balance + salary
-            CallRemoteEvent(player, "MakeSuccessNotification", _("salary_notification", _("price_in_currency", tostring(salary))))
+            if PlayerData[player].bank_balance then
+                PlayerData[player].bank_balance = PlayerData[player].bank_balance + salary
+                CallRemoteEvent(player, "MakeSuccessNotification", _("salary_notification", _("price_in_currency", tostring(salary))))
+            end
         end
 	end
 end, minutes * 60000)
