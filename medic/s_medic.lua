@@ -53,6 +53,9 @@ local medicGarageIds = {}
 local medicEquipmentNpcIds = {}
 local medicHospitalLocationIds = {}
 
+local MIN_DEATH_PENALTY = 0
+local MAX_DEATH_PENALTY = 50
+
 
 
 AddEvent("OnPackageStart", function()
@@ -192,7 +195,38 @@ AddEvent("OnPlayerSpawn", function(player)-- On player death
 end)
 
 function AlterInventoryOnDeath(player)  -- TODO
+    if PlayerData[player] == nil then return end
     PlayerData[player].inventory = {}
+
+    local lucky = GenRandomDeathPenalty() -- luck factor
+    print('LUCKY FACTOR → ', lucky)
+
+    -- Cash
+    local totalCash = PlayerData[player].inventory['cash'] or 0
+    if totalCash > 0 then
+        local cashPenalty = GenRandomDeathPenalty()
+        local toRemove = math.floor(totalCash * cashPenalty)
+        PlayerData[player].inventory['cash'] = PlayerData[player].inventory['cash'] - toRemove
+        print('CASH PENALTY → ', cashPenalty, toRemove, PlayerData[player].inventory['cash'])
+    end
+
+    -- Items
+    for k,v in pairs(PlayerData[player].inventory) do
+        if k ~= 'cash' then
+            local currentItemPenalty = GenRandomDeathPenalty()
+            if lucky <= currentItemPenalty then
+                local toRemove = math.ceil(v * currentItemPenalty)
+                PlayerData[player].inventory[k] = PlayerData[player].inventory[v] - toRemove
+            end
+            print('ITEM PENALTY → ', v, currentItemPenalty, toRemove, PlayerData[player].inventory[k])
+        end
+    end
+
+end
+
+function GenRandomDeathPenalty() 
+    math.randomseed(os.time())
+    return math.random(MIN_DEATH_PENALTY, MAX_DEATH_PENALTY) -- We'll remove between 0% and 50% of the stuff (check for conf at the top)
 end
 
 --------- SERVICE AND EQUIPMENT END
