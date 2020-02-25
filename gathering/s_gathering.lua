@@ -71,6 +71,12 @@ gatherTable = {
         },
         require_knowledge = true,
     },
+    { -- CANNABIBIL
+        gather_zone = {x= 0, y=0,z= 0},
+        gather_item = "weed",
+        gather_time = 10,
+        require_knowledge = true
+    }
     {-- FISHING
         gather_zone = {
             { x = 232464, y = 193521, z = 112 },
