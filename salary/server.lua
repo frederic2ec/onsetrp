@@ -1,6 +1,6 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
-local minutes = 15
+local minutes = 20
 
 local MINIMUM_WAGE = 50
 local JOB_WAGE = 100
@@ -22,10 +22,7 @@ CreateTimer(function()
                 PlayerData[player].bank_balance = PlayerData[player].bank_balance + MINIMUM_WAGE
             end
     
-            if PlayerData[player].bank_balance then
-                PlayerData[player].bank_balance = PlayerData[player].bank_balance + salary
-                CallRemoteEvent(player, "MakeSuccessNotification", _("salary_notification", _("price_in_currency", tostring(salary))))
-            end
+            CallRemoteEvent(player, "MakeSuccessNotification", _("salary_notification", _("price_in_currency", tostring(salary))))
         end
 	end
 end, minutes * 60000)
