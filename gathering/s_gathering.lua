@@ -27,7 +27,7 @@ gatherTable = {
         gather_animation_attachement = {modelid = 1047, bone = "hand_r"},
         gather_rp_props = nil,
         sell_zone = {
-            {x = 203566, y = 171875, z = 1306, h = -90, item_to_sell = "wood_plank", price_per_unit = 36, sell_time = 5}
+            {x = 203566, y = 171875, z = 1306, h = -90, item_to_sell = "wood_plank", price_per_unit = 30, sell_time = 5}
         }
     },
     {-- PEACH HARVESTION (FOR ALTIS LIFE FANS)
