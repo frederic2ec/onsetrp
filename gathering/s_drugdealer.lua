@@ -6,7 +6,8 @@ local npcTable = {
 local npcTableCached = {}
 
 local drugsUnitPrice = {
-    cocaine = 50
+    cocaine = 42,
+    weed = 7
 }
 
 AddEvent("OnPackageStart", function(player)
@@ -24,6 +25,7 @@ end)
 AddRemoteEvent("drugdealer:prepareconversation", function(player)
     local wts = 0
     if PlayerData[player].inventory['cocaine'] ~= nil and PlayerData[player].inventory['cocaine'] > 0 then wts = 1 end
+    if PlayerData[player].inventory['weed'] ~= nil and PlayerData[player].inventory['weed'] > 0 then wts = 1 end
     CallRemoteEvent(player, "drugdealer:startconversation", PlayerData[player].drug_knowledge, PlayerData[player].job, wts)    
 end)
 
@@ -50,6 +52,9 @@ AddRemoteEvent("drugdealer:doneworking", function(player, npc)
         if k == "cocaine" then
             table.insert( drugs, { label= "cocaine", nb= v, price= v*drugsUnitPrice[k] } )            
         end
+        if k == "weed" then
+            table.insert( drugs, { label= "weed", nb= v, price= v*drugsUnitPrice[k] } )            
+        end
     end
     CallRemoteEvent(player, "drugdealer:selldrugs", drugs)
     
@@ -58,6 +63,9 @@ end)
 AddRemoteEvent("drugdealer:doneselling", function(player, price)
     for k,v in pairs(PlayerData[player].inventory) do
         if k == "cocaine" then
+            RemoveInventory(player, k, v)          
+        end
+        if k == "weed" then
             RemoveInventory(player, k, v)          
         end
     end

@@ -50,18 +50,18 @@ gatherTable = {
             {model = 145, x = -174581, y = 12021, z = 1686, rx = 0, ry = 40, rz = 0},
         },
         sell_zone = {
-            { x = -167521, y = -39359, z = 1146, h = 180, item_to_sell = "peach", price_per_unit = 2, sell_time = 2 }
+            {x = -167521, y = -39359, z = 1146, h = 180, item_to_sell = "peach", price_per_unit = 2, sell_time = 2}
         }
     },
     {-- COCAINE
         gather_zone = {
-            { x = -88620, y = -117082, z = 2396 }
+            {x = -88620, y = -117082, z = 2396}
         },
         gather_item = "coca_leaf",
         gather_time = 7,
         process_steps = {
             {
-                step_zone = { x = -223006, y = 78605, z = 1625 },
+                step_zone = {x = -223006, y = 78605, z = 1625},
                 step_require = "coca_leaf",
                 step_require_number = 3,
                 step_processed_item = "cocaine",
@@ -71,32 +71,51 @@ gatherTable = {
         },
         require_knowledge = true,
     },
+    {-- CANNABIBIL
+        gather_zone = {
+            {x = -98038, y = -66277, z = 4634}
+        },
+        gather_item = "weed",
+        gather_time = 10,
+        require_knowledge = true,
+        gather_rp_props = {
+            {model = 64, x = -98290, y = -66618, z = 4598},
+            {model = 65, x = -98019, y = -66558, z = 4591},
+            {model = 64, x = -98197, y = -66257, z = 4542},
+            {model = 65, x = -97982, y = -66069, z = 4508},
+            {model = 64, x = -98420, y = -66071, z = 4592},
+            {model = 65, x = -98544, y = -66525, z = 4600},
+            {model = 64, x = -98158, y = -66921, z = 4660},
+            {model = 65, x = -97786, y = -67232, z = 4772},
+            {model = 64, x = -97533, y = -66824, z = 4696},
+        }
+    },
     {-- FISHING
         gather_zone = {
-            { x = 232464, y = 193521, z = 112 },
-            { x = -220130, y = 23036, z = 107 },
+            {x = 232464, y = 193521, z = 112},
+            {x = -220130, y = 23036, z = 107},
         },
         gather_item = "herring",
         require_tool = "fishing_rod",
         gather_animation = "FISHING",
         gather_time = 6,
-        gather_animation_attachement = { modelid = 1111, bone = "hand_r" },
+        gather_animation_attachement = {modelid = 1111, bone = "hand_r"},
         sell_zone = {
-            { x = -21295, y = -22954, z = 2080, h = -90, item_to_sell = "herring", price_per_unit = 7, sell_time = 5 }
+            {x = -21295, y = -22954, z = 2080, h = -90, item_to_sell = "herring", price_per_unit = 7, sell_time = 5}
         }
     },
     {-- MINING
         gather_zone = {
-            { x = -101174, y = 98223, z = 180 }
+            {x = -101174, y = 98223, z = 180}
         },
         gather_item = "iron_ore",
         require_tool = "pickaxe",
         gather_animation = "PICKAXE_SWING",
         gather_time = 18,
-        gather_animation_attachement = { modelid = 1063, bone = "hand_r" },
+        gather_animation_attachement = {modelid = 1063, bone = "hand_r"},
         process_steps = {
             {
-                step_zone = { x = -82629, y = 90991, z = 481 },
+                step_zone = {x = -82629, y = 90991, z = 481},
                 step_require = "iron_ore",
                 step_require_number = 1,
                 step_processed_item = "iron_ingot",
@@ -104,7 +123,7 @@ gatherTable = {
                 step_process_time = 18,
             },
             {
-                step_zone = { x = -191437, y = -31107, z = 1148 },
+                step_zone = {x = -191437, y = -31107, z = 1148},
                 step_require = "iron_ingot",
                 step_require_number = 2,
                 step_processed_item = "iron_pipe",
@@ -113,7 +132,7 @@ gatherTable = {
             }
         },
         sell_zone = {
-            { x = 67862, y = 184741, z = 535, h = 90, item_to_sell = "iron_pipe", price_per_unit = 54, sell_time = 5 }
+            {x = 67862, y = 184741, z = 535, h = 90, item_to_sell = "iron_pipe", price_per_unit = 54, sell_time = 5}
         }
     }
 }
@@ -224,15 +243,15 @@ end)
 
 function DoGathering(player, gather, antiglitchKey)
     local ableToGather = false
-    for k,v in pairs(gatherTable[gather].gatherPickup) do
-        local x,y,z = GetPickupLocation(v)
-        local x2,y2,z2 = GetPlayerLocation(player)
+    for k, v in pairs(gatherTable[gather].gatherPickup) do
+        local x, y, z = GetPickupLocation(v)
+        local x2, y2, z2 = GetPlayerLocation(player)
         if GetDistance3D(x, y, z, x2, y2, z2) <= 2000 then
             ableToGather = true
-        end    
+        end
     end
     if ableToGather == false then return end
-
+    
     -- #4 Lock and prepare player
     CallRemoteEvent(player, "LockControlMove", true)
     
@@ -315,14 +334,14 @@ end)
 
 function DoProcessing(player, gather, process, processKey, antiglitchKey)
     
-    local x,y,z = GetPickupLocation(process.processPickup)
-    local x2,y2,z2 = GetPlayerLocation(player)
+    local x, y, z = GetPickupLocation(process.processPickup)
+    local x2, y2, z2 = GetPlayerLocation(player)
     if GetDistance3D(x, y, z, x2, y2, z2) > 150 then
         return
-    end    
-
-    local x,y,z = GetPickupLocation(process.processPickup)
-    local x2,y2,z2 = GetPlayerLocation(player)
+    end
+    
+    local x, y, z = GetPickupLocation(process.processPickup)
+    local x2, y2, z2 = GetPlayerLocation(player)
     if GetDistance3D(x, y, z, x2, y2, z2) > 2000 then return end
     
     -- #4 Check if player have items we need to process
