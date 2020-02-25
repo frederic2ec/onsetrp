@@ -6,7 +6,7 @@ local npcTable = {
 local npcTableCached = {}
 
 local drugsUnitPrice = {
-    cocaine = 25,
+    cocaine = 42,
     weed = 7
 }
 
