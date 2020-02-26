@@ -211,8 +211,8 @@ AddRemoteEvent("UseInventory", function(player, originInventory, itemName, amoun
                     else
                         CallRemoteEvent(player, "LockControlMove", true)
                         SetPlayerAnimation(player, "COMBINE")
+                        RemoveInventory(originInventory, itemName, amount)
                         Delay(4000, function()
-                            RemoveInventory(originInventory, itemName, amount)
                             SetVehicleHealth(nearestCar, 5000)
                             for i = 1, 8 do
                                 SetVehicleDamage(nearestCar, i, 0)
