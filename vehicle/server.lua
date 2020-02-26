@@ -30,7 +30,7 @@ VehicleTrunkSlots = { -- slots for vehicles
     vehicle_25 = 160
 }
 
-function CreateVehicleData(player, vehicle, modelid, fuel)
+function CreateVehicleData(player, vehicle, modelid, fuel, health, licensePlate)
     VehicleData[vehicle] = {}
 
     local fuel = fuel or 100
@@ -41,6 +41,8 @@ function CreateVehicleData(player, vehicle, modelid, fuel)
     VehicleData[vehicle].inventory = {}
     VehicleData[vehicle].keys = {}
     VehicleData[vehicle].fuel = fuel
+    VehicleData[vehicle].health = health or 5000
+    VehicleData[vehicle].license_plate = licensePlate or 'AA-111-AA'
 
     print("Data created for : "..vehicle)
 end
@@ -115,10 +117,12 @@ end
 AddEvent("OnPackageStart", OnPackageStart)
 
 function SaveVehicleData(vehicle) 
-    local query = mariadb_prepare(sql, "UPDATE player_garage SET ownerid = '?', inventory = '?', fuel = ? WHERE id = '?' LIMIT 1;",
+    VehicleData[vehicle].health = GetVehicleHealth(vehicle)    
+    local query = mariadb_prepare(sql, "UPDATE player_garage SET ownerid = '?', inventory = '?', fuel = ?, health = ? WHERE id = '?' LIMIT 1;",
     VehicleData[vehicle].owner,
     json_encode(VehicleData[vehicle].inventory),
     VehicleData[vehicle].fuel,
+    VehicleData[vehicle].health,
     VehicleData[vehicle].garageid
     )
     
@@ -289,7 +293,7 @@ function GetNearestCar(player)
         local x2, y2, z2 = GetVehicleLocation(v)
         local dist = GetDistance3D(x, y, z, x2, y2, z2)
 
-        if dist < 300.0 then
+        if dist < 400.0 then
             return v
         end
     end

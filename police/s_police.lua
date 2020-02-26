@@ -250,6 +250,7 @@ function SpawnPoliceCar(player)
             end
         end
         local vehicle = CreateVehicle(3, spawnPoint.x, spawnPoint.y, spawnPoint.z, spawnPoint.h)
+        SetVehicleLicensePlate(vehicle, "POL-"..PlayerData[player].accountid) 
         PlayerData[player].job_vehicle = vehicle
         CreateVehicleData(player, vehicle, 3)
         SetVehicleRespawnParams(vehicle, false)

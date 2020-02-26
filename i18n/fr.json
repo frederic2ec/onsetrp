@@ -628,5 +628,20 @@
     "delivery_vehicle_too_far_away": "Votre véhicule de prêt est trop loin. Vous ne serez pas remboursé.",
     "delivery_desc": "Ce service nécessite le dépot de {1} $ de location pour le véhicule de fonction. Si vous le rendez en état vous serez remboursé en quasi-totalité.",
     "delivery_start_success": "Le montant de la location a bien été prélevé, votre véhicule vous attend.",
-    "delivery_need_delivery_truck": "Vous avez besoin de votre camion de livraison pour faire ça"
+    "delivery_need_delivery_truck": "Vous avez besoin de votre camion de livraison pour faire ça",
+    "repair_kit_vehicle_repaired": "Vous avez réparer une partie des dégats de votre véhicule",
+    "vehicle_hardly_damaged": "Votre véhicule est énormement endommagé. Vous devriez contacter un dépanneur ou utiliser un kit de réparation rapidement.",
+    "repairing": "Réparation",
+    "vert_bambou": "Vert Bambou",
+    "marron": "Marron",
+    "bleu_galaxie": "Bleu Galaxie",
+    "rouge_bordeau": "Rouge Bordeau",
+    "rose": "Rose",
+    "jaune": "Jaune",
+    "turquoise": "Turquoise",
+    "blanc": "Blanc",
+    "gris_clair": "Gris clair",
+    "gris_fonce": "Gris foncé",
+    "gris_titanium": "Gris Titanium",
+    "violet_fonce": "Violet foncé"
 }

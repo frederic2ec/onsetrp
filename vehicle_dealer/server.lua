@@ -7,7 +7,19 @@ CarDefaultColors = {
 	red = "FF0000",
 	blue = "0000FF",
 	green = "00FF00",
-	orange = "FF6600"
+	orange = "971900",
+	vert_bambou = "001F09",
+	marron = "391c00",
+	bleu_galaxie = "010026",
+	rouge_bordeau = "1f0000",
+	rose = "ff15b5",
+	jaune = "c9be00",
+	turquoise = "00a47c",
+	blanc = "ffffff",
+	gris_clair = "787878",
+	gris_fonce = "262626",
+	gris_titanium = "0b0f14",
+	violet_fonce = "140019"
 }
 
 CarDefaultVehicles = {
@@ -92,12 +104,13 @@ function GetCarDealearByObject(cardealerobject)
 	return nil
 end
 
-function CreateVehicleDatabase(player, vehicle, modelid, color, price)
-    local query = mariadb_prepare(sql, "INSERT INTO player_garage (id, ownerid, modelid, color, garage, price) VALUES (NULL, '?', '?', '?', '0', '?');",
+function CreateVehicleDatabase(player, vehicle, modelid, color, price, licensePlate)
+    local query = mariadb_prepare(sql, "INSERT INTO player_garage (id, ownerid, modelid, color, garage, price, license_plate) VALUES (NULL, '?', '?', '?', '0', '?', '?');",
         tostring(PlayerData[player].accountid),
         tostring(modelid),
         tostring(color),
-        tostring(price)
+		tostring(price),
+		tostring(licensePlate)
     )
 
     mariadb_async_query(sql, query, onVehicleCreateDatabase, vehicle)
@@ -112,6 +125,7 @@ function buyCarServer(player, modelid, color, cardealerobject)
 	local price = getVehiclePrice(modelid, cardealerobject)
 	local color = getVehicleColor(color, cardealerobject)
 	local modelid = getVehicleId(modelid)
+	local licensePlate = genLicensePlate()
 
 	if price == nil or tonumber(price) > GetPlayerCash(player) then
         CallRemoteEvent(player, "MakeErrorNotification",_("no_money_car"))
@@ -132,12 +146,13 @@ function buyCarServer(player, modelid, color, cardealerobject)
                     end
                 end
                 if isSpawnable then
-                    local vehicle = CreateVehicle(modelid, v.spawn[1], v.spawn[2], v.spawn[3], v.spawn[4])
+					local vehicle = CreateVehicle(modelid, v.spawn[1], v.spawn[2], v.spawn[3], v.spawn[4])
+					SetVehicleLicensePlate(vehicle, licensePlate)
                     SetVehicleRespawnParams(vehicle, false)
                     SetVehicleColor(vehicle, "0x"..color)
                     SetVehiclePropertyValue(vehicle, "locked", true, true)
                     CreateVehicleData(player, vehicle, modelid)
-                    CreateVehicleDatabase(player, vehicle, modelid, color, price)
+                    CreateVehicleDatabase(player, vehicle, modelid, color, price, licensePlate)
                     RemovePlayerCash(player, price)
                     CallRemoteEvent(player, "closeCarDealer")
                     return CallRemoteEvent(player, "MakeSuccessNotification", _("car_buy_sucess", name, price, _("currency")))
@@ -149,3 +164,36 @@ function buyCarServer(player, modelid, color, cardealerobject)
     end
 end
 AddRemoteEvent("buyCarServer", buyCarServer)
+
+function genLicensePlate() 
+	local plate = ""
+
+	math.randomseed(os.time()) -- Random seed
+	-- FIRST 2 LETTERS
+	plate = plate .. genPlateRandomLetter(2) .. "-"
+	-- 3 MIDDLE NUMBERS
+	plate = plate .. genPlateRandomNumber(3) .. "-"
+	-- LAST 2 LETTERS
+	plate = plate .. genPlateRandomLetter(2)
+	return plate	
+end
+
+function genPlateRandomLetter(nb)
+	if nb == nil then nb = 1 end
+	local value = ""
+	for i = 1 , nb do
+		local rand = string.char(math.random(65,90))
+    	value = value .."".. rand
+	end	
+	return value
+end
+
+function genPlateRandomNumber(nb)
+	if nb == nil then nb = 1 end
+	local value = ""
+	for i = 1, nb do
+		local rand = tostring(math.random(0,9))
+    	value = value .. "" .. rand
+	end	
+	return value
+end

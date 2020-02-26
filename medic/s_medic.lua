@@ -12,7 +12,7 @@ local AMOUNT_TO_HEAL_PER_INTERACTION = 30 -- Hp that will be healed each time th
 local DEFAULT_RESPAWN_POINT = {x = 212124, y = 159055, z = 1305, h = 90}
 
 local VEHICLE_SPAWN_LOCATION = {
-    {x = 213325, y = 161177, z = 1305, h = -90},
+    {x = 208760, y = 154374, z = 1305, h = 90},
 }
 
 local MEDIC_SERVICE_NPC = {
@@ -229,6 +229,7 @@ function SpawnMedicCar(player)-- to spawn an ambulance
             end
         end
         local vehicle = CreateVehicle(8, spawnPoint.x, spawnPoint.y, spawnPoint.z, spawnPoint.h)
+        SetVehicleLicensePlate(vehicle, "MED-"..PlayerData[player].accountid) 
         
         PlayerData[player].job_vehicle = vehicle
         CreateVehicleData(player, vehicle, 3)
@@ -570,7 +571,7 @@ function MedicGetClosestSpawnPoint(player)-- get closeest spawn point for vehicl
     local dist
     for k, v in pairs(VEHICLE_SPAWN_LOCATION) do
         local currentDist = GetDistance3D(x, y, z, v.x, v.y, v.z)
-        if (dist == nil or currentDist < dist) and currentDist <= 2000 then
+        if (dist == nil or currentDist < dist) and currentDist <= 10000 then
             closestSpawnPoint = k
             dist = currentDist
         end
