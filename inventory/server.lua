@@ -234,8 +234,8 @@ AddRemoteEvent("UseInventory", function(player, originInventory, itemName, amoun
                         else
                             CallRemoteEvent(player, "LockControlMove", true)
                             SetPlayerAnimation(player, "COMBINE")
+                            RemoveInventory(originInventory, itemName, amount)
                             Delay(4000, function()
-                                RemoveInventory(originInventory, itemName, amount)
                                 VehicleData[nearestCar].fuel = 100
                                 CallRemoteEvent(player, "MakeSuccessNotification", _("car_refuelled"))
                                 CallRemoteEvent(player, "LockControlMove", false)
