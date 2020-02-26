@@ -34,7 +34,8 @@ AddEvent("database:connected", function()
                 hunger = tonumber(item['hunger']),
                 thirst = tonumber(item['thirst']),
                 usable = tonumber(item['usable']),
-                equipable = tonumber(item['equipable'])
+                equipable = tonumber(item['equipable']),
+                keepOnDeath = tonumber(item['keep_on_death'])
             })
         end
 

@@ -210,15 +210,19 @@ function AlterInventoryOnDeath(player)  -- TODO
         print('CASH PENALTY → ', cashPenalty, toRemove, PlayerData[player].inventory['cash'])
     end
 
-    -- Items
+    -- TODO : Check which item has to be kept and remove others.
     for k,v in pairs(PlayerData[player].inventory) do
         if k ~= 'cash' then
-            local currentItemPenalty = GenRandomDeathPenalty()
-            if lucky <= currentItemPenalty then
-                local toRemove = math.ceil(v * currentItemPenalty)
-                PlayerData[player].inventory[k] = PlayerData[player].inventory[v] - toRemove
+            local itemDatas
+            for k2,v2 in pairs(Items) do
+                if k == k2 then
+                    itemDatas = v2
+                end
             end
-            print('ITEM PENALTY → ', v, currentItemPenalty, toRemove, PlayerData[player].inventory[k])
+
+            if itemDatas.keepOnDeath ~= 1 then
+                PlayerData[player].inventory[k] = nil
+            end 
         end
     end
 
