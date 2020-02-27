@@ -27,7 +27,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
 			if args[1] == "" then
 				MakeNotification(_("select_car_to_spawn"), "linear-gradient(to right, #ff5f6d, #ffc371)")
             else
-                CallRemoteEvent("spawnCarServer", args[1])
+                CallRemoteEvent("spawnCarServer", tonumber(args[1]))
 			end
         end
         -- if button == 2 then
