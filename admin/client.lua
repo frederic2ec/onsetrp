@@ -215,9 +215,11 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
         end
     end
     if dialog == broadcastMenu then
+        if button == 1 then
+            CallRemoteEvent("admin:broadcast", args[1], args[2])  
+        end
         CallRemoteEvent("account:setplayernotbusy")      
-        SetIgnoreMoveInput(false)    
-        CallRemoteEvent("admin:broadcast", args[1], args[2])        
+        SetIgnoreMoveInput(false)
     end
 end)
 
@@ -283,7 +285,7 @@ AddEvent("OnRenderHUD", function()
 end)
 
 AddRemoteEvent("admin:broadcast:display", function(name, message, temps)
-    ExecuteWebJS(broadcastUi, " Broadcast('"..name.."', '"..message.."', "..temps..");")   
+    ExecuteWebJS(broadcastUi, ' Broadcast(`'..name..'`, `'..message..'`, '..temps..');')   
     local sound = CreateSound("client/files/broadcast.mp3")
     SetSoundVolume(sound, 0.1)
     Delay(2500, function()
