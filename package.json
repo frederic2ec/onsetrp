@@ -8,6 +8,7 @@
         "hud/server.lua",
         "worldtime/server.lua",
         "misc/s_door.lua",
+        "misc/random.lua",
         "atm/server.lua",
         "vehicle_dealer/server.lua",
         "vehicle/server.lua",

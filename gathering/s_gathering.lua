@@ -28,6 +28,9 @@ gatherTable = {
         gather_rp_props = nil,
         sell_zone = {
             {x = 203566, y = 171875, z = 1306, h = -90, item_to_sell = "wood_plank", price_per_unit = 30, sell_time = 5}
+        },
+        gather_rare_procs = {
+            { item = "precious_wood", chance = 5 }
         }
     },
     {-- PEACH HARVESTION (FOR ALTIS LIFE FANS)
@@ -88,6 +91,9 @@ gatherTable = {
             {model = 64, x = -98158, y = -66921, z = 4660},
             {model = 65, x = -97786, y = -67232, z = 4772},
             {model = 64, x = -97533, y = -66824, z = 4696},
+        },
+        gather_rare_procs = {
+            { item = "bruce_banner_weed", chance = 5 }
         }
     },
     {-- FISHING
@@ -102,6 +108,12 @@ gatherTable = {
         gather_animation_attachement = {modelid = 1111, bone = "hand_r"},
         sell_zone = {
             {x = -21295, y = -22954, z = 2080, h = -90, item_to_sell = "herring", price_per_unit = 7, sell_time = 5}
+        },
+        --- Those have to be ordered ascending. If you have many, you have to add them. Per example, here, salmon has 10%, tuna and sardine has 25%. 
+        gather_rare_procs = {
+            { item = "salmon", chance = 10 },
+            { item = "tuna", chance = 35 },
+            { item = "sardine", chance = 60 }
         }
     },
     {-- MINING
@@ -133,6 +145,9 @@ gatherTable = {
         },
         sell_zone = {
             {x = 67862, y = 184741, z = 535, h = 90, item_to_sell = "iron_pipe", price_per_unit = 54, sell_time = 5}
+        },
+        gather_rare_procs = {
+            { item = "precious_ore", chance = 5 }
         }
     }
 }
@@ -270,8 +285,19 @@ function DoGathering(player, gather, antiglitchKey)
         Delay((gatherTable[gather].gather_time or defaultGatherTime) * 1000, function()
             if GetPlayerVehicle(player) ~= 0 then return end
             if GetPlayerBusy(player) and PlayerData[player].isGathering == gather and PlayerData[player].gatheringAntiGlitch == antiglitchKey then -- Check if the player didnt canceled the job
-                if AddInventory(player, gatherTable[gather].gather_item, 1) == true then
-                    CallRemoteEvent(player, "MakeNotification", _("gather_success", _(gatherTable[gather].gather_item)), "linear-gradient(to right, #00b09b, #96c93d)")
+                local item = gatherTable[gather].gather_item
+                if gatherTable[gather].gather_rare_procs ~= nil then                    
+                    local lucky = math.random()
+                    for k, v in pairs(gatherTable[gather].gather_rare_procs) do
+                        if lucky <= v.chance then
+                            item = v.item
+                            goto continue
+                        end
+                    end
+                    ::continue::
+                end                
+                if AddInventory(player, item, 1) == true then
+                    CallRemoteEvent(player, "MakeNotification", _("gather_success", _(item)), "linear-gradient(to right, #00b09b, #96c93d)")
                     DoGathering(player, gather, antiglitchKey)
                 else
                     CallRemoteEvent(player, "MakeNotification", _("inventory_notenoughspace"), "linear-gradient(to right, #ff5f6d, #ffc371)")
@@ -415,6 +441,23 @@ function StartSelling(player, npc)
     local item = gatherTable[gather[1]].sell_zone[gather[2]].item_to_sell
     local time = gatherTable[gather[1]].sell_zone[gather[2]].sell_time
     local price = gatherTable[gather[1]].sell_zone[gather[2]].price_per_unit
+    local rareItems =  gatherTable[gather[1]].gather_rare_procs
+
+
+    local nb = 0
+    local toSell = {}
+    if PlayerData[player] ~= nil and PlayerData[player].inventory ~= nil then -- WIP
+        for k,v in pairs(PlayerData[player].inventory) do
+            if k == item then nb = nb + 1 end -- base item
+            table.insert( toSell,  item)
+            for k2, v2 in pairs(rareItems) do -- rare procs
+                if k == v2.name then nb = nb + 1 end
+                table.insert( toSell,  v2.name)
+            end        
+        end
+    end
+    print('to sell', nb)
+
     if PlayerData[player].inventory[item] ~= nil and PlayerData[player].inventory[item] > 0 then
         CallRemoteEvent(player, "loadingbar:show", _("selling_of_item", tonumber(PlayerData[player].inventory[item]), _(item)), time)-- LOADING BAR
         
@@ -423,10 +466,19 @@ function StartSelling(player, npc)
             local x, y, z = GetPlayerLocation(player)
             local x2, y2, z2 = GetNPCLocation(npc)
             if GetDistance3D(x, y, z, x2, y2, z2) <= 200 then
-                local totalPrice = tonumber(PlayerData[player].inventory[item]) * price
-                CallRemoteEvent(player, "MakeNotification", _("sold_item_for_money", tonumber(PlayerData[player].inventory[item]), _(item), totalPrice), "linear-gradient(to right, #00b09b, #96c93d)")
+
+                local items = ""
+                local totalPrice = 0
+                for k,v in pairs(toSell) do
+                    totalPrice = totalPrice + tonumber(PlayerData[player].inventory[v]) * price
+                    items = items + _(v)
+                    RemoveInventory(player, item, tonumber(PlayerData[player].inventory[v]))
+                end
+
+                --local totalPrice = tonumber(PlayerData[player].inventory[item]) * price
+                CallRemoteEvent(player, "MakeNotification", _("sold_item_for_money", tonumber(PlayerData[player].inventory[item]), items, totalPrice), "linear-gradient(to right, #00b09b, #96c93d)")
                 AddPlayerCash(player, totalPrice)
-                RemoveInventory(player, item, tonumber(PlayerData[player].inventory[item]))
+                --RemoveInventory(player, item, tonumber(PlayerData[player].inventory[item]))
             else
                 CallRemoteEvent(player, "MakeErrorNotification", _("too_far_from_seller"))
             end

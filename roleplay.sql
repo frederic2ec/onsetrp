@@ -148,7 +148,12 @@ INSERT INTO `items` (`id`, `name`, `category`, `subcategory`, `price`, `weight`,
 	(NULL, 'mask_1', 'masks', 'object', 5000, 100, 0, 0, 1, 0),
 	(NULL, 'mask_2', 'masks', 'object', 6000, 100, 0, 0, 1, 0),
 	(NULL, 'mask_3', 'masks', 'object', 8000, 100, 0, 0, 1, 0),
-	(NULL, 'mask_4', 'masks', 'object', 10000, 100, 0, 0, 1, 0);
+	(NULL, 'mask_4', 'masks', 'object', 10000, 100, 0, 0, 1, 0),
+	(NULL, 'sardine', 'job_item', 'food', 0, 5000, 40, 0, 0, 1),
+    (NULL, 'tuna', 'job_item', 'food', 0, 5000, 45, 0, 0, 1),
+    (NULL, 'salmon', 'job_item', 'food', 0, 5000, 50, 0, 0, 1),
+    (NULL, 'bruce_banner_weed', 'drugs', 'object', 0, 2000, 0, 0, 0, 1),
+    (NULL, 'precious_ore', 'job_item', 'object', 0, 16000, 0, 0, 0, 0);
 
 -- Listage de la structure de la table roleplay. logs
 CREATE TABLE IF NOT EXISTS `logs` (
