@@ -643,5 +643,6 @@
     "gris_clair": "Gris clair",
     "gris_fonce": "Gris foncé",
     "gris_titanium": "Gris Titanium",
-    "violet_fonce": "Violet foncé"
+    "violet_fonce": "Violet foncé",
+    "disable_dev_mode": "Merci de désactiver le DEVMODE dans votre launcher Steam pour jouer sur ce serveur."
 }

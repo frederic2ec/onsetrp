@@ -1,6 +1,8 @@
 local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, ...) end
 PlayerData = {}
 
+local TIMER_PERIODIC_CHECK_DEV_MODE = 15
+
 function OnPackageStart()
     -- Save all player data automatically
     CreateTimer(function()
@@ -9,6 +11,8 @@ function OnPackageStart()
             CheckForBansFromOutside(v)
         end
     end, 30000)
+
+    PeriodicCheckAllowedToPlay()
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
@@ -172,6 +176,8 @@ function OnAccountLoaded(player)
         CallEvent("job:onspawn", player)-- Trigger the loading of jobs when player is fully loaded (have to be set up for each jobs)
         
         PlayerData[player].is_online = 1
+
+        CheckDevMode(player)
         
         SetPlayerLoggedIn(player)
 
@@ -190,6 +196,43 @@ function OnAccountLoaded(player)
         LoadPlayerPhoneContacts(player)
         print("Account ID " .. PlayerData[player].accountid .. " loaded for " .. GetPlayerIP(player))
     end
+end
+
+function CheckDevMode(player)
+    CallRemoteEvent(player, "account:checkdevmode")    
+end
+
+AddRemoteEvent("account:checkdevmode:result", function(player, result)    
+    if result == true and PlayerData[player].admin ~= 1 then
+        KickDevMode(player)
+    else
+        PlayerData[player].allowed_to_play = true        
+    end
+end)
+
+local timer
+function PeriodicCheckAllowedToPlay() 
+    print('→ PERIODIC CHECK FOR DEV MODE FOOLS INITIALIZED')
+    timer = CreateTimer(function()
+        for k,v in pairs(GetAllPlayers()) do
+            if PlayerData[v] ~= nil then
+                if PlayerData[v].admin ~= nil and PlayerData[v].admin == 1 then return end
+                if PlayerData[v].allowed_to_play ~= true then
+                    KickDevMode(v)
+                end
+            end
+        end
+    end, TIMER_PERIODIC_CHECK_DEV_MODE * 1000)
+end
+
+function KickDevMode(player)
+    KickPlayer(player, _("disable_dev_mode"))
+    
+    local message = "→ KICKING "..player.." → "..GetPlayerSteamId(player).." BECAUSE DEV MODE"
+    if PlayerData[player] ~= nil then
+        message = message .. " - Name : "..PlayerData[player].name
+    end
+    print(message)
 end
 
 function setPositionAndSpawn(player)
