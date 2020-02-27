@@ -319,19 +319,41 @@ end)
 -- TO TP THE PLAYER TO THE GROUND WHEN HE IS IN WATER
 AddCommand("unstuck", function(player)
     local x,y,z = GetPlayerLocation(player)
+
+    -- UNDER WATER
     if z <= 0 then -- If the player is under the level of the sea (0)
         CallRemoteEvent(player, "admin:unstuck:terrainheight")        
     end
+
+    -- ON THE ISLAND
+    local islandspawn = {227603,-65590}
+    if GetDistance2D(x, y, islandspawn[1], islandspawn[2]) <= 5000 then
+        UnstuckIslandPlayer(player)
+    end  
 end)
 
-function UnstuckPlayer(player, height)
-    print('UNSTUCK → ', player)
-    if height ~= nil and height ~= false then
-        local x,y,z = GetPlayerLocation(player)        
+function UnstuckIslandPlayer(player)
+    print('UNSTUCK ISLAND → ', player, GetPlayerSteamId(player))
+    if PlayerData[player] ~= nil and PlayerData[player].inventory ~= nil then
+        for k,v in pairs(PlayerData[player].inventory) do
+            if k ~= 'cash' and k ~= 'phone' and k ~= 'item_backpack' then
+                PlayerData[player].inventory[k] = nil
+            end
+        end
+    end
+
+    SetPlayerLocation(player, PLAYER_SPAWN_POINT.x, PLAYER_SPAWN_POINT.y, PLAYER_SPAWN_POINT.z)     
+end
+
+function UnstuckUnderWaterPlayer(player, height)
+    print('UNSTUCK UNDERWATER → ', player, GetPlayerSteamId(player))
+    local x,y,z = GetPlayerLocation(player)
+
+    if height ~= nil and height ~= false then                
         SetPlayerLocation(player, x, y, height)        
     end
 end
-AddRemoteEvent("admin:unstuck:teleport", UnstuckPlayer)
+AddRemoteEvent("admin:unstuck:teleport", UnstuckUnderWaterPlayer)
 
 function BroadcastMessage(player, message, tempsaffichage)
     if PlayerData[player].admin ~= 1 then return end

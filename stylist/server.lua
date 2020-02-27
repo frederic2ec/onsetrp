@@ -8,7 +8,7 @@ StylistNPCTable = { }
 -- 	}
 -- }
 
-local PLAYER_SPAWN_POINT = { x = 204094, y = 180846, z = 1500 }
+PLAYER_SPAWN_POINT = { x = 204094, y = 180846, z = 1500 }
 
 -- Event ----------------------------------------------------
 
