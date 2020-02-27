@@ -184,7 +184,7 @@ AddRemoteEvent("FinishDelivery", function(player)
     
     local dist = GetDistance3D(x, y, z, deliveryPoint[delivery[1]][1], deliveryPoint[delivery[1]][2], deliveryPoint[delivery[1]][3])
     
-    if dist < 150.0 then
+    if dist < 200.0 then
         if PlayerData[player].job_vehicle ~= GetPlayerVehicle(player) then
             CallRemoteEvent(player, "MakeErrorNotification", _("delivery_need_delivery_truck"))
             return
