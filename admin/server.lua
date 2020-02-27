@@ -330,10 +330,25 @@ AddCommand("unstuck", function(player)
     if GetDistance2D(x, y, islandspawn[1], islandspawn[2]) <= 5000 then
         UnstuckIslandPlayer(player)
     end  
+
+    -- OUTSIDE OF THE MAP
+    if GetDistance2D(x, y, 0, 0) > 320000 then
+        UnstuckOutsideMapPlayer(player)
+    end
+    
 end)
+
+function UnstuckOutsideMapPlayer(player)
+    print('UNSTUCK OUTSIDEMAP → ', player, GetPlayerSteamId(player))
+    CleanInventoryAndTpPlayer(player)
+end
 
 function UnstuckIslandPlayer(player)
     print('UNSTUCK ISLAND → ', player, GetPlayerSteamId(player))
+    CleanInventoryAndTpPlayer(player)
+end
+
+function CleanInventoryAndTpPlayer(player)
     if PlayerData[player] ~= nil and PlayerData[player].inventory ~= nil then
         for k,v in pairs(PlayerData[player].inventory) do
             if k ~= 'cash' and k ~= 'phone' and k ~= 'item_backpack' then
@@ -342,7 +357,7 @@ function UnstuckIslandPlayer(player)
         end
     end
 
-    SetPlayerLocation(player, PLAYER_SPAWN_POINT.x, PLAYER_SPAWN_POINT.y, PLAYER_SPAWN_POINT.z)     
+    SetPlayerLocation(player, PLAYER_SPAWN_POINT.x, PLAYER_SPAWN_POINT.y, PLAYER_SPAWN_POINT.z) 
 end
 
 function UnstuckUnderWaterPlayer(player, height)
