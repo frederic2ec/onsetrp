@@ -216,6 +216,7 @@ function PeriodicCheckAllowedToPlay()
     timer = CreateTimer(function()
         for k,v in pairs(GetAllPlayers()) do
             if PlayerData[v] ~= nil then
+                if PlayerData[player].is_online ~= 1 then return end
                 if PlayerData[v].admin ~= nil and PlayerData[v].admin == 1 then return end
                 if PlayerData[v].allowed_to_play ~= true then
                     KickDevMode(v)
