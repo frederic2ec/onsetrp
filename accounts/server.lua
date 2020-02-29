@@ -122,6 +122,7 @@ function OnAccountCreated(player)
     SetPlayerLoggedIn(player)
     SetAvailablePhoneNumber(player)
     setPositionAndSpawn(player, nil)
+    CheckDevMode(player)
     
     print("Account ID " .. PlayerData[player].accountid .. " created for " .. player)
 end
@@ -176,8 +177,6 @@ function OnAccountLoaded(player)
         CallEvent("job:onspawn", player)-- Trigger the loading of jobs when player is fully loaded (have to be set up for each jobs)
         
         PlayerData[player].is_online = 1
-
-        CheckDevMode(player)
         
         SetPlayerLoggedIn(player)
 
@@ -195,6 +194,7 @@ function OnAccountLoaded(player)
 
         LoadPlayerPhoneContacts(player)
         print("Account ID " .. PlayerData[player].accountid .. " loaded for " .. GetPlayerIP(player))
+        CheckDevMode(player)
     end
 end
 
@@ -218,6 +218,7 @@ function PeriodicCheckAllowedToPlay()
             if PlayerData[v] ~= nil then
                 if PlayerData[player].is_online ~= 1 then return end
                 if PlayerData[v].admin ~= nil and PlayerData[v].admin == 1 then return end
+                if PlayerData[v].allowed_to_play == nil then return end
                 if PlayerData[v].allowed_to_play ~= true then
                     KickDevMode(v)
                 end
