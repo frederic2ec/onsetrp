@@ -89,8 +89,11 @@ AddEvent("PickupItem", function(player, object)
     	else
 		SetPlayerAnimation(player, "STOP")
 		SetPlayerAnimation(player, "PICKUP_LOWER")
+		if GetObjectPropertyValue(object, "textid") ~= nil then
+            		local text3d = GetObjectPropertyValue(object, "textid")
+           		 DestroyText3D(text3d)
+        	end
 		DestroyObject(object)
-		CallRemoteEvent(player, "GetText")
 		SavePlayerAccount(player)
 		CallRemoteEvent(player, "MakeNotification", _("store_item"), "linear-gradient(to right, #00b09b, #96c93d)")
     	end
@@ -116,35 +119,6 @@ AddRemoteEvent("Unsit", function(player)
 	if GetPlayerPropertyValue(player, "cuffed") then
         	SetPlayerAnimation(player, "CUFF")
     	end
-end)
-
-AddRemoteEvent("DeleteText", function(player, text3d)
-    _text3d = text3d
-    local closest = { id = nil, distance = nil }
-    local x, y, z = GetPlayerLocation(player)
-    if _text3d ~= nil then
-        for k, v in pairs(_text3d) do
-            if GetText3DPropertyValue(v, "textitem") ~= nil and GetText3DPropertyValue(v, "textitem") then
-                local x2, y2, z2 = GetText3DLocation(v)
-                local distance = GetDistance3D(x, y, z, x2, y2, z2)
-                if closest.id == nil or closest.distance == nil then
-                    closest.id = v
-                    closest.distance = distance
-                else
-                    if distance < closest.distance then
-                        closest.id = v
-                        closest.distance = distance
-                    end
-                end
-            end
-        end
-
-        if closest.id and closest.distance ~= nil then
-            if closest.distance / 100 < 1.5 then
-                DestroyText3D(closest.id)
-            end
-        end
-    end
 end)
 
 function ablecol(player, Pstream, objectId, condi, xL, yL, zL)

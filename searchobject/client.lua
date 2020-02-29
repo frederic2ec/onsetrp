@@ -15,12 +15,6 @@ function OnKeyPress(key)
 end
 AddEvent("OnKeyPress", OnKeyPress)
 
-
-AddRemoteEvent("GetText", function()
-	text3d = GetStreamedText3D()
-	CallRemoteEvent("DeleteText", text3d)
-end)
-
 AddRemoteEvent("siting", function(object)
     local actorYAdjustment = 90
     local playerId = player

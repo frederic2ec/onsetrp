@@ -639,7 +639,7 @@ AddRemoteEvent("ObjectDrop", function(player, bool, item, amount)
         SetObjectPropertyValue(objetdrop, "collision", false, true)
         SetObjectPropertyValue(objetdrop, "item", item, true)
         SetObjectPropertyValue(objetdrop, "amount", amount, true)
-        SetText3DPropertyValue(text, "textitem", true, true)
+        SetObjectPropertyValue(objetdrop, "textid", text)
     end
 
     Delay(300000, function(objetdrop, text)
