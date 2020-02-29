@@ -340,12 +340,14 @@ end)
 
 function UnstuckOutsideMapPlayer(player)
     print('UNSTUCK OUTSIDEMAP → ', player, GetPlayerSteamId(player))
-    CleanInventoryAndTpPlayer(player)
+    -- CleanInventoryAndTpPlayer(player)
+    SetPlayerLocation(player, PLAYER_SPAWN_POINT.x, PLAYER_SPAWN_POINT.y, PLAYER_SPAWN_POINT.z) 
 end
 
 function UnstuckIslandPlayer(player)
     print('UNSTUCK ISLAND → ', player, GetPlayerSteamId(player))
-    CleanInventoryAndTpPlayer(player)
+    --CleanInventoryAndTpPlayer(player)
+    SetPlayerLocation(player, PLAYER_SPAWN_POINT.x, PLAYER_SPAWN_POINT.y, PLAYER_SPAWN_POINT.z) 
 end
 
 function CleanInventoryAndTpPlayer(player)
