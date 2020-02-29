@@ -27,6 +27,7 @@
         "whitelist/server.lua",
         "animation/server.lua",
         "police/s_police.lua",
+		"police/s_police_doors.lua",
         "stylist/server.lua",
         "idcard/server.lua",
         "licenses/server.lua",
