@@ -524,10 +524,12 @@ function RemoveInventory(inventoryId, item, amount, drop, player)
             weapon = getWeaponID(item)
             
             if weapon ~= 0 then
-                for slot, v in pairs({1, 2, 3}) do
-                    local slotWeapon, ammo = GetPlayerWeapon(player, slot)
-                    if slotWeapon == tonumber(weapon) then
-                        UnequipWeapon(player, originInventory, itemName, slot)
+                if drop ~= 1 then
+                    for slot, v in pairs({1, 2, 3}) do
+                        local slotWeapon, ammo = GetPlayerWeapon(player, slot)
+                        if slotWeapon == tonumber(weapon) then
+                            UnequipWeapon(player, originInventory, itemName, slot)
+                        end
                     end
                 end
             end
@@ -629,10 +631,46 @@ AddRemoteEvent("ObjectDrop", function(player, bool, item, amount)
             ObjectID = 1010
         elseif item == "tree_log" or item == "wood_plank" or item == "treated_wood_plank" then
             ObjectID = 1575
-            sx, sy, sz = 0.5, 0.5, 0.5
+            sx, sy, sz = 0.2, 0.2, 0.2
+        elseif item == "defibrillator" then
+            ObjectID = 1715
+        elseif item == "adrenaline_syringe" then
+            ObjectID = 805
+            sx, sy, sz = 2.0 ,2.0 , 2.0
+        elseif item == "bandage" then
+            ObjectID = 803
+            sx, sy, sz = 2.0 ,2.0 , 2.0
+        elseif item == "cocaine" then
+            ObjectID = 799
+            sx, sy, sz = 1.5, 1.5, 1.5
+            rx = 180
+            z = z + 10
+        elseif string.find(item, 'mask_') then
+            if item == 'mask_1' then
+                ObjectID = 463
+                rx = 90
+                z = z + 3
+            elseif item == 'mask_2' then
+                ObjectID = 455
+                rx = 90
+                z = z + 12
+            elseif item == 'mask_3' then
+                ObjectID = 1451
+                rx = 80
+                z = z + 12
+            elseif item == 'mask_4' then
+                ObjectID = 1452
+                rx = 90
+                z = z - 10
+            end
+            if PlayerData[player][item] then
+                SetPlayerPropertyValue(player, "WearingItem", nil, true)
+                DestroyObject(PlayerData[player][item])
+                PlayerData[player][item] = nil
+            end
         end
         SetPlayerAnimation(player, "CHECK_EQUIPMENT")
-        objetdrop = CreateObject(ObjectID, x, y, z - 95, rx, ry, rz)
+        objetdrop = CreateObject(ObjectID, x, y, z - 100, rx, ry, rz)
         SetObjectScale(objetdrop, sx, sy, sz)
         text = CreateText3D(_(item).." x"..amount, 15, x, y, z, 0,0,0)
         SetObjectPropertyValue(objetdrop, "isitem", true, true)
