@@ -158,10 +158,12 @@ function unlockVehicle(player)
                 CallRemoteEvent(player, "MakeNotification", _("car_unlocked"), "linear-gradient(to right, #00b09b, #96c93d)")
                 SetVehiclePropertyValue(nearestCar, "locked", false, true)
                 CallRemoteEvent(player, "PlayAudioFile", "carUnlock.mp3")
+		LightAnim(nearestCar)
             else
                 CallRemoteEvent(player, "MakeNotification", _("car_locked"), "linear-gradient(to right, #00b09b, #96c93d)")
                 SetVehiclePropertyValue(nearestCar, "locked", true, true)
                 CallRemoteEvent(player, "PlayAudioFile", "carLock.mp3")
+		LightAnim(nearestCar)
             end
             return
         end
@@ -170,10 +172,12 @@ function unlockVehicle(player)
                 CallRemoteEvent(player, "MakeNotification", _("car_unlocked"), "linear-gradient(to right, #00b09b, #96c93d)")
                 SetVehiclePropertyValue(nearestCar, "locked", false, true)
                 CallRemoteEvent(player, "PlayAudioFile", "carUnlock.mp3")
+		LightAnim(nearestCar)
             else
                 CallRemoteEvent(player, "MakeNotification", _("car_locked"), "linear-gradient(to right, #00b09b, #96c93d)")
                 SetVehiclePropertyValue(nearestCar, "locked", true, true)
                 CallRemoteEvent(player, "PlayAudioFile", "carLock.mp3")
+		LightAnim(nearestCar)
             end
             return
         else
@@ -183,10 +187,12 @@ function unlockVehicle(player)
                         CallRemoteEvent(player, "MakeNotification", _("car_unlocked"), "linear-gradient(to right, #00b09b, #96c93d)")
                         SetVehiclePropertyValue(nearestCar, "locked", false, true)
                         CallRemoteEvent(player, "PlayAudioFile", "carUnlock.mp3")
+			LightAnim(nearestCar)
                     else
                         CallRemoteEvent(player, "MakeNotification", _("car_locked"), "linear-gradient(to right, #00b09b, #96c93d)")
                         SetVehiclePropertyValue(nearestCar, "locked", true, true)
                         CallRemoteEvent(player, "PlayAudioFile", "carLock.mp3")
+			LightAnim(nearestCar)
                     end
                 end
             end
@@ -306,7 +312,7 @@ function GetNearestCars(player, distance)
     local distance = distance or 300
     local x, y, z = GetPlayerLocation(player)
 
-    for k, vehicleId in pairs(GetAllVehicles()) do
+    for k, vehicleId in pairs(GetStreamedVehiclesForPlayer(player)) do
         local x2, y2, z2 = GetVehicleLocation(vehicleId)
         local dist = GetDistance3D(x, y, z, x2, y2, z2)
 
@@ -489,3 +495,13 @@ AddRemoteEvent("ToggleHood", function(player)
         end
     end
 end)
+
+function LightAnim(veh)
+    CreateCountTimer(function()
+        if GetVehicleLightState(veh) then
+            SetVehicleLightEnabled(veh, false)
+        else
+            SetVehicleLightEnabled(veh, true)
+        end
+    end, 200, 4)
+end
