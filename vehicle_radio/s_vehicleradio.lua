@@ -4,6 +4,7 @@ local _ = function(k, ...) return ImportPackage("i18n").t(GetPackageName(), k, .
 local Radios = {
     {label = "NCS #1", url = "https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://51.15.152.81:8947/listen.pls?sid=1&t=.pls"},
     {label = "NCS #2", url = "https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://91.121.113.129:9115/listen.pls?sid=1&t=.pls"},
+    {label = "OnsetRP-FR Communauté #1 : BELQC RADIO by Raph & Jeanmi", url = "https://manager2.creativradio.com:2220/raphaelgonay/1/itunes.pls"},
     {label = "Metal", url = "https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://5.135.154.69:11590/listen.pls?sid=1&t=.pls"},
     {label = "Reggae", url = "https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://us5.internet-radio.com:8487/listen.pls&t=.pls"},
     {label = "Dance", url = "https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://pulseedm.cdnstream1.com:8124/1373_128.m3u&t=.pls"},
