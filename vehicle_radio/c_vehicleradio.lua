@@ -30,10 +30,12 @@ AddEvent("OnKeyPress", function(key)
         if key == "Num 5" and IsCtrlPressed then CallRemoteEvent("vehicle:radio:updatechannel", 5) end
         if key == "Num 6" and IsCtrlPressed then CallRemoteEvent("vehicle:radio:updatechannel", 6) end
         if key == "Num 7" and IsCtrlPressed then CallRemoteEvent("vehicle:radio:updatechannel", 7) end
+        if key == "Num 8" and IsCtrlPressed then CallRemoteEvent("vehicle:radio:updatechannel", 8) end
+        if key == "Num 9" and IsCtrlPressed then CallRemoteEvent("vehicle:radio:updatechannel", 9) end
     end
 end)
 
-AddEvent("OnSoundUpdateMeta", function(sound, meta)
+AddEvent("OnSoundUpdateMeta", function(sound, meta)    
     if IsPlayerInVehicle() then
         UpdatePlaying(meta)     
     end
