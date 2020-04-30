@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `player_garage` (
   `price` int(11) NOT NULL,
   `fuel` int(11) NOT NULL DEFAULT 100,
   `health` int(11) NOT NULL DEFAULT 5000,
-  `license_plate` varchar(10) NOT NULL DEFAULT `AA-111-AA`,
+  `license_plate` varchar(10) NOT NULL DEFAULT 'AA-111-AA',
   `inventory` text DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `player_vehicle_ibfk_1` (`ownerid`),
