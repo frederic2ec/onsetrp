@@ -1,3 +1,5 @@
+# THIS IS OUTDATED/UNMAINTAINED, NO SUPPORT WILL BE DONE, BE CAUTIOUS
+
 # Onset RP Framework
 
 Roleplay framework for the game [Onset](https://store.steampowered.com/app/1105810/Onset/)
@@ -35,7 +37,7 @@ Roleplay framework for the game [Onset](https://store.steampowered.com/app/11058
 - Import the .sql file in your database.
 - add dependencies in your server_config.json file (keep the right order).
 - remove default in your server_config.json file.
-- rename misc/s_database.json.dist to misc/s_database.json with your MariaDB credentials
+- rename misc/s_database.json.dist to misc/s_database.json
 - configure misc/s_database.json with your MariaDB credentials
 - update your world.json at the root of your project with the sources in the [onsetrp folder](https://github.com/frederic2ec/onsetrp/blob/master/world.json)
 - restart your onset server.
